@@ -62,15 +62,15 @@ curl -s \
         "topP": 0.8,
         "topK": 40
     }
-}' > .tmp.bard.lastsong
+}' > .tmp.lastsong
 
-OUTPUT=$(cat .tmp.bard.lastsong | jq .predictions[0].content)
+OUTPUT=$(cat .tmp.lastsong | jq .predictions[0].content)
 
 #echo "OUTPUT: '$OUTPUT'"
 if [ "$OUTPUT" = '""' ]; then # empty answer
-    echo "Sorry, some error here. Dig into the JSON file more: .tmp.bard.lastsong" >&2
-    cat .tmp.bard.lastsong | jq >&2
+    echo "Sorry, some error here. Dig into the JSON file more: .tmp.lastsong" >&2
+    cat .tmp.lastsong | jq >&2
 else
     #echo Ok non trivial content..
-    cat .tmp.bard.lastsong | jq .predictions[0].content -r # | lolcat
+    cat .tmp.lastsong | jq .predictions[0].content -r # | lolcat
 fi
