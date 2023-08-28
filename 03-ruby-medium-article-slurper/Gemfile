@@ -1,4 +1,10 @@
 
-gem 'net/http'
+source "https://rubygems.org"
+
+#ruby =~ '3.0'
+
 gem 'nokogiri'
-gem 'action_view'
+gem 'actionview'
+
+gem 'googleauth', '~> 1.7'
+#gem 'googleauth'
