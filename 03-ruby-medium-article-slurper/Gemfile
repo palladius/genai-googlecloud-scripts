@@ -1,0 +1,4 @@
+
+gem 'net/http'
+gem 'nokogiri'
+gem 'action_view'
