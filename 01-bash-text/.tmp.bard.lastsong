@@ -2,25 +2,25 @@
   "predictions": [
     {
       "safetyAttributes": {
+        "scores": [],
         "categories": [],
-        "blocked": false,
-        "scores": []
+        "blocked": false
       },
+      "content": "TEst with single and  double quotes'",
       "citationMetadata": {
         "citations": []
-      },
-      "content": "1. Write a poem about a cat who is lost in the woods.\n2. Create a story about a group of friends who go on a camping trip.\n3. Write a song about the importance of being kind to others."
+      }
     }
   ],
   "metadata": {
     "tokenMetadata": {
-      "inputTokenCount": {
-        "totalTokens": 9,
-        "totalBillableCharacters": 32
-      },
       "outputTokenCount": {
-        "totalTokens": 49,
-        "totalBillableCharacters": 145
+        "totalBillableCharacters": 30,
+        "totalTokens": 9
+      },
+      "inputTokenCount": {
+        "totalBillableCharacters": 30,
+        "totalTokens": 10
       }
     }
   }

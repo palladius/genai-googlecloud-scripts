@@ -11,6 +11,8 @@ My GenAI scripts and templates
 |Invoke a textual prompt with pure Bash. |[01-bash-text](Bash, Palm API|
 |Invoke a visual prompt with pure Bash. |[01-bash-images](Bash, Palm API|
 
+If you have any ideas, send them my way!
+
 ## Thanks
 
 This is inspired by my buddy [@rominirani](https://github.com/rominirani) and his repo <https://github.com/rominirani/genai-apptemplates-googlecloud/>.

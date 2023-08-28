@@ -10,4 +10,8 @@ curl -X POST \
     "<https://us-central1-aiplatform.googleapis.com/v1/projects/PROJECT_ID/locations/us-central1/publishers/google/models/text-bison:predict>"
 ```
 
-This script is inspired by `jaskier`, in @palladius sakura repository: <https://github.com/palladius/sakura/blob/master/bin/jaskier>
+This script is inspired by `jaskier`, in @palladius sakura repository:
+<https://github.com/palladius/sakura/blob/master/bin/jaskier>
+
+For debug reasons, it creates a sample `.tmp.lastsong` file where you can read and use your prompt output in case you
+need.
