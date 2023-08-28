@@ -8,8 +8,8 @@ My GenAI scripts and templates
 
 | Requirement | Application Name | Technologies Used |
 |---|---|---|
-|Invoke a textual prompt with pure Bash. |[01-bash-text](Bash, Palm API|
-|Invoke a visual prompt with pure Bash. |[01-bash-images](Bash, Palm API|
+|Invoke a textual prompt with pure Bash. |[01-bash-text](01-bash-text) | (Bash, Palm API)|
+|Invoke a visual prompt with pure Bash. |[02-bash-images](02-bash-images) | (Bash, Palm API)|
 
 If you have any ideas, send them my way!
 
