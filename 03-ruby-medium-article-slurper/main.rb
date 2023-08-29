@@ -6,6 +6,7 @@ require 'action_view'
 require 'googleauth'
 
 require_relative 'lib_genai'
+require_relative 'gcp_auth'
 
 MaxByteInputSize = 8000
 
@@ -68,17 +69,15 @@ def call_api_for_all_texts
         genai_input = Prompt + "\n" + File.read(my_text_file)
 
         puts "== INPUT BEGIN: =="
-        puts genai_input
-        #puts :TL_DR
+        #puts genai_input
         puts "== INPUT END =="
         puts "== OUTPUT BEGIN: =="
         include LibGenai
-        #output = generate(genai_input)
-        output = genai_text_curl('ricc-genai', genai_input, max_content_size: MaxByteInputSize)
+        output = genai_text_predict_curl(genai_input, max_content_size: MaxByteInputSize)
         File.open(output_file, 'w') do |f|
             f.write output
         end
-        puts "== INPUT END =="
+        puts "== OUTPUT END =="
         
         #exit 42
         # Call API for summarization: https://cloud.google.com/vertex-ai/docs/generative-ai/text/summarization-prompts
@@ -88,10 +87,15 @@ end
 
 def main()
     init()
-    medium_user = ENV.fetch 'MEDIUM_USER_ID', 'iromin' ##'palladiusbonton'
-    fetch_from_medium(medium_user)
+    #medium_user = ENV.fetch 'MEDIUM_USER_ID', 'iromin' ##'palladiusbonton'
+    #fetch_from_medium(medium_user)
     call_api_for_all_texts()
-    puts('Please check your inputs/ directory for information I gave in input to GenAI and outputs/ for the GenAI Text output.')
+    #puts('Please check your inputs/ directory for information I gave in input to GenAI and outputs/ for the GenAI Text output.')
+    #include GcpAuth
+    
+    #x = gcp_project_id_and_access_token() # .join(' , ')
+    #pr,at = x[0], x[1]
+    #puts "x.class='#{x.class}' pr='#{pr}' at='#{at}'"
 end
 
 main()
