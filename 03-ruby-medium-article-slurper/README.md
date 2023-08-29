@@ -9,6 +9,7 @@ The beauty of this example is that you can ask GenAI to also ask other questions
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Please also tell me, for each article, whether it talks about Google Cloud.
 * Can you guess the nationality of the person writing the articles?
+* If you can find any typos or visible mistakes, please write them down. (*This worked well, as it found a typo in my article!*)
 
 # Installation
 

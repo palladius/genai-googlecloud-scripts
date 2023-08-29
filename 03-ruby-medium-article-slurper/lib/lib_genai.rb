@@ -12,7 +12,7 @@ module LibGenai
 
 
     # Returns authenticated response for GenAI text backend
-    def genai_text_curl(content, opts={})
+    def genai_text_predict_curl(content, opts={})
       opts_debug = opts.fetch :debug, true # TODO(ricc): should be false before publication.
       opts_max_content_size = opts.fetch :max_content_size, -1
 
