@@ -1,8 +1,6 @@
 # Synopsis
 
-The idea is to find a Medium user and see what this person blogs about.
-
-For instance, take this XML containing the author's Medium posts: https://medium.com/feed/@palladiusbonton
+The idea is to find a **Medium** user (eg, https://medium.com/feed/@palladiusbonton) and see what this person blogs about, and other interesting insights.
 
 The beauty of this example is that you can ask GenAI to also ask other questions. In this case, we are asking the LLM to (see/change code in `test.rb`):
 
@@ -24,3 +22,45 @@ This script is written in Ruby.
 # For instance 
 MEDIUM_USER_ID=allenchun ruby test.rb
 ```
+
+# results
+
+A possible and insightful result is this:
+
+<pre>
+ * Article 1:
+
+The article discusses the "correct" way to hang toilet paper. The author, who is Italian, argues that the "trans-centralis/murālis" method is superior to the "cis-centralis/pendens" method. He cites several reasons for this, including the fact that the "trans-centralis/murālis" method is more hygienic and prevents the paper from getting dirty. The author also discusses the history of toilet paper and the different ways it is used around the world. 
+
+The article is well-written and informative. The author does a good job of explaining the different methods of hanging toilet paper and providing evidence to support his argument. The article is also humorous, as the author pokes fun at himself and his wife for their different preferences. 
+
+The article does not mention Google Cloud. 
+
+The author is likely Italian, as he mentions that he is from Italy and that he uses the "trans-centralis/murālis" method of hanging toilet paper, which is more common in Italy than in other countries. 
+
+There are no typos or visible mistakes in the article. 
+
+* Article 2:
+
+The article discusses the difference between Italian and American spaghetti bolognese. The author, who is Italian, argues that the American version of spaghetti bolognese is not authentic Italian cuisine. He explains that in Italy, spaghetti is typically served with a simple tomato sauce, while bolognese sauce is typically served with tagliatelle or other types of pasta. The author also discusses the history of spaghetti bolognese and provides a recipe for authentic Italian bolognese sauce. 
+
+The article is well-written and informative. The author does a good job of explaining the differences between Italian and American spaghetti bolognese and providing a recipe for authentic Italian bolognese sauce. The article is also humorous, as the author pokes fun at the American version of spaghetti bolognese. 
+
+The article does not mention Google Cloud. 
+
+The author is likely Italian, as he mentions that he is from Italy and that he prefers the Italian version of spaghetti bolognese. 
+
+There are no typos or visible mistakes in the article. 
+
+* Article 3:
+
+The article discusses how to move projects from one Google Cloud organization to another. The author provides step-by-step instructions on how to do this, as well as tips on how to avoid common mistakes. The article is well-written and informative. The author does a good job of explaining the process of moving projects between organizations and providing helpful tips. 
+
+The article mentions Google Cloud several times. 
+
+The author is likely Italian, as he mentions that he is from Italy and that he uses the Italian language. 
+
+There are a few typos and visible mistakes in the article. For example, the author misspells the word "organization" as "organzation" in one place. 
+
+Overall, the article is a good resource for anyone who needs to move projects between Google Cloud organizations.
+</pre>
