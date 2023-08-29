@@ -5,10 +5,10 @@ require 'nokogiri'
 require 'action_view'
 require 'googleauth'
 
-require_relative 'lib_genai'
-require_relative 'gcp_auth'
+require_relative 'lib/lib_genai'
+require_relative 'lib/gcp_auth'
 
-MaxByteInputSize = 8000
+MaxByteInputSize = 16000
 
 Prompt = <<-END_OF_PROMPT
 Provide a summary for each of the following articles.
@@ -62,11 +62,18 @@ def fetch_from_medium(medium_user, _opts={})
     return true
 end
 
-def call_api_for_all_texts
+def call_api_for_all_texts(_opts={})
+    opts_overwrite_if_exists = _opts.fetch :overwrite_if_exists, false
+
     Dir.glob("inputs/medium-latest-articles.*.txt") do |my_text_file|
         puts "Working on: #{my_text_file}..."
         output_file = "outputs/" + my_text_file.split('/')[1]
         genai_input = Prompt + "\n" + File.read(my_text_file)
+
+        if opts_overwrite_if_exists and File.exist?(output_file)
+            puts "File exists, skipping: #{output_file}"
+            next 
+        end 
 
         puts "== INPUT BEGIN: =="
         #puts genai_input
@@ -77,7 +84,7 @@ def call_api_for_all_texts
         File.open(output_file, 'w') do |f|
             f.write output
         end
-        puts "== OUTPUT END =="
+        puts "== OUTPUT END (written on: #{output_file}) =="
         
         #exit 42
         # Call API for summarization: https://cloud.google.com/vertex-ai/docs/generative-ai/text/summarization-prompts
