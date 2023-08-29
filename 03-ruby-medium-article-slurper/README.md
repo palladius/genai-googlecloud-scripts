@@ -27,8 +27,7 @@ MEDIUM_USER_ID=allenchun ruby test.rb
 
 A possible and insightful result is this:
 
-<pre>
- * Article 1:
+* Article 1:
 
 The article discusses the "correct" way to hang toilet paper. The author, who is Italian, argues that the "trans-centralis/murālis" method is superior to the "cis-centralis/pendens" method. He cites several reasons for this, including the fact that the "trans-centralis/murālis" method is more hygienic and prevents the paper from getting dirty. The author also discusses the history of toilet paper and the different ways it is used around the world. 
 
@@ -63,4 +62,3 @@ The author is likely Italian, as he mentions that he is from Italy and that he u
 There are a few typos and visible mistakes in the article. For example, the author misspells the word "organization" as "organzation" in one place. 
 
 Overall, the article is a good resource for anyone who needs to move projects between Google Cloud organizations.
-</pre>
