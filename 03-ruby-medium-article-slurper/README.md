@@ -23,21 +23,12 @@ This script is written in Ruby.
 MEDIUM_USER_ID=allenchun ruby test.rb
 ```
 
-# results
+# Results
 
 A possible and insightful result is this:
 
-* Article 1:
-
-The article discusses the "correct" way to hang toilet paper. The author, who is Italian, argues that the "trans-centralis/murālis" method is superior to the "cis-centralis/pendens" method. He cites several reasons for this, including the fact that the "trans-centralis/murālis" method is more hygienic and prevents the paper from getting dirty. The author also discusses the history of toilet paper and the different ways it is used around the world. 
-
-The article is well-written and informative. The author does a good job of explaining the different methods of hanging toilet paper and providing evidence to support his argument. The article is also humorous, as the author pokes fun at himself and his wife for their different preferences. 
-
-The article does not mention Google Cloud. 
-
-The author is likely Italian, as he mentions that he is from Italy and that he uses the "trans-centralis/murālis" method of hanging toilet paper, which is more common in Italy than in other countries. 
-
-There are no typos or visible mistakes in the article. 
+<pre>
+[..]
 
 * Article 2:
 
@@ -62,3 +53,4 @@ The author is likely Italian, as he mentions that he is from Italy and that he u
 There are a few typos and visible mistakes in the article. For example, the author misspells the word "organization" as "organzation" in one place. 
 
 Overall, the article is a good resource for anyone who needs to move projects between Google Cloud organizations.
+</pre>
