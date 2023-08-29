@@ -7,12 +7,15 @@ require 'googleauth'
 
 require_relative 'lib_genai'
 
+MaxByteInputSize = 8000
+
 Prompt = <<-END_OF_PROMPT
-Provide a summary for the following articles.
+Provide a summary for each of the following articles.
 
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Please also tell me, for each article, whether it talks about Google Cloud.
-* Can you guess the nationality of the person writing the articles?
+* Can you guess the nationality of the person writing all of these articles?
+* If you can find any typos or visible mistakes, please write them down.
 
 --
 
@@ -70,7 +73,8 @@ def call_api_for_all_texts
         puts "== INPUT END =="
         puts "== OUTPUT BEGIN: =="
         include LibGenai
-        output = generate(genai_input)
+        #output = generate(genai_input)
+        output = genai_text_curl('ricc-genai', genai_input, max_content_size: MaxByteInputSize)
         File.open(output_file, 'w') do |f|
             f.write output
         end
