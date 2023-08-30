@@ -16,6 +16,8 @@ curl -X POST \
 This script is inspired by `jaskier`, in @palladius sakura repository:
 <https://github.com/palladius/sakura/blob/master/bin/jaskier>
 
+Here's a possible output for the script.
+
 ![Alt text](../assets/genai-text-sample.png?raw=true "Sample invokation of script for a poetic text")
 
 For debug reasons, it creates a sample `.tmp.lastsong` file where you can read and use your prompt output in case you
