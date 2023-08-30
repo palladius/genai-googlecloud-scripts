@@ -1,4 +1,7 @@
-This is a hello world inspired by Google's official <https://cloud.google.com/vertex-ai/docs/generative-ai/start/quickstarts/quickstart-text>.
+## Text generation
+
+This is a hello world inspired by
+[Google's official GenAI Quickstart](https://cloud.google.com/vertex-ai/docs/generative-ai/start/quickstarts/quickstart-text).
 
 To call this you just need a Project ID with billing enabled.
 
@@ -13,16 +16,22 @@ curl -X POST \
 This script is inspired by `jaskier`, in @palladius sakura repository:
 <https://github.com/palladius/sakura/blob/master/bin/jaskier>
 
+![Alt text](../assets/genai-text-sample.png?raw=true "Sample invokation of script for a poetic text")
+
 For debug reasons, it creates a sample `.tmp.lastsong` file where you can read and use your prompt output in case you
 need.
 
 ## Code generation
 
+It's easy to generate code snippets! 
+
+
 You can also generate code simply. In the  script `` we exemplify a code snippet which should return TWO examples.
 
-![Alt text](genai-code-generation.png?raw=true "Title")
+![Alt text](../assets/genai-code-generation.png?raw=true "Title")
 
 
-relative 
 
-[Contribution guidelines for this project](docs/CONTRIBUTING.md)
+
+
+Docs here: https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-completion-prompts#complete-test-function 
