@@ -40,7 +40,6 @@ mkdir -p output/
 
 PROJECT_ID="$(gcloud config get project)"
 IMAGE_OUTPUT_PATH=output/image-api-response.json
-#IMAGE_MODEL_VERSION="${IMAGE_MODEL_VERSION:-002}" # try also 002 ;) better but slower
 DEFAULT_IMAGE_PROMPT="Once upon a time, there was a young spy named Agent X. Agent X was the best spy in the world, and she was always on the lookout for new mysteries to solve. One day, Agent X was sent on a mission to investigate a mysterious cave at the bottom of a mountain."
 IMAGE_PROMPT="${@:-$DEFAULT_IMAGE_PROMPT}"
 

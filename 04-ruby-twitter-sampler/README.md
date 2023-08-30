@@ -3,7 +3,7 @@
 The idea here is to use the Twitter APIs to demonstrate two things:
 
 * read the latest 10 tweets from user XXX and detect Sentiment and a digest of what they talk about.
-* read the latest/popular tweets for hashtag #YYYY and similaryl detect topic and sentiment.
+* read the latest/popular tweets for hashtag #YYYY and similarly detect topic and sentiment.
 
 
 ## Prerequsites
