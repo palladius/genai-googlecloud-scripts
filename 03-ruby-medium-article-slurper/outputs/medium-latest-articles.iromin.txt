@@ -1,35 +1,35 @@
  **Article 1:**
 
-* The article is about Google Cloud Interactive Tutorials. 
-* The style is informative and easy to follow. 
-* The article is accurate and professional. 
-* It does talk about Google Cloud. 
-* The author is likely from India. 
-* There are no visible mistakes. 
+* The topic is Google Cloud Interactive Tutorials.
+* The style is informative and easy to follow.
+* The article is accurate and professional.
+* It does talk about Google Cloud.
+* The author is likely from India.
+* There are no visible mistakes.
 
 **Article 2:**
 
-* The article is about writing a Slack Slash command. 
-* The style is technical and detailed. 
-* The article is accurate and professional. 
-* It does not talk about Google Cloud. 
-* The author is likely from the United States. 
-* There are no visible mistakes. 
+* The topic is writing a Slack Slash command.
+* The style is a step-by-step guide.
+* The article is accurate and professional.
+* It does not talk about Google Cloud.
+* The author is likely from India.
+* There are no visible mistakes.
 
 **Article 3:**
 
-* The article is about Google Cloud Interactive Tutorials. 
-* The style is informative and easy to follow. 
-* The article is accurate and professional. 
-* It does talk about Google Cloud. 
-* The author is likely from India. 
-* There are no visible mistakes. 
+* The topic is Google Cloud Interactive Tutorials.
+* The style is informative and easy to follow.
+* The article is accurate and professional.
+* It does talk about Google Cloud.
+* The author is likely from India.
+* There are no visible mistakes.
 
 **Article 4:**
 
-* The article is about Google Cloud Platform Technology Nuggets. 
-* The style is informative and easy to follow. 
-* The article is accurate and professional. 
-* It does talk about Google Cloud. 
-* The author is likely from the United States. 
+* The topic is Google Cloud Platform Technology Nuggets.
+* The style is a list of announcements.
+* The article is accurate and professional.
+* It does talk about Google Cloud.
+* The author is likely from India.
 * There are no visible mistakes.

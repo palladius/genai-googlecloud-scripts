@@ -2,7 +2,7 @@
 
 The idea is to find a **Medium** user (eg, https://medium.com/feed/@palladiusbonton) and see what this person blogs about, and other interesting insights.
 
-The beauty of this example is that you can ask GenAI to also ask other questions. In this case, we are asking the LLM to (see/change code in `test.rb`):
+The beauty of this example is that you can ask GenAI to also ask other questions. In this case, we are asking the LLM to (see/change code in `main.rb`):
 
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Please also tell me, for each article, whether it talks about Google Cloud.
@@ -20,7 +20,7 @@ This script is written in Ruby.
 
 ```
 # For instance 
-MEDIUM_USER_ID=allenchun ruby test.rb
+MEDIUM_USER_ID=palladiusbonton ruby main.rb
 ```
 
 # Results
