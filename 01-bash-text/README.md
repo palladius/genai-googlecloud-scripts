@@ -15,3 +15,14 @@ This script is inspired by `jaskier`, in @palladius sakura repository:
 
 For debug reasons, it creates a sample `.tmp.lastsong` file where you can read and use your prompt output in case you
 need.
+
+## Code generation
+
+You can also generate code simply. In the  script `` we exemplify a code snippet which should return TWO examples.
+
+![Alt text](genai-code-generation.png?raw=true "Title")
+
+
+relative 
+
+[Contribution guidelines for this project](docs/CONTRIBUTING.md)
