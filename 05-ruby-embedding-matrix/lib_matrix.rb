@@ -4,7 +4,7 @@
 
 class Matrix
   # optimized for integers
-  def to_readable
+  def print_readable
       i = 0
       self.each do |number|
         print number.to_s + " "
@@ -17,20 +17,22 @@ class Matrix
     end
 
   # optimized for 0..1 floats and multiplying by 100 :)
-  def pct_readable
+  def print_pct_readable
     i = 0
-    print '[ '
+#    print '[ '
     self.each do |number|
-      printed_num = sprintf('%03.2f', number*100).to_s
-      printed_num = " 100 " if printed_num == "100.00" # '100.00' is the only number possible which is 1 digit too long ;)
+      print "[ " if i==0
+      printed_num = sprintf('%03.1f', number*100).to_s
+      printed_num = "💯  " if printed_num == "100.0" # '100.00' is the only number possible which is 1 digit too long ;)
       print printed_num + " "
       i+= 1
       if i == self.column_size
-        print "]\n[ "
+        print "]\n"
         i = 0
       end
     end
-    print "]\n"
+    print "\n"
+    return true
   end
 
   # I know its symmetrical and it has 100% in diagonal so it 

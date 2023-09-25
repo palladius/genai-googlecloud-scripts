@@ -37,11 +37,29 @@ def main()
         'Your song',
         'Bella ciao',
     ]
-    puts 'Original songs (max 5!)'
+    sentences = [
+        "I ate dinner.", 
+        "We had a three-course meal.", 
+        "Brad came to dinner with us.",
+        #"He loves fish tacos.",
+        "In the end, we all felt like we ate too much.",
+        "We all agreed; it was a magnificent evening."
+    ]
+    sentences = [
+        "Seychelles", 
+        "Italy", 
+        "Maldives",
+        "Italian Alps",
+        "Swiss mountains"
+    ]
+
+    # Writes the 5 sentences
+    puts 'Original sentences (max 5):'
     sentences.each_with_index do |sentence, ix|
-        puts "🔷 #{ix}. #{sentence}"
+        puts "🔷 #{ix+1}. #{sentence}"
     end
-    
+    puts()
+
     ret = compute_embeddings(sentences, project_id: 'ricc-genai')
     ret_json = JSON.parse(ret)
     #puts ret_json.keys
@@ -64,13 +82,13 @@ def main()
     #pp AoA
     correlation_matrix = createSquareMatrix(AoA)
     puts 'Cross-correlation matrix:'
-    print correlation_matrix.pct_readable
+    correlation_matrix.print_pct_readable
 
     puts "Max index/value: #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
     #puts "Max value again (memoized hjopefully): #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
 
 
-    puts 'Closest friends are: #{ correlation_matrix.max_index }'
+    puts "Closest friends are: #{ correlation_matrix.max_index }"
     first_ix = correlation_matrix.max_index[0] # .first
     second_ix = correlation_matrix.max_index[1] # .second
     puts "💚 #{first_ix+1}: #{sentences[first_ix]}"
