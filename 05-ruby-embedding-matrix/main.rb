@@ -1,5 +1,6 @@
 
 require 'matrix'
+require 'json'
 
 require_relative 'lib_embeddings'
 require_relative 'lib_matrix'
@@ -23,25 +24,34 @@ def createSquareMatrix(aoa)
             m[i,j] = AoA[i].inner_product(AoA[j])
         end
     end
-    pp(m)
+    #pp(m)
     m
 end
 
 def main() 
     sentences = [
         'Cant buy me love',
-        'Eleanor Rigby',
+#        'Eleanor Rigby',
         'Una nuova canzone per te',
         'Yellow submarine',
-        'Your song'
+        'Your song',
+        'Bella ciao',
     ]
-
+    puts 'Original songs (max 5!)'
+    sentences.each_with_index do |sentence, ix|
+        puts "🔷 #{ix}. #{sentence}"
+    end
+    
     ret = compute_embeddings(sentences, project_id: 'ricc-genai')
-    require 'json'
     ret_json = JSON.parse(ret)
-    puts ret_json.keys
+    #puts ret_json.keys
+    if (ret_json.keys.include? 'error')
+        puts 'Some errors!'
+        pp ret_json
+        exit 1
+    end
     deb ret_json['metadata']
-    puts ret_json['predictions'].class # ['embeddings']
+    #puts ret_json['predictions'].class # ['embeddings']
     ret_json['predictions'].each_with_index do |prediction, ix|
         deb prediction['embeddings'].keys # values, statistics
         deb prediction['embeddings']['statistics'] # {"token_count"=>10, "truncated"=>false}
@@ -53,11 +63,19 @@ def main()
     
     #pp AoA
     correlation_matrix = createSquareMatrix(AoA)
+    puts 'Cross-correlation matrix:'
     print correlation_matrix.pct_readable
 
-    puts "Max value: #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
-    puts "Max value again (memoized hjopefully): #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
+    puts "Max index/value: #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
+    #puts "Max value again (memoized hjopefully): #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
+
+
     puts 'Closest friends are: #{ correlation_matrix.max_index }'
+    first_ix = correlation_matrix.max_index[0] # .first
+    second_ix = correlation_matrix.max_index[1] # .second
+    puts "💚 #{first_ix+1}: #{sentences[first_ix]}"
+    puts "💚 #{second_ix+1}: #{sentences[second_ix]}"
+
 end
 
 
