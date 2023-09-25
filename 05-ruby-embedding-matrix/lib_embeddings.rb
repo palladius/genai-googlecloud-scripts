@@ -22,7 +22,7 @@ def compute_embedding_bash(sentences, opts={})
     # { "content": "#{sent_1}"},
   
     curl_command =  <<-CURL_COMMAND
-    curl \
+    curl --silent \
     -X POST \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
@@ -33,18 +33,19 @@ def compute_embedding_bash(sentences, opts={})
       ],
     }'
     CURL_COMMAND
-    puts curl_command
+    #puts curl_command
     ret = `#{curl_command}` # exit 42
-    puts ret.class
     File.open(FILENAME, 'w') { |file| file.write(ret) }
     puts("File written: #{FILENAME}")
     ret 
 end
 
 def compute_embeddings(sentences, opts={})
+    opts_cache_file = opts.fetch :cache_file, false
+
     raise "Exception: I want an array of sentences for which to compute the embeddings" unless sentences.is_a?(Array)
-    if File.exist?( FILENAME)
-        puts 'Fiole exists already!'
+    if File.exist?( FILENAME) and opts_cache_file
+        puts 'File exists already!'
         File.read(FILENAME)
     else
         compute_embedding_bash(sentences, opts)     
