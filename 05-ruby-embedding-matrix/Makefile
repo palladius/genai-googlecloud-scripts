@@ -1,0 +1,4 @@
+
+
+run:
+	ruby main.rb
