@@ -28,9 +28,34 @@ Cross-correlation matrix:
 
 Max index/value: [1, 3] => 0.7519389026047064
 
-Closest friends are: #{ correlation_matrix.max_index }
+Closest friends are:
 💚 2: Una nuova canzone per te
 💚 4: Your song
 ```
 
 This proves that the embeddings finds similar text across different languages (the italian song quoting the italian word for 'song' is deemed the closest to Elton John's `Your song`).
+
+```
+Original sentences (max 5):
+🔷 1. Seychelles
+🔷 2. Italy
+🔷 3. Maldives
+🔷 4. Italian Alps
+🔷 5. Swiss mountains
+
+File written: embeddings.txt
+Cross-correlation matrix:
+[ 💯   69.9 83.4 66.2 71.7 ]
+[ 69.9 💯   69.9 78.3 67.1 ]
+[ 83.4 69.9 💯   63.1 62.2 ]
+[ 66.2 78.3 63.1 💯   77.0 ]
+[ 71.7 67.1 62.2 77.0 💯   ]
+
+Max index/value: [0, 2] => 0.833940093391156
+Closest friends are: [0, 2]
+💚 1: Seychelles
+💚 3: Maldives
+```
+
+This is interesting: Maldives/Seychelles are closer (83.4%) than Italy/Italian Alps (78%) and to Italian Alps / Swiss Mountains (77%).
+It does make sense.
