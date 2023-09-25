@@ -6,6 +6,10 @@ def get_default_project_id()
     'ricc-genai'
 end
 
+def cleanup_sentence_before_api_call(s)
+    s.gsub('"','').gsub("'",'')
+end
+
 
 def compute_embedding_bash(sentences, opts={})
     sent_0 = sentences[0].gsub('"','')
@@ -15,12 +19,9 @@ def compute_embedding_bash(sentences, opts={})
 
     input_inject_content = ''
     sentences.each do |sentence|
-        input_inject_content << "{ \"content\": \"#{sentence.gsub('"','') }\"}, "
+        input_inject_content << "{ \"content\": \"#{cleanup_sentence_before_api_call sentence }\"}, "
     end
-    # { "content": "#{sent_0}"},
-    # { "content": "#{sent_0}"},
-    # { "content": "#{sent_1}"},
-  
+
     curl_command =  <<-CURL_COMMAND
     curl --silent \
     -X POST \

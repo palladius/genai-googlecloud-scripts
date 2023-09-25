@@ -52,6 +52,13 @@ def main()
         "Italian Alps",
         "Swiss mountains"
     ]
+    sentences = [
+        "I like my dog",
+        "I love my dog",
+        "I adore my dog",
+        "Hello, how are you?",
+        "Hey, how's it going?",
+    ]
 
     # Writes the 5 sentences
     puts 'Original sentences (max 5):'
@@ -81,14 +88,15 @@ def main()
     
     #pp AoA
     correlation_matrix = createSquareMatrix(AoA)
-    puts 'Cross-correlation matrix:'
+    puts "\nCross-correlation matrix:"
     correlation_matrix.print_pct_readable
 
     puts "Max index/value: #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
     #puts "Max value again (memoized hjopefully): #{ correlation_matrix.max_index } => #{ correlation_matrix.max_value }"
 
 
-    puts "Closest friends are: #{ correlation_matrix.max_index }"
+    cleaned_up_value = sprintf("%.1f", (correlation_matrix.max_value*100).to_s)
+    puts "Closest friends are: #{ correlation_matrix.max_index } with #{cleaned_up_value}% correlation"
     first_ix = correlation_matrix.max_index[0] # .first
     second_ix = correlation_matrix.max_index[1] # .second
     puts "💚 #{first_ix+1}: #{sentences[first_ix]}"
