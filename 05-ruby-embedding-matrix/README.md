@@ -20,11 +20,11 @@ Original songs (max 5!):
 File written: 'embeddings.txt'
 
 Cross-correlation matrix:
-[  100  62.70 58.16 61.18 57.77 ]
-[ 62.70  100  56.06 75.19 67.41 ]
-[ 58.16 56.06  100  64.99 52.90 ]
-[ 61.18 75.19 64.99  100  61.65 ]
-[ 57.77 67.41 52.90 61.65  100  ]
+[   💯  62.70 58.16 61.18 57.77 ]
+[ 62.70   💯  56.06 75.19 67.41 ]
+[ 58.16 56.06   💯  64.99 52.90 ]
+[ 61.18 75.19 64.99   💯  61.65 ]
+[ 57.77 67.41 52.90 61.65   💯  ]
 
 Max index/value: [1, 3] => 0.7519389026047064
 
@@ -33,7 +33,7 @@ Closest friends are:
 💚 4: Your song
 ```
 
-This proves that the embeddings finds similar text across different languages (the italian song quoting the italian word for 'song' is deemed the closest to Elton John's `Your song`).
+This proves that the embeddings finds similar text across different languages (the italian song quoting the italian word for 'song' (canzone) is deemed the closest to Elton John's `Your song`).
 
 ```
 Original sentences (max 5):
@@ -44,6 +44,7 @@ Original sentences (max 5):
 🔷 5. Swiss mountains
 
 File written: embeddings.txt
+
 Cross-correlation matrix:
 [ 💯   69.9 83.4 66.2 71.7 ]
 [ 69.9 💯   69.9 78.3 67.1 ]
