@@ -28,6 +28,10 @@ def createSquareMatrix(aoa)
     m
 end
 
+def cleaned_up_value(float_number) 
+    sprintf("%.1f", (float_number*100).to_s)
+end
+
 def main() 
     sentences = [
         'Cant buy me love',
@@ -52,6 +56,7 @@ def main()
         "Italian Alps",
         "Swiss mountains"
     ]
+    # from here: https://txt.cohere.com/sentence-word-embeddings/
     sentences = [
         "I like my dog",
         "I love my dog",
@@ -59,7 +64,52 @@ def main()
         "Hello, how are you?",
         "Hey, how's it going?",
     ]
+    # nope, nothing relevant here. The LLM doesn't know music
+    sentences = [
+        ###################################################
+        # Genesis songs from Selling England by the Pound 
+        #####
+        "Genesis - Dancing With The Moonlit Knight",
+        "Genesis - Firth Of Fifth",
+        #"Genesis - The Battle of Epping Forest",
+        #"The cinema Show",
+        "Genesis - The musical box",
 
+        ###################################################
+        # 5 Rolling Stones song
+        "The Rolling Stones - Paint it black",
+        
+        ###################################################
+        # Dream Theater
+        "Dream Theater - Take the time",
+    ]
+    sentences = [
+        ###################################################
+        # Vegan food - https://www.healthline.com/nutrition/foods-vegans-eat#TOC_TITLE_HDR_3
+        #####
+        #"Broccoli",
+        #"Nut butters",
+        #"Chia",
+        # https://www.goodhousekeeping.com/food-recipes/healthy/g807/vegan-recipes/
+        'Gingery Spring Soup',
+        'Sesame Noodles',
+        'Tomato and Charred Pepper Farro Salad',
+
+        ###################################################
+        # Meat
+        "Beef burger",
+        
+        ###################################################
+        # A song, and a concept :)
+        "A day at the gym", # healthy but not food
+    ]
+    sentences = [
+        'Focaccia di Recco', # with cheese
+        'agnolotti del plin',
+        'canederli al formaggio',
+        'Pizza prosciutto e funghi',
+        'magret de canard au miel',
+    ]
     # Writes the 5 sentences
     puts 'Original sentences (max 5):'
     sentences.each_with_index do |sentence, ix|
@@ -96,11 +146,19 @@ def main()
 
 
     cleaned_up_value = sprintf("%.1f", (correlation_matrix.max_value*100).to_s)
-    puts "Closest friends are: #{ correlation_matrix.max_index } with #{cleaned_up_value}% correlation"
+    puts "\nClosest friends are: #{ correlation_matrix.max_index } with #{cleaned_up_value}% correlation"
     first_ix = correlation_matrix.max_index[0] # .first
     second_ix = correlation_matrix.max_index[1] # .second
     puts "💚 #{first_ix+1}: #{sentences[first_ix]}"
     puts "💚 #{second_ix+1}: #{sentences[second_ix]}"
+
+    puts "\nFartherst away enemies are: #{ correlation_matrix.min_index } with #{cleaned_up_value correlation_matrix.min_value}% correlation"
+    
+    puts "💔 #{correlation_matrix.min_index[0]+1}: #{sentences[correlation_matrix.min_index[0]]}"
+    puts "💔 #{correlation_matrix.min_index[1]+1}: #{sentences[correlation_matrix.min_index[1]]}"
+
+    #puts "\nIntruder:"
+    #puts "TODO(ricc): find the max distance from the average of all vectors"
 
 end
 
