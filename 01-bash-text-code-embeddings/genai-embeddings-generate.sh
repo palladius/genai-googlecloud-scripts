@@ -31,6 +31,7 @@ stripped_message="$(get_message_from_argv "$@" )"
 
 echo "stripped_message='$stripped_message'"
 #exit 42
+# "task_type": "CLUSTERING",
 
 curl \
 -X POST \
@@ -39,7 +40,8 @@ curl \
 https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/publishers/google/models/${MODEL_ID}:predict -d \
 $'{
   "instances": [
-    { "content": "'"$stripped_message"'"}
+    {
+        "content": "'"$stripped_message"'"}
   ],
 }'
 
