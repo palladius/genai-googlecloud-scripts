@@ -1,15 +1,15 @@
 # genai-googlecloud-scripts
 
-Note to self: These are my GenAI scripts and templates, to be then merged into the proper Google GenAI repo upon proper inspection :)
+This repo contains my GenAI scripts and templates, to be then merged into the proper Google GenAI repo upon proper inspection :)
 
 | Requirement | Application Name | Technologies Used |
 |---|---|---|
-|Invoke a textual prompt with pure Bash: text, code and embeddings |[01-bash-text-and-code/](01-bash-text-and-code/) | Bash, Palm API (Text/Code/Embeddings)|
-|Invoke a visual prompt with pure Bash: image generation |[02-bash-images/](02-bash-images/) | Bash, Palm API (Vision)|
+|Invoke a textual prompt with pure Bash: text, code and embeddings. This is a convenient wrap around public docs |[01-bash-text-code-embeddings/](01-bash-text-code-embeddings/) | Bash, Palm API (Text/Code/Embeddings)|
+|Invoke a visual prompt with pure Bash: image generation. Again, wrapper around public docs |[02-bash-images/](02-bash-images/) | Bash, Palm API (Vision)|
 |Fetch Medium articles, summarize them and learn about topics and author |[03-ruby-medium-article-slurper/](03-ruby-medium-article-slurper/) | Ruby, Palm API (Text)|
-|Find embeddings for 5 sentences, find the 2 closest |[05-ruby-embedding-matrix/](05-ruby-embedding-matrix/) | Ruby, Palm API (Embeddings)|
+|Find embeddings for 5 sentences, find the 2 closest. Super simple REST API call from Ruby, with some simple and fun maths to demonstrate vicinity between sentences |[05-ruby-embedding-matrix/](05-ruby-embedding-matrix/) | Ruby, Palm API (Embeddings)|
 
-If you have any ideas, send them my way!
+If you have any ideas, send them my way and [file an 🐛 issue](https://github.com/palladius/genai-googlecloud-scripts/issues/new)!
 
 ## Thanks
 
