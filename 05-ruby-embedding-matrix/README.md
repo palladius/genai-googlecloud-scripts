@@ -60,3 +60,35 @@ Closest friends are: [0, 2]
 
 This is interesting: Maldives/Seychelles are closer (83.4%) than Italy/Italian Alps (78%) and to Italian Alps / Swiss Mountains (77%).
 It does make sense.
+
+And finally (yes Ive added a new feature here):
+```
+Original sentences (max 5):
+🔷 1. Focaccia di Recco
+🔷 2. agnolotti del plin
+🔷 3. canederli al formaggio
+🔷 4. Pizza prosciutto e funghi
+🔷 5. magret de canard au miel
+
+File written: embeddings.txt
+
+Cross-correlation matrix:
+[ 💯   71.2 79.0 69.9 69.5 ]
+[ 71.2 💯   71.9 65.6 63.1 ]
+[ 79.0 71.9 💯   70.6 76.1 ]
+[ 69.9 65.6 70.6 💯   64.3 ]
+[ 69.5 63.1 76.1 64.3 💯   ]
+
+Max index/value: [0, 2] => 0.7899219994594414
+
+Closest friends are: [0, 2] with 79.0% correlation
+💚 1: Focaccia di Recco
+💚 3: canederli al formaggio
+
+Fartherst away enemies are: [1, 4] with 63.1% correlation
+💔 2: agnolotti del plin
+💔 5: magret de canard au miel
+```
+
+I'm impressed Google Vertex AI knows that Focaccia di Recco is made with cheese (formaggio) just like Canederli. That means 
+one of ~700 dimensions of the Embeddings must relate to cheesiness :)

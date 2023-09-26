@@ -45,26 +45,14 @@ class Matrix
     compute_max_index_and_value() unless @max_value
     @max_value
   end
-
-
-  # it works!
-  # def max_value_old
-  #   @max_value ||= begin
-  #     puts ':TODO2 max_value inside memozie'
-  #     puts "column_size: ", self.column_size
-  #     ret = -1
-  #     self.each_with_index do |number, i,j|
-  #       #puts "M[#{i},#{j}] = #{number}"        
-  #       if i != j and number > ret 
-  #         puts 'habemus new value for max!'
-  #         ret = number
-  #       else
-  #         #
-  #       end
-  #     end
-  #     ret
-  #   end
-  # end
+  def min_value 
+    compute_max_index_and_value() unless @min_value
+    @min_value
+  end
+  def min_index 
+    compute_max_index_and_value() unless @min_index
+    @min_index # eg, [3,5]  
+  end
 
   # Compute max index and max value at the same time, and memoize both. This is Fast!
   def compute_max_index_and_value
@@ -72,12 +60,18 @@ class Matrix
     #puts 'Memoizing once and for all @max_index and @max_value.. (if you read me twice, you can Kill Riccardo (or Bill))'
 
     @max_value = -1
+    @min_value = 123 # more than 1
     self.each_with_index do |number, i,j|
       #puts "M[#{i},#{j}] = #{number}"        
       if i != j and number > @max_value
         #puts "[#{i},#{j}] habemus new value for max: #{number}"
         @max_value = number
         @max_index = [i,j]
+      end
+      if i != j and number < @min_value
+        #puts "[#{i},#{j}] habemus new value for min: #{number}"
+        @min_value = number
+        @min_index = [i,j]
       end
     end
     true
