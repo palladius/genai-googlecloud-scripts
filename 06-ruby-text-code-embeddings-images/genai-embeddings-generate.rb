@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
-# TODO
-
-# This file is genai-text-generate.rb
+# This file is genai-embeddings-generate.rb
 #
 # Before running, make sure you've done the following:
 #     gem install google-apis-aiplatform_v1
@@ -11,19 +9,23 @@
 # Also, update the four constants below as needed.
 #
 # Then execute the file:
-#     ruby genai-text-generate.rb
+#     PROJECT_ID=your-real-project ./genai-embeddings-generate.rb
 #
-# It will create a directory called "out" and write the text files there.
+# It will create a directory called "out" and write the embeddings text files there.
+# They contain an array of 768 normalized variables, so it only makes visible sense
+# when you create a scalar product among the two to see the similitude between 2 sentences.
 
 PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
 OUTPUT_DIR = "out"
 MODEL_ID = "textembedding-gecko" # @001
 MESSAGES = [
-    "Nel mezzo del cammin di nostra vita, mi ritrovai per una selva oscura",
-    "Ahi a dir qual era e' cosa dura!",
-    "To be or not to  be, *this* is the question!",
+    "Nel mezzo del cammin di nostra vita, mi ritrovai per una selva oscura", # Divine comedy verse 1
+    "Ahi a dir qual era e' cosa dura!", # Divine comedy verse 2
+    "To be or not to  be, *this* is the question!", # Shakespeare somewhat famous sentence
 ]
+
 # assert size is not more than 5 - i think its the limit
+
 require "base64"
 require "fileutils"
 require "google/apis/aiplatform_v1"
