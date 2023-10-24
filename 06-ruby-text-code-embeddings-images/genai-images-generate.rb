@@ -11,7 +11,7 @@
 #
 # It will create a directory called "out" and write the PNG files there.
 
-PROJECT = "my-project-name"
+PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
 OUTPUT_DIR = "out"
 IMAGE_PROMPT = "Once upon a time, there was a young spy named Agent X. Agent X was the best spy in the world, and she was always on the lookout for new mysteries to solve. One day, Agent X was sent on a mission to investigate a mysterious cave at the bottom of a mountain."
 
