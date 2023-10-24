@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # This file is images-generate.rb
 #
 # Before running, make sure you've done the following:
@@ -10,6 +12,7 @@
 #     ruby images-generate.rb
 #
 # It will create a directory called "out" and write the PNG files there.
+# Currently using model 002 - which should be the default.
 
 PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
 OUTPUT_DIR = "out"
@@ -36,7 +39,7 @@ request = Google::Apis::AiplatformV1::GoogleCloudAiplatformV1PredictRequest.new 
     negativePrompt: "blurry"
   }
 response = client.predict_project_location_publisher_model \
-  "projects/#{PROJECT}/locations/us-central1/publishers/google/models/imagegeneration",
+  "projects/#{PROJECT}/locations/us-central1/publishers/google/models/imagegeneration@002",
   request
 
 FileUtils.mkdir_p OUTPUT_DIR
