@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 
 # This file is genai-code-generate.rb
 #
@@ -30,18 +31,24 @@ client.authorization = Google::Auth.get_application_default
 
 request = Google::Apis::AiplatformV1::GoogleCloudAiplatformV1PredictRequest.new \
     instances: [
-    {
-        content: MESSAGE.tr('"', "")
-    }
+        {
+            prefix: MESSAGE.tr('"', "")
+        }
     ],
     parameters: {
         temperature: 0.5,
         maxOutputTokens: 64,
         candidateCount: 2
     }
+
+print request 
+
 response = client.predict_project_location_publisher_model \
-  "v1/projects/#{PROJECT}/locations/us-central1/publishers/google/models/#{MODEL_ID}:predict",
+  "projects/#{PROJECT}/locations/us-central1/publishers/google/models/#{MODEL_ID}",
   request
+
+  # DEBUG
+puts response
 
 FileUtils.mkdir_p OUTPUT_DIR
 response.predictions.each_with_index do |prediction, index|

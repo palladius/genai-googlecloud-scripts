@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 
 # This file is genai-text-generate.rb
 #
@@ -12,7 +13,7 @@
 #
 # It will create a directory called "out" and write the text files there.
 
-PROJECT = "my-project-name"
+PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
 OUTPUT_DIR = "out"
 MODEL_ID = "text-bison@001"
 MESSAGE = "Please write me 3 random genai prompts."
