@@ -13,7 +13,7 @@
 #
 # It will create a directory called "out" and write the text files there.
 
-PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
+PROJECT = ENV.fetch('PROJECT_ID', `gcloud config get core/project`.chomp)
 OUTPUT_DIR = "out"
 MODEL_ID = "text-bison@001"
 MESSAGE = "Please write me 3 random genai prompts."
