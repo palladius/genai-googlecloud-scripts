@@ -9,12 +9,12 @@
 # Also, update the three constants below.
 #
 # Then execute the file:
-#     ruby images-generate.rb
+#     PROJECT_ID=your-real-project ruby images-generate.rb
 #
 # It will create a directory called "out" and write the PNG files there.
 # Currently using model 002 - which should be the default.
 
-PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
+PROJECT = ENV.fetch('PROJECT_ID', `gcloud config get core/project`.chomp)
 OUTPUT_DIR = "out"
 IMAGE_PROMPT = "Once upon a time, there was a young spy named Agent X. Agent X was the best spy in the world, and she was always on the lookout for new mysteries to solve. One day, Agent X was sent on a mission to investigate a mysterious cave at the bottom of a mountain."
 
