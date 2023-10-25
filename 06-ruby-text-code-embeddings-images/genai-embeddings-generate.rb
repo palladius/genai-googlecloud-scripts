@@ -12,10 +12,10 @@
 #     PROJECT_ID=your-real-project ./genai-embeddings-generate.rb
 #
 # It will create a directory called "out" and write the embeddings text files there.
-# They contain an array of 768 normalized variables, so it only makes visible sense
+# They contain an array of N normalized variables, so it only makes visible sense
 # when you create a scalar product among the two to see the similitude between 2 sentences.
 
-PROJECT = ENV.fetch 'PROJECT_ID', "my-project-name"
+PROJECT = ENV.fetch('PROJECT_ID', `gcloud config get core/project`.chomp)
 OUTPUT_DIR = "out"
 MODEL_ID = "textembedding-gecko" # @001
 MESSAGES = [
@@ -34,36 +34,30 @@ client = Google::Apis::AiplatformV1::AiplatformService.new
 client.root_url = "https://us-central1-aiplatform.googleapis.com/"
 client.authorization = Google::Auth.get_application_default
 
-# Array of hashes
+# Array of hashes: [
+#   {content: "qui"},
+#   {content: "quo"},
+#   {content: "qua"},
+# ]
+
 ArrayOfContentHashes = MESSAGES.map{|message| {content: message.tr('"', "") }}
 
 request = Google::Apis::AiplatformV1::GoogleCloudAiplatformV1PredictRequest.new \
   instances: ArrayOfContentHashes
-  #[
-    #{
-    #  content: MESSAGE.tr('"', "")
-    #}
-  #]
-#   parameters: {
-#     temperature: 0.8,
-#     maxOutputTokens: 1000,
-#     topP: 0.8,
-#     topK: 40
-#   }
 
 response = client.predict_project_location_publisher_model \
   "projects/#{PROJECT}/locations/us-central1/publishers/google/models/#{MODEL_ID}",
   request
 
-#puts "Request: ", request
 
 FileUtils.mkdir_p OUTPUT_DIR
 response.predictions.each_with_index do |prediction, index|
-  #puts "Prediction[#{index}]: #{prediction['embeddings'].class}"
-  puts "⦿ Original Messages: #{MESSAGES[index]}"
-  puts "⦿ Statistics: #{prediction['embeddings']['statistics']}"
-  puts "⦿ Dimensions: #{prediction['embeddings']['values'].size}"
+  puts "== Prediction #{index} =="
+  puts "* Original Messages: #{MESSAGES[index]}"
+  puts "* Statistics: #{prediction['embeddings']['statistics']}"
+  puts "* Dimensions: #{prediction['embeddings']['values'].size}"
   filename = "#{OUTPUT_DIR}/embedding-#{index}.txt"
   File.write filename, prediction["embeddings"]
-  puts "Wrote #{filename}"
+  puts "* Wrote #{filename}"
+  puts ""
 end
