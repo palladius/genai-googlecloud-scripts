@@ -9,7 +9,7 @@
 # Also, update the four constants below as needed.
 #
 # Then execute the file:
-#     ruby genai-text-generate.rb
+#     PROJECT_ID=your-real-project ruby genai-text-generate.rb
 #
 # It will create a directory called "out" and write the text files there.
 
