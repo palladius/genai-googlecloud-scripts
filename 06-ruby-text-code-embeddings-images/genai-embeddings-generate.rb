@@ -83,8 +83,8 @@ response.predictions.each_with_index do |prediction, index|
   puts "* Dimensions: #{prediction['embeddings']['values'].size}"
   filename = "#{OUTPUT_DIR}/embedding-#{index}.txt"
   final_hash = {
-    embeddings: prediction["embeddings"],
-    original_message: MESSAGES[index],
+    "embeddings" => prediction["embeddings"],
+    "original_message" => MESSAGES[index],
   }
   #File.write filename, prediction["embeddings"]
   File.write filename, final_hash # adding both the output that the meaningful input for future reference / crunching.
