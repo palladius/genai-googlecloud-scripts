@@ -28,7 +28,7 @@ def createSquareMatrix(aoa)
     m
 end
 
-def cleaned_up_value(float_number) 
+def cleaned_up_value_for(float_number) 
     sprintf("%.1f", (float_number*100).to_s)
 end
 
@@ -152,7 +152,7 @@ def main()
     puts "💚 #{first_ix+1}: #{sentences[first_ix]}"
     puts "💚 #{second_ix+1}: #{sentences[second_ix]}"
 
-    puts "\nFartherst away enemies are: #{ correlation_matrix.min_index } with #{cleaned_up_value correlation_matrix.min_value}% correlation"
+    puts "\nFartherst away enemies are: #{ correlation_matrix.min_index } with #{cleaned_up_value_for correlation_matrix.min_value}% correlation"
     
     puts "💔 #{correlation_matrix.min_index[0]+1}: #{sentences[correlation_matrix.min_index[0]]}"
     puts "💔 #{correlation_matrix.min_index[1]+1}: #{sentences[correlation_matrix.min_index[1]]}"
