@@ -27,6 +27,31 @@ MESSAGES = [
     esta selva selvaggia e aspra e forte,
     che nel pensier rinova la paura!", # Divine comedy verse 2
 
+    # "Avete 'n vo' li fior' e la verdura 
+    # e ciò che luce od è bello a vedere; 
+    # risplende più che sol vostra figura", # Guido Cavalcanti https://it.wikiquote.org/wiki/Guido_Cavalcanti , closest to Vasco
+
+    "Respiri piano per non far rumore
+    Ti addormenti di sera e ti risvegli col sole
+    Sei chiara come un'alba
+    Sei fresca come l'aria", # Vasco Rossi - Alba Chiara - verse 1
+    
+    "Diventi rossa se qualcuno ti guarda
+    E sei fantastica quando sei assorta
+    Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 1
+
+    # "Senza dolersi mai della vita che l'abbandona, 
+    # fa solamente sentire la consunzione di tutte le forze vitali; 
+    # e non altra sollecitudine se non se che l'anima
+    # venga pietosamente raccolta dalla sua donna. 
+    # Quei tanti ritornelli di parole e di idee ripetute 
+    # danno qui non so che grazia mista al patetico, 
+    # che si sente ma non si descrive. 
+    # Evvi anche lo artificio del chiaroscuro nei versi 
+    # brevi che scorrono rapidi, dopo di essere stati 
+    # preceduti dall'armonia lenta e grave degli endecasillabi.",
+    # # (Ugo Foscolo) [referring to https://it.wikiquote.org/wiki/Guido_Cavalcanti ]
+
     "Cantami, o Diva, del Pelìde Achille
     l'ira funesta che infiniti addusse
     lutti agli Achei, molte anzi tempo all'Orco
@@ -38,11 +63,53 @@ MESSAGES = [
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
     "To be, or not to be, that is the question:",
+
     # verse 2-5    
     "Whether 'tis nobler in the mind to suffer
     The slings and arrows of outrageous fortune,
     Or to take Arms against a Sea of troubles,
     And by opposing end them: to die, to sleep",
+
+    # "I like my dog",
+    # "I love my dog",
+    # "I adore my dog",
+    # "Hello, how are you?",
+    # "Hey, how's it going?",
+    #"ti piace studiare", # Vasco Alba Chiara, small excerpt
+    #"Non te ne devi vergognare",  # Vasco Alba Chiara, small excerpt
+]
+
+# This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor ( 
+# [1,0,0,0], [0,1,0,0], and so on) for a vectorial space made of things which are meaningful to a human, like
+# Space, time, gender, color, and so on.
+# TODO(ricc): move this to another script, and compute all the deltas, and print the difference between the 2 vector, maybe
+# normalized (v1-v2) - > |v1-v2| and see if it makes sense at all? Maybe calculate the cosinus or (rho, theta) of the resulting
+# vector?
+VersorExperiment = [
+  time: [
+    "Yesterday I was happy",
+    "Tomorrow I will be happy",
+  ],
+  number: [
+    "1 animal",
+    "1000 animals",
+  ],
+  adult_vs_young_animal: [
+    "an animal",
+    "a pet",
+  ],
+  adult_vs_young_human: [
+    "a person",
+    "a child",
+  ],
+  gender1: [
+    "a king",
+    "a queen",
+  ],
+  gender2: [ # this seems worse, since man could be interpreted more widely as both man and woman.
+    "a man",
+    "a woman",
+  ],
 ]
 
 # assert size is not more than 5 - i think its the limit
