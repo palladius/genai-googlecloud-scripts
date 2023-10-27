@@ -27,10 +27,6 @@ MESSAGES = [
     esta selva selvaggia e aspra e forte,
     che nel pensier rinova la paura!", # Divine comedy verse 2
 
-    # "Avete 'n vo' li fior' e la verdura 
-    # e ciò che luce od è bello a vedere; 
-    # risplende più che sol vostra figura", # Guido Cavalcanti https://it.wikiquote.org/wiki/Guido_Cavalcanti , closest to Vasco
-
     "Respiri piano per non far rumore
     Ti addormenti di sera e ti risvegli col sole
     Sei chiara come un'alba
@@ -40,17 +36,6 @@ MESSAGES = [
     E sei fantastica quando sei assorta
     Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 2
 
-    # "Senza dolersi mai della vita che l'abbandona, 
-    # fa solamente sentire la consunzione di tutte le forze vitali; 
-    # e non altra sollecitudine se non se che l'anima
-    # venga pietosamente raccolta dalla sua donna. 
-    # Quei tanti ritornelli di parole e di idee ripetute 
-    # danno qui non so che grazia mista al patetico, 
-    # che si sente ma non si descrive. 
-    # Evvi anche lo artificio del chiaroscuro nei versi 
-    # brevi che scorrono rapidi, dopo di essere stati 
-    # preceduti dall'armonia lenta e grave degli endecasillabi.",
-    # # (Ugo Foscolo) [referring to https://it.wikiquote.org/wiki/Guido_Cavalcanti ]
 
     "Cantami, o Diva, del Pelìde Achille
     l'ira funesta che infiniti addusse
@@ -70,13 +55,7 @@ MESSAGES = [
     Or to take Arms against a Sea of troubles,
     And by opposing end them: to die, to sleep",
 
-    # "I like my dog",
-    # "I love my dog",
-    # "I adore my dog",
-    # "Hello, how are you?",
-    # "Hey, how's it going?",
-    #"ti piace studiare", # Vasco Alba Chiara, small excerpt
-    #"Non te ne devi vergognare",  # Vasco Alba Chiara, small excerpt
+
 ]
 
 # This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor ( 
@@ -159,3 +138,34 @@ response.predictions.each_with_index do |prediction, index|
   puts ""
 end
 
+
+
+
+# Putting comments below for screenshotting the code :P 
+
+
+    # "Avete 'n vo' li fior' e la verdura 
+    # e ciò che luce od è bello a vedere; 
+    # risplende più che sol vostra figura", # Guido Cavalcanti https://it.wikiquote.org/wiki/Guido_Cavalcanti , closest to Vasco
+
+
+
+    # "Senza dolersi mai della vita che l'abbandona, 
+    # fa solamente sentire la consunzione di tutte le forze vitali; 
+    # e non altra sollecitudine se non se che l'anima
+    # venga pietosamente raccolta dalla sua donna. 
+    # Quei tanti ritornelli di parole e di idee ripetute 
+    # danno qui non so che grazia mista al patetico, 
+    # che si sente ma non si descrive. 
+    # Evvi anche lo artificio del chiaroscuro nei versi 
+    # brevi che scorrono rapidi, dopo di essere stati 
+    # preceduti dall'armonia lenta e grave degli endecasillabi.",
+    # # (Ugo Foscolo) [referring to https://it.wikiquote.org/wiki/Guido_Cavalcanti ]
+
+        # "I like my dog",
+    # "I love my dog",
+    # "I adore my dog",
+    # "Hello, how are you?",
+    # "Hey, how's it going?",
+    #"ti piace studiare", # Vasco Alba Chiara, small excerpt
+    #"Non te ne devi vergognare",  # Vasco Alba Chiara, small excerpt
