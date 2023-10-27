@@ -40,10 +40,6 @@ def test_two_character_string()
 
 1. Create the embeddings via `PROJECT_ID=your-gcp-project ./genai-embeddings-generate.rb`
 
-![Embedding generation sample output 4](../aseets/06-genai-embedding-create.png?raw=true "GenAI Embeddings Generation raw")
-![Embedding generation sample output 4](../aseets/06-genai-embedding-create.png?raw=true)
-![Embedding generation sample output](../aseets/06-genai-embedding-create.png)
-![Alt text](../assets/genai-text-sample.png?raw=true "Sample invokation of script for a poetic text")
 ![Alt text](../assets/06-genai-embedding-create.png?raw=true "Sample invokation of script for a poetic text")
 
 2. Observe one of those embeddings - will make little sense but still.. (note I )
@@ -134,5 +130,4 @@ Wrote out/image-7.png
 Result:
 
 ![gen-images](../aseets/06-genai-images.png)
-
-
+![Alt text](../assets/06-genai-images.png?raw=true "Sample invokation of script for a poetic text")
