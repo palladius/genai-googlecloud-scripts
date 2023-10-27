@@ -115,8 +115,11 @@ and the farthest away are 1 and 7 (53%).
 ## Image generation
 
 ```
- ./genai-images-generate.rb 
-Your active configuration is: [pbt-puffin-tours]
+# Note the prompt is in the script itself:
+IMAGE_PROMPT = "Once upon a time, there was a young spy named Agent X. Agent X was the best spy in the world, and she was always on the lookout for new mysteries to solve. One day, Agent X was sent on a mission to investigate a mysterious cave at the bottom of a mountain."
+
+# Script invokation:
+$ ./genai-images-generate.rb 
 Wrote out/image-0.png
 Wrote out/image-1.png
 Wrote out/image-2.png
@@ -129,5 +132,27 @@ Wrote out/image-7.png
 
 Result:
 
-![gen-images](../aseets/06-genai-images.png)
 ![Alt text](../assets/06-genai-images.png?raw=true "Sample invokation of script for a poetic text")
+
+**Note**: This service might still be *allowlisted*.
+
+## Text generation
+
+
+```
+$ ./genai-text-generate.rb 
+Wrote out/song-0.txt
+
+$ cat out/song-0.txt 
+1. Write a poem about a cat who is lost in the woods.
+2. Create a short story about a time you felt really brave.
+3. Write a song about the power of love.
+```
+
+Again, the prompt can be fouind and changed in the script `genai-text-generate.rb`:
+
+```
+[..]
+MESSAGE = "Please write me 3 random genai prompts."
+[..]
+```
