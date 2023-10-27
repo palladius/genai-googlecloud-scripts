@@ -40,6 +40,7 @@ def test_two_character_string()
 
 1. Create the embeddings via `PROJECT_ID=your-gcp-project ./genai-embeddings-generate.rb`
 
-
-![Embedding generation sample output](../aseets/06-genai-embedding-create.png "GenAI Embeddings Generation noraw")
+![Embedding generation sample output](../assets/image.png)
+![Embedding generation sample output](../assets/06-genai-embedding-create.png)
+![Embedding generation sample output](../assets/06-genai-embedding-create.png "GenAI Embeddings Generation noraw")
 ![Embedding generation sample output](../aseets/06-genai-embedding-create.png?raw=true "GenAI Embeddings Generation raw")
