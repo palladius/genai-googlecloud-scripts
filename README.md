@@ -14,6 +14,5 @@ If you have any ideas, send them my way and [file an 🐛 issue](https://github.
 
 ## Thanks
 
-This is inspired by my buddy [@rominirani](https://github.com/rominirani) and his repo <https://github.com/rominirani/genai-apptemplates-googlecloud/>.
-
-* Thanks [@dazuma](https://github.com/dazuma) for inspiration and helping me getting started with Ruby GenAI APIs.
+* Thanks [@rominirani](https://github.com/rominirani) and his repo <https://github.com/rominirani/genai-apptemplates-googlecloud/>. This repo was inspired by him!
+* Thanks [@dazuma](https://github.com/dazuma) for inspiration and helping me getting started with Ruby GenAI APIs (in the 6-th folder).
