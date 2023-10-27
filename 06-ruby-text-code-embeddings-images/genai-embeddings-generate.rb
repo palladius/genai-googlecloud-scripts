@@ -38,7 +38,7 @@ MESSAGES = [
     
     "Diventi rossa se qualcuno ti guarda
     E sei fantastica quando sei assorta
-    Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 1
+    Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 2
 
     # "Senza dolersi mai della vita che l'abbandona, 
     # fa solamente sentire la consunzione di tutte le forze vitali; 
