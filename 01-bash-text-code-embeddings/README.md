@@ -30,7 +30,7 @@ It's easy to generate code snippets!
 
 You can also generate code simply. In the  script `` we exemplify a code snippet which should return TWO examples.
 
-![Alt text](../assets/genai-code-generation.png?raw=true "Title")
+![GenAI Code Generation 1](../assets/genai-code-generation.png?raw=true "GenAI Code Generation 2")
 
 
 
