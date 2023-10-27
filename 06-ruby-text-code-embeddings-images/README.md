@@ -73,7 +73,7 @@ $ cat out/embedding-0.txt
    Finally let it spit out some statistics. My favorurite is the cross-correlation matrix (comparing Shakespeare, Dante and Vincenzo Monti):
 
 ```
-/genai-embeddings-crunch.rb 
+./genai-embeddings-crunch.rb 
 *  Embedding#1: Nel mezzo del cammin di nostra vita     mi ritrovai per una selva oscu
 *  Embedding#2: Ahi quanto a dir qual era è cosa dura,     esta selva selvaggia e aspr
 *  Embedding#3: Respiri piano per non far rumore     Ti addormenti di sera e ti risveg
@@ -110,3 +110,26 @@ Fartherst away enemies are: [0, 6] with 53.0% correlation
     ché la diritta via era smarrita.
 💔 7: To be, or not to be, that is the question:
 ```
+
+Now you can observe the closest embeddings are 1 and 2 (76%)
+and the farthest away are 1 and 7 (53%).
+
+## Image generation
+
+```
+ ./genai-images-generate.rb 
+Your active configuration is: [pbt-puffin-tours]
+Wrote out/image-0.png
+Wrote out/image-1.png
+Wrote out/image-2.png
+Wrote out/image-3.png
+Wrote out/image-4.png
+Wrote out/image-5.png
+Wrote out/image-6.png
+Wrote out/image-7.png
+```
+
+Result:
+
+![gen-images](../aseets/06-genai-images.png)
+
