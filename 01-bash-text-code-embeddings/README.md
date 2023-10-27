@@ -33,7 +33,4 @@ You can also generate code simply. In the  script `` we exemplify a code snippet
 ![GenAI Code Generation 1](../assets/genai-code-generation.png?raw=true "GenAI Code Generation 2")
 
 
-
-
-
 Docs here: https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-completion-prompts#complete-test-function 
