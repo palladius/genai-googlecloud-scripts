@@ -49,7 +49,10 @@ MESSAGES = [
     # verse 1
     #"To be, or not to be, that is the question", # Shakespeare, Amlet
     "Essere, o non essere, questo è il dilemma", # same in Italian
-
+    #"存在还是不存在，这是一个问题", # gtranslated in chinese
+    #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
+    #"生存还是灭亡，这是个问题",
+    #"出自維基百科，自由嘅百科全書", they're 100%
     # verse 2-5, EN
     "Whether 'tis nobler in the mind to suffer
     The slings and arrows of outrageous fortune,
@@ -64,6 +67,7 @@ MESSAGES = [
     #"L'occhio spento lo sguardo di cemento, lei è il mio piccione, io il suo monumento", # Servi della Gleba
     #"Ricordati di comprare: Latte, biscotti mulino bianco e fusilli de cecco", # non poetic sentence
 
+    #"Io adoro gli spaghetti al ragu, sono un piatto intimamente italiano.",
 ]
 
 # This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor (
