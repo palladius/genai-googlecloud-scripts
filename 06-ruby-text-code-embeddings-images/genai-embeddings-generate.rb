@@ -31,7 +31,7 @@ MESSAGES = [
     Ti addormenti di sera e ti risvegli col sole
     Sei chiara come un'alba
     Sei fresca come l'aria", # Vasco Rossi - Alba Chiara - verse 1
-    
+
     "Diventi rossa se qualcuno ti guarda
     E sei fantastica quando sei assorta
     Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 2
@@ -43,22 +43,29 @@ MESSAGES = [
     generose travolse alme d'eroi", # Ilyad, italian proemio
 
     #testing the double \" quote
-    '"Thou, Nature, art my goddess"', # 7. Edmund in King Lear 1.2, “Thou, Nature, art my goddess”
+    #'"Thou, Nature, art my goddess"', # 7. Edmund in King Lear 1.2, “Thou, Nature, art my goddess”
 
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
-    "To be, or not to be, that is the question:",
+    "To be, or not to be, that is the question", # Shakespeare, Amlet
+    #"Essere, o non essere, questo è il dilemma", # same in Italian
 
-    # verse 2-5    
+    # verse 2-5, EN
     "Whether 'tis nobler in the mind to suffer
     The slings and arrows of outrageous fortune,
     Or to take Arms against a Sea of troubles,
     And by opposing end them: to die, to sleep",
 
+    # verse 2-5, italian # https://www.studenti.it/essere-o-non-essere-il-monologo-di-amleto.html
+    "È egli più decoroso per l'anima di tollerare i colpi
+    dell'ingiusta fortuna, o impugnare le armi contro un mare
+    di dolori e, affrontandoli, finirli? Morire, dormire, null'altro",
+
+    #"L'occhio spento lo sguardo di cemento, lei è il mio piccione, io il suo monumento", # Servi della Gleba
 
 ]
 
-# This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor ( 
+# This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor (
 # [1,0,0,0], [0,1,0,0], and so on) for a vectorial space made of things which are meaningful to a human, like
 # Space, time, gender, color, and so on.
 # TODO(ricc): move this to another script, and compute all the deltas, and print the difference between the 2 vector, maybe
@@ -141,24 +148,24 @@ end
 
 
 
-# Putting comments below for screenshotting the code :P 
+# Putting comments below for screenshotting the code :P
 
 
-    # "Avete 'n vo' li fior' e la verdura 
-    # e ciò che luce od è bello a vedere; 
+    # "Avete 'n vo' li fior' e la verdura
+    # e ciò che luce od è bello a vedere;
     # risplende più che sol vostra figura", # Guido Cavalcanti https://it.wikiquote.org/wiki/Guido_Cavalcanti , closest to Vasco
 
 
 
-    # "Senza dolersi mai della vita che l'abbandona, 
-    # fa solamente sentire la consunzione di tutte le forze vitali; 
+    # "Senza dolersi mai della vita che l'abbandona,
+    # fa solamente sentire la consunzione di tutte le forze vitali;
     # e non altra sollecitudine se non se che l'anima
-    # venga pietosamente raccolta dalla sua donna. 
-    # Quei tanti ritornelli di parole e di idee ripetute 
-    # danno qui non so che grazia mista al patetico, 
-    # che si sente ma non si descrive. 
-    # Evvi anche lo artificio del chiaroscuro nei versi 
-    # brevi che scorrono rapidi, dopo di essere stati 
+    # venga pietosamente raccolta dalla sua donna.
+    # Quei tanti ritornelli di parole e di idee ripetute
+    # danno qui non so che grazia mista al patetico,
+    # che si sente ma non si descrive.
+    # Evvi anche lo artificio del chiaroscuro nei versi
+    # brevi che scorrono rapidi, dopo di essere stati
     # preceduti dall'armonia lenta e grave degli endecasillabi.",
     # # (Ugo Foscolo) [referring to https://it.wikiquote.org/wiki/Guido_Cavalcanti ]
 
