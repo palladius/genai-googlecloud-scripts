@@ -47,8 +47,9 @@ MESSAGES = [
 
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
-    #"To be, or not to be, that is the question", # Shakespeare, Amlet
-    "Essere, o non essere, questo è il dilemma", # same in Italian
+    "To be, or not to be, that is the question", # Shakespeare, Amlet
+    "Essere, o non essere, questo è il dilemma", # same in Italian 82.1%
+    #"Essere, o non essere, questo è il problema", # same in Italian 76.7%
     #"存在还是不存在，这是一个问题", # gtranslated in chinese
     #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
     #"生存还是灭亡，这是个问题",
