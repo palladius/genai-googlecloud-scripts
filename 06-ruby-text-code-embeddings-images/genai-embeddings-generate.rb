@@ -42,7 +42,7 @@ MESSAGES = [
     "Cantami, o Diva, del Pelìde Achille
     l'ira funesta che infiniti addusse
     lutti agli Achei, molte anzi tempo all'Orco
-    generose travolse alme d'eroi", # Ilyad, italian proemio, “TRADUZIONE” DI VINCENZO MONTI
+    generose travolse alme d'eroi", # Ilyad, italian proemio, MONTI Vincenzo (1754-1828)
 
     #testing the double \" quote
     #'"Thou, Nature, art my goddess"', # 7. Edmund in King Lear 1.2, “Thou, Nature, art my goddess”
@@ -50,7 +50,7 @@ MESSAGES = [
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
     "To be, or not to be, that is the question", # Shakespeare, Amlet
-    "Essere, o non essere, questo è il dilemma", # same in Italian 82.1%
+    #"Essere, o non essere, questo è il dilemma", # same in Italian 82.1%
     #"Essere, o non essere, questo è il problema", # same in Italian 76.7%
     #"存在还是不存在，这是一个问题", # gtranslated in chinese
     #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
