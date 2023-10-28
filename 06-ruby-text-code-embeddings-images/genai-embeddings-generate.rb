@@ -19,6 +19,8 @@ PROJECT = ENV.fetch('PROJECT_ID', `gcloud config get core/project`.chomp)
 OUTPUT_DIR = "out"
 MODEL_ID = "textembedding-gecko" # @001
 MESSAGES = [
+  #"M'illumino d'immenso",
+
     "Nel mezzo del cammin di nostra vita
     mi ritrovai per una selva oscura,
     ché la diritta via era smarrita.", # Divine comedy verse 1
@@ -40,7 +42,7 @@ MESSAGES = [
     "Cantami, o Diva, del Pelìde Achille
     l'ira funesta che infiniti addusse
     lutti agli Achei, molte anzi tempo all'Orco
-    generose travolse alme d'eroi", # Ilyad, italian proemio
+    generose travolse alme d'eroi", # Ilyad, italian proemio, “TRADUZIONE” DI VINCENZO MONTI
 
     #testing the double \" quote
     #'"Thou, Nature, art my goddess"', # 7. Edmund in King Lear 1.2, “Thou, Nature, art my goddess”
