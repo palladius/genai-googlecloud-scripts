@@ -47,8 +47,8 @@ MESSAGES = [
 
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
-    "To be, or not to be, that is the question", # Shakespeare, Amlet
-    #"Essere, o non essere, questo è il dilemma", # same in Italian
+    #"To be, or not to be, that is the question", # Shakespeare, Amlet
+    "Essere, o non essere, questo è il dilemma", # same in Italian
 
     # verse 2-5, EN
     "Whether 'tis nobler in the mind to suffer
@@ -57,11 +57,12 @@ MESSAGES = [
     And by opposing end them: to die, to sleep",
 
     # verse 2-5, italian # https://www.studenti.it/essere-o-non-essere-il-monologo-di-amleto.html
-    "È egli più decoroso per l'anima di tollerare i colpi
-    dell'ingiusta fortuna, o impugnare le armi contro un mare
-    di dolori e, affrontandoli, finirli? Morire, dormire, null'altro",
+    # "È egli più decoroso per l'anima di tollerare i colpi
+    # dell'ingiusta fortuna, o impugnare le armi contro un mare
+    # di dolori e, affrontandoli, finirli? Morire, dormire, null'altro",
 
     #"L'occhio spento lo sguardo di cemento, lei è il mio piccione, io il suo monumento", # Servi della Gleba
+    #"Ricordati di comprare: Latte, biscotti mulino bianco e fusilli de cecco", # non poetic sentence
 
 ]
 
