@@ -28,11 +28,11 @@ def createSquareMatrix(aoa)
     m
 end
 
-def cleaned_up_value_for(float_number) 
+def cleaned_up_value_for(float_number)
     sprintf("%.1f", (float_number*100).to_s)
 end
 
-def main() 
+def main()
     sentences = [
         'Cant buy me love',
 #        'Eleanor Rigby',
@@ -42,16 +42,16 @@ def main()
         'Bella ciao',
     ]
     sentences = [
-        "I ate dinner.", 
-        "We had a three-course meal.", 
+        "I ate dinner.",
+        "We had a three-course meal.",
         "Brad came to dinner with us.",
         #"He loves fish tacos.",
         "In the end, we all felt like we ate too much.",
         "We all agreed; it was a magnificent evening."
     ]
     sentences = [
-        "Seychelles", 
-        "Italy", 
+        "Seychelles",
+        "Italy",
         "Maldives",
         "Italian Alps",
         "Swiss mountains"
@@ -65,20 +65,19 @@ def main()
         "Hey, how's it going?",
     ]
     # nope, nothing relevant here. The LLM doesn't know music
-    sentences = [
+    sentencesGenesis = [
         ###################################################
-        # Genesis songs from Selling England by the Pound 
+        # Genesis songs from Selling England by the Pound
         #####
         "Genesis - Dancing With The Moonlit Knight",
         "Genesis - Firth Of Fifth",
         #"Genesis - The Battle of Epping Forest",
         #"The cinema Show",
         "Genesis - The musical box",
-
         ###################################################
         # 5 Rolling Stones song
         "The Rolling Stones - Paint it black",
-        
+
         ###################################################
         # Dream Theater
         "Dream Theater - Take the time",
@@ -98,7 +97,7 @@ def main()
         ###################################################
         # Meat
         "Beef burger",
-        
+
         ###################################################
         # A song, and a concept :)
         "A day at the gym", # healthy but not food
@@ -110,6 +109,9 @@ def main()
         'Pizza prosciutto e funghi',
         'magret de canard au miel',
     ]
+
+    sentences = sentencesGenesis
+
     # Writes the 5 sentences
     puts 'Original sentences (max 5):'
     sentences.each_with_index do |sentence, ix|
@@ -135,7 +137,7 @@ def main()
             prediction['embeddings']['values'].pop(EmbeddingsMaxSize)
         )
     end
-    
+
     #pp AoA
     correlation_matrix = createSquareMatrix(AoA)
     puts "\nCross-correlation matrix:"
@@ -153,7 +155,7 @@ def main()
     puts "💚 #{second_ix+1}: #{sentences[second_ix]}"
 
     puts "\nFartherst away enemies are: #{ correlation_matrix.min_index } with #{cleaned_up_value_for correlation_matrix.min_value}% correlation"
-    
+
     puts "💔 #{correlation_matrix.min_index[0]+1}: #{sentences[correlation_matrix.min_index[0]]}"
     puts "💔 #{correlation_matrix.min_index[1]+1}: #{sentences[correlation_matrix.min_index[1]]}"
 
