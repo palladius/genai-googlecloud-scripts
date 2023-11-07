@@ -5,6 +5,12 @@ The idea here is to get a list of embeddings to be calculated and draw a matrix 
 * You calculate the 25 cross-correlations between those vectors (this is actually 10 values, since diagonals are always unitary and it's simmetric). Using simple Ruby math.
 * you find the closest two from the `max()` of those 10 calculations.
 
+## Prerequisites
+
+* Have a GCP account
+* authenticate to your current account: `gcloud auth application-default login`
+*
+
 ## Sample output
 
 ```
@@ -90,5 +96,5 @@ Fartherst away enemies are: [1, 4] with 63.1% correlation
 💔 5: magret de canard au miel
 ```
 
-I'm impressed Google Vertex AI knows that Focaccia di Recco is made with cheese (formaggio) just like Canederli. That means 
+I'm impressed Google Vertex AI knows that Focaccia di Recco is made with cheese (formaggio) just like Canederli. That means
 one of ~700 dimensions of the Embeddings must relate to cheesiness :)

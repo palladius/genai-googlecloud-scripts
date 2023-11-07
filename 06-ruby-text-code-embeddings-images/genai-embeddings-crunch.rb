@@ -29,6 +29,7 @@ EmbeddingsMaxSize = 800 # 00 # TODO move back to 800ish
 
 def createSquareMatrix(aoa)
     n = aoa.size # eg, 5 sentences
+    #raise "Empty Matrix! Woops!" if n == 0
     m = Matrix.build(n,n) { 0 } #  Array.new(5) { Array.new(5, 0) }
     (0..n-1).each do |i|
         (0..n-1).each do |j|
@@ -38,7 +39,7 @@ def createSquareMatrix(aoa)
     m
 end
 
-def cleaned_up_value_for(float_number) 
+def cleaned_up_value_for(float_number)
     sprintf("%.1f", (float_number*100).to_s)
 end
 
@@ -49,7 +50,7 @@ def main()
     n_files = embeddingsFiles.size
     embeddingsFiles.each_with_index do |file, ix|
         human_index = ix+1
-        #puts file 
+        #puts file
         h = File.read(file)
         #puts h.class
         #j = JSON.parse( h) # .gsub('=>', ':')
@@ -57,7 +58,7 @@ def main()
         #puts prediction.class
         #j = YAML.load h
         raise "Not a hash!" unless prediction.is_a? Hash
-        
+
         #puts "== Parsed Embedding##{human_index} ('#{file}') =="
         #puts "hash.keys: '#{prediction.keys}'"
         #puts " - e.keys: '#{prediction['embeddings'].keys}'"
@@ -91,7 +92,7 @@ def main()
     puts "💚 #{second_ix+1}: #{sentences[second_ix]}"
 
     puts "\nFartherst away enemies are: #{ correlation_matrix.min_index } with #{cleaned_up_value_for correlation_matrix.min_value}% correlation"
-    
+
     puts "💔 #{correlation_matrix.min_index[0]+1}: #{sentences[correlation_matrix.min_index[0]]}"
     puts "💔 #{correlation_matrix.min_index[1]+1}: #{sentences[correlation_matrix.min_index[1]]}"
 

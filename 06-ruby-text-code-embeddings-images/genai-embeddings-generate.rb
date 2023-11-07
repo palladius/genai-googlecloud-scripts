@@ -19,30 +19,29 @@ PROJECT = ENV.fetch('PROJECT_ID', `gcloud config get core/project`.chomp)
 OUTPUT_DIR = "out"
 MODEL_ID = "textembedding-gecko" # @001
 MESSAGES = [
-  #"M'illumino d'immenso",
 
-    "Nel mezzo del cammin di nostra vita
-    mi ritrovai per una selva oscura,
-    ché la diritta via era smarrita.", # Divine comedy verse 1
+    # "Nel mezzo del cammin di nostra vita
+    # mi ritrovai per una selva oscura,
+    # ché la diritta via era smarrita.", # Divine comedy verse 1
 
-    "Ahi quanto a dir qual era è cosa dura,
-    esta selva selvaggia e aspra e forte,
-    che nel pensier rinova la paura!", # Divine comedy verse 2
+    # "Ahi quanto a dir qual era è cosa dura,
+    # esta selva selvaggia e aspra e forte,
+    # che nel pensier rinova la paura!", # Divine comedy verse 2
 
-    "Respiri piano per non far rumore
-    Ti addormenti di sera e ti risvegli col sole
-    Sei chiara come un'alba
-    Sei fresca come l'aria", # Vasco Rossi - Alba Chiara - verse 1
+    # "Respiri piano per non far rumore
+    # Ti addormenti di sera e ti risvegli col sole
+    # Sei chiara come un'alba
+    # Sei fresca come l'aria", # Vasco Rossi - Alba Chiara - verse 1
 
-    "Diventi rossa se qualcuno ti guarda
-    E sei fantastica quando sei assorta
-    Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 2
+    # "Diventi rossa se qualcuno ti guarda
+    # E sei fantastica quando sei assorta
+    # Nei tuoi problemi, nei tuoi pensieri", # Vasco Rossi - Alba Chiara - verse 2
 
 
-    "Cantami, o Diva, del Pelìde Achille
-    l'ira funesta che infiniti addusse
-    lutti agli Achei, molte anzi tempo all'Orco
-    generose travolse alme d'eroi", # Ilyad, italian proemio, MONTI Vincenzo (1754-1828)
+    # "Cantami, o Diva, del Pelìde Achille
+    # l'ira funesta che infiniti addusse
+    # lutti agli Achei, molte anzi tempo all'Orco
+    # generose travolse alme d'eroi", # Ilyad, italian proemio, MONTI Vincenzo (1754-1828)
 
     #testing the double \" quote
     #'"Thou, Nature, art my goddess"', # 7. Edmund in King Lear 1.2, “Thou, Nature, art my goddess”
@@ -50,7 +49,8 @@ MESSAGES = [
     # https://en.wikipedia.org/wiki/To_be,_or_not_to_be - divided in 2:
     # verse 1
     "To be, or not to be, that is the question", # Shakespeare, Amlet
-    #"Essere, o non essere, questo è il dilemma", # same in Italian 82.1%
+    "Essere, o non essere, questo è il dilemma", # same in Italian 82.1% good :)
+    "Być albo nie być - oto jest pytanie",       # same in polish  62.1% bad (and 70.6 with Italian) :/
     #"Essere, o non essere, questo è il problema", # same in Italian 76.7%
     #"存在还是不存在，这是一个问题", # gtranslated in chinese
     #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
@@ -71,6 +71,54 @@ MESSAGES = [
     #"Ricordati di comprare: Latte, biscotti mulino bianco e fusilli de cecco", # non poetic sentence
 
     #"Io adoro gli spaghetti al ragu, sono un piatto intimamente italiano.",
+    #  #"M'illumino d'immenso", Ungaretti
+    #"Spaghetti bolognese",
+    #"Pizza con ananas",
+
+    ########################################
+    # Warsaw
+    ########################################
+    #
+    # To be or not to be
+    # http://www.doradca.com.pl/po_godzinach/lyteratura/kot-w-pustym.htm
+    # Kot w pustym mieszkaniu (by Wisława Szymborska)
+    # DEath as peerceived by a cat, says my buddy Magdalena G.
+
+    "Umrzeć - tego się nie robi kotu.
+    Bo co ma począć kot
+    w pustym mieszkaniu.
+    Wdrapywać się na ściany.
+    Ocierać między meblami.",
+
+    "Nic niby tu nie zmienione,
+    a jednak pozamieniane.
+    Niby nie przesunięte,
+    a jednak porozsuwane.
+    I wieczorami lampa już nie świeci.",
+
+    # https://en.wikiquote.org/wiki/Pan_Tadeusz, for the Warsaw presentation on 7nov23
+    # beginning of book 1, super famous, but talks re Lithuania (potentially divisive?)
+    # # Basically the most famous poetry ever in POland.
+        "Litwo! Ojczyzno moja! Ty jesteś jak zdrowie.
+        Ile cię trzeba cenić, ten tylko się dowie,",
+
+        "Kto cię stracił. Dziś piękność twą w całej ozdobie
+        Widzę i opisuję, bo tęsknię po tobie.",
+
+        # https://en.wikiquote.org/wiki/Pan_Tadeusz
+    # Book 3 of flirtations
+    "Tak to na świecie wszystko los zwykł kończyć dzwonem.
+    Rachunki myśli wielkiej, plany wyobraźni,
+    Zabawki niewinności, uciechy przyjaźni,",
+    # "Wylania się serc czułych! - gdy śpiż z dala ryknie,
+    # Wszystko miesza się, zrywa, mąci się i niknie!",
+
+    "Thus in this world fate all with a bell's tolling ends,
+    Great ambitions, great projects of imagination,
+    Childhood's playtimes and friendship's heart-felt consolations,",
+    # "The hearts' tender confessions! Should some dread bronze roar
+    # From afar, all is shattered, confused - is no more!",
+
 ]
 
 # This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor (
