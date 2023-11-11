@@ -51,7 +51,8 @@ MESSAGES = [
     "To be, or not to be, that is the question", # Shakespeare, Amlet
     "Essere, o non essere, questo è il dilemma", # same in Italian 82.1% good :)
     "Być albo nie być - oto jest pytanie",       # same in polish  62.1% bad (and 70.6 with Italian) :/
-    #"Essere, o non essere, questo è il problema", # same in Italian 76.7%
+    "Sein oder nicht Sein, das ist hier die Frage", # same in German
+    "Essere, o non essere, questo è il problema", # same in Italian with little change on "Question" semantic
     #"存在还是不存在，这是一个问题", # gtranslated in chinese
     #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
     #"生存还是灭亡，这是个问题",
