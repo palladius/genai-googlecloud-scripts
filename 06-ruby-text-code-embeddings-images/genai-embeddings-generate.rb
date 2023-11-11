@@ -52,7 +52,7 @@ MESSAGES = [
     "Essere, o non essere, questo è il dilemma", # same in Italian 82.1% good :)
     "Być albo nie być - oto jest pytanie",       # same in polish  62.1% bad (and 70.6 with Italian) :/
     "Sein oder nicht Sein, das ist hier die Frage", # same in German
-    "Essere, o non essere, questo è il problema", # same in Italian with little change on "Question" semantic
+    #"Essere, o non essere, questo è il problema", # same in Italian with little change on "Question" semantic
     #"存在还是不存在，这是一个问题", # gtranslated in chinese
     #"Cúnzài háishì bù cúnzài, zhè shì yīgè wèntí", # ditto
     #"生存还是灭亡，这是个问题",
@@ -119,7 +119,13 @@ MESSAGES = [
     Childhood's playtimes and friendship's heart-felt consolations,",
     # "The hearts' tender confessions! Should some dread bronze roar
     # From afar, all is shattered, confused - is no more!",
-
+    #
+    'king',
+    'queen',
+    # 'man',
+    # 'woman',
+    'male',
+    'female',
 ]
 
 # This is my TODO list for my next experiment. Having a list of couples to distill extract the "perfect" versor (
@@ -152,6 +158,10 @@ VersorExperiment = [
   gender2: [ # this seems worse, since man could be interpreted more widely as both man and woman.
     "a man",
     "a woman",
+  ],
+  gender2b: [ # similar but more precise on gender
+    "a male",
+    "a female",
   ],
 ]
 
