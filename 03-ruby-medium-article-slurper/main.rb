@@ -11,7 +11,8 @@ require_relative 'lib/gcp_auth'
 # Max size you can ingest from XML input.
 # Safe value: 16000
 # Ricc got errors with this: 32000
-MaxByteInputSize = 30000 
+# With 30k it works, but then the output is VERY small. Better to save some for output as total size is 32k (I believe).
+MaxByteInputSize = 25000 
 
 # Prompt = <<-END_OF_PROMPT
 # Provide a summary for each of the following articles.
@@ -26,55 +27,60 @@ MaxByteInputSize = 30000
 # END_OF_PROMPT
 
 ### PROMPT HISTORY
+# 1.6 16nov23 Removed typos from articles.
 # 1.5 16nov23 Added movie.
+# 1.4 16nov23 M oved from TXT to JSON!
 
 PromptInJson = <<-END_OF_PROMPT
-You are an avid article reader and summarizer. I'm going to provide a list of articles for a single person
-and ask you to do two jobs:
-* for each article, I'm going to ask a number of per-article questions
-* overall, I'm going to ask questions about the author.
-* I'm going to provide a JSON structure for the questions I ask. If you don't know some answer, feel free to leave NULL/empty values.
+You are an avid article reader and summarizer. I'm going to provide a list of articles for a single person and ask you to do this:
 
-Per-article:
+1. For each article, I'm going to ask a number of per-article questions
+2. Overall, I'm going to ask questions about the author.
+
+I'm going to provide a JSON structure for the questions I ask. If you don't know some answer, feel free to leave NULL/empty values.
+
+1. Per-article:
 
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Please also tell me, for each article, whether it talks about Google Cloud.
-* If you can find any typos or visible mistakes, please write them down.
 * For each article, capture the original title and please produce a short 300-500-character summary.
-* What existing movie or book would this article remind you the most of? Try a guess, use your fantasy.
+* What existing movie or book would this article remind you the most of? Try a guess, use your fantasy. Please do NOT leave this null! It's just for fun. yet its very important to me
 
-Overall (author):
+2. Overall (author):
 
 * Extract name and surname
 * Can you guess the nationality of the person (or geographic context of the article itself) writing all of these articles?
 * Please describe this author style. Is it professional or more personal? Terse or verbose? ..
-* Does this author prefer a certain language? In which language are their code snippets (if any)?
+* Does this author prefer a certain programming language? In which language are their code snippets (if any)? No frameworks, just languages.
+* If you can find any typos or recurring mistakes in any article, please write them here. Not more than 3, just the most important.
 
 Please provide the output in a `JSON` file as an array of answer per article, like this:
 
 {
-    "prompt_version": "1.5_20231116", // do NOT change this, take verbatim
+    "prompt_version": "1.6c", // do NOT change this, take verbatim
     "author_name": "", // name and surname of the author
     "author_nationality":  "", // nationality here
     "author_style": "",  // overall author style: is it professional or more personal? Terse or verbose? ..
-    "author_favorite_languages": "",  // which languages does the author use? Pascal? C++? Python? Java? Usa comma separated for the list.
+    "author_favorite_languages": "",  // which plain languages does the author use? Pascal? C++? Python? Java? Use comma-separated for the list.
+    "typos": [{ // array of mistakes or typos, maximum THREE.
+            "current": "xxx", // typo or mistake
+            "correct": "yyy" // fixed typo
+        }],
     "articles_feedback": [
 
-    // article 1
+        // article 1
         {
         "title": "",         // This should be the ORIGINAL article title, you should be able to extract it from the TITLE XML part, like "<title><![CDATA[What is toilet papers right side?]]></title>"
         "summary": "...",    // This should be the article summary produced by you.
+        "url": "http://....", // Add here the article URL
         "publication_date": "" // This should be provided to you in input
         "accuracy": XXX,     // Integer 1 to 10
         "is_gcp":   false,   // boolean, true of false
-        "movie_or_book": "",   // string, a book or film this article content reminds you of.
-        "mistakes": [{ // array of mistakes
-            "current": "xxx", // typo or mistake
-            "correct": "yyy",  // 
-        }] 
+        "movie_or_book": ""   // string, a book or film this article content reminds you of.
+        ] 
     },
 
-    // Article 2, and so on..
+        // Article 2, and so on..
     ]
 }
 
@@ -137,7 +143,8 @@ def fetch_from_medium(medium_user, _opts={})
             file.writeln "* PublicationDate: '#{pubDate}'"
             file.writeln "* Categories: #{categories.join(', ')}"
             file.writeln ""
-            file.writeln article_content
+            file.writeln node.inner_text
+            #file.writeln article_content
         end
 
         ## Version 1: Just output the article body
@@ -186,6 +193,10 @@ def call_api_for_all_texts(_opts={})
             f.write output
         end
         puts "== OUTPUT END (written on: #{output_file}) =="
+        # https://stackoverflow.com/questions/42385036/validate-json-file-syntax-in-shell-script-without-installing-any-package
+        valid_json_script = `cat '#{output_file}' | json_pp`
+        ret = $?
+        puts "Valid JSON? => #{ret}"
         
         #exit 42
         # Call API for summarization: https://cloud.google.com/vertex-ai/docs/generative-ai/text/summarization-prompts
