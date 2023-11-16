@@ -8,15 +8,79 @@ require 'googleauth'
 require_relative 'lib/lib_genai'
 require_relative 'lib/gcp_auth'
 
-MaxByteInputSize = 16000
+# Max size you can ingest from XML input.
+# Safe value: 16000
+# Ricc got errors with this: 32000
+MaxByteInputSize = 30000 
 
-Prompt = <<-END_OF_PROMPT
-Provide a summary for each of the following articles.
+# Prompt = <<-END_OF_PROMPT
+# Provide a summary for each of the following articles.
+
+# * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
+# * Please also tell me, for each article, whether it talks about Google Cloud.
+# * Can you guess the nationality of the person (or geographic context of the article itself) writing all of these articles?
+# * If you can find any typos or visible mistakes, please write them down.
+
+# --
+
+# END_OF_PROMPT
+
+### PROMPT HISTORY
+# 1.5 16nov23 Added movie.
+
+PromptInJson = <<-END_OF_PROMPT
+You are an avid article reader and summarizer. I'm going to provide a list of articles for a single person
+and ask you to do two jobs:
+* for each article, I'm going to ask a number of per-article questions
+* overall, I'm going to ask questions about the author.
+* I'm going to provide a JSON structure for the questions I ask. If you don't know some answer, feel free to leave NULL/empty values.
+
+Per-article:
 
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Please also tell me, for each article, whether it talks about Google Cloud.
-* Can you guess the nationality of the person writing all of these articles?
 * If you can find any typos or visible mistakes, please write them down.
+* For each article, capture the original title and please produce a short 300-500-character summary.
+* What existing movie or book would this article remind you the most of? Try a guess, use your fantasy.
+
+Overall (author):
+
+* Extract name and surname
+* Can you guess the nationality of the person (or geographic context of the article itself) writing all of these articles?
+* Please describe this author style. Is it professional or more personal? Terse or verbose? ..
+* Does this author prefer a certain language? In which language are their code snippets (if any)?
+
+Please provide the output in a `JSON` file as an array of answer per article, like this:
+
+{
+    "prompt_version": "1.5_20231116", // do NOT change this, take verbatim
+    "author_name": "", // name and surname of the author
+    "author_nationality":  "", // nationality here
+    "author_style": "",  // overall author style: is it professional or more personal? Terse or verbose? ..
+    "author_favorite_languages": "",  // which languages does the author use? Pascal? C++? Python? Java? Usa comma separated for the list.
+    "articles_feedback": [
+
+    // article 1
+        {
+        "title": "",         // This should be the ORIGINAL article title, you should be able to extract it from the TITLE XML part, like "<title><![CDATA[What is toilet papers right side?]]></title>"
+        "summary": "...",    // This should be the article summary produced by you.
+        "publication_date": "" // This should be provided to you in input
+        "accuracy": XXX,     // Integer 1 to 10
+        "is_gcp":   false,   // boolean, true of false
+        "movie_or_book": "",   // string, a book or film this article content reminds you of.
+        "mistakes": [{ // array of mistakes
+            "current": "xxx", // typo or mistake
+            "correct": "yyy",  // 
+        }] 
+    },
+
+    // Article 2, and so on..
+    ]
+}
+
+Make **ABSOLUTELY SURE** the result is valid JSON or I'll have to drop the result.
+
+Here are the articles:
 
 --
 
@@ -27,14 +91,22 @@ def init()
     Dir.mkdir('outputs/') rescue nil
 end
 
+# Monkey patching File class - I love Ruby!
+class File
+    def writeln(str)
+        write(str+"\n")
+    end
+end
+
 def fetch_from_medium(medium_user, _opts={})
     opts_refetch_if_exists = _opts.fetch :refetch_if_exists, false
+
     xml_filename = "inputs/medium-feed.#{medium_user}.xml"
     genai_input_filename = "inputs/medium-latest-articles.#{medium_user}.txt"
 
     if File.exist?(genai_input_filename) and (not opts_refetch_if_exists )
         puts "File '#{genai_input_filename}' already exists.. wont reparse"
-        return nil 
+        return nil
     end 
 
     # Downloading the file and iterating through article parts.
@@ -50,37 +122,66 @@ def fetch_from_medium(medium_user, _opts={})
     
     # Looks like my articles are under many <content:encoded> tags, so here you go..
     File.open(genai_input_filename, 'w') do |file| # file.write("your text") }
-        docSM.xpath("//content:encoded").each_with_index do |node,ix|
-            # puts "* Article #{ix+1}:"
-            # puts ActionView::Base.full_sanitizer.sanitize(node.inner_text)
-            # puts ''
-            file.write("* Article #{ix+1}:\n")
-            file.write(ActionView::Base.full_sanitizer.sanitize(node.inner_text))
-            file.write("\n---\n")
+        ## Version 2: Scrape more important metadatsa
+        docSM.xpath("//item").each_with_index do |node,ix| # Article
+            file.writeln "\n====== Article #{ix+1} ====="
+            title = node.xpath("title").inner_text
+            creator = node.xpath("dc:creator").inner_text
+            url =  node.xpath("link").inner_text
+            pubDate =  node.xpath("pubDate").inner_text
+            categories =  node.xpath("category").map{|c| c.inner_text}  # there's many, eg:  ["cycling", "google-forms", "data-studio", "pivot", "google-sheets"]
+            article_content = ActionView::Base.full_sanitizer.sanitize(node.inner_text)
+            file.writeln "* Title: '#{title}'"
+            file.writeln "* Author: '#{creator}'"
+            file.writeln "* URL: '#{url}'"
+            file.writeln "* PublicationDate: '#{pubDate}'"
+            file.writeln "* Categories: #{categories.join(', ')}"
+            file.writeln ""
+            file.writeln article_content
         end
+
+        ## Version 1: Just output the article body
+        # docSM.xpath("//content:encoded").each_with_index do |node,ix| # ArticleBody
+        #     # puts "* Article #{ix+1}:"
+        #     # puts ActionView::Base.full_sanitizer.sanitize(node.inner_text)
+        #     # puts ''
+        #     file.write("* Article #{ix+1}:\n")
+        #     file.write(ActionView::Base.full_sanitizer.sanitize(node.inner_text))
+        #     file.write("\n---\n")
+        # end
     end
+    #exit 42
     return true
+end
+
+def call_api_for_single_user(medium_user)
+    call_api_for_all_texts(single_user: medium_user)
 end
 
 def call_api_for_all_texts(_opts={})
     opts_overwrite_if_exists = _opts.fetch :overwrite_if_exists, false
+    opts_single_user = _opts.fetch :single_user, nil
 
     Dir.glob("inputs/medium-latest-articles.*.txt") do |my_text_file|
+        if opts_single_user
+            #puts "DEB REMOVEME my_text_file: #{my_text_file}"
+            next unless my_text_file == "inputs/medium-latest-articles.#{opts_single_user}.txt"
+        end
         puts "Working on: #{my_text_file}..."
-        output_file = "outputs/" + my_text_file.split('/')[1]
-        genai_input = Prompt + "\n" + File.read(my_text_file)
+        output_file = "outputs/" + my_text_file.split('/')[1] + '.json'
+        genai_input = PromptInJson + "\n" + File.read(my_text_file)
 
         if opts_overwrite_if_exists and File.exist?(output_file)
             puts "File exists, skipping: #{output_file}"
             next 
         end 
 
-        puts "== INPUT BEGIN: =="
+        #puts "== INPUT BEGIN: =="
         #puts genai_input
-        puts "== INPUT END =="
+        #puts "== INPUT END =="
         puts "== OUTPUT BEGIN: =="
         include LibGenai
-        output = genai_text_predict_curl(genai_input, max_content_size: MaxByteInputSize)
+        output = genai_text_predict_curl(genai_input, max_content_size: MaxByteInputSize, verbose: false)
         File.open(output_file, 'w') do |f|
             f.write output
         end
@@ -94,9 +195,10 @@ end
 
 def main()
     init()
-    #medium_user = ENV.fetch 'MEDIUM_USER_ID', 'iromin' ##'palladiusbonton'
-    #fetch_from_medium(medium_user)
-    call_api_for_all_texts()
+    medium_user = ENV.fetch 'MEDIUM_USER_ID', 'iromin' ##'palladiusbonton'
+    fetch_from_medium(medium_user)
+    #call_api_for_all_texts()
+    call_api_for_single_user(medium_user)
     #puts('Please check your inputs/ directory for information I gave in input to GenAI and outputs/ for the GenAI Text output.')
     #include GcpAuth
     
@@ -106,3 +208,46 @@ def main()
 end
 
 main()
+
+
+
+
+
+
+=begin 
+
+    Sample XML (in case it changes!)
+
+    Every article looks like this: 
+<item>
+<title>
+<![CDATA[ Migrate GCP projects across organizations, the gcloud way ]]>
+</title>
+<link>https://medium.com/google-cloud/how-to-migrate-projects-across-organizations-c7e254ab90af?source=rss-b5293b96912f------2</link>
+<guid isPermaLink="false">https://medium.com/p/c7e254ab90af</guid>
+<category>
+<![CDATA[ gcp-security-operations ]]>
+</category>
+<category>
+<![CDATA[ google-cloud-platform ]]>
+</category>
+<category>
+<![CDATA[ migration ]]>
+</category>
+<dc:creator>
+<![CDATA[ Riccardo Carlesso ]]>
+</dc:creator>
+<pubDate>Tue, 18 Apr 2023 13:16:26 GMT</pubDate>
+<atom:updated>2023-05-12T10:14:07.124Z</atom:updated>
+<content:encoded>
+<![CDATA[ <p><em>Nel mezzo del cammin di nostra vita, <br>mi ritrovai per una selva oscura, 
+   <br>ché la diritta via era smarrita”</em></p><p><em>— </em>Dante Alighieri(*), <a href="https://en.wikipedia.org/wiki/Divine_Comedy">Divine Comedy</a></p><p><em>(*) 
+   the Italian version of Shakespeare, just better</em></p><p>Translated for non-🇮🇹: some day I was encouraged by some external entity to move a lot
+    of projects from 5 of my organizations (<em>source</em>) to another organization (<em>destination</em>).</p><p><strong>TL;DR</strong> If you find 
+    this article too long and you want to jump to the code, click on <a href="https://gist.github.com/palladius/a99993feb7e6d78b7a2abea0a10c3242">this 
+    ....
+    originally published in <a href="https://medium.com/google-cloud">Google Cloud - Community</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p> ]]>
+</content:encoded>
+</item>
+
+=end

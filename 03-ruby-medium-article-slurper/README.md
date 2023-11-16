@@ -13,15 +13,29 @@ The beauty of this example is that you can ask GenAI to also ask other questions
 
 This script is written in Ruby. 
 
-* Install ruby: https://www.ruby-lang.org/en/documentation/installation/ (I suggest using a wrapper like `rbenv` or `rvm` to keep your root environment clean) 
-* `bundle install` to install dependencies
-* Download a Service Account key onto this folder. either name it `secret.json` or set GOOGLE_APPLICATION_CREDENTIALS to proper path.
-* run the script and enjoy:
+## Local install
+
+* 1. Install ruby: https://www.ruby-lang.org/en/documentation/installation/ (I suggest using a wrapper like `rbenv` or `rvm` to keep your root environment clean) 
+* 2. `bundle install` to install dependencies. Then choose one authentication method: 
+* 3. [A option]. Download a Service Account key onto this folder. Either name it `secret.json` or set GOOGLE_APPLICATION_CREDENTIALS to proper path
+* 3. [B option]. Alternatively, you can `gcloud auth application-default login` (web login and store token locally).
+* 3. [C option]. Use Cloud Shell - in this case you don't need to bother.
+* 4. Run the script and enjoy:
 
 ```
-# For instance 
+# For instance:
 MEDIUM_USER_ID=palladiusbonton ruby main.rb
 ```
+
+## Install/Run from Cloud Shell
+
+Cloud Shell comes with ruby already pre-installed (version `2.7.8` at the time of writing) so you can try this script without any effort!
+
+* Open Cloud Shell. Learn more about Cloud Shell here: https://cloud.google.com/shell/docs/using-cloud-shell
+* In the terminal, type: `git clone https://github.com/palladius/genai-googlecloud-scripts.git`
+* Then type: `cd genai-googlecloud-scripts/03-ruby-medium-article-slurper/`
+* `MEDIUM_USER_ID=palladiusbonton ruby main.rb`. 
+* Note you don't need to authenticate as Cloud Shell will ask you to authenticate from web (with a click from your identity): super convenient (and safe)!
 
 # Results
 

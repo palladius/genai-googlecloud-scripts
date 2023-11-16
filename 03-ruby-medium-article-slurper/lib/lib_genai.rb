@@ -13,8 +13,9 @@ module LibGenai
 
     # Returns authenticated response for GenAI text backend
     def genai_text_predict_curl(content, opts={})
-      opts_debug = opts.fetch :debug, true # TODO(ricc): should be false before publication.
+      opts_debug = opts.fetch :debug, false
       opts_max_content_size = opts.fetch :max_content_size, -1
+      opts_verbose = opts.fetch :verbose, false
 
       # Constants and vars
       model_id='text-bison'
@@ -39,8 +40,8 @@ module LibGenai
               { "content": truncated_content },
           ],
           "parameters": {
-              "temperature": 0.2,
-              "maxOutputTokens": 1000,
+              "temperature": 0.1,
+              "maxOutputTokens": 2045, # safe: 1000. Max: 2048
               "topP": 0.9,
               "topK": 40
           }
@@ -60,15 +61,17 @@ module LibGenai
    
       # Check the response and handle the result
       if response.code == '200'
-        puts "200. Response body:"
-        puts response.body
+        puts "🟢 API Response: 200 OK" #  Response body:
+        puts response.body if opts_verbose
   
         json_body = JSON.parse(response.body)
         the_answer = json_body['predictions'][0]['content']
         return the_answer
       else
-        puts "Request failed with code: #{response.code}"
+        puts "🔴 API Request failed: #{response.code}"
         puts "#{response.code} Error message: #{response.message}"
+        #puts response.inspect
+        puts response.body # .error
         return nil
       end
     end
