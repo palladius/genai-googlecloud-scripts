@@ -13,6 +13,8 @@ generate-useful-data: clean-empty-files
 	MEDIUM_USER_ID=PicardParis ruby main.rb
 	MEDIUM_USER_ID=alexismp ruby main.rb
 	MEDIUM_USER_ID=wietsevenema ruby main.rb
+	MEDIUM_USER_ID=mco-blog ruby main.rb
+	
 
 	# Popular people
 	MEDIUM_USER_ID=dhh ruby main.rb
