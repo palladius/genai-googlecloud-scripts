@@ -12,7 +12,7 @@ require_relative 'lib/gcp_auth'
 # Safe value: 16000
 # Ricc got errors with this: 32000
 # With 30k it works, but then the output is VERY small. Better to save some for output as total size is 32k (I believe).
-MaxByteInputSize = 25000 
+MaxByteInputSize = 23000
 
 # Prompt = <<-END_OF_PROMPT
 # Provide a summary for each of the following articles.
@@ -27,12 +27,16 @@ MaxByteInputSize = 25000
 # END_OF_PROMPT
 
 ### PROMPT HISTORY
+Temperature = 0.2
+PromptVersion = '1.7a'
+ArticleMaxSize = 800
+# 1.7 76nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
 # 1.6 16nov23 Removed typos from articles.
 # 1.5 16nov23 Added movie.
 # 1.4 16nov23 M oved from TXT to JSON!
 
 PromptInJson = <<-END_OF_PROMPT
-You are an avid article reader and summarizer. I'm going to provide a list of articles for a single person and ask you to do this:
+You are an avid article reader and summarizer. I'm going to provide a list of articles for a single author and ask you to do this:
 
 1. For each article, I'm going to ask a number of per-article questions
 2. Overall, I'm going to ask questions about the author.
@@ -42,26 +46,27 @@ I'm going to provide a JSON structure for the questions I ask. If you don't know
 1. Per-article:
 
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
-* Please also tell me, for each article, whether it talks about Google Cloud.
+* Tell me, for each article, whether it talks about Google Cloud and/or if it's technical.
 * For each article, capture the original title and please produce a short 300-500-character summary.
-* What existing movie or book would this article remind you the most of? Try a guess, use your fantasy. Please do NOT leave this null! It's just for fun. yet its very important to me
+* What existing song would this article remind you the most of? Try a guess, use your fantasy. Please do NOT leave this null!
 
 2. Overall (author):
 
 * Extract name and surname
-* Can you guess the nationality of the person (or geographic context of the article itself) writing all of these articles?
-* Please describe this author style. Is it professional or more personal? Terse or verbose? ..
+* Guess the nationality of the person.
+* Please describe this author style. Is it professional or more personal? Terse or verbose? And so on.
 * Does this author prefer a certain programming language? In which language are their code snippets (if any)? No frameworks, just languages.
 * If you can find any typos or recurring mistakes in any article, please write them here. Not more than 3, just the most important.
 
 Please provide the output in a `JSON` file as an array of answer per article, like this:
 
 {
-    "prompt_version": "1.6c", // do NOT change this, take verbatim
+    "prompt_version": "#{PromptVersion}", // do NOT change this
+    "llm_temperature": "#{Temperature}",   // do NOT change this
     "author_name": "", // name and surname of the author
     "author_nationality":  "", // nationality here
     "author_style": "",  // overall author style: is it professional or more personal? Terse or verbose? ..
-    "author_favorite_languages": "",  // which plain languages does the author use? Pascal? C++? Python? Java? Use comma-separated for the list.
+    "author_favorite_languages": "blah, blah",  // which plain languages does the author use? Pascal? C++? Python? Java? Separate with commas.
     "typos": [{ // array of mistakes or typos, maximum THREE.
             "current": "xxx", // typo or mistake
             "correct": "yyy" // fixed typo
@@ -73,10 +78,9 @@ Please provide the output in a `JSON` file as an array of answer per article, li
         "title": "",         // This should be the ORIGINAL article title, you should be able to extract it from the TITLE XML part, like "<title><![CDATA[What is toilet papers right side?]]></title>"
         "summary": "...",    // This should be the article summary produced by you.
         "url": "http://....", // Add here the article URL
-        "publication_date": "" // This should be provided to you in input
         "accuracy": XXX,     // Integer 1 to 10
-        "is_gcp":   false,   // boolean, true of false
-        "movie_or_book": ""   // string, a book or film this article content reminds you of.
+        "is_gcp": XXX,   // boolean, true of false
+        "is_technical": XXX,   // boolean, true of false
         ] 
     },
 
@@ -84,7 +88,7 @@ Please provide the output in a `JSON` file as an array of answer per article, li
     ]
 }
 
-Make **ABSOLUTELY SURE** the result is valid JSON or I'll have to drop the result.
+Make **ABSOLUTELY SURE** the result is valid JSON (and NOT markdown) or I'll have to drop the result.
 
 Here are the articles:
 
@@ -99,9 +103,10 @@ end
 
 # Monkey patching File class - I love Ruby!
 class File
-    def writeln(str)
-        write(str+"\n")
-    end
+    def writeln(str); write(str+"\n"); end
+end
+class IO
+    def writeln(str); write(str+"\n"); end
 end
 
 def fetch_from_medium(medium_user, _opts={})
@@ -125,10 +130,18 @@ def fetch_from_medium(medium_user, _opts={})
     #publications = "https://api.medium.com/v1/users/#{medium_user}/publications?format=json"
     docSM = Nokogiri::XML(xml_response)
 
+
+    num_items = docSM.xpath("//item").count
+
+    puts("#Article items: #{num_items}")
     
     # Looks like my articles are under many <content:encoded> tags, so here you go..
     File.open(genai_input_filename, 'w') do |file| # file.write("your text") }
         ## Version 2: Scrape more important metadatsa
+
+        # To change from fkile to stdout, uncomment the following line :)
+        #file = $stdout
+
         docSM.xpath("//item").each_with_index do |node,ix| # Article
             file.writeln "\n====== Article #{ix+1} ====="
             title = node.xpath("title").inner_text
@@ -136,16 +149,18 @@ def fetch_from_medium(medium_user, _opts={})
             url =  node.xpath("link").inner_text
             pubDate =  node.xpath("pubDate").inner_text
             categories =  node.xpath("category").map{|c| c.inner_text}  # there's many, eg:  ["cycling", "google-forms", "data-studio", "pivot", "google-sheets"]
-            article_content = ActionView::Base.full_sanitizer.sanitize(node.inner_text)
+            article_content = ActionView::Base.full_sanitizer.sanitize(node.xpath('content:encoded').inner_text)[0, ArticleMaxSize]
             file.writeln "* Title: '#{title}'"
             file.writeln "* Author: '#{creator}'"
             file.writeln "* URL: '#{url}'"
             file.writeln "* PublicationDate: '#{pubDate}'"
             file.writeln "* Categories: #{categories.join(', ')}"
             file.writeln ""
-            file.writeln node.inner_text
-            #file.writeln article_content
+            #file.writeln(node.to_s) # .inner_text   # LONG version
+            file.writeln article_content    # SANITIZED version
         end
+
+        #exit(42)
 
         ## Version 1: Just output the article body
         # docSM.xpath("//content:encoded").each_with_index do |node,ix| # ArticleBody
@@ -176,7 +191,7 @@ def call_api_for_all_texts(_opts={})
         end
         puts "Working on: #{my_text_file}..."
         output_file = "outputs/" + my_text_file.split('/')[1] + '.json'
-        genai_input = PromptInJson + "\n" + File.read(my_text_file)
+        genai_input = PromptInJson + "\n" + File.read(my_text_file) + "\n\nJSON: "
 
         if opts_overwrite_if_exists and File.exist?(output_file)
             puts "File exists, skipping: #{output_file}"
@@ -188,7 +203,10 @@ def call_api_for_all_texts(_opts={})
         #puts "== INPUT END =="
         puts "== OUTPUT BEGIN: =="
         include LibGenai
-        output = genai_text_predict_curl(genai_input, max_content_size: MaxByteInputSize, verbose: false)
+        output = genai_text_predict_curl(genai_input, 
+            max_content_size: MaxByteInputSize, 
+            verbose: false,
+            temperature: Temperature)
         File.open(output_file, 'w') do |f|
             f.write output
         end
