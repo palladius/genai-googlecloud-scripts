@@ -32,10 +32,10 @@ DENY_LISTED_TITLES = [
 
 ### PROMPT HISTORY
 Temperature = 0.2
-PromptVersion = '1.7b'
+PromptVersion = '1.7c'
 ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :) 
 
-# 1.7 76nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
+# 1.7 17nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
 # 1.6 16nov23 Removed typos from articles.
 # 1.5 16nov23 Added movie.
 # 1.4 16nov23 M oved from TXT to JSON!
@@ -72,9 +72,10 @@ Please provide the output in a `JSON` file as an array of answer per article, li
     "author_nationality":  "", // nationality here
     "author_style": "",  // overall author style: is it professional or more personal? Terse or verbose? ..
     "author_favorite_languages": "blah, blah",  // which plain languages does the author use? Pascal? C++? Python? Java? Separate with commas.
+    "author_favorite_cloud": "",  // which Cloud Provider does this author use, if any?
     "typos": [{ // array of mistakes or typos, maximum THREE.
-            "current": "xxx", // typo or mistake
-            "correct": "yyy" // fixed typo
+            "current": "", // (STRING) typo or mistake
+            "correct": ""  // (STRING) fixed typo
         }],
     "articles_feedback": [
 
@@ -84,6 +85,7 @@ Please provide the output in a `JSON` file as an array of answer per article, li
         "summary": "...",    // This should be the article summary produced by you.
         "url": "http://....", // Add here the article URL
         "accuracy": XXX,     // Integer 1 to 10
+        "year_publication": YYYY, // integer, year in which this article was published.
         "is_gcp": XXX,   // boolean, true of false
         "is_technical": XXX,   // boolean, true of false
         ] 
@@ -157,7 +159,7 @@ def fetch_from_medium(medium_user, _opts={})
 
             #if title.in?(DENY_LISTED_TITLES) 
             if DENY_LISTED_TITLES.include? title
-                puts "* DENYLISTED TITLE, skipping: #{title}"
+                puts "❗ DENYLISTED TITLE, skipping: #{title}"
                 next
             end
             file.writeln "\n== Article #{ix+1}"
@@ -212,7 +214,7 @@ def call_api_for_all_texts(_opts={})
         #puts "== INPUT BEGIN: =="
         #puts genai_input
         #puts "== INPUT END =="
-        puts "== OUTPUT BEGIN: =="
+        #puts "== OUTPUT BEGIN: =="
         include LibGenai
         output = genai_text_predict_curl(genai_input, 
             max_content_size: MaxByteInputSize, 
@@ -221,11 +223,12 @@ def call_api_for_all_texts(_opts={})
         File.open(output_file, 'w') do |f|
             f.write output
         end
-        puts "== OUTPUT END (written on: #{output_file}) =="
+        #puts "== OUTPUT END (written on: #{output_file}) =="
+        puts "💾 File written on: #{output_file}) "
         # https://stackoverflow.com/questions/42385036/validate-json-file-syntax-in-shell-script-without-installing-any-package
         valid_json_script = `cat '#{output_file}' | json_pp`
         ret = $?
-        puts "Valid JSON? => #{ret}"
+        puts "✔️ Valid JSON? => #{ret}"
         
         #exit 42
         # Call API for summarization: https://cloud.google.com/vertex-ai/docs/generative-ai/text/summarization-prompts

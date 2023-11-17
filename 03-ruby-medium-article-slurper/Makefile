@@ -20,7 +20,10 @@ generate-useful-data: clean-empty-files
 	
 	# Popular people
 	MEDIUM_USER_ID=dhh ruby main.rb
-	
+
+regenerate-ricc:
+	rm inputs/medium-latest-articles.palladiusbonton.txt || echo ok if it doesnt exist.
+	MEDIUM_USER_ID=palladiusbonton ruby main.rb
 	
 clean-empty-files:
 	find inputs/ outputs/ -size 0 -print -delete || echo No file found but still ok.

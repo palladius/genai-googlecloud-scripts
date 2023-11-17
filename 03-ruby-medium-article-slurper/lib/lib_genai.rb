@@ -81,10 +81,9 @@ module LibGenai
         #     }
         #   }
         tk_data =  json_body['metadata']['tokenMetadata']
-        puts tk_data
         input_tokens = tk_data['inputTokenCount']['totalTokens'] #  # totalTokens in input
         output_tokens = tk_data['outputTokenCount']['totalTokens'] #  # totalTokens in output
-        puts "TotalTokens: #{input_tokens} IN + #{output_tokens} OUT -> #{input_tokens+output_tokens} TOTAL (API_MAX=8192)"
+        puts "🎟️ TotalTokens: #{input_tokens} IN + #{output_tokens} OUT -> #{input_tokens+output_tokens} TOTAL (API_MAX=8192)"
         return the_answer
       else
         puts "🔴 API Request failed: #{response.code}"

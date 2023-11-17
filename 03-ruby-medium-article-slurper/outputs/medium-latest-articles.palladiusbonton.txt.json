@@ -1,22 +1,23 @@
  {
-    "prompt_version": "1.7a",
+    "prompt_version": "1.7c",
     "llm_temperature": "0.2",
     "author_name": "Riccardo Carlesso",
     "author_nationality": null,
-    "author_style": "Riccardo Carlesso's writing style is professional, informative, and engaging. He often uses humor and personal anecdotes to illustrate his points. His articles are well-researched and provide valuable insights into a variety of topics.",
+    "author_style": "Riccardo Carlesso has a conversational and informal writing style. He often uses humor and personal anecdotes to illustrate his points. He is also a big fan of Google Cloud Platform and often writes about its various services.",
     "author_favorite_languages": "Ruby, Python, Go",
+    "author_favorite_cloud": "Google Cloud Platform",
     "typos": [
         {
-            "current": "cis-centralis /pendens",
-            "correct": "cis-centralis/pendens"
+            "current": "Cis-centralis /pendens",
+            "correct": "Cis-centralis / pendens"
         },
         {
             "current": "trans-centralis/mur\u00e0lis",
-            "correct": "trans-centralis/muralis"
+            "correct": "trans-centralis / muralis"
         },
         {
             "current": "spaghetti Bolognese don\u2019t exist!!1!",
-            "correct": "Spaghetti Bolognese doesn't exist!!1!"
+            "correct": "Spaghetti Bolognese doesn\u2019t exist!!1!"
         }
     ],
     "articles_feedback": [
@@ -25,78 +26,87 @@
             "summary": "The author discusses the different ways to hang toilet paper and provides a detailed explanation of the pros and cons of each method. They also share their own personal preference for hanging toilet paper.",
             "url": "https://medium.com/@palladiusbonton/what-is-toilet-papers-right-side-8da0504d6d0b?source=rss-b5293b96912f------2",
             "accuracy": 8,
+            "year_publication": 2023,
             "is_gcp": false,
             "is_technical": false,
             "song": "Rollin' on the River"
         },
         {
             "title": "Spaghetti Bolognese don\u2019t exist!!1!",
-            "summary": "The author argues that spaghetti Bolognese is not a real Italian dish. They provide several reasons for this, including the fact that the dish is not mentioned in any traditional Italian cookbooks.",
+            "summary": "The author argues that spaghetti Bolognese is not a real dish and provides several reasons to support their claim. They also discuss the history of spaghetti Bolognese and how it became so popular.",
             "url": "https://medium.com/@palladiusbonton/spaghetti-bolognese-dont-exist-1-2088d85909dd?source=rss-b5293b96912f------2",
-            "accuracy": 9,
+            "accuracy": 7,
+            "year_publication": 2023,
             "is_gcp": false,
             "is_technical": false,
             "song": "That's Amore"
         },
         {
             "title": "Migrate GCP projects across organizations, the gcloud way",
-            "summary": "The author provides a detailed guide on how to migrate GCP projects across organizations using the gcloud command-line tool. They also share some tips and tricks to make the process easier.",
+            "summary": "The author provides a detailed guide on how to migrate GCP projects across organizations using the gcloud command-line tool. They also discuss some of the challenges they faced during the migration process and how they overcame them.",
             "url": "https://medium.com/google-cloud/how-to-migrate-projects-across-organizations-c7e254ab90af?source=rss-b5293b96912f------2",
-            "accuracy": 10,
+            "accuracy": 9,
+            "year_publication": 2023,
             "is_gcp": true,
             "is_technical": true,
             "song": "The Road Goes On Forever"
         },
         {
             "title": "My favourite Toolchain",
-            "summary": "The author shares their favorite toolchain for software development. They discuss the pros and cons of different tools and explain why they prefer certain tools over others.",
+            "summary": "The author shares their favorite toolchain for software development. They discuss the pros and cons of each tool and explain why they prefer it over other options.",
             "url": "https://medium.com/@palladiusbonton/my-favourite-toolchain-831b56ba6fc5?source=rss-b5293b96912f------2",
             "accuracy": 8,
+            "year_publication": 2023,
             "is_gcp": false,
             "is_technical": true,
             "song": "I've Got a Tool for That"
         },
         {
             "title": "Ruby on Rails-like ORM and scaffolding in Golang anyone?",
-            "summary": "The author explores the possibility of creating a Ruby on Rails-like ORM and scaffolding in Golang. They discuss the challenges and benefits of using Golang for this purpose.",
+            "summary": "The author explores the possibility of creating a Ruby on Rails-like ORM and scaffolding in Golang. They discuss the challenges they faced and the potential benefits of such a project.",
             "url": "https://medium.com/@palladiusbonton/ruby-on-rails-like-orm-in-golang-anyone-gopher-random-4558047da41?source=rss-b5293b96912f------2",
             "accuracy": 7,
+            "year_publication": 2022,
             "is_gcp": false,
             "is_technical": true,
             "song": "Go, Go, Go"
         },
         {
-            "title": "My Mac\u2019s battery on Google Cloud Monitoring \u2013 with SMS if its low",
-            "summary": "The author shows how to monitor their Mac's battery using Google Cloud Monitoring. They also set up SMS alerts to be notified if the battery gets too low.",
+            "title": "My Mac\u2019s battery on Google Cloud Monitoring \u2014 with SMS if its low",
+            "summary": "The author shows how to inject a generic key/value into Google Cloud Monitoring and set up alerts on it. They use this to monitor their Mac's battery level and receive SMS alerts if the battery is low.",
             "url": "https://medium.com/google-cloud/my-macs-battery-on-google-cloud-monitoring-with-sms-if-its-low-a1ccd70485fe?source=rss-b5293b96912f------2",
-            "accuracy": 9,
+            "accuracy": 8,
+            "year_publication": 2022,
             "is_gcp": true,
             "is_technical": true,
             "song": "Low Battery"
         },
         {
             "title": "Canary Deployment on GCP with Cloud Deploy",
-            "summary": "The author demonstrates how to perform canary deployments on GCP using Cloud Build and Cloud Deploy. They also discuss the benefits of using canary deployments and how to implement them.",
+            "summary": "The author demonstrates how to perform canary deployments on GCP using Cloud Build and Cloud Deploy. They discuss the benefits of canary deployments and how to implement them using Google Cloud's CI/CD tooling.",
             "url": "https://medium.com/google-cloud/draft-canarying-on-gcp-with-cloud-deploy-91b3e4d0ee9a?source=rss-b5293b96912f------2",
             "accuracy": 9,
+            "year_publication": 2022,
             "is_gcp": true,
             "is_technical": true,
             "song": "Canary in a Coal Mine"
         },
         {
-            "title": "Setting a \u25c9 Cloud Build trigger with Pulumi in  Python",
-            "summary": "The author shows how to set up a Cloud Build trigger using Pulumi in Python. They also provide a code example that you can use to set up your own trigger.",
+            "title": "Setting a \u2605 Cloud Build trigger with Pulumi in  Python",
+            "summary": "The author shows how to set up a Cloud Build trigger using Pulumi in Python. They discuss the benefits of using Pulumi and how to integrate it with Cloud Build.",
             "url": "https://medium.com/google-cloud/setting-cloudbuild-with-pulumi-in-python-330e8b54b2cf?source=rss-b5293b96912f------2",
             "accuracy": 8,
+            "year_publication": 2022,
             "is_gcp": true,
             "is_technical": true,
             "song": "Build Me Up Buttercup"
         },
         {
             "title": "Google Forms to Datastudio",
-            "summary": "The author shows how to use Google Forms, Google Spreadsheets, AppsScript, and Datastudio to compare aggregated data into nice graphs.",
+            "summary": "The author shows how to use Google Forms, Google Spreadsheets, AppsScript, and Datastudio to compare aggregated data into nice graphs, massaging data through some \u201cunpivoting\u201d first.",
             "url": "https://medium.com/google-cloud/google-forms-to-datastudio-74bfdb6ddd71?source=rss-b5293b96912f------2",
-            "accuracy": 8,
+            "accuracy": 7,
+            "year_publication": 2020,
             "is_gcp": true,
             "is_technical": true,
             "song": "Data, Data, Data"
