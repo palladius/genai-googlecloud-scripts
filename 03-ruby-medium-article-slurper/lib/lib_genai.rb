@@ -16,6 +16,7 @@ module LibGenai
       opts_debug = opts.fetch :debug, false
       opts_max_content_size = opts.fetch :max_content_size, -1
       opts_verbose = opts.fetch :verbose, false
+      opts_temperature = opts.fetch :temperature, false
 
       # Constants and vars
       model_id='text-bison'
@@ -41,7 +42,7 @@ module LibGenai
           ],
           "parameters": {
               "candidateCount": 1, # TODO(ricc): investigate having more candidates!
-              "temperature": 0.3,
+              "temperature": opts_temperature,
               "maxOutputTokens": 2045, # safe: 1000. Max: 2048
               "topP": 0.9,
               "topK": 40

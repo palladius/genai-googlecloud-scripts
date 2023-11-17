@@ -1,5 +1,7 @@
 # Synopsis
 
+Note: This code is explained in thie Medium article: https://medium.com/@palladiusbonton/parse-medium-articles-with-genai-and-add-some-fun-02fe9d30475a
+
 The idea is to find a **Medium** user (eg, https://medium.com/feed/@palladiusbonton) and see what this person blogs about, and other interesting insights.
 
 The beauty of this example is that you can ask GenAI to also ask other questions. In this case, we are asking the LLM to (see/change code in `main.rb`):
