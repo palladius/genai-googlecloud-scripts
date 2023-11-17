@@ -1,4 +1,5 @@
 secret.json
 lib
 inputs/
-outputs/keep/
+outputs/
+keep/

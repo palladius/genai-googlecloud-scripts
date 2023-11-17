@@ -64,10 +64,27 @@ module LibGenai
       # Check the response and handle the result
       if response.code == '200'
         puts "🟢 API Response: 200 OK" #  Response body:
-        puts response.body # if opts_verbose
+        puts response.body if opts_verbose
   
         json_body = JSON.parse(response.body)
         the_answer = json_body['predictions'][0]['content']
+        #puts clever_metadata_tokens()
+        # "metadata": {
+        #   "tokenMetadata": {
+        #     "outputTokenCount": {
+        #       "totalTokens": 1973,
+        #       "totalBillableCharacters": 5168
+        #     },
+        #     "inputTokenCount": {
+        #       "totalBillableCharacters": 16200,
+        #       "totalTokens": 5082
+        #     }
+        #   }
+        tk_data =  json_body['metadata']['tokenMetadata']
+        puts tk_data
+        input_tokens = tk_data['inputTokenCount']['totalTokens'] #  # totalTokens in input
+        output_tokens = tk_data['outputTokenCount']['totalTokens'] #  # totalTokens in output
+        puts "TotalTokens: #{input_tokens} IN + #{output_tokens} OUT -> #{input_tokens+output_tokens} TOTAL (API_MAX=8192)"
         return the_answer
       else
         puts "🔴 API Request failed: #{response.code}"
