@@ -12,7 +12,11 @@ require_relative 'lib/gcp_auth'
 # Safe value: 16000
 # Ricc got errors with this: 32000
 # With 30k it works, but then the output is VERY small. Better to save some for output as total size is 32k (I believe).
-MaxByteInputSize = 23000
+MaxByteInputSize = 25000
+
+DENY_LISTED_TITLES = [
+    "Insights on Medium articles with GenAI and Ruby!",
+]
 
 # Prompt = <<-END_OF_PROMPT
 # Provide a summary for each of the following articles.
@@ -28,8 +32,9 @@ MaxByteInputSize = 23000
 
 ### PROMPT HISTORY
 Temperature = 0.2
-PromptVersion = '1.7a'
-ArticleMaxSize = 800
+PromptVersion = '1.7b'
+ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :) 
+
 # 1.7 76nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
 # 1.6 16nov23 Removed typos from articles.
 # 1.5 16nov23 Added movie.
@@ -143,13 +148,19 @@ def fetch_from_medium(medium_user, _opts={})
         #file = $stdout
 
         docSM.xpath("//item").each_with_index do |node,ix| # Article
-            file.writeln "\n====== Article #{ix+1} ====="
             title = node.xpath("title").inner_text
             creator = node.xpath("dc:creator").inner_text
             url =  node.xpath("link").inner_text
             pubDate =  node.xpath("pubDate").inner_text
             categories =  node.xpath("category").map{|c| c.inner_text}  # there's many, eg:  ["cycling", "google-forms", "data-studio", "pivot", "google-sheets"]
-            article_content = ActionView::Base.full_sanitizer.sanitize(node.xpath('content:encoded').inner_text)[0, ArticleMaxSize]
+            article_content = ActionView::Base.full_sanitizer.sanitize(node.xpath('content:encoded').inner_text)[0, ArticleMaxBytes]
+
+            #if title.in?(DENY_LISTED_TITLES) 
+            if DENY_LISTED_TITLES.include? title
+                puts "* DENYLISTED TITLE, skipping: #{title}"
+                next
+            end
+            file.writeln "\n== Article #{ix+1}"
             file.writeln "* Title: '#{title}'"
             file.writeln "* Author: '#{creator}'"
             file.writeln "* URL: '#{url}'"
