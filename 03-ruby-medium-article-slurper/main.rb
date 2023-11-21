@@ -32,9 +32,10 @@ DENY_LISTED_TITLES = [
 
 ### PROMPT HISTORY
 Temperature = 0.2
-PromptVersion = '1.7c'
+PromptVersion = '1.8'
 ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :) 
 
+# 1.8 21nov23 Dropped style examples ( Is it professional or more personal? Terse or verbose? And so on) as it was always going to say prof/nonprof terse/nonterse
 # 1.7 17nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
 # 1.6 16nov23 Removed typos from articles.
 # 1.5 16nov23 Added movie.
@@ -59,7 +60,7 @@ I'm going to provide a JSON structure for the questions I ask. If you don't know
 
 * Extract name and surname
 * Guess the nationality of the person.
-* Please describe this author style. Is it professional or more personal? Terse or verbose? And so on.
+* Please describe this author style in 20 words or less.
 * Does this author prefer a certain programming language? In which language are their code snippets (if any)? No frameworks, just languages.
 * If you can find any typos or recurring mistakes in any article, please write them here. Not more than 3, just the most important.
 
