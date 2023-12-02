@@ -1,3 +1,6 @@
 source "https://rubygems.org"
 
 gem 'google-apis-aiplatform_v1'
+#gem 'google-apis-aiplatform_v1beta1'
+
+gem 'colorize'
