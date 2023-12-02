@@ -10,7 +10,6 @@ def cleanup_sentence_before_api_call(s)
     s.gsub('"','').gsub("'",'')
 end
 
-
 def compute_embedding_bash(sentences, opts={})
     sent_0 = sentences[0].gsub('"','')
     sent_1 = sentences[1].gsub('"','')
@@ -38,7 +37,7 @@ def compute_embedding_bash(sentences, opts={})
     ret = `#{curl_command}` # exit 42
     File.open(FILENAME, 'w') { |file| file.write(ret) }
     puts("File written: #{FILENAME}")
-    ret 
+    ret
 end
 
 def compute_embeddings(sentences, opts={})
@@ -49,6 +48,6 @@ def compute_embeddings(sentences, opts={})
         puts 'File exists already!'
         File.read(FILENAME)
     else
-        compute_embedding_bash(sentences, opts)     
+        compute_embedding_bash(sentences, opts)
     end
 end

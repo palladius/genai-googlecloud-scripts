@@ -33,7 +33,7 @@ DENY_LISTED_TITLES = [
 ### PROMPT HISTORY
 Temperature = 0.2
 PromptVersion = '1.8'
-ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :) 
+ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :)
 
 # 1.8 21nov23 Dropped style examples ( Is it professional or more personal? Terse or verbose? And so on) as it was always going to say prof/nonprof terse/nonterse
 # 1.7 17nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
@@ -89,7 +89,7 @@ Please provide the output in a `JSON` file as an array of answer per article, li
         "year_publication": YYYY, // integer, year in which this article was published.
         "is_gcp": XXX,   // boolean, true of false
         "is_technical": XXX,   // boolean, true of false
-        ] 
+        ]
     },
 
         // Article 2, and so on..
@@ -126,7 +126,7 @@ def fetch_from_medium(medium_user, _opts={})
     if File.exist?(genai_input_filename) and (not opts_refetch_if_exists )
         puts "File '#{genai_input_filename}' already exists.. wont reparse"
         return nil
-    end 
+    end
 
     # Downloading the file and iterating through article parts.
     medium_url = "https://medium.com/feed/@#{medium_user}"
@@ -134,15 +134,14 @@ def fetch_from_medium(medium_user, _opts={})
     File.open(xml_filename, 'w') do |f|
         f.write xml_response
     end
-    # deprecated 
+    # deprecated
     #publications = "https://api.medium.com/v1/users/#{medium_user}/publications?format=json"
     docSM = Nokogiri::XML(xml_response)
-
 
     num_items = docSM.xpath("//item").count
 
     puts("#Article items: #{num_items}")
-    
+
     # Looks like my articles are under many <content:encoded> tags, so here you go..
     File.open(genai_input_filename, 'w') do |file| # file.write("your text") }
         ## Version 2: Scrape more important metadatsa
@@ -158,7 +157,7 @@ def fetch_from_medium(medium_user, _opts={})
             categories =  node.xpath("category").map{|c| c.inner_text}  # there's many, eg:  ["cycling", "google-forms", "data-studio", "pivot", "google-sheets"]
             article_content = ActionView::Base.full_sanitizer.sanitize(node.xpath('content:encoded').inner_text)[0, ArticleMaxBytes]
 
-            #if title.in?(DENY_LISTED_TITLES) 
+            #if title.in?(DENY_LISTED_TITLES)
             if DENY_LISTED_TITLES.include? title
                 puts "❗ DENYLISTED TITLE, skipping: #{title}"
                 next
@@ -209,16 +208,16 @@ def call_api_for_all_texts(_opts={})
 
         if opts_overwrite_if_exists and File.exist?(output_file)
             puts "File exists, skipping: #{output_file}"
-            next 
-        end 
+            next
+        end
 
         #puts "== INPUT BEGIN: =="
         #puts genai_input
         #puts "== INPUT END =="
         #puts "== OUTPUT BEGIN: =="
         include LibGenai
-        output = genai_text_predict_curl(genai_input, 
-            max_content_size: MaxByteInputSize, 
+        output = genai_text_predict_curl(genai_input,
+            max_content_size: MaxByteInputSize,
             verbose: false,
             temperature: Temperature)
         File.open(output_file, 'w') do |f|
@@ -230,7 +229,7 @@ def call_api_for_all_texts(_opts={})
         valid_json_script = `cat '#{output_file}' | json_pp`
         ret = $?
         puts "✔️ Valid JSON? => #{ret}"
-        
+
         #exit 42
         # Call API for summarization: https://cloud.google.com/vertex-ai/docs/generative-ai/text/summarization-prompts
     end
@@ -239,13 +238,14 @@ end
 
 def main()
     init()
-    medium_user = ENV.fetch 'MEDIUM_USER_ID', 'iromin' ##'palladiusbonton'
+    medium_user = ENV.fetch 'MEDIUM_USER_ID', 'palladiusbonton'
+    puts "Fetching from the internet Medium User: '#{medium_user}'"
     fetch_from_medium(medium_user)
     #call_api_for_all_texts()
     call_api_for_single_user(medium_user)
     #puts('Please check your inputs/ directory for information I gave in input to GenAI and outputs/ for the GenAI Text output.')
     #include GcpAuth
-    
+
     #x = gcp_project_id_and_access_token() # .join(' , ')
     #pr,at = x[0], x[1]
     #puts "x.class='#{x.class}' pr='#{pr}' at='#{at}'"
@@ -258,11 +258,11 @@ main()
 
 
 
-=begin 
+=begin
 
     Sample XML (in case it changes!)
 
-    Every article looks like this: 
+    Every article looks like this:
 <item>
 <title>
 <![CDATA[ Migrate GCP projects across organizations, the gcloud way ]]>
@@ -284,11 +284,11 @@ main()
 <pubDate>Tue, 18 Apr 2023 13:16:26 GMT</pubDate>
 <atom:updated>2023-05-12T10:14:07.124Z</atom:updated>
 <content:encoded>
-<![CDATA[ <p><em>Nel mezzo del cammin di nostra vita, <br>mi ritrovai per una selva oscura, 
-   <br>ché la diritta via era smarrita”</em></p><p><em>— </em>Dante Alighieri(*), <a href="https://en.wikipedia.org/wiki/Divine_Comedy">Divine Comedy</a></p><p><em>(*) 
+<![CDATA[ <p><em>Nel mezzo del cammin di nostra vita, <br>mi ritrovai per una selva oscura,
+   <br>ché la diritta via era smarrita”</em></p><p><em>— </em>Dante Alighieri(*), <a href="https://en.wikipedia.org/wiki/Divine_Comedy">Divine Comedy</a></p><p><em>(*)
    the Italian version of Shakespeare, just better</em></p><p>Translated for non-🇮🇹: some day I was encouraged by some external entity to move a lot
-    of projects from 5 of my organizations (<em>source</em>) to another organization (<em>destination</em>).</p><p><strong>TL;DR</strong> If you find 
-    this article too long and you want to jump to the code, click on <a href="https://gist.github.com/palladius/a99993feb7e6d78b7a2abea0a10c3242">this 
+    of projects from 5 of my organizations (<em>source</em>) to another organization (<em>destination</em>).</p><p><strong>TL;DR</strong> If you find
+    this article too long and you want to jump to the code, click on <a href="https://gist.github.com/palladius/a99993feb7e6d78b7a2abea0a10c3242">this
     ....
     originally published in <a href="https://medium.com/google-cloud">Google Cloud - Community</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p> ]]>
 </content:encoded>
