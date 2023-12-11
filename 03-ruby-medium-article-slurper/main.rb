@@ -31,10 +31,11 @@ DENY_LISTED_TITLES = [
 # END_OF_PROMPT
 
 ### PROMPT HISTORY
-Temperature = 0.2
-PromptVersion = '1.8'
+Temperature = 0.9
+PromptVersion = '1.9'
 ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :)
 
+# 1.9 4dec23  Added publication_date to articles. Incresased temperature to 0.9 (!!) since this is needed for the system to guess nationality and other fun stuff.
 # 1.8 21nov23 Dropped style examples ( Is it professional or more personal? Terse or verbose? And so on) as it was always going to say prof/nonprof terse/nonterse
 # 1.7 17nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
 # 1.6 16nov23 Removed typos from articles.
@@ -89,6 +90,7 @@ Please provide the output in a `JSON` file as an array of answer per article, li
         "year_publication": YYYY, // integer, year in which this article was published.
         "is_gcp": XXX,   // boolean, true of false
         "is_technical": XXX,   // boolean, true of false
+        "song": "song name", // (STRING) name of the song
         ]
     },
 
