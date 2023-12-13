@@ -29,6 +29,9 @@ generate-useful-data: clean-empty-files
 	# Popular people
 	MEDIUM_USER_ID=dhh ruby main.rb
 
+	# Google friends - GDEs/ICs
+	MEDIUM_USER_ID=gianni.forlastro ruby main.rb
+
 regenerate-ricc:
 	rm inputs/medium-latest-articles.palladiusbonton.txt || echo ok if it doesnt exist.
 	MEDIUM_USER_ID=palladiusbonton ruby main.rb
