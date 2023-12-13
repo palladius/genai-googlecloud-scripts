@@ -32,9 +32,10 @@ DENY_LISTED_TITLES = [
 
 ### PROMPT HISTORY
 Temperature = 0.9
-PromptVersion = '1.9'
+PromptVersion = '1.10'
 ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :)
 
+# 1.10 13dec23 Removed song. totally useless and repetitive :)
 # 1.9 4dec23  Added publication_date to articles. Incresased temperature to 0.9 (!!) since this is needed for the system to guess nationality and other fun stuff.
 # 1.8 21nov23 Dropped style examples ( Is it professional or more personal? Terse or verbose? And so on) as it was always going to say prof/nonprof terse/nonterse
 # 1.7 17nov23 Small nits, like parametrizing a few things. Removed movie, tried with book, removed it. Removed publication_date to make it shorter
@@ -55,7 +56,6 @@ I'm going to provide a JSON structure for the questions I ask. If you don't know
 * Please write about the topics, the style, and rate the article from 1 to 10 in terms of accuracy or professionalism.
 * Tell me, for each article, whether it talks about Google Cloud and/or if it's technical.
 * For each article, capture the original title and please produce a short 300-500-character summary.
-* What existing song would this article remind you the most of? Try a guess, use your fantasy. Please do NOT leave this null!
 
 2. Overall (author):
 
@@ -90,7 +90,6 @@ Please provide the output in a `JSON` file as an array of answer per article, li
         "year_publication": YYYY, // integer, year in which this article was published.
         "is_gcp": XXX,   // boolean, true of false
         "is_technical": XXX,   // boolean, true of false
-        "song": "song name", // (STRING) name of the song
         ]
     },
 
@@ -206,7 +205,7 @@ def call_api_for_all_texts(_opts={})
         end
         puts "Working on: #{my_text_file}..."
         output_file = "outputs/" + my_text_file.split('/')[1] + '.json'
-        genai_input = PromptInJson + "\n" + File.read(my_text_file) + "\n\nJSON: "
+        genai_input = PromptInJson + "\n" + File.read(my_text_file) + "\n\nJSON:\n"
 
         if opts_overwrite_if_exists and File.exist?(output_file)
             puts "File exists, skipping: #{output_file}"
