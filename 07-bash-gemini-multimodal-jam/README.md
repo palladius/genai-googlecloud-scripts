@@ -181,12 +181,12 @@ $ GENERATE_MP3=true ./gemini-generic.sh images/ricc-logo.png Do you recognize th
  "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.
 ```
 
-* Response: “ "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.”
-* MP3: <a href='images/ricc-logo.png.mp3' >images/ricc-logo.png.mp3</a>
-
-<audio controls="controls">
+* MP3: <a href='images/ricc-logo.png.mp3' >images/ricc-logo.png.mp3</a> (I don't think GitHub supports playing this audio - but you can download it and hear it).
+* <audio controls="controls">
   <source type="audio/mp3" src="images/ricc-logo.png.mp3"></source>
-  <p>Your browser does not support the audio element.</p>
+  <p>🔇 Sorry, Your browser or GitHub markdown does not support the audio element.</p>
 </audio>
+
+* Response: “ "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.”
 
 *Chapeau*, Gemini!
