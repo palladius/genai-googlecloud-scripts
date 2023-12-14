@@ -74,7 +74,37 @@ TODO
 
 ## Let's compare TWO images!
 
+Since we're celebrating Gemini launch and I'm a huge fan of the Saint Seiya manga/anime, I've asked Gemini to compare
+two things close to him:
 
+| Italic             |  Block letters |
+:-------------------------:|:-------------------------:
+![](images/gemini-constellation.png)  |  ![](images/saga-blue-hair.jpg)
+
+
+<table>
+  <tr>
+    <td>
+        <img src="images/gemini-constellation.png"  alt="1" width = 360px height = 640px >
+    </td>
+    <td>
+        <img src="images/saga-blue-hair.jpg" alt="2" width = 360px height = 640px>
+    </td>
+   </tr>
+</table>
+
+```
+make compare-two-geminis
+./gemini-generic-two-pics.sh  images/gemini-constellation.png   images/saga-blue-hair.jpg
+♊️ Question: Can you highlight similarity and differences between the two? Also, do you recognize the same person in both of them?
+ 👀 Examining image1 images/gemini-constellation.png: images/gemini-constellation.png: PNG image data, 1675 x 1302, 8-bit/color RGBA, non-interlaced.
+ 👀 Examining image2 images/saga-blue-hair.jpg: images/saga-blue-hair.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 193x261, components 3.
+♊️ Describing attached image:
+ The two images are of the constellation Gemini and the anime character Gemini Saga. The constellation is said to represent the twins Castor and Pollux, while the character Gemini Saga is a Gemini Saint in the anime series Saint Seiya. Both images depict two figures that are connected to each other. The constellation is made up of stars, while the character is a human.
+```
+
+Well done Gemini! *Know thyself*, Socrates would say.
+Note that the images are a PNG and a JPG - nothing can stop Gemini from comparing them!
 
 ## Introducing Audio!
 
