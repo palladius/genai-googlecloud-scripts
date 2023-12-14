@@ -77,23 +77,20 @@ TODO
 Since we're celebrating Gemini launch and I'm a huge fan of the Saint Seiya manga/anime, I've asked Gemini to compare
 two things close to him:
 
-| Picture 1          |  Picture 2 |
-:-------------------------:|:-------------------------:
-![](images/Gemini-constellation.png?raw=true)  |  ![](images/saga-blue-hair.jpg?raw=true)
-
 
 <table align=center >
-  <tr>
-    <td>
-        <img src="images/Gemini-constellation.png?raw=true"  alt="1" width = 360px height = 640px >
+  <tr  valign=top >
+    <td valign=top >
+        Gemini constellation
     </td>
-    <td>
-        <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width = 360px height = 640px>
+    <td  valign=top>
+        Gemini Saint (Saga) from Saint Seiya
     </td>
-    <td>
+  <tr  valign=top >
+    <td valign=top >
         <img src="images/Gemini-constellation.png?raw=true"  alt="1" width=360px >
     </td>
-    <td>
+    <td  valign=top>
         <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width=360px >
     </td>
    </tr>
