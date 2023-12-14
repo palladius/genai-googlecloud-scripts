@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# This script allows you to authenticate BOTH through ADC and with normal gcloud login.
+# These script require you to use both ADC (for text2speech) and gcloud login (for Gemini).
+# If you find how to do with a single login, please write me or file a PR!
+# This script also supports Service Account key. Just create a SA, give it the right powers,
+# and then download the key. finally rename the key to "private/PROJECT_ID.json" to match
+# the STD_SA_LOCATION var in this script.
+
 set -euo pipefail
 
 export CONFIG_NAME=${GCLOUD_CONFIG_NAME:-gemini-tests}

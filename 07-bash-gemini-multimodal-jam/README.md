@@ -7,7 +7,8 @@
 `gcloud auth login`
 
 
-If you have trouble with loggin in, you can use the following command to set the project_id:
+If you have trouble with loggin in, you can use the following command to set the project_id (it also
+supports local keys, check the docs on top of the file):
 
 ```
 $ cp .envrc.dist .envrc
