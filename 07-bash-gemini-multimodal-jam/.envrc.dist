@@ -1,0 +1,4 @@
+
+# Set up your project id here.
+export PROJECT_ID=your-project-id
+export GCLOUD_CONFIG_NAME=my-gemini-tests
