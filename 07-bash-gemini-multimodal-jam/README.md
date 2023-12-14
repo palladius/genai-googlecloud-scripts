@@ -156,3 +156,31 @@ Now, to create the Italian MP3, I had to hardcode the type of audio I wanted int
 This is the only added value to the `./gemini-explain-image-italian.sh` script so you should be able
 to adapt seamlessly to your favorite language. TextToSpeech API supports nearly 200 of them!
 
+The MP3 result is conveniently copied under `images/italian-town.jpg.mp3`.
+
+## An unexpected Games of Thrones plot twist
+
+This is the avatar I use in Google. I randomly asked this:
+
+![Alt text](images/ricc-logo.png?raw=true "Riccardo logo - taken in the Amsterdam office")
+
+
+```
+$ ./gemini-explain-image.sh images/ricc-logo.png
+[..]
+This is a photo of a man standing behind a Google Cloud Platform cutout. The man is smiling and wearing a shirt that says, “That’s what I do, I drink and I know things.” The background is a brick wall with blue and white accents.
+```
+
+And I thought! Of course, this is my favourite Games of Thrones tshirt.
+
+Let’s ask Gemini:
+
+```
+$ ./gemini-generic.sh images/ricc-logo.png Do you recognize the quote in this person tshirt
+[..]
+ "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.
+```
+
+“ "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.”
+
+*Chapeau*, Gemini!

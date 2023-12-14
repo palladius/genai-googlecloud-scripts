@@ -5,15 +5,15 @@
         "role": "model",
         "parts": [
           {
-            "text": " La foto mostra una loggia con delle colonne in pietra che incorniciano la vista di una città. La città è circondata da montagne e si possono vedere i tetti delle case e le torri delle chiese. Il cielo è azzurro e ci sono delle nuvole bianche."
+            "text": " The quote on the T-shirt is from Tyrion Lannister, a character in the TV series Game of Thrones. The quote is \"That's what I do. I drink and I know things.\""
           }
         ]
       }
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 266,
-    "candidatesTokenCount": 57,
-    "totalTokenCount": 323
+    "promptTokenCount": 267,
+    "candidatesTokenCount": 42,
+    "totalTokenCount": 309
   }
 }
