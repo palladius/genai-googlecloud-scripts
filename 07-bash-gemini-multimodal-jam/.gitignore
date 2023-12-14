@@ -3,3 +3,6 @@ private/
 t.*
 .tmp*
 index.html
+.tmp.lastrequest-generic.json
+.tmp.lastresponse-generic.json
+.tmp.lastsaga3

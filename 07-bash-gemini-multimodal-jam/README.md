@@ -1,5 +1,9 @@
 # Testing Gemini from Bash
 
+Note: I wrote an article on Medium which is very similar to this README :)
+
+Link: https://medium.com/@palladiusbonton/hey-gemini-explain-me-these-pictures-in-bash-06c03d0d0512
+
 # A simple test
 
 1. First check authentication. Make sure you login with gcloud (or whatever login you want to do) and set up the project_id correctly.
@@ -113,7 +117,7 @@ Note that the images are a PNG and a JPG - nothing can stop Gemini from comparin
 
 Why don't we throw some audio in the mix?
 
-My ``./tts.sh` creates an MP3 out of an english (or Italian!) text given in ARGV. Convenient uh?
+My `./tts.sh` creates an MP3 out of an english (or Italian!) text given in ARGV. Convenient uh?
 
 ```
 $ make age-test
@@ -186,7 +190,7 @@ All good. MP3 created: 't.La foto mostra una loggia con delle colonne in pie.mp3
 ```
 
 As you see, italian is more verbose and it knows more about Trento, but it's not aware of the Buonconsiglio Palace.
-Interesting! I presume the Italian model has less trsaining material to leaern from than the English one. Makes sense.
+Interesting! I presume the Italian model has less training material to learn from than the English one. Makes sense.
 
 Btw, I highly recommend Trento, I was cycling around there: great views and great wines!
 
