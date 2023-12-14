@@ -5,15 +5,15 @@
         "role": "model",
         "parts": [
           {
-            "text": " The cover of the album \"Selling England by the Pound\" by the band Genesis. The cover depicts a man sleeping on a park bench with a fox curled up on his lap. The man is wearing a suit and tie, and the fox is wearing a scarf. The background is a yellow-tinted park with people walking around."
+            "text": " 1. 30-35\n2. 2-3\n3. 40-45\n4. 2-3\n5. 60-65"
           }
         ]
       }
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 262,
-    "candidatesTokenCount": 67,
-    "totalTokenCount": 329
+    "promptTokenCount": 275,
+    "candidatesTokenCount": 41,
+    "totalTokenCount": 316
   }
 }
