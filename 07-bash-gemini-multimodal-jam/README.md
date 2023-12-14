@@ -79,16 +79,16 @@ two things close to him:
 
 | Italic             |  Block letters |
 :-------------------------:|:-------------------------:
-![](images/gemini-constellation.png)  |  ![](images/saga-blue-hair.jpg)
+![](images/gemini-constellation.png?raw=true)  |  ![](images/saga-blue-hair.jpg?raw=true)
 
 
 <table>
   <tr>
     <td>
-        <img src="images/gemini-constellation.png"  alt="1" width = 360px height = 640px >
+        <img src="images/gemini-constellation.png?raw=true"  alt="1" width = 360px height = 640px >
     </td>
     <td>
-        <img src="images/saga-blue-hair.jpg" alt="2" width = 360px height = 640px>
+        <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width = 360px height = 640px>
     </td>
    </tr>
 </table>
