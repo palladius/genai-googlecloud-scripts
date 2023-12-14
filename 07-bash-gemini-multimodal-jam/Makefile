@@ -16,19 +16,13 @@ annotate:
 	./annotate-all.sh
 
 this-works:
-	echo "this works"
-	./gemini-explain-image.sh images/image.jpg
-
-
-this-doesnt-work-yet:
-	echo "this doesn't work yet"
-	./gemini-explain-image-request-su-file.sh  riccardo\ jogging\ by\ lake.jpeg
+	./gemini-explain-image.sh images/cat.jpg
 
 compare-two-ricc-pics:
-	./gemini-generic-two-pics.sh riccardo\ jogging\ by\ lake.jpeg ricc-presenting-slides_MW_9468_FullRes.jpg
+	./gemini-generic-two-pics.sh images/riccardo-jogging-by-lake-ugly.jpg images/ricc-presenting-slides-vienna.jpg
 
 compare-two-geminis:
-	./gemini-generic-two-pics.sh images/costellazione\ di\ Gemini.png images/Saga-di-Gemini-Armatura-di-Gemini.jpg
+	./gemini-generic-two-pics.sh  images/gemini-constellation.png   images/saga-blue-hair.jpg
 
 compare-ale-seby:
 	./gemini-generic-two-pics.sh images/ale*.jpg
