@@ -24,6 +24,12 @@ compare-two-ricc-pics:
 compare-two-geminis:
 	./gemini-generic-two-pics.sh  images/gemini-constellation.png   images/saga-blue-hair.jpg
 
+read-instruction-manual-for-me:
+#	echo 1. Explaining what this is:#
+#	./gemini-explain-image.sh images/instruction-manuals/Acrux-User-Manual-4700503.png 
+	echo '1. Asking a useful custom question: '
+	./gemini-generic.sh images/instruction-manuals/Acrux-User-Manual-4700503.png '1. How do i TURN it on? 2. Where is the power button located? 3. Is this the one called ANC?'
+
 compare-ale-seby:
 	./gemini-generic-two-pics.sh images/ale*.jpg
 clean:

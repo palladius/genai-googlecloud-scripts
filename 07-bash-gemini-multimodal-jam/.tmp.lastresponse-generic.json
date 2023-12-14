@@ -5,15 +5,15 @@
         "role": "model",
         "parts": [
           {
-            "text": " The quote on the T-shirt is from Tyrion Lannister, a character in the TV series Game of Thrones. The quote is \"That's what I do. I drink and I know things.\""
+            "text": " 1. Long press the power button for 2 seconds.\n2. The power button is located on the right earcup.\n3. Yes, this is the one called ANC."
           }
         ]
       }
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 267,
-    "candidatesTokenCount": 42,
-    "totalTokenCount": 309
+    "promptTokenCount": 287,
+    "candidatesTokenCount": 39,
+    "totalTokenCount": 326
   }
 }
