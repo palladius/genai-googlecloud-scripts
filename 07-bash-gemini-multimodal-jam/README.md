@@ -88,7 +88,7 @@ two things close to him:
     </td>
   <tr  valign=top >
     <td valign=top >
-        <img src="images/Gemini-constellation.png?raw=true"  alt="1" width=360px >
+        <img src="images/gemini-constellation.png?raw=true"  alt="1" width=360px >
     </td>
     <td  valign=top>
         <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width=360px >
