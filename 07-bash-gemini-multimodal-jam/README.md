@@ -95,10 +95,12 @@ $ GENERATE_MP3=true ./gemini-generic.sh images/ricc-family-with-santa.jpg Tell m
 4. 2-3
 5. 60-65
 [..]
-All good. MP3 created: 't.1. 30-35 2. 2-3 3. 40-45 4. 2-3 5. 60-65.mp3'
+All good. MP3 created [..]
 ```
 
-Now, interestingly it also creates an MP3 of the answer. Not super interesting with all thes enumbers, but might be nice to see it for longer verbose answers. You can hear it under `output/` folder. ("output/t.1. 30-35 2. 2-3 3. 40-45 4. 2-3 5. 60-65.mp3") [output/t.1. 30-35 2. 2-3 3. 40-45 4. 2-3 5. 60-65.mp3](output/t.1. 30-35 2. 2-3 3. 40-45 4. 2-3 5. 60-65.mp3).
+Now, interestingly it also creates an MP3 of the answer. Not super interesting with all thes enumbers, but might be
+nice to see it for longer verbose answers. You can hear it under `output/` folder.
+(<a href="images/ricc-family-with-santa.jpg.mp3" >images/ricc-family-with-santa.jpg.mp3</a>).
 
 ### Troubleshooting
 
@@ -125,7 +127,7 @@ How about we do the same, but spice it up a bit with italian text and sound?
 ./gemini-explain-image.sh images/italian-town.jpg
 # 🤌  QUESTION: Describe what you see
 # 🌡️  TEMPERATURE: 0.2
-# 👀 Examining image images/italian-town.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=1, software=Google], baseline, precision 8, 926x1230, components 3.
+# 👀 Examining image: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=1, software=Google], baseline, precision 8, 926x1230, components 3.
 # ♊ Gemini no Saga answer for you:
  This is a view of the city of Trento, Italy from the Buonconsiglio Castle.
 ```
@@ -138,7 +140,9 @@ $ GENERATE_MP3=true ./gemini-explain-image-italian.sh images/italian-town.jpg
 # 🌡️  TEMPERATURE: 0.2
 # 👀 Examining image images/italian-town.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=1, software=Google], baseline, precision 8, 926x1230, components 3.
 # ♊ Gemini no Saga answer for you:
- La foto mostra una loggia con delle colonne in pietra che incorniciano la vista di una città. La città è circondata da montagne e si possono vedere i tetti delle case e le torri delle chiese. Il cielo è azzurro e ci sono delle nuvole bianche.
+ La foto mostra una loggia con delle colonne in pietra che incorniciano la vista di una città.
+ La città è circondata da montagne e si possono vedere i tetti delle case e le torri delle chiese.
+ Il cielo è azzurro e ci sono delle nuvole bianche.
 # TTS_LANG: it-IT
 Written .tmp.tts-output.json. curl_ret=0
 t.audio.encoded: ASCII text, with very long lines (65536), with no line terminators
@@ -168,7 +172,10 @@ This is the avatar I use in Google. I randomly asked this:
 ```
 $ ./gemini-explain-image.sh images/ricc-logo.png
 [..]
-This is a photo of a man standing behind a Google Cloud Platform cutout. The man is smiling and wearing a shirt that says, “That’s what I do, I drink and I know things.” The background is a brick wall with blue and white accents.
+This is a photo of a man standing behind a Google Cloud Platform cutout.
+The man is smiling and wearing a shirt that says, “That’s what I do,
+I drink and I know things.” The background is a brick wall with blue
+and white accents.
 ```
 
 And I thought! Of course, this is my favourite Games of Thrones tshirt.
@@ -178,7 +185,8 @@ Let’s ask Gemini:
 ```
 $ GENERATE_MP3=true ./gemini-generic.sh images/ricc-logo.png Do you recognize the quote in this person tshirt
 [..]
- "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones, said by the character Tyrion Lannister.
+ "That's what I do, I drink and I know things" is a quote from the TV show Game of Thrones,
+ said by the character Tyrion Lannister.
 ```
 
 * MP3: <a href='images/ricc-logo.png.mp3' >images/ricc-logo.png.mp3</a> (I don't think GitHub supports playing this audio - but you can download it and hear it).

@@ -1,2 +1,4 @@
 .envrc
 private/
+t.*
+.tmp*
