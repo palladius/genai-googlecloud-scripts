@@ -82,13 +82,19 @@ two things close to him:
 ![](images/Gemini-constellation.png?raw=true)  |  ![](images/saga-blue-hair.jpg?raw=true)
 
 
-<table>
+<table align=center >
   <tr>
     <td>
         <img src="images/Gemini-constellation.png?raw=true"  alt="1" width = 360px height = 640px >
     </td>
     <td>
         <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width = 360px height = 640px>
+    </td>
+    <td>
+        <img src="images/Gemini-constellation.png?raw=true"  alt="1" width=360px >
+    </td>
+    <td>
+        <img src="images/saga-blue-hair.jpg?raw=true" alt="2" width=360px >
     </td>
    </tr>
 </table>
