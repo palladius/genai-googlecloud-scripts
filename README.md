@@ -1,4 +1,6 @@
-# genai-googlecloud-scripts
+# Ricc's `genai-googlecloud-scripts`
+
+Self: https://github.com/palladius/genai-googlecloud-scripts/
 
 This repo contains my GenAI scripts and templates, to be then merged into the proper Google GenAI repo upon proper inspection :)
 
