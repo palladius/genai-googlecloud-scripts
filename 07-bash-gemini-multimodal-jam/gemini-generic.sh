@@ -39,7 +39,7 @@ export ORIGINAL_QUESTION="$@" # should default to "what do you see here?"
 export QUESTION="$(echo "$@" | sed "s/'/ /g")" # cleaned up
 
 echo "# 🤌  QUESTION: $(yellow $QUESTION)"
-echo "# 🌡️ TEMPERATURE: $TEMPERATURE "
+echo "# 🌡️  TEMPERATURE: $TEMPERATURE "
 echo "# 👀 Examining image $(white $(file "$IMAGE")). "
 
 

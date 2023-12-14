@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# word to text via vurl :)
+# word to text via CURL :)
 # Docs https://cloud.google.com/text-to-speech/docs/create-audio-text-command-line
+# Before you run, pls execute:
+# 	gcloud auth application-default login
+# 	gcloud auth application-default set-quota-project "$PROJECT_ID"
 
 set -euo pipefail
 #PROJECT_ID=$(gcloud config get-value project)
