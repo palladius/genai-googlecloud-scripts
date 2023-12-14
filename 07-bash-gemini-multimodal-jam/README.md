@@ -77,7 +77,7 @@ TODO
 Since we're celebrating Gemini launch and I'm a huge fan of the Saint Seiya manga/anime, I've asked Gemini to compare
 two things close to him:
 
-| Italic             |  Block letters |
+| Picture 1          |  Picture 2 |
 :-------------------------:|:-------------------------:
 ![](images/gemini-constellation.png?raw=true)  |  ![](images/saga-blue-hair.jpg?raw=true)
 
