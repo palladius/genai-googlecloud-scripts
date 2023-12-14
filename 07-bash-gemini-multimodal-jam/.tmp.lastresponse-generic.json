@@ -5,15 +5,15 @@
         "role": "model",
         "parts": [
           {
-            "text": " 1. 30-35\n2. 2-3\n3. 40-45\n4. 2-3\n5. 60-65"
+            "text": " La foto mostra una loggia con delle colonne in pietra che incorniciano la vista di una città. La città è circondata da montagne e si possono vedere i tetti delle case e le torri delle chiese. Il cielo è azzurro e ci sono delle nuvole bianche."
           }
         ]
       }
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 275,
-    "candidatesTokenCount": 41,
-    "totalTokenCount": 316
+    "promptTokenCount": 266,
+    "candidatesTokenCount": 57,
+    "totalTokenCount": 323
   }
 }

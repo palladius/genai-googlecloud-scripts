@@ -113,3 +113,46 @@ Another way is to download a key and put it under `private/PROJECT_ID.json`.
 My magic script `01-setup.sh` will pick it up automagically and log in through it :)
 
 More info here: https://cloud.google.com/docs/authentication/troubleshoot-adc#user-creds-client-based
+
+
+## An italian image, explained in Italian
+
+How about we do the same, but spice it up a bit with italian text and sound?
+
+![Alt text](images/italian-town.jpg?raw=true "Photo of Trento City")
+
+```
+./gemini-explain-image.sh images/italian-town.jpg
+# 🤌  QUESTION: Describe what you see
+# 🌡️  TEMPERATURE: 0.2
+# 👀 Examining image images/italian-town.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=1, software=Google], baseline, precision 8, 926x1230, components 3.
+# ♊ Gemini no Saga answer for you:
+ This is a view of the city of Trento, Italy from the Buonconsiglio Castle.
+```
+
+This is good! I didn't know the photographer was shooting from the Buonconsiglio Castle. Awesome. But it's in English.
+
+```
+$ GENERATE_MP3=true ./gemini-explain-image-italian.sh images/italian-town.jpg
+# 🤌  QUESTION: Descrivimi cosa vedi in questa immagine
+# 🌡️  TEMPERATURE: 0.2
+# 👀 Examining image images/italian-town.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=1, software=Google], baseline, precision 8, 926x1230, components 3.
+# ♊ Gemini no Saga answer for you:
+ La foto mostra una loggia con delle colonne in pietra che incorniciano la vista di una città. La città è circondata da montagne e si possono vedere i tetti delle case e le torri delle chiese. Il cielo è azzurro e ci sono delle nuvole bianche.
+# TTS_LANG: it-IT
+Written .tmp.tts-output.json. curl_ret=0
+t.audio.encoded: ASCII text, with very long lines (65536), with no line terminators
+t.mp3:           MPEG ADTS, layer III, v2,  32 kbps, 24 kHz, Monaural
+t.mp3: MPEG ADTS, layer III, v2,  32 kbps, 24 kHz, Monaural
+All good. MP3 created: 't.La foto mostra una loggia con delle colonne in pie.mp3'
+```
+
+As you see, italian is more verbose and it knows more about Trento, but it's not aware of the Buonconsiglio Palace.
+Interesting! I presume the Italian model has less trsaining material to leaern from than the English one. Makes sense.
+
+Btw, I highly recommend Trento, I was cycling around there: great views and great wines!
+
+Now, to create the Italian MP3, I had to hardcode the type of audio I wanted into `TTS_LANG: it-IT`.
+This is the only added value to the `./gemini-explain-image-italian.sh` script so you should be able
+to adapt seamlessly to your favorite language. TextToSpeech API supports nearly 200 of them!
+
