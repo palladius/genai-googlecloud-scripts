@@ -41,3 +41,7 @@ clean-all:
 vertexai-images/sky.jpg:
 	gsutil ls "gs://cloud-samples-data/generative-ai/image/"
 	gsutil -m cp -r gs://cloud-samples-data/generative-ai/image/* ./vertexai-images/
+
+# Test without Carlessian scripts
+test-ricc-mac:
+	PATH=/bin/:/usr/bin/:/opt/homebrew/bin/:"/Users/ricc/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/" make age-test

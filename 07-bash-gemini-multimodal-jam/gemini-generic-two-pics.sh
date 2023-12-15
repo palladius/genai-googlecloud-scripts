@@ -11,12 +11,11 @@ LOCATION=us-central1
 TMP_OUTPUT_FILE=.tmp.lastsaga3
 REQUEST_FILE=.tmp.request-generic-2pix.json
 JQ_PATH=".candidates[0].content.parts[0].text"
-#data=$(base64 -w 0 image.jpg) # linux
 
+#data=$(base64 -i "$IMAGE" -o -) # Mac
+#data=$(base64 -w 0 "$IMAGE") # linux
 function _base64_mac_or_linux() {
     IMAGE="$1"
-    #data=$(base64 -i "$IMAGE" -o -) # Mac
-    #data=$(base64 -w 0 "$IMAGE") # linux
     if [[ $(uname) == "Darwin" ]] ; then
         base64 -i "$IMAGE" -o -
     else
@@ -33,7 +32,7 @@ function _usage() {
 
 function show_errors_and_exit() {
     echo Woops. Some Errors found. See error in t:
-    cat t | srossa
+    cat t | _redden
     exit 42
 }
 
@@ -52,8 +51,8 @@ data2=$(_base64_mac_or_linux "$IMAGE2") # Mac or Linux should both work!
 export QUESTION="Can you highlight similarity and differences between the two? Also, do you recognize the same person in both of them?"
 
 echo "♊️ Question: $(yellow "$QUESTION")"
-echo " 👀 Examining image1 $IMAGE1: $(white $(file "$IMAGE1")). "
-echo " 👀 Examining image2 $IMAGE2: $(white $(file "$IMAGE2")). "
+echo " 👀 Examining image1 $IMAGE1: $(_white $(file "$IMAGE1")). "
+echo " 👀 Examining image2 $IMAGE2: $(_white $(file "$IMAGE2")). "
 #echo "Find any errors in: $TMP_OUTPUT_FILE"
 
 cat > "$REQUEST_FILE" <<EOF
@@ -84,11 +83,10 @@ curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" \
 
 OUTPUT=$(cat $TMP_OUTPUT_FILE | jq $JQ_PATH)
 
-#echo "OUTPUT: '$OUTPUT'"
 if [ "$OUTPUT" = '""' ]; then # empty answer
     echo "‼️ Sorry, some error here. Dig into the JSON file more: $TMP_OUTPUT_FILE" >&2
     cat $TMP_OUTPUT_FILE | jq >&2
 else
     echo '♊️ Describing attached image:'
-    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r | lolcat
+    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r | _lolcat
 fi

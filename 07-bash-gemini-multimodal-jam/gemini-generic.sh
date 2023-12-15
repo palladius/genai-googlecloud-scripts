@@ -26,7 +26,6 @@ function _usage() {
 }
 
 
-
 if [ $# -lt 2 ] ; then
     _usage "Provide at least 2 arguments (TODO just 1)"
 
@@ -38,9 +37,9 @@ shift
 export ORIGINAL_QUESTION="$@" # should default to "what do you see here?"
 export QUESTION="$(echo "$@" | sed "s/'/ /g")" # cleaned up
 
-echo "# 🤌  QUESTION: $(yellow $QUESTION)"
+echo "# 🤌  QUESTION: $(_yellow $QUESTION)"
 echo "# 🌡️  TEMPERATURE: $TEMPERATURE "
-echo "# 👀 Examining image $(white $(file "$IMAGE")). "
+echo "# 👀 Examining image $(_white $(file "$IMAGE")). "
 
 
 #echo "💾 Find any errors in: $TMP_OUTPUT_FILE"
@@ -81,7 +80,7 @@ if [ "$OUTPUT" = '""' -o "$OUTPUT" = 'null' ]; then # empty answer
     cat $TMP_OUTPUT_FILE | jq >&2
 else
     echo -e '# ♊ Gemini no Saga answer for you:'
-    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r | lolcat
+    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r | _lolcat
     if [ "true" = "$GENERATE_MP3" ]; then
         ./tts.sh `cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r`
         cp t.mp3 "$IMAGE".mp3
