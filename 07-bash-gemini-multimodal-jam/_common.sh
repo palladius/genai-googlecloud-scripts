@@ -34,6 +34,32 @@ function _base64_decode_mac_or_linux() {
 # assumes you have the output in file 't'
 function show_errors_and_exit() {
     echo Woops. Some Errors found. See error in t:
-    cat t | srossa
+    cat t | _redden
     exit 42
+}
+
+function _red() {
+    echo -en "\033[1;31m$*\033[0m\n"
+}
+# make the STD in RED :)
+function _redden() {
+    while read row; do echo -en "\033[0;31m$row\033[0m\n"; done
+}
+function _green() {
+    echo -en "\033[1;32m$*\033[0m\n"
+}
+function _white() {
+    echo -en "\033[1;37m$*\033[0m\n"
+}
+function _yellow() {
+    echo -en "\033[1;33m$*\033[0m\n"
+}
+# If you dont have lolcat your life is going to be more miserable.
+# To fix your life: `gem install lolcat`
+function _lolcat() {
+    if which lolcat >/dev/null ; then
+        lolcat
+    else
+        cat
+    fi
 }
