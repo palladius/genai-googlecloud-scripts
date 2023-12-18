@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+source _common.sh
+
 #PROJECT_ID='cloud-llm-preview1'
 PROJECT_ID='ricc-genai'
 MODEL_ID="gemini-pro-vision"
@@ -50,7 +52,7 @@ data2=$(_base64_mac_or_linux "$IMAGE2") # Mac or Linux should both work!
 #export QUESTION="$@" # should default to "what do you see here?"
 export QUESTION="Can you highlight similarity and differences between the two? Also, do you recognize the same person in both of them?"
 
-echo "♊️ Question: $(yellow "$QUESTION")"
+echo "♊️ Question: $(_yellow "$QUESTION")"
 echo " 👀 Examining image1 $IMAGE1: $(_white $(file "$IMAGE1")). "
 echo " 👀 Examining image2 $IMAGE2: $(_white $(file "$IMAGE2")). "
 #echo "Find any errors in: $TMP_OUTPUT_FILE"
