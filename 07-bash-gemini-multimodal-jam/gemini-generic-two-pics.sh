@@ -103,5 +103,5 @@ if [ "$OUTPUT" = '""' ]; then # empty answer
 else
     N_CANDIDATES=$(cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | wc -l)
     echo '# ♊️ Describing attached image ($N_CANDIDATES candidates):'
-    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs | _lolcat
+    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs -0 | _lolcat
 fi
