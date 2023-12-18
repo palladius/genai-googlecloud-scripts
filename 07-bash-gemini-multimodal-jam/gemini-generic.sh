@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-if [ -f .envrc]; then
+if [ -f .envrc ]; then
     source .envrc
 fi
 
