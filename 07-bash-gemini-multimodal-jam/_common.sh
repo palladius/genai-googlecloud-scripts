@@ -30,7 +30,6 @@ function _base64_decode_mac_or_linux() {
 }
 
 
-
 # assumes you have the output in file 't'
 function show_errors_and_exit() {
     echo Woops. Some Errors found. See error in t:
