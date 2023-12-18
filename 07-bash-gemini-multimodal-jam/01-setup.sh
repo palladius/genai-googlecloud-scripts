@@ -10,7 +10,9 @@
 set -euo pipefail
 
 export CONFIG_NAME=${GCLOUD_CONFIG_NAME:-gemini-tests}
-direnv allow
+if [ -f .envrc]; then
+    source .envrc
+fi
 export STD_SA_LOCATION="private/$PROJECT_ID.json"
 
 gcloud config configurations create "$CONFIG_NAME" --activate || \
