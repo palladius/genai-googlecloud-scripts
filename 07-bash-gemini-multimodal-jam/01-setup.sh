@@ -10,7 +10,7 @@
 set -euo pipefail
 
 export CONFIG_NAME=${GCLOUD_CONFIG_NAME:-gemini-tests}
-if [ -f .envrc]; then
+if [ -f .envrc ]; then
     source .envrc
 fi
 export STD_SA_LOCATION="private/$PROJECT_ID.json"

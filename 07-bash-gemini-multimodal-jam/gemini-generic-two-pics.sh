@@ -6,7 +6,7 @@ set -euo pipefail
 
 source _common.sh
 
-if [ -f .envrc]; then
+if [ -f .envrc ]; then
     source .envrc
 fi
 
