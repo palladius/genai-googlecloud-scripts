@@ -107,7 +107,8 @@ if [ "$OUTPUT" = '""' -o "$OUTPUT" = 'null' -o "$OUTPUT" = 'jq-error' ]; then # 
     echo "#😥 Sorry, some error here. Dig into the JSON file more: $TMP_OUTPUT_FILE" >&2
     cat $TMP_OUTPUT_FILE | jq >&2
 else
-    echo -e '# ♊ Gemini no Saga answer for you (prod):'
+    N_CANDIDATES=$(cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | wc -l)
+    echo -e "# ♊ Gemini no Saga answer for you ($N_CANDIDATES candidates):"
     cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs | _lolcat
     if [ "true" = "$GENERATE_MP3" ]; then
         ./tts.sh `cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r`

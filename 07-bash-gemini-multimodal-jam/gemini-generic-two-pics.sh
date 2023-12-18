@@ -98,9 +98,10 @@ curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" \
 OUTPUT=$(cat $TMP_OUTPUT_FILE | jq $JQ_PATH_PLURAL || echo  '""')
 
 if [ "$OUTPUT" = '""' ]; then # empty answer
-    echo "‼️ Sorry, some error here. Dig into the JSON file more: $TMP_OUTPUT_FILE" >&2
+    echo "# ‼️ Sorry, some error here. Dig into the JSON file more: $TMP_OUTPUT_FILE" >&2
     cat $TMP_OUTPUT_FILE | jq >&2
 else
-    echo '♊️ Describing attached image:'
+    N_CANDIDATES=$(cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | wc -l)
+    echo '# ♊️ Describing attached image ($N_CANDIDATES candidates):'
     cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs | _lolcat
 fi
