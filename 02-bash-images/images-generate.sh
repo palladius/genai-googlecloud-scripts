@@ -3,7 +3,11 @@
 # from: https://cloud.google.com/vertex-ai/docs/generative-ai/image/generate-images
 # Usage: PROJECT_ID=ricc-genai immagina a huge avocado landing on earth with extraterrestrial life forms coming out
 
-SCRIPT_VER='0.2b'
+SCRIPT_VER='0.3'
+
+set -euo pipefail 
+
+SAMPLE_COUNT="4"
 
 function _fatal() {
     echo "[FATAL] $*" >&1
@@ -61,7 +65,7 @@ cat > output/image-request.json  <<EOF
     ],
     "parameters": {
         "sampleImageSize": "1024",
-        "sampleCount": 8,
+        "sampleCount": $SAMPLE_COUNT,
         "aspectRatio": "9:16",
         "negativePrompt": "blurry",
     }
@@ -73,7 +77,7 @@ time curl -X POST \
     -H "Authorization: Bearer $BEARER" \
     -H "Content-Type: application/json; charset=utf-8" \
     -d @output/image-request.json \
-    "https://us-central1-aiplatform.googleapis.com/v1/projects/$PROJECT_ID/locations/us-central1/publishers/google/models/imagegeneration:predict" |
+    "https://us-central1-aiplatform.googleapis.com/v1/projects/$PROJECT_ID/locations/us-central1/publishers/google/models/imagegeneration@002:predict" |
     tee output/image-api-response.json
 
 
