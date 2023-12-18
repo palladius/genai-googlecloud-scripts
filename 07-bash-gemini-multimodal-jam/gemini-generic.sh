@@ -88,11 +88,7 @@ cat > "$REQUEST_FILE" <<EOF
 EOF
 # "stopSequences": [".", "?", "!"]
 STAGING_URL="https://${LOCATION}-autopush-aiplatform.sandbox.googleapis.com/v1beta1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/$MODEL_ID:generateContent"
-#PROD_URL="https://${LOCATION}-aiplatform.googleapis.com/v1beta1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/$MODEL_ID:streamGenerateContent"
 PROD_URL="https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/$MODEL_ID:streamGenerateContent"
-
-echo STAGING_URL=$STAGING_URL
-echo PROD_URL=$PROD_URL
 
 curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json"  \
