@@ -105,7 +105,7 @@ if [ "$OUTPUT" = '""' -o "$OUTPUT" = 'null' -o "$OUTPUT" = 'jq-error' ]; then # 
 else
     N_CANDIDATES=$(cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | wc -l)
     echo -e "# ♊ Gemini no Saga answer for you ($N_CANDIDATES candidates):"
-    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs | _lolcat
+    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs -0 | _lolcat
     if [ "true" = "$GENERATE_MP3" ]; then
         ./tts.sh `cat $TMP_OUTPUT_FILE | jq "$JQ_PATH" -r`
         cp t.mp3 "$IMAGE".mp3
