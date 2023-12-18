@@ -6,8 +6,11 @@ set -euo pipefail
 
 source _common.sh
 
-#PROJECT_ID='cloud-llm-preview1'
-PROJECT_ID='ricc-genai'
+if [ -f .envrc]; then
+    source .envrc
+fi
+
+#PROJECT_ID='provided in .envrc'
 MODEL_ID="gemini-pro-vision"
 LOCATION=us-central1
 TMP_OUTPUT_FILE=.tmp.lastsaga3
