@@ -15,7 +15,7 @@ age-test:
 annotate:
 	./annotate-all.sh
 
-this-works:
+explain-cat:
 	./gemini-explain-image.sh images/cat.jpg
 
 compare-two-ricc-pics:
@@ -26,7 +26,7 @@ compare-two-geminis:
 
 read-instruction-manual-for-me:
 #	echo 1. Explaining what this is:#
-#	./gemini-explain-image.sh images/instruction-manuals/Acrux-User-Manual-4700503.png 
+#	./gemini-explain-image.sh images/instruction-manuals/Acrux-User-Manual-4700503.png
 	echo '1. Asking a useful custom question: '
 	./gemini-generic.sh images/instruction-manuals/Acrux-User-Manual-4700503.png '1. How do i TURN it on? 2. Where is the power button located? 3. Is this the one called ANC?'
 
