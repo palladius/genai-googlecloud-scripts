@@ -202,25 +202,25 @@ The MP3 result is conveniently copied under `images/italian-town.jpg.mp3`.
 
 ## Something useful now: understand a diagram!
 
-I have a headset at work which is amazing, but I'm never sure how to turn it on or off; if I get it from charge its automatically on for me, but what if I forgot it non charging last night? This is what happened to me this morning. 
+I have a headset at work which is amazing, but I'm never sure how to turn it on or off; if I get it from charge its automatically on for me, but what if I forgot it non charging last night? This is what happened to me this morning.
 
-Gemini to the rescue! 
+Gemini to the rescue!
 
 1. Google "Accrux ear phone user manual and get PDF". => `images/instruction-manuals/Acrux-User-Manual-4700503.pdf`
 2. Since Gemini doesn't read PDFs (yet) from UI, here's the PNG: <a href="images/instruction-manuals/Acrux-User-Manual-4700503.png?raw=true" >images/instruction-manuals/Acrux-User-Manual-4700503.png</a>.
-3. This was the hard part. Let's now ask questions. There are three as I used the UI: 
+3. This was the hard part. Let's now ask questions. There are three as I used the UI:
 
 ![Alt text](images/instruction-manuals/cloudconsole-screenshot.png?raw=true "Riccardo using DevConsole to ask Gemini with a click")
 
 4. Let's do the same from CLI:
 
 ```
-$ make read-instruction-manual-for-me 
+$ make read-instruction-manual-for-me
 [..]
 ./gemini-generic.sh images/instruction-manuals/Acrux-User-Manual-4700503.png '1. How do i TURN it on? 2. Where is the power button located? 3. Is this the one called ANC?'
 # 🤌  QUESTION: 1. How do i TURN it on? 2. Where is the power button located? 3. Is this the one called ANC?
-# 🌡️  TEMPERATURE: 0.2 
-# 👀 Examining image images/instruction-manuals/Acrux-User-Manual-4700503.png: PNG image data, 1664 x 929, 8-bit/color RGBA, non-interlaced. 
+# 🌡️  TEMPERATURE: 0.2
+# 👀 Examining image images/instruction-manuals/Acrux-User-Manual-4700503.png: PNG image data, 1664 x 929, 8-bit/color RGBA, non-interlaced.
 # ♊ Gemini no Saga answer for you:
 1. Long press the power button for 2 seconds.
 2. The power button is located on the right earcup.
