@@ -102,5 +102,5 @@ if [ "$OUTPUT" = '""' ]; then # empty answer
     cat $TMP_OUTPUT_FILE | jq >&2
 else
     echo '♊️ Describing attached image:'
-    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | _lolcat
+    cat $TMP_OUTPUT_FILE | jq "$JQ_PATH_PLURAL" -r | xargs | _lolcat
 fi
