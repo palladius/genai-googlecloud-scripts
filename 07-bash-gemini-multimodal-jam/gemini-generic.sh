@@ -71,7 +71,7 @@ EOF
 
 curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json"  \
-    https://us-central1-aiplatform.sandbox.googleapis.com/v1beta1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/gemini-pro-vision:generateContent -d \
+    https://us-central1-autopush-aiplatform.sandbox.googleapis.com/v1beta1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/gemini-pro-vision:generateContent -d \
     @"$REQUEST_FILE" \
     > $TMP_OUTPUT_FILE 2>t ||
         show_errors_and_exit
