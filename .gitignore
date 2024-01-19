@@ -1,3 +1,4 @@
 genai-apptemplates-googlecloud/
 .echodo_history
 .DS_Store
+.envrc

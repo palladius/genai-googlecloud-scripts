@@ -1,0 +1,10 @@
+
+source "https://rubygems.org"
+
+gem 'dotenv'
+gem 'langchainrb'
+gem 'google_palm_api'
+gem 'google-apis-aiplatform_v1'
+#gem 'google-apis-aiplatform_v2'
+
+# gem 'dotenv-rails', groups: [:development, :test]
