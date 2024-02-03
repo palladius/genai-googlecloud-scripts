@@ -16,3 +16,6 @@ gem 'langchainrb'
 # Trying https://github.com/gbaptista/gemini-ai
 gem 'gemini-ai', '~> 3.2.0' # requires ruby 3.1
 gem 'colorize'
+gem 'mimemagic' # for autodetect of images and videos
+
+gem "rubocop-rails-omakase", require: false, group: [ :development ]
