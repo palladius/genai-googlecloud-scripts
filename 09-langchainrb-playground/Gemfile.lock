@@ -7,10 +7,23 @@ GEM
     colorize (0.8.1)
     declarative (0.0.20)
     dotenv (2.8.1)
+    ethon (0.16.0)
+      ffi (>= 1.15.0)
+    event_stream_parser (1.0.0)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
       net-http
+    faraday-typhoeus (1.1.0)
+      faraday (~> 2.0)
+      typhoeus (~> 1.4)
+    ffi (1.16.3)
+    gemini-ai (3.2.0)
+      event_stream_parser (~> 1.0)
+      faraday (~> 2.9)
+      faraday-typhoeus (~> 1.1)
+      googleauth (~> 1.8)
+      typhoeus (~> 1.4, >= 1.4.1)
     google-apis-aiplatform_v1 (0.10.0)
       google-apis-core (>= 0.11.0, < 2.a)
     google-apis-core (0.11.3)
@@ -65,19 +78,24 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    tiktoken_ruby (0.0.6-arm64-darwin)
     tiktoken_ruby (0.0.6-x86_64-linux)
     to_bool (2.0.0)
     trailblazer-option (0.1.2)
+    typhoeus (1.4.1)
+      ethon (>= 0.9.0)
     uber (0.1.0)
     unicode (0.4.4.4)
     uri (0.13.0)
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   dotenv
+  gemini-ai (~> 3.2.0)
   google-apis-aiplatform_v1
   google_palm_api
   langchainrb
