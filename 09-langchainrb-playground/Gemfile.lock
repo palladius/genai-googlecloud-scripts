@@ -59,14 +59,23 @@ GEM
       to_bool (~> 2.0.0)
       zeitwerk (~> 2.5)
     matrix (0.4.2)
+    mimemagic (0.4.3)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.1.5)
     multi_json (1.15.0)
     net-http (0.4.1)
       uri
+    nokogiri (1.16.0-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.0-x86_64-linux)
+      racc (~> 1.4)
     os (1.1.4)
     pragmatic_segmenter (0.3.23)
       unicode
     public_suffix (5.0.4)
+    racc (1.7.3)
+    rake (13.1.0)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -94,11 +103,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  colorize
   dotenv
   gemini-ai (~> 3.2.0)
   google-apis-aiplatform_v1
   google_palm_api
   langchainrb
+  mimemagic
 
 BUNDLED WITH
    2.4.21
