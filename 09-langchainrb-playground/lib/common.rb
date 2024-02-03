@@ -65,7 +65,5 @@ def generate_transcript(contents)
     f.write "# #{Time.now} - generate_transcript() v#{version} from Gemini API convo!\n"
     f.write YAML.dump(contents)
   }
-
-
-
+  return file_name
 end

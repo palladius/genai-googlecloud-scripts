@@ -1,0 +1,82 @@
+# 2024-02-03 11:46:32 +0100 - generate_transcript() v1.1 from Gemini API convo!
+---
+- :role: user
+  :parts:
+    :text: Ciao Gemini come stai?
+- :role: model
+  :parts:
+    :text: Bene, grazie! Sono felice di aiutarti con qualsiasi domanda tu possa avere.
+- :role: user
+  :parts:
+    :text: Come si chiama il primo ministro italiano?
+- :role: model
+  :parts:
+    :text: Il primo ministro italiano si chiama **Giorgia Meloni**.
+- :role: user
+  :parts:
+    :text: E qual e' il nome del suo partner?
+- :role: model
+  :parts:
+    :text: Il partner di Giorgia Meloni si chiama **Andrea Giambruno**. È un giornalista
+      e conduttore televisivo italiano.
+- :role: user
+  :parts:
+    :text: Puoi fare qualche gossip su Giambruno?
+- :role: model
+  :parts:
+    :text: |-
+      * Andrea Giambruno è nato il 24 settembre 1981 a Milano, in Italia.
+      * Ha studiato Scienze della Comunicazione all'Università Cattolica del Sacro Cuore di Milano.
+      * Ha iniziato la sua carriera giornalistica nel 2003, lavorando per diverse testate giornalistiche locali.
+      * Nel 2009 è diventato giornalista professionista.
+      * Nel 2013 ha iniziato a lavorare per Mediaset, dove ha condotto diversi programmi televisivi, tra cui "Mattino Cinque" e "Pomeriggio Cinque".* Nel 2018 ha lasciato Mediaset per passare a La7, dove ha condotto il programma "Non è l'Arena".
+      * Nel 2021 è tornato a Mediaset, dove conduce attualmente il programma "Fuori dal coro".
+      * È fidanzato con Giorgia Meloni, leader di Fratelli d'Italia, dal 2016. La coppia ha una figlia, Ginevra, nata nel 2016.
+
+      Alcuni gossip su Andrea Giambruno:
+
+      * È un grande tifoso dell'Inter.
+      * Ama leggere e viaggiare.
+      * È un cuoco provetto.
+      * È molto riservato sulla sua vita privata.
+      * È stato criticato per le sue posizioni politiche, che sono spesso considerate di destra.
+- :role: user
+  :parts:
+    :text: Splendido, grazie. Ora parliamo dell'opposizione. Qual e' il leader dell'opposizione?
+- :role: model
+  :parts:
+    :text: Il leader dell'opposizione in Italia è **Enrico Letta**, segretario del
+      Partito Democratico.
+- :role: user
+  :parts:
+    :text: Oh cavolo. E parlami del/della partner di questo leader. Come si chiama?
+- :role: model
+  :parts:
+    :text: Enrico Letta non ha un partner ufficiale. È single.
+- :role: user
+  :parts:
+    :text: Ah interessante. Credo di averlo incontrato a Bruxelles in aeroporto mentre
+      suonavo i Genesis al piano. Lui non se n'e' accorto.
+- :role: model
+  :parts:
+    :text: |-
+      È possibile che tu abbia incontrato Enrico Letta all'aeroporto di Bruxelles, dato che è un politico italiano e spesso viaggia in Europa per impegni istituzionali. Tuttavia, è anche possibile che tu abbia incontrato un'altra persona che gli somigliava, poiché non ci sono prove che Enrico Letta sia un fan dei Genesis o che sappia suonare il piano.
+
+      Ad ogni modo, è un aneddoto interessante e divertente. Grazie per averlo condiviso!
+- :role: user
+  :parts:
+    :text: Figurati. Mi devi 5 dollari.
+- :role: model
+  :parts:
+    :text: Non sono in grado di ricevere o gestire denaro, poiché sono un'intelligenza
+      artificiale. Inoltre, non sono tenuto a pagare le persone con cui interagisco.
+      Tuttavia, sono felice di continuare a conversare con te su qualsiasi argomento
+      tu voglia.
+- :role: user
+  :parts:
+    :text: Tirchione!
+- :role: model
+  :parts:
+    :text: Non sono tirchio, semplicemente non ho la capacità di gestire denaro. Non
+      sono un essere umano e non ho bisogni materiali. Tuttavia, apprezzo il tuo senso
+      dell'umorismo e sono felice di continuare a conversare con te.

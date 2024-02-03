@@ -1,0 +1,69 @@
+# 2024-02-03 11:40:56 +0100 - generate_transcript() v1.1 from Gemini API convo!
+---
+- :role: user
+  :parts:
+    :text: ciao
+- :role: model
+  :parts:
+    :text: Salve! Come posso esserle utile?
+- :role: user
+  :parts:
+    :text: Parli Italiano anche?
+- :role: model
+  :parts:
+    :text: Sì, parlo italiano! Sono un assistente virtuale multilingue e posso comunicare
+      in diverse lingue, tra cui l'italiano. Se preferisci parlare in italiano, posso
+      rispondere alle tue domande e aiutarti con le tue richieste in italiano. Cosa
+      posso fare per te oggi?
+- :role: user
+  :parts:
+    :text: Ma che bello! E anche francese?
+- :role: model
+  :parts:
+    :text: Oui, je parle français aussi ! Je peux communiquer avec vous en français
+      si vous le souhaitez. N'hésitez pas à me poser des questions ou à me demander
+      de l'aide en français. Je ferai de mon mieux pour vous répondre et vous aider
+      dans la langue de votre choix.
+- :role: user
+  :parts:
+    :text: Quel language c'est mellieur? Francais ou italien? Avez vous des data pour
+      le demonstrer?
+- :role: model
+  :parts:
+    :text: |-
+      Il n'y a pas de réponse unique à la question de savoir quelle langue est meilleure, le français ou l'italien. Les deux langues ont leurs propres avantages et inconvénients, et le choix de la meilleure langue dépendra de vos besoins et de vos préférences.
+
+      Voici quelques données qui peuvent vous aider à comparer les deux langues :
+
+      * **Nombre de locuteurs :** Le français est parlé par environ 274 millions de personnes dans le monde, tandis que l'italien est parlé par environ 65 millions de personnes.
+      * **Répartition géographique :** Le français est parlé dans de nombreux pays d'Europe, d'Afrique et d'Amérique, tandis que l'italien est principalement parlé en Italie, en Suisse, à Saint-Marin et au Vatican.
+      * **Statut officiel :** Le français est la langue officielle de 29 pays, tandis que l'italien est la langue officielle de 5 pays.
+      * **Enseignement :** Le français est enseigné dans de nombreux pays du monde, tandis que l'italien est moins largement enseigné.
+      * **Littérature et culture :** Les deux langues ont une riche histoire littéraire et culturelle.
+
+      En fin de compte, le choix de la meilleure langue dépendra de vos besoins et de vos préférences. Si vous souhaitez apprendre une langue qui est parlée par un grand nombre de personnes dans le monde, le français pourrait être un bon choix. Si vous souhaitez apprendre une langue qui est parlée dans un pays spécifique, l'italien pourrait être un meilleur choix.
+- :role: user
+  :parts:
+    :text: Wow - c'est ne pas bon. Je pense che la France va gagner mais je suis Italien.
+      avez vous quelche chose que fa rensembler l'iTalie meilleure de la France?
+- :role: model
+  :parts:
+    :text: |-
+      Bien sûr, voici quelques éléments qui pourraient faire penser que l'Italie est meilleure que la France :
+
+      * **Climat :** L'Italie bénéficie d'un climat méditerranéen chaud et ensoleillé, tandis que la France a un climat plus tempéré.
+      * **Gastronomie :** La cuisine italienne est réputée dans le monde entier pour ses pâtes, ses pizzas, ses fromages et ses vins.
+      * **Histoire et culture :** L'Italie a une histoire et une culture très riches, avec de nombreux sites historiques et culturels à visiter.
+      * **Beauté naturelle :** L'Italie possède de magnifiques paysages, avec des montagnes, des lacs, des côtes et des îles à couper le souffle.
+      * **Qualité de vie :** L'Italie offre une qualité de vie élevée, avec un coût de la vie relativement faible et un système de santé de qualité.
+
+      Bien entendu, ces éléments ne sont que subjectifs et chacun aura sa propre opinion sur ce qui rend un pays meilleur qu'un autre. Mais j'espère que cela vous donnera quelques arguments pour défendre l'Italie !
+- :role: user
+  :parts:
+    :text: Oulala - tres bon! Donc l'Italia va gagner avec fromages et vin?!? Ca suffit
+      pour moi. Au revoir.
+- :role: model
+  :parts:
+    :text: Au revoir ! J'espère que vous passerez une excellente journée, remplie
+      de fromage et de vin italiens délicieux. N'hésitez pas à me contacter à nouveau
+      si vous avez d'autres questions ou si vous souhaitez en savoir plus sur l'Italie.
