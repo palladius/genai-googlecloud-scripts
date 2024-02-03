@@ -1,49 +1,53 @@
-#!/usr/bin/ruby
-
+#!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # From: https://github.com/andreibondarev/langchainrb/blob/main/README.md#Assistants
 
 require 'dotenv'
-#require 'dotenv/load'
+# require 'dotenv/load'
 require 'langchainrb'
 require 'google-apis-aiplatform_v1'
 
 # put the key under .envrc
 Dotenv.load('.envrc')
 
-#$DEBUG = true
+# $DEBUG = true
 
-
-PALM_API_KEY = ENV['PALM_API_KEY']
 GOOGLE_VERTEX_AI_PROJECT_ID = ENV['GOOGLE_VERTEX_AI_PROJECT_ID']
 # GOOGLE_VERTEX_AI_LOCATION = ENV['GOOGLE_VERTEX_AI_LOCATION']
 # GOOGLE_VERTEX_AI_MODEL_ID = ENV['GOOGLE_VERTEX_AI_MODEL_ID']
 
-MyPrompt =  "What is the meaning of life?"
+MyPrompt = 'What is the meaning of life?'
 
-def main
+def langchain_prompt_test(project_id: )
+  llm = Langchain::LLM::GoogleVertexAi.new(project_id: project_id,
+                                           default_options: { temperature: 0.5 })
 
-  puts "GOOGLE_VERTEX_AI_PROJECT_ID: #{GOOGLE_VERTEX_AI_PROJECT_ID}"
-  raise "please provide ENV[GOOGLE_VERTEX_AI_PROJECT_ID] and make sure you run: gcloud auth login" if GOOGLE_VERTEX_AI_PROJECT_ID.nil?
+  # assistant = Langchain::Assistants::LLM.new(llm)
+  prompt = Langchain::Prompt::PromptTemplate.new(template: 'Tell me a {adjective} joke about {content}.',
+                                                 input_variables: %w[
+                                                   adjective content
+                                                 ])
+  prompt.format(adjective: 'funny', content: 'chickens') # "Tell me a funny joke about chickens."
+  prompt.save(file_path: './prompt_template.json')
 
-  #llm = Langchain::LLM::GoogleVertexAi.new(api_key: ENV["GOOGLE_PALM_API_KEY"], default_options: { temperature: 0.5})
-  llm = Langchain::LLM::GoogleVertexAi.new(project_id: ENV["GOOGLE_VERTEX_AI_PROJECT_ID"], default_options: { temperature: 0.5})
-
-  #assistant = Langchain::Assistants::LLM.new(llm)
-  prompt = Langchain::Prompt::PromptTemplate.new(template: "Tell me a {adjective} joke about {content}.", input_variables: ["adjective", "content"])
-  prompt.format(adjective: "funny", content: "chickens") # "Tell me a funny joke about chickens."
-  prompt.save(file_path: "./prompt_template.json")
-
-  #$DEBUG = true
+  # $DEBUG = true
   ret = llm.complete(prompt: MyPrompt).completion
-  puts("MyPrompt:", MyPrompt)
+  puts('MyPrompt:', MyPrompt)
 
   puts("Ret: #{ret}")
-
 end
 
+def main
+  puts "DEBUG: GOOGLE_VERTEX_AI_PROJECT_ID: #{GOOGLE_VERTEX_AI_PROJECT_ID}"
 
+  if GOOGLE_VERTEX_AI_PROJECT_ID.nil?
+    raise 'please provide ENV[GOOGLE_VERTEX_AI_PROJECT_ID] and make sure you run: gcloud auth login'
+  end
 
-if __FILE__ == $PROGRAM_NAME
-  main
+  puts "THIS SEEMS BROKEN CURRENTLY (I believe its a mere cut and paste of palm-hello ... where I hadnt time to fix it.)"
+
+  langchain_prompt_test(project_id: GOOGLE_VERTEX_AI_PROJECT_ID)
 end
+
+main if __FILE__ == $PROGRAM_NAME

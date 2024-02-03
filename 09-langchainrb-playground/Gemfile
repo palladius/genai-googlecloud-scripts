@@ -1,10 +1,18 @@
+# frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'dotenv'
-gem 'langchainrb'
-gem 'google_palm_api'
 gem 'google-apis-aiplatform_v1'
-#gem 'google-apis-aiplatform_v2'
+gem 'google_palm_api'
+gem 'langchainrb'
+# gem 'google-apis-aiplatform_v2'
+
+#gem 'nice_hash'
 
 # gem 'dotenv-rails', groups: [:development, :test]
+
+
+# Trying https://github.com/gbaptista/gemini-ai
+gem 'gemini-ai', '~> 3.2.0' # requires ruby 3.1
+gem 'colorize'
