@@ -1,1 +1,3 @@
 prompt_template.json
+*.yaml
+inputs/Screenshot*.png
