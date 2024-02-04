@@ -78,11 +78,13 @@ cat > output/image-request.json  <<EOF
     "parameters": {
         "sampleImageSize": "1536",
         "sampleCount": $SAMPLE_COUNT,
-        "aspectRatio": "9:16",
+        "aspectRatio": "1:1",
         "negativePrompt": "blurry",
     }
 }
 EOF
+#        "aspectRatio": "9:16",
+#       "sampleImageSize": "1536",
 
 
 time curl -X POST \

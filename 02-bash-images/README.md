@@ -25,3 +25,17 @@ Let's also test text writing.
 * But then I thought, wouldn't it be funny if he ran for Finland?
 
 <img src="good-ones/santaklaus-ironman-fi-2.png" width="50%" />
+
+## magazine style, 4k, photorealistic, modern purple armchair, natural lighting. Sitting on the chair, a person wearing glasses
+
+```PROJECT_ID=ricc-genai FILENAME='purple-chair' ./images-generate.sh  'magazine style, 4k, photorealistic, modern purple armchair, natural lighting.'```
+
+Note I took the prompt from [official docs](https://cloud.google.com/vertex-ai/docs/generative-ai/image/generate-images).
+
+<img src="good-ones/purple-chair-2.png" width="50%" />
+
+Note that adding a person was hard. Plenty of "policy violations" for innocents prompts.
+
+```PROJECT_ID=ricc-genai FILENAME='purple-chair' ./images-generate.sh  'magazine style, 4k, photorealistic, modern purple armchair, natural lighting. Sitting on the chair, a person wearing glasses'```
+<img src="good-ones/purple-chair-1.png" width="50%" />
+
