@@ -7,9 +7,11 @@ from palladius@ personal repo.
 * Have gcloud installed, project_id selected, billing enabled, ..
 * Execute the script.
 
-As of 4feb24, I've updated the script and now it uses `imagen2` model. Wow!
+**Note**. As of 4feb24, I've updated the script and now it uses `imagen2` model. Wow! It now tkes around 13sec to run it, but quality increased from 1024 to 1536.
 
 ## A pizza with pineapple cooked by a tormented Italian chef
+
+Prompt as in title:
 
 <img src="good-ones/pizza-pineapple-0.png" width="50%" />
 
@@ -35,6 +37,7 @@ Note I took the prompt from [official docs](https://cloud.google.com/vertex-ai/d
 <img src="good-ones/purple-chair-2.png" width="50%" />
 
 Note that adding a person was hard. Plenty of "policy violations" for innocents prompts.
+I've also moved the ration from 16:9 to 1:1.
 
 ```PROJECT_ID=ricc-genai FILENAME='purple-chair' ./images-generate.sh  'magazine style, 4k, photorealistic, modern purple armchair, natural lighting. Sitting on the chair, a person wearing glasses'```
 <img src="good-ones/purple-chair-1.png" width="50%" />
