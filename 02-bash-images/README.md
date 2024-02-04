@@ -11,7 +11,7 @@ As of 4feb24, I've updated the script and now it uses `imagen2` model. Wow!
 
 ## A pizza with pineapple cooked by a tormented Italian chef
 
-<img src="good-ones/good-ones/pizza-pineapple-0.png"/>
+<img src="good-ones/pizza-pineapple-0.png" width="50%" />
 
 
 ## Santa Klaus is a triathlete, on Santa Klaus chest you can read: Ironman Finland / Switzerland
@@ -20,9 +20,8 @@ Let's also test text writing.
 
 * Ironman Switzerland:
 
-<img src="good-ones/santa-klaus-is-a-swiss-ironman.png"/>
+<img src="good-ones/santa-klaus-is-a-swiss-ironman.png" width="50%" />
 
-But then I thought, wouldn't it be funny if he ran for Finland?
+* But then I thought, wouldn't it be funny if he ran for Finland?
 
-
-<img src="good-ones/santaklaus-ironman-fi-2.png" />
+<img src="good-ones/santaklaus-ironman-fi-2.png" width="50%" />
