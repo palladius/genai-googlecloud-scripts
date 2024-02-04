@@ -21,6 +21,7 @@ def describe_medium(filename, question: nil)
   # My experience: it worked with 11MB,
   # With 49MB it succeeds after 1min (!)
   raise "File too BIG!" if File.size(filename) > 40_000_000
+  puts "⏳ Warning! This might take a while to upload and parse a BIG file..".colorize(:red) if File.size(filename) > 5_000_000
   mime_type = MimeMagic.by_magic(File.open(filename)).type
   human_type = mime_type.split('/').first
   question ||= "Describe this #{human_type}."
