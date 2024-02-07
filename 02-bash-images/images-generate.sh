@@ -123,19 +123,30 @@ wc -l "$IMAGE_OUTPUT_PATH"
 
 #TODO_SIZE="2" # find by grepping...
 
+ALL_GOOD=false
 # Max supported is 8..
 for IMAGE_IX in 0 1 2 3 4 5 6 7 ; do
     IMAGE_TYPE=$( cat "$IMAGE_OUTPUT_PATH" | jq .predictions[$IMAGE_IX].mimeType )
     if [ '"image/png"' = "$IMAGE_TYPE" ] ; then
+        ALL_GOOD=true
         echo 'YAY, image IX is a PNG. Lets decode it:'
         cat "$IMAGE_OUTPUT_PATH" | jq -r .predictions[$IMAGE_IX].bytesBase64Encoded > output/t.base64
         # https://stackoverflow.com/questions/16918602/how-to-base64-encode-image-in-linux-bash-shell
         # This works for Linux. For Mac, you need sth slightly different with -i and -o
         _base64_decode output/t.base64 "output/${FILENAME}-$IMAGE_IX.png"
     else
-        echo "NO: IMAGE_TYPE=$IMAGE_TYPE"
+        echo -en '❌'
+        #echo "NO: IMAGE_TYPE=$IMAGE_TYPE"
     fi
 done
+
+if [ 'false' =  "$ALL_GOOD" ]; then
+    echo
+    echo '👎 It seems like no decent image came out of the call. Maybe Vertex API filters refused to produced any 🏞️'
+    echo "❌ 📙 Try with a different prompt than '$IMAGE_PROMPT'"
+    cat output/image-api-response.json  | jq .error
+    exit 42
+fi
 
 
 echo '👍 Everything is ok. You should now have some 0..8 images (PNG or JPG) in the output/ folder. 🌍 Try from CLI: open output/*.png'
