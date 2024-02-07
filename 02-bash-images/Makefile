@@ -11,3 +11,12 @@ generate-pizza:
 
 generate-chair:
 	PROJECT_ID=ricc-genai FILENAME='purple-chair' ./images-generate.sh  'magazine style, 4k, photorealistic, modern purple armchair, natural lighting. Sitting on the chair, a person wearing glasses'
+
+generate-ale:
+	PROJECT_ID=ricc-genai FILENAME='aj-stuff' ./images-generate.sh  'A dragon is spitting fire, over a big treasure full of precious stones.'
+generate-seby:
+	PROJECT_ID=ricc-genai FILENAME='sl-stuff' ./images-generate.sh  'A giraffe dressed like a firefighter is helping putting off a fire in a city populated by giraffes'
+
+generate-child:
+# This is likwely going to hit errors and produce nothing.
+	PROJECT_ID=ricc-genai FILENAME='child' ./images-generate.sh  'A blonde smiling green-eyed 6-year-old child playing with Pokemon cards'
