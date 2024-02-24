@@ -6,6 +6,8 @@ require 'colorize'
 require 'base64'
 require 'mimemagic'
 
+#GeminiModel = "gemini-1.5-pro-preview-0215"
+
 # init
 $client = Gemini.new(
     credentials: {
@@ -13,7 +15,10 @@ $client = Gemini.new(
       region: 'us-central1',
       project_id: auto_project_id()
     },
-    options: { model: 'gemini-pro-vision', server_sent_events: true }
+    options: {
+      #model: GeminiModel, # 'gemini-pro-vision',
+      model: 'gemini-pro-vision',
+      server_sent_events: true }
 )
 
 def describe_medium(filename, question: nil)
