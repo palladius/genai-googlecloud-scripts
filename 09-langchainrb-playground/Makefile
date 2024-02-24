@@ -10,3 +10,12 @@ auth:
 	auto_import_config.py
 	gcloud config configurations activate pbt-genai
 	gcloud auth login
+	gcloud auth application-default login
+#	gcloud auth application-default print-access-token
+
+
+# Gemini tests from Baptista
+hello-gemini:
+	./gemini-baptista-hello.rb
+hello-gemini-ultra:
+	./gemini-baptista-hello-ultra.rb
