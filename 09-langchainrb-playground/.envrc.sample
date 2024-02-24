@@ -1,0 +1,9 @@
+
+# .envrc
+
+PALM_API_KEY="your palm api here"
+
+S3_BUCKET="YOUR-S3-OR-GCS-BUCKET"
+SECRET_KEY='YOUR-SECRET-KEY-GOES-HERE'
+
+GOOGLE_VERTEX_AI_PROJECT_ID="my-project-id"
