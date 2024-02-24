@@ -5,8 +5,6 @@ require_relative 'lib/common'
 
 # python model for Gemini
 # 1.0: model = GenerativeModel("gemini-1.0-pro-001")
-# 1.5: model = GenerativeModel("gemini-1.5-pro-001")
-# 2.0: model = GenerativeModel("gemini-2.0-pro-001")
 
 # THIS WORKS! 'gemini-pro'
 #GeminiModel = "gemini-1.0-pro-001" # This ALSO works, yay!
