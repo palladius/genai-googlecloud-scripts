@@ -11,25 +11,10 @@ require_relative 'lib/common'
 # THIS WORKS! 'gemini-pro'
 #GeminiModel = "gemini-1.0-pro-001" # This ALSO works, yay!
 GeminiModel = "gemini-1.0-ultra-001"
-
-# With an API key
-# client = Gemini.new(
-#   credentials: {
-#     service: 'generative-language-api',
-#     api_key: ENV['GOOGLE_API_KEY']
-#   },
-#   options: { model: 'gemini-pro', server_sent_events: true }
-# )
-
-# With a Service Account Credentials File
-# client = Gemini.new(
-#   credentials: {
-#     service: 'vertex-ai-api',
-#     file_path: 'google-credentials.json',
-#     region: 'us-east4'
-#   },
-#   options: { model: 'gemini-pro', server_sent_events: true }
-# )
+# Trying out... nope they wont work
+#GeminiModel = "gemini-1.5-pro-001"
+#GeminiModel = "gemini-2.0-pro-001"
+#GeminiModel = "gemini-1.5"
 
 # With Application Default Credentials
 client = Gemini.new(
