@@ -43,13 +43,15 @@ client = Gemini.new(
     server_sent_events: true }
 )
 
-result = client.stream_generate_content({
-  contents: { role: 'user', parts: { text: 'hi!' } }
-})
-#puts result.class
-present_gemini_result(result, debug: true)
+# result = client.stream_generate_content({
+#   contents: { role: 'user', parts: { text: 'hi!' } }
+# })
+# present_gemini_result(result, debug: true)
 
 result = client.stream_generate_content({
-  contents: { role: 'user', parts: { text: 'Why is the sky blue?' } }
+  contents: { role: 'user',
+    parts: {
+      text: 'Can you write a little salutation to me like you were impersonating Marvin the Paranoid Android from the HitchHikers guide to the galazy from Douglas Adams? I would expect this to be pessimistic, vaguely rude and very humorous!'
+      } }
 })
 present_gemini_result(result, debug: false)
