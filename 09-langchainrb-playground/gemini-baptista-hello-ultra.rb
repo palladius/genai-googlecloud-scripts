@@ -1,0 +1,55 @@
+#! /usr/bin/env ruby
+
+require 'gemini-ai'
+require_relative 'lib/common'
+
+# python model for Gemini
+# 1.0: model = GenerativeModel("gemini-1.0-pro-001")
+# 1.5: model = GenerativeModel("gemini-1.5-pro-001")
+# 2.0: model = GenerativeModel("gemini-2.0-pro-001")
+
+# THIS WORKS! 'gemini-pro'
+#GeminiModel = "gemini-1.0-pro-001" # This ALSO works, yay!
+GeminiModel = "gemini-1.0-ultra-001"
+
+# With an API key
+# client = Gemini.new(
+#   credentials: {
+#     service: 'generative-language-api',
+#     api_key: ENV['GOOGLE_API_KEY']
+#   },
+#   options: { model: 'gemini-pro', server_sent_events: true }
+# )
+
+# With a Service Account Credentials File
+# client = Gemini.new(
+#   credentials: {
+#     service: 'vertex-ai-api',
+#     file_path: 'google-credentials.json',
+#     region: 'us-east4'
+#   },
+#   options: { model: 'gemini-pro', server_sent_events: true }
+# )
+
+# With Application Default Credentials
+client = Gemini.new(
+  credentials: {
+    service: 'vertex-ai-api',
+    region: 'us-central1',
+    project_id: auto_project_id()
+  },
+  options: {
+    model: GeminiModel,
+    server_sent_events: true }
+)
+
+result = client.stream_generate_content({
+  contents: { role: 'user', parts: { text: 'hi!' } }
+})
+#puts result.class
+present_gemini_result(result, debug: true)
+
+result = client.stream_generate_content({
+  contents: { role: 'user', parts: { text: 'Why is the sky blue?' } }
+})
+present_gemini_result(result, debug: false)
