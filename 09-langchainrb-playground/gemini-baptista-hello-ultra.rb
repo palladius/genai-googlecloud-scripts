@@ -8,11 +8,13 @@ require_relative 'lib/common'
 
 # THIS WORKS! 'gemini-pro'
 #GeminiModel = "gemini-1.0-pro-001" # This ALSO works, yay!
-GeminiModel = "gemini-1.0-ultra-001"
+#GeminiModel = "gemini-1.0-ultra-001"
 # Trying out... nope they wont work
 #GeminiModel = "gemini-1.5-pro-001"
 #GeminiModel = "gemini-2.0-pro-001"
 #GeminiModel = "gemini-1.5"
+GeminiModel = "gemini-1.5-pro-preview-0215"
+
 
 # With Application Default Credentials
 client = Gemini.new(
