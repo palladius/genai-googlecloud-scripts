@@ -1,8 +1,8 @@
 
 Looking at🧮:
 
-1. Video https://www.youtube.com/watch?v=BM3wzKSPOoI
-
+1. Great Video from Mark Ryan: https://www.youtube.com/watch?v=BM3wzKSPOoI which shows you how to deploy it.
+2. This script shows you how to interrogate it from CLI (bash curl!). Feel free to change the ENV vars to your parameters.
 
 ## samples
 
