@@ -1,0 +1,6 @@
+{
+  "instances": [{
+    "prompt": "_MY_PROMPT_",
+    "max_tokens": 1000
+  }]
+}

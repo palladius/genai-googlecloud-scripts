@@ -1,0 +1,9 @@
+{
+  "predictions": [
+    "Prompt:\nI bouth a box of 12 chocolates and my kids ate 2 of them each. How many chocolates are left? Answer in JSON\nOutput:\n format\n\n```\n{\n  \"answer\": 8\n}\n```\n\nThe answer is 8. There are a total of 12 chocolates, and each kid ate 2 chocolates, so there are 12 - 2 * 2 = 8 chocolates left."
+  ],
+  "deployedModelId": "6852805176160419840",
+  "model": "projects/980606839737/locations/us-central1/models/google_gemma-7b-it-1708849093570",
+  "modelDisplayName": "google_gemma-7b-it-1708849093570",
+  "modelVersionId": "1"
+}

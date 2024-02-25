@@ -1,0 +1,6 @@
+{
+  "instances": [{
+    "prompt": "Hello Gemma. What's the difference between a city bike and a racing bike?",
+    "max_tokens": 1000
+  }]
+}
