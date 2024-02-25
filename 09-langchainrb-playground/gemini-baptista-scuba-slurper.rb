@@ -6,7 +6,9 @@ require 'colorize'
 require 'base64'
 require 'mimemagic'
 
-#GeminiModel = "gemini-1.5-pro-preview-0215"
+# Max Size for Gemini 1.0 ~40MB
+# Max Size for Gemini 1.5 dont know. Trying now with 166MB and see if it works.
+GeminiModel = "gemini-1.5-pro-preview-0215"
 
 # init
 $client = Gemini.new(
@@ -16,20 +18,21 @@ $client = Gemini.new(
       project_id: auto_project_id()
     },
     options: {
-      #model: GeminiModel, # 'gemini-pro-vision',
-      model: 'gemini-pro-vision',
+      model: GeminiModel, # 'gemini-pro-vision',
+      #model: 'gemini-pro-vision',
       server_sent_events: true }
 )
 
 def describe_medium(filename, question: nil)
+  t0 = Time.now
   raise "File not found: #{filename}" unless File.exist?(filename)
   # My experience: it worked with 11MB,
   # With 49MB it succeeds after 1min (!)
-  raise "File too BIG!" if File.size(filename) > 40_000_000
+  raise "File too BIG!" if File.size(filename) > 180_000_000
   puts "⏳ Warning! This might take a while to upload and parse a BIG file..".colorize(:red) if File.size(filename) > 5_000_000
   mime_type = MimeMagic.by_magic(File.open(filename)).type
   human_type = mime_type.split('/').first
-  question ||= "Describe this #{human_type}."
+  question ||= "Describe this #{human_type}. If you see fish in the video, please provide a JSON with an array of (fish_name, time_start), for every fish I want to know fish name, time of the video when it first appears, otherwise say no fish"
   #question ||= "Describe all text writings you can recognize in this #{human_type}."
   # => image/jpeg
   # => video/mp4 ..
@@ -52,7 +55,8 @@ def describe_medium(filename, question: nil)
   #present_gemini_result(result, debug: true)
   str_result = gemini_result_to_string(result)
   puts "💾 #{filename.colorize(:color => :cyan)} => #{emoji} #{str_result.colorize(:color => :yellow, :mode => :bold)}"
-
+  t_delta = Time.now - t0
+  puts "⏱️  #{t_delta.round(2)}s (model='#{GeminiModel}', file_size=#{file_size_kb/1024}MB)"
   result
 end
 
@@ -83,13 +87,14 @@ def main
   #describe_image 'inputs/piano.jpg'
   ARGV.each do |file_name|
     puts "File found in ARGV: #{file_name}"
-    describe_medium file_name
+    describe_medium(file_name)
   end
   if ARGV.size == 0
     puts "No ARGV given! I'll give you an 🍱 Omakase sample of Img and Video!"
-    describe_medium 'inputs/piano.jpg'
+    #describe_medium 'inputs/piano.jpg'
     #describe_medium 'inputs/seby-biliardo.mp4'
     # describe_medium 'inputs/seby-first-day-school-bike.mp4'
+    #exit 42
     describe_medium 'inputs/pouring_of_coffee (360p).mp4'
   end
 end
