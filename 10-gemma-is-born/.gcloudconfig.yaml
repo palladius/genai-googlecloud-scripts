@@ -1,0 +1,19 @@
+# This is a sample from version v1.0
+local_config:
+  auto: true
+configurations:
+  # default:
+  #   project: my-default-personal-project
+  #   compute/region: us-central1
+  #   compute/zone: us-central1-b
+  #   account: your.personal.email@gmail.com
+  # # Note: gcloud wont accept thios config name if it starts with a number (#btdt)
+  gemma-is-born:
+    project: clouddeploy-vertexai-demovegas
+    compute/region: us-central1
+    compute/zone: us-central1-b
+    account: palladiusbonton@gmail.com
+
+# Once done
+# ... Now its time to CRL-D
+# Once done you can do: gcloud config configurations activate YOUR_VAVORITE_CONFIG
