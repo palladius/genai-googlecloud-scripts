@@ -20,8 +20,14 @@ generate-useful-data: clean-empty-files
 	MEDIUM_USER_ID=wietsevenema ruby main.rb
 	MEDIUM_USER_ID=mco-blog ruby main.rb
 	# Extended advocacy team
+	# Aja
 	MEDIUM_USER_ID=thagomizer ruby main.rb
+	# Kaz
+	MEDIUM_USER_ID=kazunori279 ruby main.rb
+	# Yoshi
+	MEDIUM_USER_ID=ymotongpoo ruby main.rb
 	
+
 	
 	# My other Google friends who might blog about 
 	MEDIUM_USER_ID=ch.stanger ruby main.rb 

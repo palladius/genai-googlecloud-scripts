@@ -33,7 +33,7 @@ DENY_LISTED_TITLES = [
 ### PROMPT HISTORY
 Temperature = 0.9
 PromptVersion = '1.10'
-ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :)
+ArticleMaxBytes = 2200 # manually nitted to get right amount of tokens :)
 
 # 1.10 13dec23 Removed song. totally useless and repetitive :)
 # 1.9 4dec23  Added publication_date to articles. Incresased temperature to 0.9 (!!) since this is needed for the system to guess nationality and other fun stuff.
@@ -44,7 +44,8 @@ ArticleMaxBytes = 1800 # manually nitted to get right amount of tokens :)
 # 1.4 16nov23 M oved from TXT to JSON!
 
 PromptInJson = <<-END_OF_PROMPT
-You are an avid article reader and summarizer. I'm going to provide a list of articles for a single author and ask you to do this:
+You are an avid article reader and summarizer in English language. 
+I'm going to provide a list of articles for a single author and ask you to do the followin:
 
 1. For each article, I'm going to ask a number of per-article questions
 2. Overall, I'm going to ask questions about the author.
