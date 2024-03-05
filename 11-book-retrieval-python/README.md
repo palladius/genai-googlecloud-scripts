@@ -13,6 +13,10 @@ so I thought: lets do the same!
 
 And now it's done! The only missing piece is to call Gemini API via python - coming soon!
 
+To see the produced `index.html` (which I'm checking on version control for 🥑 dramatic effects 🥑) you can click here:
+
+🧮 https://raw.githack.com/palladius/genai-googlecloud-scripts/main/11-book-retrieval-python/index.html
+
 ## Next steps
 
 1. call Gemini API via python

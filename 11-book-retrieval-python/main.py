@@ -29,7 +29,7 @@ if BOOKS_API_KEY is None:
     print("🔑 ENV[BOOKS_API_KEY] not found: Exiting. Make sure to download an API key for a project id with 📚 Books 🐝 API enabled.", file=sys.stderr)
     exit(42)
 
-print(f"Key: {BOOKS_API_KEY}")
+#print(f"Key: {BOOKS_API_KEY}")
 
 def get_book_details(title, author):
     url = f"https://www.googleapis.com/books/v1/volumes?q={title}+inauthor:{author}&key={BOOKS_API_KEY}"
