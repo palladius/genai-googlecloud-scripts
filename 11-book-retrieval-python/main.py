@@ -92,9 +92,10 @@ def main():
             print(f"  description: {details['description']}") # small  also
             #print(f"Details keys available: {details.keys()}")
             #output_file_json.write(details)
-            #future_content = future_content.append(details)
+            #future_content =
+            future_content.append(details)
             print(details)
-            future_content[ix] = details
+            #future_content[ix] = details
         else:
             print(f"Book details not found for: {book['title']} by {book['author']}")
         if ix > MAX_LIBRARY_SIZE:
