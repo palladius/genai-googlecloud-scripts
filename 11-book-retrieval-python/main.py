@@ -24,6 +24,7 @@ import sys
 BOOKS_API_KEY=os.getenv('BOOKS_API_KEY')
 MAX_LIBRARY_SIZE = 3
 output_file_json_file = "output/rich-book-info.json"
+skip_if_json_exists = True
 
 if BOOKS_API_KEY is None:
     print("🔑 ENV[BOOKS_API_KEY] not found: Exiting. Make sure to download an API key for a project id with 📚 Books 🐝 API enabled.", file=sys.stderr)
@@ -68,9 +69,19 @@ def get_book_details(title, author):
             exit(51)
         return None
 
+def append_info_to_js_file():
+    '''Now we have the info, we need to inject in JS file'''
+    print('pass')
+    with open("output/generated-script.js", 'w') as f:
+        #json.dump(future_content, f)
+        f.print("Ciao")
+        #print("const books = " + json.dumps(book_data) + ";")
 
-def main():
+
+
+def load_book_and_query_api_to_get_richer_info():
     '''describe me'''
+
     with open('sample-books.json', 'r') as file:
         loaded_books = json.load(file)
 
@@ -108,6 +119,16 @@ def main():
         #fp.write("ciao")
     print(f"future_content: {future_content}")
     exit(43)
+
+def main():
+    '''controls the whole flow'''
+    output_file_size = os.stat(output_file_json_file).st_size
+    # reasonable size to think there's sth in it :)
+    if skip_if_json_exists and output_file_size > 100:
+        print("output_file_size exists and is not empty - skipping calculation (which might tamper with API usage and get me 429s)")
+    else:
+        load_book_and_query_api_to_get_richer_info()
+    append_info_to_js_file()
 
 
 main()

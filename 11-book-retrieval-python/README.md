@@ -17,7 +17,15 @@ To see the produced `index.html` (which I'm checking on version control for 🥑
 
 🧮 https://raw.githack.com/palladius/genai-googlecloud-scripts/main/11-book-retrieval-python/index.html
 
+## Architecture
+
+1. You have a video, say ``.
+2. You call `main.py`, and process the `sample-books.json` into `output/rich-book-info.json`
+3. You call `json2html.py` and embed that info into `index.html`.
+
 ## Next steps
 
 1. call Gemini API via python
 2. export to a very simple HTML (maybe with CSS?). Let's ask Gemini to do so.
+
+
