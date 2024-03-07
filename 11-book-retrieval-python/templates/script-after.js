@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////
-// Script after v1.1  - this is appended to dynamic script.
+// Script after v1.2  - this is appended to dynamic script.
 //
 // NBote to self: maybe you can import in HTML TWO scripts and it will work.
 // import var_books.js
@@ -18,7 +18,7 @@ function createBookCard(book) {
         '' :
         `<p class="card-text text-muted description">${book.description.substring(0, 240)}...</p>`
 
-    return `<div class="col-md-4">
+    return `<div class="col-md-3">
         <div class="card book-card">
             ${cover_image_part}
             <div class="card-body">

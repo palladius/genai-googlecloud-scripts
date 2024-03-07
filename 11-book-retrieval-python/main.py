@@ -50,7 +50,6 @@ def get_book_details(title, author):
     #response = requests.get(url)
     response = requests.get(url, headers=headers)
 
-
     if response.status_code == 200:
         data = json.loads(response.text)
         if data['totalItems'] > 0:

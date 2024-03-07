@@ -1,0 +1,73 @@
+[
+  {
+    "ISBN": "OCLC:985536534",
+    "publication_date": "1967",
+    "cover_image_small": "N/A",
+    "cover_image": "N/A",
+    "description": "N/A",
+    "pageCount": "N/A",
+    "categories": "N/A",
+    "averageRating": "N/A",
+    "ratingsCount": "N/A",
+    "title": "Italiano-Spagnolo",
+    "author": "Rizzoli"
+  },
+  {
+    "ISBN": "UOM:39015033553119",
+    "publication_date": "1893",
+    "cover_image_small": "http://books.google.com/books/content?id=YpAXAAAAMAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "cover_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Frontispiece_promessi_sposi.jpg/220px-Frontispiece_promessi_sposi.jpg",
+    "description": "N/A",
+    "pageCount": 1298,
+    "categories": "N/A",
+    "averageRating": "N/A",
+    "ratingsCount": "N/A",
+    "title": "I Promessi Sposi",
+    "author": "Alessandro Manzoni"
+  },
+  {
+    "ISBN": "EAN:8596547393801",
+    "publication_date": "2022-11-13",
+    "cover_image_small": "http://books.google.com/books/content?id=HEaVEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "cover_image": "N/A",
+    "description": "The Importance of Being Earnest is the final play of Oscar Wilde, and it is considered his masterpiece. The play is a farcical comedy with the theme of switched identities: the play's two protagonists engage in \"bunburying\" (the maintenance of alternative personas in the town and country) which allows them to escape Victorian social mores. Working within the social conventions of late Victorian London, the play's major motives are the triviality with which it treats institutions as serious as marriage, and the resulting satire of Victorian ways.",
+    "pageCount": 78,
+    "categories": [
+      "Drama"
+    ],
+    "averageRating": "N/A",
+    "ratingsCount": "N/A",
+    "title": "The Importance of Being Earnest",
+    "author": "Oscar Wilde"
+  },
+  {
+    "ISBN": "9788858859674",
+    "publication_date": "2023-11-07T00:00:00+01:00",
+    "cover_image_small": "http://books.google.com/books/content?id=v4rgEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "cover_image": "N/A",
+    "description": "Odi et amo: il codice del cuore ci insegna che l\u2019amore \u00e8 civilt\u00e0. Catullo \u00e8 il poeta latino che pi\u00f9 di ogni altro \u00e8 simile a noi: conosce l\u2019amore, in tutte le sue accezioni, e ne racconta i dubbi, la passione e i tormenti che oggi come allora sfidano l\u2019essere umano. Una selezione delle sue pi\u00f9 belle poesie, tradotte e curate da un latinista d\u2019eccellenza, qui proposta in un\u2019edizione per far appassionare i giovani lettori ai versi che ancora oggi risvegliano le nostre emozioni. Con testo in latino.",
+    "pageCount": 180,
+    "categories": [
+      "Fiction"
+    ],
+    "averageRating": "N/A",
+    "ratingsCount": "N/A",
+    "title": "Odi et Amo",
+    "author": "Catullo"
+  },
+  {
+    "ISBN": "0671493043",
+    "publication_date": "1983-08-02",
+    "cover_image_small": "http://books.google.com/books/content?id=eJSVvcCQjEEC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+    "cover_image": "N/A",
+    "description": "For use in schools and libraries only. Two survivors of the Earth's destruction search for the meaning of the universe in this clever science fiction parody.",
+    "pageCount": 260,
+    "categories": [
+      "Humourous fiction"
+    ],
+    "averageRating": "N/A",
+    "ratingsCount": "N/A",
+    "title": "The Restaurant at the End of the Universe",
+    "author": "Douglas Adams"
+  }
+]

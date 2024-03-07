@@ -19,13 +19,18 @@ To see the produced `index.html` (which I'm checking on version control for 🥑
 
 ## Architecture
 
-1. You have a video, say ``.
-2. You call `main.py`, and process the `sample-books.json` into `output/rich-book-info.json`
-3. You call `json2html.py` and embed that info into `index.html`.
+1. You have a video, say `input-videos/riccardo-bookshelf-at-home1.mp4` (courtesy of my mum).
+2. [missing] You feed the video to Gemini and ask to return a JSON of titles and authors. That's the hard part, and Gemini takes care of it in a few seconds. I've done it from UI and recorded the output under `sample-books.json`. As you can see, a healthy mix of Italian and English (often fun) literature.
+3. You call `main.py`. This will:
+
+* Process the `sample-books.json` into `output/rich-book-info.json`. It basically enriches the simple Author/Title by adding other stuff (ISBN, publication date, and image cover! thanks Google Books API!)
+* Embed all of that JSON into an `output/index-generated.html` and an `output/generated-script.js`.
+
+Result is here:
+
+![Alt text](images/book-retrieval.png?raw=true "Some books Riccardo likes.")
 
 ## Next steps
 
 1. call Gemini API via python
 2. export to a very simple HTML (maybe with CSS?). Let's ask Gemini to do so.
-
-
