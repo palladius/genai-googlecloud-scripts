@@ -32,5 +32,4 @@ Result is here:
 
 ## Next steps
 
-1. call Gemini API via python
-2. export to a very simple HTML (maybe with CSS?). Let's ask Gemini to do so.
+1. call Gemini API via python so you can do it all with just a source video.
