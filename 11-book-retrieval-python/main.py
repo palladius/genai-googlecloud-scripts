@@ -26,7 +26,7 @@ import sys
 # Replace with your actual Google Books API key
 VERSION = "1.0"
 BOOKS_API_KEY=os.getenv('BOOKS_API_KEY')
-MAX_LIBRARY_SIZE = 3
+MAX_LIBRARY_SIZE = 50
 # options
 output_file_json_file = "output/rich-book-info.json"
 skip_if_json_exists = True
