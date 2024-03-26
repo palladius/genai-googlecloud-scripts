@@ -1,0 +1,34 @@
+########################################################
+# This is a sample from gaic v1.3
+# Code: https://github.com/palladius/sakura/blob/master/bin/auto_import_config.py
+########################################################
+# Once done you can do: gcloud config configurations activate YOUR_VAVORITE_CONFIG
+local_config:
+  auto: true
+configurations:
+  # You probably DONT WANT TO USE default unless you started on GCP yesterday
+  #default:
+  #  gcloud:
+  #    project: my-default-personal-project
+  #    compute/region: us-central1
+  #    compute/zone: us-central1-b
+  #    account: your.personal.email@gmail.com
+  # Note: gcloud wont accept this config name if it starts with a number (#btdt)
+  langchainrb-playground:
+    gcloud:
+      project: ric-cccwiki
+      compute/region: us-central1
+      compute/zone: us-central1-b
+      ai_platform/region: us-central1
+      ai/region: us-central1
+      account: palladiusbonton@gmail.com
+    env:
+      # No need! It's auto imported for you. You're welcome
+      #PROJECT_ID: this is autopopulated from above
+      #GCP_REGION: this is autopopulated from above
+      # VERTEX_TRAINING_JOB_NAME: 'train-test-123'
+      # REPO_NAME: 'my-awesome-app'
+      # These work! Just make sure you do it in ORDER. (God bless python dicts naivity)
+      BUCKET: "gs://${PROJECT_ID}-bucket"
+      #IMAGE_URI: "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/my_vertex_image:latest"
+

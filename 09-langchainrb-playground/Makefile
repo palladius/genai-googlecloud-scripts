@@ -7,7 +7,8 @@ hello-vertex:
 
 auth:
 	# from sakura : https://github.com/palladius/sakura
-	auto_import_config.py
+	# auto_import_config.py
+	gaic
 	gcloud config configurations activate pbt-genai
 	gcloud auth login
 	gcloud auth application-default login

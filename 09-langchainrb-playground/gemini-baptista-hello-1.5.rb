@@ -8,17 +8,19 @@ require_relative '_env_gaic' # if you use GAIC
 # 1.0: model = GenerativeModel("gemini-1.0-pro-001")
 
 # THIS WORKS! 'gemini-pro'
-GeminiModel = "gemini-pro" # This ALSO works, yay!
 #GeminiModel = "gemini-1.0-pro-001" # This ALSO works, yay!
-#GeminiModel = "gemini-1.0-ultra-001"
-#GeminiModel = "gemini-1.0-ultra"
+# GeminiModel = "gemini-1.0-ultra-001"
 # Trying out... nope they wont work
-#GeminiModel = "gemini-1.5-pro-001" # doesnt work on PBT
-#GeminiModel = "gemini-1.5" # doesnt work on PBT
+#GeminiModel = "gemini-1.5-pro-001"
 #GeminiModel = "gemini-2.0-pro-001"
-#GeminiModel = "gemini-1.5"
-#GeminiModel = "gemini-1.5-pro-preview-0215"
-print("\n\n ♊️ Using GeminiModel=#{GeminiModel}\n auto_project_id(): #{auto_project_id}\n")
+#GeminiModel = "gemini-1.5" # 404
+#GeminiModel = "gemini-1.5-pro-latest" # 404 https://github.com/google/generative-ai-python/issues/227
+GeminiModel = "gemini-1.5-pro-eval" # 404
+#GeminiModel = "gemini-1.5-pro" # 404
+#GeminiModel = "gemini-1.5-pro-preview-0215" # 400 doesnt work
+
+print("\n\n ♊️ Using GeminiModel=#{GeminiModel}\n ♊️ auto_project_id(): #{auto_project_id}\n\n")
+
 
 # With Application Default Credentials
 client = Gemini.new(

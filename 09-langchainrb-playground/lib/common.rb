@@ -39,6 +39,7 @@ end
 
 def gemini_result_to_string(result, debug: true)
   ret = ''
+  puts result if debug
   result.each_with_index do |partial_result, ir|
     #ret << "== Result #{ir+1} (I believe these are different options) ==" if debug
     candidates = partial_result['candidates']
