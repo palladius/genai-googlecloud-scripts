@@ -33,9 +33,16 @@ configurations:
       ai/region: us-central1
       account: palladiusbonton@gmail.com
     env:
-      description: |
+      DESCRIPTION: >-
         This is my personal account - doing things like everyone else
         to test no whitelisting.
+
+        I also have my geminisse SA just created and deployed for ricc.
+        Also added the expiry date.
+      # Key expiry date: 9 Jul 2024
+      KEY_EXPIRY_DATE: "2024-07-09" # https://pantheon.corp.google.com/iam-admin/serviceaccounts/details/113642904574590751541/keys?project=ricc-genai
+      STD_SA_LOCATION: "private/$PROJECT_ID.json"
+      # GOOGLE_APPLICATION_CREDENTIALS = "private/$PROJECT_ID.json"
       # No need! It's auto imported for you. You're welcome
       #PROJECT_ID: this is autopopulated from above
       #GCP_REGION: this is autopopulated from above
