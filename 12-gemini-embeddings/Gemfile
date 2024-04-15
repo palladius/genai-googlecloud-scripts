@@ -1,0 +1,13 @@
+source "https://rubygems.org"
+
+gem 'google-apis-aiplatform_v1'
+gem 'google-apis-storage_v1'
+# gem 'matrix'
+gem 'colorize'
+gem 'gemini-ai', '~> 3.2.0'
+#gem 'google_palm_api'
+
+
+#google-apis-core (0.14.1)
+#googleauth (~> 1.9)
+#httpclient (>= 2.8.1, < 3
