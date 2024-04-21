@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+=begin
+
+  This is the Embedding ruby code which uses gbaptista rubygem.
+
+=end
+
 require 'gemini-ai'
 require 'matrix'
 # This works like a charm just using the basics: https://github.com/gbaptista/gemini-ai
@@ -65,6 +71,7 @@ def pure_gemini_embeddings_predict(my_text: 'Ford Prefect', model: 'textembeddin
 #      model: 'multimodalembedding@001:predict',
 #      model: 'multimodalembedding@001',
       model: model,
+      # text-embedding-gecko -> 768 values
       #model: 'text-embedding-preview-0409',
       service_version: 'v1',
     }

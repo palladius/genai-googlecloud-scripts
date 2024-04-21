@@ -1,0 +1,3 @@
+
+test:
+  nb - - eval "hello"

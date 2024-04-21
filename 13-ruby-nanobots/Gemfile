@@ -1,0 +1,5 @@
+
+source "https://rubygems.org"
+
+# https://github.com/icebaker/ruby-nano-bots
+gem 'nano-bots', '~> 3.0.1' # 3.0.1
