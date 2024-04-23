@@ -3,3 +3,4 @@ genai-apptemplates-googlecloud/
 .DS_Store
 .envrc
 .git-privatize
+.ondir.was.here.touch

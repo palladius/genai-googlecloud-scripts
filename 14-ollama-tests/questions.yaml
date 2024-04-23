@@ -1,0 +1,11 @@
+# copied from https://dev.to/stephenc222/how-to-use-postgresql-to-store-and-query-vector-embeddings-h4b
+sentences: ["A group of vibrant parrots chatter loudly, sharing stories of their tropical adventures.",
+            "The mathematician found solace in numbers, deciphering the hidden patterns of the universe.",
+            "The robot, with its intricate circuitry and precise movements, assembles the devices swiftly.",
+            "The chef, with a sprinkle of spices and a dash of love, creates culinary masterpieces.",
+            "The ancient tree, with its gnarled branches and deep roots, whispers secrets of the past.",
+            "The detective, with keen observation and logical reasoning, unravels the intricate web of clues.",
+            "The sunset paints the sky with shades of orange, pink, and purple, reflecting on the calm sea.",
+            "In the dense forest, the howl of a lone wolf echoes, blending with the symphony of the night.",
+            "The dancer, with graceful moves and expressive gestures, tells a story without uttering a word.",
+            "In the quantum realm, particles flicker in and out of existence, dancing to the tunes of probability."]

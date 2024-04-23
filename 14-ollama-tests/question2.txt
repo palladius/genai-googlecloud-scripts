@@ -1,0 +1,1 @@
+Explain Embeddings in the context of Generative AI and recommendations in a simple way, like you need to explain to a 10 year old.

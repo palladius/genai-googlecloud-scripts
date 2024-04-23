@@ -1,0 +1,5 @@
+NAME                   	ID          	SIZE  	MODIFIED     
+gemma:latest           	a72c7f4d0a15	5.0 GB	28 hours ago	
+llama2:latest          	78e26419b446	3.8 GB	28 hours ago	
+llama3:latest          	71a106a91016	4.7 GB	28 hours ago	
+nomic-embed-text:latest	0a109f422b47	274 MB	28 hours ago	
