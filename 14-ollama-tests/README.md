@@ -3,7 +3,7 @@ Downloaded Ollama for Mac
 
 ```
 ollama run llama2 # ??gb
-ollama run llama3 # 4.7GB the most capable to datye
+ollama run llama3 # 4.7GB the most capable to date, https://ollama.com/library/llama3
 ollama run gemma # default: 8G
 ollama run codegemma #
 #NO! ollama run nomic-embed-text  # embeddings

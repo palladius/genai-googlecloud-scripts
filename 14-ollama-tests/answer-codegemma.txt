@@ -1,0 +1,27 @@
+```ruby
+require 'json'
+
+def count_array(json_string)
+  parsed_json = JSON.parse(json_string)
+  parsed_json.length
+end
+```
+
+**Explanation:**
+
+1. **Import the `JSON` library:** This library provides methods for parsing JSON data.
+
+2. **Parse the JSON string:** The `JSON.parse` method converts the JSON string into a Ruby data structure.
+
+3. **Get the array length:** The `length` method of the parsed JSON data gives the count of elements in the array.
+
+**Example Usage:**
+
+```ruby
+json_string = '[1, 2, 3, 4, 5]'
+
+count = count_array(json_string)
+
+puts count # Output: 5
+```
+

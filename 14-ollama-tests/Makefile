@@ -11,6 +11,10 @@ answer2-llama2.txt:
 answer2-llama3.txt:
 	cat question2.txt | ollama run llama3 | tee answer2-llama3.txt
 
+answer-codegemma.txt:
+	echo Write a function in ruby to parse a JSON and return the count of the array in it | ollama run codegemma | tee answer-codegemma.txt
+
+
 # > embeddings-nomic-embed-text.json
 answer2-embeddings.nomic-embed-text.json:
 	./embedda.sh question2.txt | tee $@
