@@ -8,6 +8,10 @@ source 'https://rubygems.org'
 # Experimental from Andrei with Gemini and News reading support!
 #gem 'langchainrb', '~> 0.12.0'
 gem "langchainrb", path: "~/git/langchainrb-pr513/"
+
+# bundle config local.langchainrb ~/git/langchainrb-pr513/
+
+
 # gem 'langchainrb', :github => 'rack/langchainrb', :branch => 'google-gemini-assistant-support'
 #gem 'langchainrb', :git => File.expand_path("~/git/langchainrb-pr513/"), :branch => 'google-gemini-assistant-support'
 
