@@ -10,10 +10,13 @@ require 'httparty'
 puts("Key 🔐 PALM_API_KEY_GEMINI: #{ENV['PALM_API_KEY_GEMINI']}")
 puts("Key 🔐 GOOGLE_GEMINI_API_KEY: #{ENV['GOOGLE_GEMINI_API_KEY']}")
 puts("Key 🔐 SA_KEY: #{ENV['SA_KEY']}")
+puts("Key 🔐 GOOGLE_APPLICATION_CREDENTIALS: #{ENV['GOOGLE_APPLICATION_CREDENTIALS']}")
+puts("Key 🔐 NEWS_API_KEY: #{ENV['NEWS_API_KEY']}")
+
 
 ENV['GOOGLE_GEMINI_API_KEY'] ||= ENV['PALM_API_KEY_GEMINI']
 gemini_key = ENV["PALM_API_KEY_GEMINI"]
-puts("gemini_key: #{gemini_key}")
+#puts("gemini_key: #{gemini_key}")
 
 llm = Langchain::LLM::GoogleGemini.new(api_key: gemini_key)
 puts("LLM: #{llm}")
