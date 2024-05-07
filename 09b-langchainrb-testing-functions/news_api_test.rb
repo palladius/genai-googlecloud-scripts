@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require 'dotenv/load'
-require '~/git/langchainrb-pr513/lib/langchain.rb'
+#require '~/git/langchainrb-pr513/lib/langchain.rb'
+require 'langchainrb'
 require 'uri'
 require 'net/http'
 require 'json'
 
-#require 'langchainrb'
 puts("Key 🔐 NEWS_API_KEY: #{ENV['NEWS_API_KEY']}")
 
 def print_fancy_article(article)
