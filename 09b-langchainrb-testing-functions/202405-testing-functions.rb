@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'dotenv/load'
-#require 'langchainrb'
+#require 'langchainrb' # this wont work, Andrei!
 require '~/git/langchainrb-pr513/lib/langchain.rb'
 require 'json'
 require 'httparty'
@@ -9,6 +9,8 @@ require 'httparty'
 # PALM_API_KEY_GEMINI
 puts("Key 🔐 PALM_API_KEY_GEMINI: #{ENV['PALM_API_KEY_GEMINI']}")
 puts("Key 🔐 GOOGLE_GEMINI_API_KEY: #{ENV['GOOGLE_GEMINI_API_KEY']}")
+puts("Key 🔐 SA_KEY: #{ENV['SA_KEY']}")
+
 ENV['GOOGLE_GEMINI_API_KEY'] ||= ENV['PALM_API_KEY_GEMINI']
 gemini_key = ENV["PALM_API_KEY_GEMINI"]
 puts("gemini_key: #{gemini_key}")
