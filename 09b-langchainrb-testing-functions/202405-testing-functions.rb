@@ -1,16 +1,17 @@
 #!/usr/bin/env ruby
 
-#require 'dotenv'
+require 'dotenv/load'
 #require 'langchainrb'
-
-#require '~/git/langchainrb-pr513/lib/langchainrb.rb'  # Or the specific file
 require '~/git/langchainrb-pr513/lib/langchain.rb'
-#require '~/git/langchainrb-pr513/lib/langchainrb.rb'
+require 'json'
+require 'httparty'
 
 # PALM_API_KEY_GEMINI
+puts("Key 🔐 PALM_API_KEY_GEMINI: #{ENV['PALM_API_KEY_GEMINI']}")
+puts("Key 🔐 GOOGLE_GEMINI_API_KEY: #{ENV['GOOGLE_GEMINI_API_KEY']}")
 ENV['GOOGLE_GEMINI_API_KEY'] ||= ENV['PALM_API_KEY_GEMINI']
-puts("Key: #{ENV['PALM_API_KEY_GEMINI']}")
 gemini_key = ENV["PALM_API_KEY_GEMINI"]
+puts("gemini_key: #{gemini_key}")
 
 llm = Langchain::LLM::GoogleGemini.new(api_key: gemini_key)
 puts("LLM: #{llm}")
