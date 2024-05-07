@@ -4,10 +4,14 @@ BUNDLE_LOCAL__LANGCHAINRB: "/usr/local/google/home/ricc/git/langchainrb-pr513"
 
 ## checking Andrei code
 
+Currently stryggling to work with Andrei code in localhost.
+I can check in just fine, I can also edit it :) but I cant cal it via bundler.
+I can call it if I skip bundler and just import the lib/ but that opens other issues, for instance i need to manually import ALL libraries manually (JSON, HHTParty, ..).
+
 ```
+# REMOVING THIS now
 $ bundle config set local.lanchainrb ~/git/langchainrb-pr513/
 ```
-
 
 ```
 cd ~/git &&
