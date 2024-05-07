@@ -2,3 +2,29 @@
 BUNDLE_LOCAL__LANGCHAINRB: "/usr/local/google/home/ricc/git/langchainrb-pr513"
 
 
+## checking Andrei code
+
+```
+$ bundle config set local.lanchainrb ~/git/langchainrb-pr513/
+```
+
+
+```
+cd ~/git &&
+    gh repo clone patterns-ai-core/langchainrb langchainrb-pr513 &&
+    cd ~/git/langchainrb-pr513 &&
+    gh pr checkout 513 &&
+    git br
+```
+
+# Rubies
+
+* ✅ tested on `3.1.2`
+* ✅ tested on `3.2.1`
+* ❌ Get error on `3.2.2` and `3.3.0`:
+```
+In Gemfile:
+  langchainrb was resolved to 0.12.0, which depends on
+    pragmatic_segmenter was resolved to 0.3.23, which depends on
+      unicode
+```

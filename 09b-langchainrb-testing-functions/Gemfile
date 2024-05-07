@@ -1,15 +1,32 @@
 # frozen_string_literal: true
 
+#################################################
+# Riccardo readmes:
+# * https://kolosek.com/rails-bundle-install-and-gemfile/
+# * https://github.com/googleapis/google-auth-library-ruby
+# * PR 513: https://github.com/patterns-ai-core/langchainrb/pull/513/files#diff-86baf19d3db04ca4b773792c27230e17bb4ba4f9373d17688b8a2f67de6f9c28
+#################################################
+
 source 'https://rubygems.org'
 
-#gem 'dotenv'
+gem 'dotenv'
 gem 'google-apis-aiplatform_v1'
-# gem 'google_palm_api'
-# Experimental from Andrei with Gemini and News reading support!
-#gem 'langchainrb', '~> 0.12.0'
-gem "langchainrb", path: "~/git/langchainrb-pr513/"
+#gem 'google_palm_api'
 
-# bundle config local.langchainrb ~/git/langchainrb-pr513/
+# Experimental from Andrei with Gemini and News reading support!
+gem "langchainrb", path: '~/git/langchainrb-pr513/'
+gem 'httparty'
+# gem 'langchainrb',
+#   :git => '~/git/langchainrb-pr513/',
+#   :branch => ' google-gemini-assistant-support'
+
+gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
+
+#gem 'unicode', '0.4.4.4'
+#gem 'pragmatic_segmenter', '~> 0.3.22'
+
+# gbaptista again! :)
+#sgem 'ollama-ai', '~> 1.2.1'
 
 
 # gem 'langchainrb', :github => 'rack/langchainrb', :branch => 'google-gemini-assistant-support'
