@@ -32,3 +32,9 @@ In Gemfile:
     pragmatic_segmenter was resolved to 0.3.23, which depends on
       unicode
 ```
+
+## TODO
+
+1. Test it with openai while Gemini wont work yet.
+2. Use `bundle exec`
+3. Function calling with OpenAI and soon Gemini but not Ollama.

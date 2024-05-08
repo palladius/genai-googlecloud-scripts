@@ -1,8 +1,8 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bundle exec ruby
 
 require 'dotenv/load'
-#require 'langchainrb' # this wont work, Andrei!
-require '~/git/langchainrb-pr513/lib/langchain.rb'
+require 'langchainrb' # this wont work, Andrei!
+#require '~/git/langchainrb-pr513/lib/langchain.rb'
 require 'json'
 require 'httparty'
 
