@@ -1,4 +1,6 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bundle exec ruby
+
+# -> bundle exec ruby news_api_test.rb
 
 require 'dotenv/load'
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
