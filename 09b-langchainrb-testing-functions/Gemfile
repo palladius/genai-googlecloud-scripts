@@ -15,7 +15,7 @@ gem 'google-apis-aiplatform_v1'
 
 # Experimental from Andrei with Gemini and News reading support!
 gem "langchainrb", path: '~/git/langchainrb-pr513/'
-gem 'httparty'
+#gem 'httparty'
 # gem 'langchainrb',
 #   :git => '~/git/langchainrb-pr513/',
 #   :branch => ' google-gemini-assistant-support'
@@ -26,21 +26,4 @@ gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
 #gem 'pragmatic_segmenter', '~> 0.3.22'
 
 # gbaptista again! :)
-#sgem 'ollama-ai', '~> 1.2.1'
-
-
-# gem 'langchainrb', :github => 'rack/langchainrb', :branch => 'google-gemini-assistant-support'
-#gem 'langchainrb', :git => File.expand_path("~/git/langchainrb-pr513/"), :branch => 'google-gemini-assistant-support'
-
-# gem 'google-apis-aiplatform_v2'
-
-#gem 'nice_hash'
-
-# gem 'dotenv-rails', groups: [:development, :test]
-
-
-# Trying https://github.com/gbaptista/gemini-ai
-# gem 'gemini-ai', '~> 3.2.0' # requires ruby 3.1
-# gem 'colorize'
-# gem 'mimemagic' # for autodetect of images and videos
-# gem "rubocop-rails-omakase", require: false, group: [ :development ]
+#gem 'ollama-ai', '~> 1.2.1'
