@@ -1,6 +1,16 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bundle exec ruby
 
-puts(" 🔵🟡🔴🟢 requiring LANGCHIANRB..")
+#puts(" 🔵🟡🔴🟢 requiring LANGCHIANRB..")
+puts(" 🔵 🟡 🟨 🟡 🔴 🟢 requiring LANGCHAINRB.. make sure you do gcloud auth application-default login ricc@google.com beforehand,,")
+
+# module Langchain::LLM
+#   class GoogleVertexAiResponse # < BaseResponse
+#     def content
+#       '[♊️] ' + completions.join('AAA\n')
+#     end
+#   end
+# end
+
 
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
 require 'langchainrb'
@@ -24,3 +34,9 @@ google_vertex = Langchain::LLM::GoogleVertexAi.new(
 )
 
 puts("LLM google_vertex: #{google_vertex}")
+
+# google_vertex.embed text: 'ciao'
+answer = google_vertex.complete prompt: 'Ciao da me che so'
+#puts answer.raw_response.predictions[0]['content']
+# function added by Riccardo in
+puts answer.completions
