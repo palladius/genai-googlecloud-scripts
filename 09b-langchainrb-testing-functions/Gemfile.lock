@@ -52,6 +52,7 @@ GEM
       rexml
     google-cloud-env (2.1.1)
       faraday (>= 1.0, < 3.a)
+    google_search_results (2.2.0)
     googleauth (1.11.0)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.1)
@@ -97,6 +98,8 @@ GEM
     uber (0.1.0)
     unicode (0.4.4.4)
     uri (0.13.0)
+    wikipedia-client (1.17.0)
+      addressable (~> 2.7)
     zeitwerk (2.6.13)
 
 PLATFORMS
@@ -105,9 +108,12 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  faraday
   google-apis-aiplatform_v1
+  google_search_results
   googleauth
   langchainrb!
+  wikipedia-client (~> 1.17.0)
 
 BUNDLED WITH
    2.5.5

@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+# This is from Gbaptista of course :)
 require 'ollama-ai'
 
 client = Ollama.new(

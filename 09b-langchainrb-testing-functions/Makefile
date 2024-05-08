@@ -4,3 +4,7 @@ test1:
 
 test2:
 	bundle exec ruby news_api_test.rb
+
+test-wikipedia-and-gemma:
+	./langchainrb-crawl-page.rb Donald Trump
+	./langchainrb-crawl-page.rb Silvio Berlusconi

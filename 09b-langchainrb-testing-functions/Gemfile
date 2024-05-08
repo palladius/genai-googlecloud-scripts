@@ -22,5 +22,10 @@ gem "langchainrb", path: '../../langchainrb-pr513/'
 #   :branch => ' google-gemini-assistant-support'
 gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
 
+# For tools
+gem 'google_search_results'
+gem "wikipedia-client", "~> 1.17.0"
+gem 'faraday' # for ollama
+
 # gbaptista again! :)
 #gem 'ollama-ai', '~> 1.2.1'
