@@ -1,10 +1,13 @@
 #!/usr/bin/env bundle exec ruby
 
+ # Use `bundle exec irb` for IRB :)
+
 require 'dotenv/load'
 require 'langchainrb' # this wont work, Andrei!
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
 require 'json'
 require 'httparty'
+require 'colorize'
 
 # PALM_API_KEY_GEMINI
 puts("Key 🔐 PALM_API_KEY_GEMINI: #{ENV['PALM_API_KEY_GEMINI']}")
@@ -16,17 +19,29 @@ puts("Key 🔐 NEWS_API_KEY: #{ENV['NEWS_API_KEY']}")
 
 ENV['GOOGLE_GEMINI_API_KEY'] ||= ENV['PALM_API_KEY_GEMINI']
 gemini_key = ENV["PALM_API_KEY_GEMINI"]
-#puts("gemini_key: #{gemini_key}")
+openai_key = ENV["OPENAI_API_KEY"]
+raise "Missing gemini_key: '#{gemini_key}'" unless gemini_key.to_s.length > 10
+raise "Missing openai_key: '#{openai_key}'" unless openai_key.to_s.length > 10
 
-llm = Langchain::LLM::GoogleGemini.new(api_key: gemini_key)
+puts("👼🏽 gemini_key: #{gemini_key}")
+puts("👹 openai_key: #{openai_key}")
+
+#llm = Langchain::LLM::GoogleGemini.new(api_key: gemini_key)
+llm = Langchain::LLM::OpenAI.new(api_key: openai_key)
 puts("LLM: #{llm}")
-raise "Missing key: '#{gemini_key}'" unless gemini_key.to_s.length > 10
 thread = Langchain::Thread.new
+
+news_assistant = Langchain::Tool::NewsRetriever.new(api_key: ENV["NEWS_API_KEY"])
 assistant = Langchain::Assistant.new(
   llm: llm,
   thread: thread,
   instructions: "You are a News Assistant.",
-  tools: [Langchain::Tool::NewsRetriever.new(api_key: ENV["NEWS_API_KEY"])]
+  tools: [news_assistant]
 )
 
-assistant.add_message_and_run content:"What are the latest news from China?", auto_tool_execution: true
+ret = assistant.add_message_and_run content: "What are the latest news from Verona (Italy)?", auto_tool_execution: true
+#puts(ret)
+ret.each_with_index do |oai_msg, ix|
+  puts("[Msg ##{ix.to_s.colorize :yellow}:] #{oai_msg.to_s.colorize :cyan}")
+# Rhis is an Array of Langchain::Messages, eg Langchain::Messages::OpenAIMessage
+end

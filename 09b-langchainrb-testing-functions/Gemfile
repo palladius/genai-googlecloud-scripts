@@ -26,6 +26,9 @@ gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
 gem 'google_search_results'
 gem "wikipedia-client", "~> 1.17.0"
 gem 'faraday' # for ollama
+gem 'httparty' # for function calling
+
+gem "ruby-openai", "~> 6.3.0" # for OpenAI
 
 # gbaptista again! :)
 #gem 'ollama-ai', '~> 1.2.1'
