@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-puts(" 🔵 🟡 🔴 🟢 requiring LANGCHIANRB..")
+puts(" 🔵🟡🔴🟢 requiring LANGCHIANRB..")
 
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
 require 'langchainrb'

@@ -7,7 +7,10 @@ require 'uri'
 require 'net/http'
 require 'json'
 
-puts("Key 🔐 NEWS_API_KEY: #{ENV['NEWS_API_KEY']}")
+news_api_key = ENV.fetch 'NEWS_API_KEY', nil
+puts("Key 🔐 NEWS_API_KEY: #{news_api_key}")
+raise 'no key in env!' if news_api_key.nil?
+
 
 def print_fancy_article(article)
   date = article['publishedAt'].to_s[0..9]
