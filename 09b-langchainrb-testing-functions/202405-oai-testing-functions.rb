@@ -1,11 +1,12 @@
 #!/usr/bin/env bundle exec ruby
 
- # Use `bundle exec irb` for IRB :)
+# Use `bundle exec irb` for IRB :)
+# gem pristine psych --version 5.1.0
 
 require 'dotenv/load'
 require 'langchainrb' # this wont work, Andrei!
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
-require 'json'
+#require 'json'
 require 'httparty'
 require 'colorize'
 
