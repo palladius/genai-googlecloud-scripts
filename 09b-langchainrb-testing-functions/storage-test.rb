@@ -1,4 +1,4 @@
-#!/usr/bin/env bundle exec ruby
+#!/usr/bin/env ruby
 
 require 'dotenv/load'
 #require '~/git/langchainrb-pr513/lib/langchain.rb'
@@ -13,10 +13,10 @@ puts(" 🔵 🟡 🟨 🟡 🔴 🟢 requiring LANGCHAINRB.. make sure you do #{
 
 #ENV['GOOGLE_GEMINI_API_KEY'] ||= ENV['PALM_API_KEY_GEMINI']
 gemini_key = ENV["PALM_API_KEY_GEMINI"]
-project_id = ENV.fetch "GOOGLE_VERTEX_AI_PROJECT_ID"
+project_id = ENV.fetch "PROJECT_ID"
 key_file_path = ENV['GOOGLE_APPLICATION_CREDENTIALS'] # '/Users/ricc/git/gic/private/ricc-genai.json'
 
-raise "🔴[fatal] Missing 🌱 GOOGLE_VERTEX_AI_PROJECT_ID" if project_id.nil?
+raise "🔴[fatal] Missing 🌱 PROJECT_ID" if project_id.nil?
 raise "🔴[fatal] Missing 🌱 PALM_API_KEY_GEMINI" if gemini_key.nil?
  puts "🟡[warn]  Missing 🌱 GOOGLE_APPLICATION_CREDENTIALS should do with ADC :)" if key_file_path.nil?
  puts "🟡[warn]  Missing 🌱 EMAIL_ACCOUNT" if ENV.fetch('EMAIL_ACCOUNT').nil?

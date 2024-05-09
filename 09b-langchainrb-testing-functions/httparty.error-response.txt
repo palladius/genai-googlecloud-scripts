@@ -1,0 +1,54 @@
+💛 Riccardo HTTPResponse: {
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "functionCall": {
+              "args": {
+                "country": "it"
+              }
+            }
+          }
+        ]
+      },
+      "finishReason": "STOP",
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.18624301,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.08166612
+        },
+        {
+          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.13857833,
+          "severity": "HARM_SEVERITY_LOW",
+          "severityScore": 0.2814056
+        },
+        {
+          "category": "HARM_CATEGORY_HARASSMENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.23423146,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.19329959
+        },
+        {
+          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.19452077,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.19102567
+        }
+      ]
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 725,
+    "candidatesTokenCount": 2,
+    "totalTokenCount": 727
+  }
+}

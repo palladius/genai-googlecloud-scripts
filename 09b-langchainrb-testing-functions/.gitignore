@@ -1,2 +1,4 @@
 .env
 attiva-sa.sh
+.env.personale
+.env.ricc

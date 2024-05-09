@@ -1,0 +1,50 @@
+💛 Riccardo HTTPResponse: {
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "## Top Headlines from Italy:\n\n**1. Il Giro d' Italia arriva in Toscana. Festa sulle strade: si corre la Genova-Lucca**\n\n**2. Gasperini carica l'Atalanta: \"La partita più importante della mia carriera\"**\n\n**3. Arresti Liguria, Pancani a Ruotolo: \"Perché Schlein ha chiesto le dimissioni di Toti?\". \"Ma è una domanda vera?\". Su La7**\n\n**4. Orsato in lacrime dopo Psg-Borussia Dortmund: cos'è successo**\n\n**5. Ue, 'non c'è posizione comune sulla legittimità di Putin'** \n"
+          }
+        ]
+      },
+      "finishReason": "STOP",
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.16344544,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.11576065
+        },
+        {
+          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.10951516,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.16776334
+        },
+        {
+          "category": "HARM_CATEGORY_HARASSMENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.4076281,
+          "severity": "HARM_SEVERITY_LOW",
+          "severityScore": 0.32177958
+        },
+        {
+          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.112015955,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.15869519
+        }
+      ]
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 2033,
+    "candidatesTokenCount": 141,
+    "totalTokenCount": 2174
+  }
+}

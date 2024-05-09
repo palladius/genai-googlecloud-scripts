@@ -18,7 +18,7 @@ sample_wiki_terms = [
   "Nudibranch",
   "Cow fish",
 ]
-sample_wiki_term = sample_wiki_terms.sample
+SampleWikiTerm = sample_wiki_terms.sample
 
 GOOGLE_SEARCH_API_KEY = ENV.fetch('GOOGLE_SEARCH_API_KEY', nil)
 
@@ -60,23 +60,26 @@ def search_with_wikipedia term:
 end
 
 def ollama_summarize_with( model: :gemma, ollama_url: "http://localhost:11434", content_to_summarize: )
-  llm = Langchain::LLM::Ollama.new
-  llm = Langchain::LLM::Ollama.new(url: ollama_url, default_options: {
-    completion_model_name: 'gemma',
-    embeddings_model_name: "gemma",
-    chat_completion_model_name: "gemma",
+  #llm = Langchain::LLM::Ollama.new
+  llm = Langchain::LLM::Ollama.new(
+    url: ollama_url,
+    default_options: {
+      completion_model_name: 'gemma',
+      embeddings_model_name: "gemma",
+      chat_completion_model_name: "gemma",
   })
   #puts(llm)
   model = llm.defaults[:chat_completion_model_name] rescue :sobenme
   puts("🦙 Summarizing with ollama (model=#{model.colorize :green})")
-  ret = llm.summarize(text: content_to_summarize)
+  ret = llm.summarize(text: content_to_summarize) rescue nil
+  raise 'Error summarize with Llama+model' if ret.nil?
   puts("🦙 summary: #{ret.completion.colorize(:blue)}")
   ret
 end
 
 def main
   words_to_search = ARGV.join(' ')
-  words_to_search = sample_wiki_term if words_to_search.length < 2
+  words_to_search = SampleWikiTerm if words_to_search.length < 2
   puts("👀 Searching Wikipedia for '#{words_to_search}', then summarizing it with Llama. If you dont like the word, give me a better one via ARGV!")
   page_content = search_with_wikipedia(term: words_to_search)
   if page_content.nil?

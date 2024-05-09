@@ -1,4 +1,5 @@
 
+
 test1:
 	bundle exec ruby 202405-testing-functions.rb
 
@@ -9,5 +10,11 @@ test-wikipedia-and-gemma:
 	./langchainrb-crawl-page.rb Donald Trump
 	./langchainrb-crawl-page.rb Silvio Berlusconi
 
+test-functions-with-gemini:
+	bundle exec ruby 20240509-testing-vertex.rb
+
 auth:
-	gcloud todo
+	./activate-user.sh
+
+irb:
+	bundle exec irb

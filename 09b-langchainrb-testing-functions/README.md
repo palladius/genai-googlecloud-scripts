@@ -14,9 +14,10 @@ $ bundle config set local.lanchainrb ~/git/langchainrb-pr513/
 ```
 
 ```
+export FOLDER=langchainrb-pr513-v2
 cd ~/git &&
-    gh repo clone patterns-ai-core/langchainrb langchainrb-pr513 &&
-    cd ~/git/langchainrb-pr513 &&
+    gh repo clone patterns-ai-core/langchainrb $FOLDER &&
+    cd ~/git/$FOLDER &&
     gh pr checkout 513 &&
     git br
 ```
