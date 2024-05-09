@@ -24,7 +24,12 @@ cd ~/git &&
 # Rubies
 
 * ✅ tested on `3.1.2`
-* ✅ tested on `3.2.1`
+* ❌ tested on `3.2.1`
+* Best releases: https://www.ruby-lang.org/en/downloads/releases/
+    * 3.3.1 ❌
+    * 3.2.4 ❌
+    * 3.1.5
+    * 2.7.8
 * ❌ Get error on `3.2.2` and `3.3.0`:
 ```
 In Gemfile:

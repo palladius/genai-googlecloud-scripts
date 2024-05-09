@@ -3,7 +3,7 @@
 # Use `bundle exec irb` for IRB :)
 # bundle exec ruby 20240509-testing-vertex.rb
 
- require 'dotenv/load'
+# require 'dotenv/load'
  require 'langchainrb' # this wont work, Andrei!
  #require '~/git/langchainrb-pr513/lib/langchain.rb'
  require 'json'
@@ -16,8 +16,11 @@
  puts("Key 🔐 GOOGLE_APPLICATION_CREDENTIALS: #{ENV['GOOGLE_APPLICATION_CREDENTIALS']}")
  puts("Key 🔐 NEWS_API_KEY: #{ENV['NEWS_API_KEY']}")
 
- raise "No SA_KEY credentials" if ENV["SA_KEY"].nil?
- raise "No GOOGLE_VERTEX_AI_PROJECT_ID" if ENV["GOOGLE_VERTEX_AI_PROJECT_ID"].nil?
+ project_id = ENV.fetch "GOOGLE_VERTEX_AI_PROJECT_ID", 'ricc-genai'
+
+# raise "No SA_KEY credentials" if ENV["SA_KEY"].nil?
+raise "No GOOGLE_APPLICATION_CREDENTIALS credentials" if ENV["GOOGLE_APPLICATION_CREDENTIALS"].nil?
+raise "No GOOGLE_VERTEX_AI_PROJECT_ID" if project_id.nil?
 
  project_id = ENV["GOOGLE_VERTEX_AI_PROJECT_ID"]
  puts("+ Cloud project_id: #{project_id}")

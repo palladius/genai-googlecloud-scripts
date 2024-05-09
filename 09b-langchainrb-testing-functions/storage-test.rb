@@ -22,7 +22,7 @@ raise "🔴[fatal] Missing 🌱 PALM_API_KEY_GEMINI" if gemini_key.nil?
  puts "🟡[warn]  Missing 🌱 EMAIL_ACCOUNT" if ENV.fetch('EMAIL_ACCOUNT').nil?
 
 
-puts("🔵🟡🔴🟢 ENV[GOOGLE_APPLICATION_CREDENTIALS]: #{ENV['GOOGLE_APPLICATION_CREDENTIALS']}")
+puts("🔵🟡🔴🟢 Google Creds: #{ENV['GOOGLE_APPLICATION_CREDENTIALS']}")
 puts("🔵🟡🔴🟢 Google project id: #{project_id}")
 puts("🔑 Palm Key: #{ENV['PALM_API_KEY_GEMINI']}")
 
@@ -32,42 +32,33 @@ puts("Sample1: listing a bucket (project_id='#{project_id}')")
 
 # Path to your service account key file
 
+# Configure Google Cloud Storage client with service account credentials
+# storage = Google::Cloud::Storage.new(
+#   project_id: project_id,
+#   credentials: Google::Auth::ServiceAccountCredentials.make_creds(
+#     scope: 'https://www.googleapis.com/auth/cloud-storage',
+#     json_key_io: File.open(key_file_path)
+#   )
+# )
 
-
-
-#llm = Langchain::LLM::GoogleGemini.new(api_key: gemini_key)
-
-#llm = Langchain::LLM::GooglePalm.new(api_key: ENV["GOOGLE_PALM_API_KEY"]) # , default_options: { ... })
-
-# google_vertex.embed text: 'ciao'
-begin
-  # Langchain::LLM::GoogleVertexAI not
-  google_vertex = Langchain::LLM::GoogleVertexAI.new(
+# https://cloud.google.com/ruby/docs/reference/google-cloud-storage/latest
+if key_file_path
+  storage = Google::Cloud::Storage.new(
     project_id: project_id,
-    region: "us-central1",
-    default_options: { region: "us-central1", }
+    credentials: key_file_path,
   )
-  puts("LLM google_vertex: #{google_vertex}")
-
-  answer = google_vertex.complete prompt: 'Ciao da me che so'
-
-#puts answer.raw_response.predictions[0]['content']
-# function added by Riccardo in
-  puts answer.completions
-rescue Google::Apis::AuthorizationError => e
-  puts("GCP Aiuth issue, try this command: #{command_to_fix_auth}")
-rescue ArgumentError => e
-  puts("ArgumentError sobenme. Error2 = #{e}")
-rescue ArgumentError => e
-  puts("NotImplementedError sobenme. Error2 = #{e}")
-rescue RuntimeError => e
-  puts("RuntimeError sobenme. Error2 = #{e}")
-  puts e.backtrace.join("\n")
-rescue Exception  => e
-  puts("Caught generic Exception (class=#{e.class}). Error: '#{e}'")
-rescue => err
-  puts("All other errors, probably auth: #{e}")
+else
+  puts("Missing creds - hoping in ADC.")
+  storage = Google::Cloud::Storage.new(
+    project_id: project_id,
+  )
 end
 
-# Gemini code for listing a buckt
-## List a bucket
+# List all buckets in your project
+buckets = storage.buckets
+
+# Print bucket names
+puts "🪵 Buckets in your project:"
+buckets.each { |bucket|
+  puts bucket.name
+}
