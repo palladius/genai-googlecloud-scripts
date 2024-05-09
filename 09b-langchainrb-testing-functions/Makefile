@@ -8,3 +8,6 @@ test2:
 test-wikipedia-and-gemma:
 	./langchainrb-crawl-page.rb Donald Trump
 	./langchainrb-crawl-page.rb Silvio Berlusconi
+
+auth:
+	gcloud todo
