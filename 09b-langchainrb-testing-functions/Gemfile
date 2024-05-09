@@ -10,7 +10,7 @@
 source 'https://rubygems.org'
 
 gem 'dotenv'
-gem 'google-apis-aiplatform_v1'
+gem 'google-apis-aiplatform_v1', "~> 0.8"
 #gem 'google_palm_api'
 
 # Experimental from Andrei with Gemini and News reading support!
@@ -23,6 +23,12 @@ gem "langchainrb", path: '../../langchainrb-pr513/'
 #gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
 #gem 'googleauth', '~> 0.4.1' # But hey, latest is 1.11.0!!
 gem 'googleauth', '~> 1.11.0' # But hey, latest is 1.11.0!!
+#gem 'googleauth', '~> 0.7' # But hey, latest is 1.11.0!!
+gem 'lolcat'
+gem 'json'
+
+# gem 'pragmatic_segmenter', '0.3.23'
+# gem 'unicode', '~> 0.3'
 
 # For tools
 gem 'google_search_results'
