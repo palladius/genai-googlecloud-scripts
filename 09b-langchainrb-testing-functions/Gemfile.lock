@@ -33,8 +33,9 @@ GEM
     colorize (1.1.0)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
-    csv (3.3.0)
     declarative (0.0.20)
+    digest-crc (0.6.5)
+      rake (>= 12.0.0, < 14.0.0)
     dotenv (3.1.2)
     drb (2.2.1)
     event_stream_parser (1.0.0)
@@ -54,8 +55,24 @@ GEM
       representable (~> 3.0)
       retriable (>= 2.0, < 4.a)
       rexml
+    google-apis-iamcredentials_v1 (0.17.0)
+      google-apis-core (>= 0.11.0, < 2.a)
+    google-apis-storage_v1 (0.31.0)
+      google-apis-core (>= 0.11.0, < 2.a)
+    google-cloud-core (1.6.1)
+      google-cloud-env (>= 1.0, < 3.a)
+      google-cloud-errors (~> 1.0)
     google-cloud-env (2.1.1)
       faraday (>= 1.0, < 3.a)
+    google-cloud-errors (1.3.1)
+    google-cloud-storage (1.47.0)
+      addressable (~> 2.8)
+      digest-crc (~> 0.4)
+      google-apis-iamcredentials_v1 (~> 0.1)
+      google-apis-storage_v1 (~> 0.31.0)
+      google-cloud-core (~> 1.6)
+      googleauth (>= 0.16.2, < 2.a)
+      mini_mime (~> 1.0)
     google_search_results (2.2.0)
     googleauth (1.11.0)
       faraday (>= 1.0, < 3.a)
@@ -64,13 +81,13 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    httparty (0.22.0)
-      csv
-      mini_mime (>= 1.0.0)
+    httparty (0.13.7)
+      json (~> 1.8)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    json (1.8.6)
     json-schema (4.3.0)
       addressable (>= 2.8)
     jwt (2.8.1)
@@ -89,6 +106,7 @@ GEM
     pragmatic_segmenter (0.3.23)
       unicode
     public_suffix (5.0.5)
+    rake (13.1.0)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -125,9 +143,10 @@ DEPENDENCIES
   dotenv
   faraday
   google-apis-aiplatform_v1
+  google-cloud-storage
   google_search_results
-  googleauth
-  httparty
+  googleauth (~> 1.11.0)
+  httparty (~> 0.13.7)
   langchainrb!
   ruby-openai (~> 6.3.0)
   wikipedia-client (~> 1.17.0)

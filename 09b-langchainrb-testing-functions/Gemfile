@@ -20,15 +20,18 @@ gem "langchainrb", path: '../../langchainrb-pr513/'
 # gem 'langchainrb',
 #   :git => '~/git/langchainrb-pr513/',
 #   :branch => ' google-gemini-assistant-support'
-gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
+#gem 'googleauth' # https://github.com/googleapis/google-auth-library-ruby
+#gem 'googleauth', '~> 0.4.1' # But hey, latest is 1.11.0!!
+gem 'googleauth', '~> 1.11.0' # But hey, latest is 1.11.0!!
 
 # For tools
 gem 'google_search_results'
 gem "wikipedia-client", "~> 1.17.0"
 gem 'faraday' # for ollama
-gem 'httparty' # for function calling
+#gem 'httparty' # for function calling
+gem 'httparty', '~> 0.13.7' # or gives me this error: undefined DIG methos: https://gitlab.com/gitlab-org/gitlab-foss/-/issues/60827
 
 gem "ruby-openai", "~> 6.3.0" # for OpenAI
-
+gem 'google-cloud-storage'
 # gbaptista again! :)
 #gem 'ollama-ai', '~> 1.2.1'
