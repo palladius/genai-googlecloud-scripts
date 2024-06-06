@@ -7,14 +7,13 @@
 #require 'nokogiri'
 require 'net/http'
 
-# query: zürich wassertemperatur
+# Query: zürich wassertemperatur
 # site:
 # 1. https://www.boot24.ch/chde/service/temperaturen/zuerichsee/
 # 2. https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html
-
 TestZuri = 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
 
-# gemini advanced:
+# This is done with Gemini. Still not the best implementation, but good enough for today.
 def extract_text_from_url(url:)
   # Fetches the page using Net::HTTP (a bit more robust than curl)
   response = Net::HTTP.get_response(URI(url))
@@ -57,7 +56,7 @@ def main()
   raise "Give me a URL as argument!" if ARGV.size < 1
 
   url = ARGV[0] # "https://www.example.com"
-  url = TestZuri # 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
+  #url = TestZuri # 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
   #text = get_text_from_url(url)
   text = extract_text_from_url(url:)
   puts text
