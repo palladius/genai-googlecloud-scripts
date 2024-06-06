@@ -1,4 +1,5 @@
-#!/usr/bin/env bundle exec ruby
+
+# 'Ruby script'
 
 require 'dotenv/load'
 require 'langchainrb'

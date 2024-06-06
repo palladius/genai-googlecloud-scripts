@@ -11,7 +11,26 @@
  require 'httparty'
  require 'colorize'
 
- Encoding.default_external = Encoding::UTF_8
+Encoding.default_external = Encoding::UTF_8
+Verbose = true
+
+#NewsQuery="What are the latest news from Italy?"
+#NewsQuery="Find news on these four Crypto stocks: BTC, ETH, LTC, BCH"
+# LTC: https://www.nasdaq.com/it/market-activity/stocks/ltc
+# BCH: Banco de Chile (BCH)
+NewsQueries = [
+  "Latest headlines on Israel and Palestine, from BBC or CNN",
+  "News on Israel and Palestine, from a European source",
+  "News on Israel and Palestine, from BBC or CNN",
+  "News on Israel and Palestine, from Al Jazeera",
+  "Find news on BCH Crypto stock, from a south american country",
+  "Find news on BCN Crypto stock, possibly in Italian",
+  "Find news on ETH Crypto stock, possibly located in alpine countries (Switzerland and Austria)",
+  "Find news on LTC Crypto stock, possibly located in a European country",
+]
+NewsQuery=NewsQueries.sample # "Find news on BCH Crypto stock"
+
+puts("News querry: #{NewsQuery.colorize :green}")
 
 class Langchain::Messages::GoogleGeminiMessage
   def to_s
@@ -46,7 +65,8 @@ puts("+ llm: #{llm}")
 #puts("+ LLLM URI: #{llm.uri}")
 puts("+ authorizer: #{llm.authorizer}")
 tok = llm.authorizer.fetch_access_token!
-puts("+ token: #{tok}")
+puts("+ token: #{tok}") if Verbose
+raise "Riccardo: empty LLM GCP Auth token" if tok.nil?
 #puts("+ Riccado @authorizer.methods  = #{llm.authorizer.methods.sort.join(', ').colorize :yellow}")
 
 thread = Langchain::Thread.new
@@ -59,7 +79,7 @@ assistant = Langchain::Assistant.new(
 )
 
 # This errors
-ret = assistant.add_message_and_run content: "What are the latest news from Italy?", auto_tool_execution: true
+ret = assistant.add_message_and_run content: NewsQuery, auto_tool_execution: true
 puts("Ret is an Array of [Langchain::Messages::GoogleGeminiMessage]: #{ret.map{|x| x.class}}")
 
 ret.each do |gemini_msg|
