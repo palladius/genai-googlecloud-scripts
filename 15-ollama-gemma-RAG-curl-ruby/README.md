@@ -30,8 +30,33 @@ to do so.
 The scripts do the following:
 
 * curl information from a swiss website, say https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html
-* feed this curl into a RAG ruby ERB template (JINJA python equivalent, just better ;) ).
+* feed this curl into a [RAG ruby ERB template](wasser-temperatur-rag.prompt.erb) (JINJA python equivalent, just better ;) ).
 * Ask `Gemma` to read this and produce an output.
+
+RAG Excerpt (note the `<%= %>` part which ERB interprets as code/variables):
+
+```
+Can you please tell me the Water Temperature of Seebad Enge and Seebad Utoquai from this doc?
+I'll attach a document I just downloaded from the internet with current temperatures as of
+<%= date_today %>.
+
+=== Website curl ===
+
+Here are the real temperatures:
+
+<%= rag_from_website %>
+
+=== Sample answer ===
+
+Answer should be in JSON, something like:
+
+{
+     "Seebad Enge": ".." ,
+     "Seebad Utoquai": ".."
+}
+
+=== Your answer ===
+```
 
 ## Result
 
