@@ -72,6 +72,8 @@ $ cat output.json
 }
 ```
 
+You don't speak German? Tranquillo, neither do I! Luckily `gemma` does.
+
 ![Screenshot of water temperature on 6th June 2024](zurich-see-screenshot.png)
 
 ## Some additional thoughts
