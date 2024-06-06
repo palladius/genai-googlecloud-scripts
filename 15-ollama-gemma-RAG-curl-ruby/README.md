@@ -1,12 +1,28 @@
 # RAG example
 
-# The problem
+## The problem
 I like to swim. However, in Zurich, water temperature can be a bit off for most tastes (not my friend Yves, he likes it
 16 degrees). I like it from 20deg on.
 
 Problem is, Switzerland exposes water temperatures in multiple websites, but it doesn't expose an API.
 
-# The Solution
+## Prerequisites
+
+To solve this, you just need an internet connection and a locally installed ollama with gemma:
+
+* Download ollama: https://ollama.com/download . Can be as easy as `curl -fsSL https://ollama.com/install.sh | sh`, depending on your OS.
+* Install Gemma: `ollama pull gemma`
+
+Proof it works:
+```
+$ echo Tell me a short joke | ollama run gemma
+
+What did the ocean say to the beach?
+
+Nothing, it just waved.
+```
+
+## The Solution
 
 I'm too lazy to build a deterministic one, how about I ask Gemini to do the magic mojo for me? I'll use a RAG pattern
 to do so.
@@ -16,7 +32,6 @@ The scripts do the following:
 * curl information from a swiss website, say https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html
 * feed this curl into a RAG ruby ERB template (JINJA python equivalent, just better ;) ).
 * Ask `Gemma` to read this and produce an output.
-
 
 ## Result
 
@@ -65,5 +80,6 @@ $ 	./curlit.rb https://www.boot24.ch/chde/service/temperaturen/zugersee/ | ollam
 The current water temperature of Zuger See is **17°C**.
 ```
 
-![Picture of the ZugerSee](image.png)
+![Picture of the ZugerSee](zuger-see.png)
+
 Bingo!
