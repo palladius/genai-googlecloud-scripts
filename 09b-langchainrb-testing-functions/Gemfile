@@ -14,7 +14,9 @@ gem 'google-apis-aiplatform_v1', "~> 0.8"
 #gem 'google_palm_api'
 
 # Experimental from Andrei with Gemini and News reading support!
-gem "langchainrb", path: '../../langchainrb-pr513-v2/'
+# Download a new one: $GICBIN/download-andrei-pr513.sh
+#gem "langchainrb", path: '../../langchainrb-pr513-v3/'
+gem "langchainrb", '~> 0.13.1' # , path: '../../langchainrb-pr513-v3/'
 #gem 'httparty'
 
 # gem 'langchainrb',
