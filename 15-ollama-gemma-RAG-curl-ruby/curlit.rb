@@ -8,10 +8,14 @@
 require 'net/http'
 
 # Query: zürich wassertemperatur
-# site:
+# Available websites:
 # 1. https://www.boot24.ch/chde/service/temperaturen/zuerichsee/
 # 2. https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html
-TestZuri = 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
+# TestZuri = 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
+# 3. https://www.zh.ch/de/umwelt-tiere/wasser-gewaesser/messdaten/wassertemperaturen.html
+#    This has imagery so it would be a GREAT example for image recognition (but it also has a table below).
+# All lakes: https://www.badi-info.ch/wasser-temperaturen.html
+#
 
 # This is done with Gemini. Still not the best implementation, but good enough for today.
 def extract_text_from_url(url:)
@@ -36,35 +40,16 @@ def extract_text_from_url(url:)
   end
 end
 
-# broken - from gemini CLI
-# def get_text_from_url(url)
-#   # Fetch the HTML content from the URL
-#   html = open(url).read
-
-#   # Parse the HTML using Nokogiri
-#   doc = Nokogiri::HTML(html)
-
-#   # Extract the text content from the parsed HTML
-#   text = doc.text.strip
-
-#   # Return the cleaned text
-#   return text
-# end
 
 def main()
   # Example usage
   raise "Give me a URL as argument!" if ARGV.size < 1
 
   url = ARGV[0] # "https://www.example.com"
-  #url = TestZuri # 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html'
-  #text = get_text_from_url(url)
   text = extract_text_from_url(url:)
   puts text
 end
 
-#puts "ARGV: #{ARGV}"
-#puts "ARGV[0]: #{ARGV[0]}"
-# main
 if $0 ==  __FILE__
   main
 else
