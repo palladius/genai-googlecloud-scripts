@@ -65,6 +65,8 @@ def main(verbose: true)
   # 1. get output frm website
   rag_content = curlit(url: 'https://www.stadt-zuerich.ch/ssd/de/index/sport/schwimmen/wassertemperaturen.html')
   # 2. renders the prompt with this information
+  puts("RAG Content: '''#{rag_content}'''") if verbose
+
   rendered_output = substitute_with_rag(template_path: 'wasser-temperatur-rag.prompt.erb', rag_content:)
   # 3. Calling Ollama takes a while, better to tell the user they'll have to wait a bit
   puts "⌛ Now lets wait for gemma to process it.. popen" if verbose
