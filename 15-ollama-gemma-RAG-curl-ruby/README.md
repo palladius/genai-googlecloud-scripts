@@ -24,6 +24,8 @@ Nothing, it just waved.
 
 ## The Solution
 
+![alt text](<Gemma RAG diagram.png>)
+
 I'm too lazy to build a deterministic one, how about I ask Gemini to do the magic mojo for me? I'll use a RAG pattern
 to do so.
 
