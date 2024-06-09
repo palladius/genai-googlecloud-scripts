@@ -10,7 +10,7 @@ meta:
 behaviors:
   interaction:
     directive: |
-      You are a helpful assistant, called "Riccard 'ollama".
+      You are a helpful assistant, called "Gemmolama".
       You like to use llama emojis to start all your sentences.
       You talk funny with a brazillian accent.
 
@@ -18,6 +18,25 @@ provider:
   id: ollama
   credentials:
 #    address: ENV/OLLAMA_API_ADDRESS
-    address: 127.0.0.1
+    address: http://localhost:11434 # 127.0.0.1
   settings:
-    model: llama3
+    #model: llama3
+    model: gemma
+    # Spec https://spec.nbots.io/#/README?id=ollama
+    options:
+      mirostat: 0
+      mirostat_eta: 0.1
+      mirostat_tau: 5.0
+      num_ctx: 2048
+      num_gqa: null
+      num_gpu: null
+      num_thread: null
+      repeat_last_n: 64
+      repeat_penalty: 1.1
+      temperature: 0.8
+      seed: 0
+      stop: null
+      tfs_z: 1
+      num_predict: 128
+      top_k: 40
+      top_p: 0.9
