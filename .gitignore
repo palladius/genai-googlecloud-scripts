@@ -4,3 +4,5 @@ genai-apptemplates-googlecloud/
 .envrc
 .git-privatize
 .ondir.was.here.touch
+.gcloudconfig.yaml
+_env_gaic.*
