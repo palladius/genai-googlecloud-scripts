@@ -1,0 +1,6 @@
+---
+tools:
+- name: what-time-is-it
+    description: Returns the current date and time.
+    fennel: |
+      (os.date)
