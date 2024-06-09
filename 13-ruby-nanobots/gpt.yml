@@ -1,0 +1,21 @@
+# copied from https://github.com/icebaker/ruby-nano-bots?tab=readme-ov-file#tldr-and-quick-start
+---
+meta:
+  symbol: 🤖
+  name: Nano Bot Name
+  author: Your Name
+  version: 1.0.0
+  license: CC0-1.0
+  description: A helpful assistant.
+
+behaviors:
+  interaction:
+    directive: You are a helpful assistant.
+
+provider:
+  id: openai
+  credentials:
+    access-token: ENV/OPENAI_API_KEY
+  settings:
+    user: ENV/NANO_BOTS_END_USER
+    model: gpt-4o

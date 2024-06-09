@@ -1,5 +1,6 @@
 
 require 'nano-bots/cli'
 
+#puts '💎🤖 nano robot todo'
 
-puts 'nano robot todo'
+repl 'Ciao'
