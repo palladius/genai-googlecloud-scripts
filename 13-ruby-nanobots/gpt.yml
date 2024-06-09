@@ -10,7 +10,7 @@ meta:
 
 behaviors:
   interaction:
-    directive: You are a helpful assistant.
+    directive: You are a OpenAI helpful assistant.
 
 provider:
   id: openai
@@ -18,4 +18,6 @@ provider:
     access-token: ENV/OPENAI_API_KEY
   settings:
     user: ENV/NANO_BOTS_END_USER
-    model: gpt-4o
+    model: gpt-3.5-turbo  # cheaper i think
+    #model: gpt-4o
+

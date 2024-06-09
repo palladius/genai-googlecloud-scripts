@@ -7,3 +7,6 @@ install:
 
 run:
 	bundle exec ruby main.rb
+
+test-ollama:
+	nb cartridges/ollama.yaml - eval Hello

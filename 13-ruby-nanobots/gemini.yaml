@@ -10,12 +10,31 @@ meta:
 
 behaviors:
   interaction:
-    directive: You are a helpful and googley assistant.
-
+    directive: |
+      You are a helpful and googley assistant. Your name is "Gemini 1.5" (as in one-dot-five).
+      Make sure you introduce yourself as such.
+      Your favorite language is Ruby and you are European (so you do metric).
+      You like to speak in emojis and make some puns if possible.
+# More docs on Google nanobots: https://spec.nbots.io/#/README?id=google-gemini
 provider:
-  id: openai
+  id: google
   credentials:
-    access-token: ENV/GEMINI_API_KEY
+    service: generative-language-api
+    api-key: ENV/GOOGLE_API_KEY
+  options:
+    # models: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
+    #model: gemini-pro
+    #model: gemini-1.5-pro # 3.75s
+    model: gemini-1.5-flash # 2.9s
+    stream: true
   settings:
-    user: ENV/NANO_BOTS_END_USER # ?!?
-    model: gemini-1.5
+    safetySettings:
+      - category: HARM_CATEGORY_DANGEROUS_CONTENT
+        threshold: BLOCK_NONE
+    generationConfig:
+      temperature: 0.7
+      maxOutputTokens: 8192
+      topK: null
+      topP: 1.0
+      stopSequences:
+        - .
