@@ -13,6 +13,8 @@ summarize-eu-elections:
 	./curlit.rb https://www.ilfattoquotidiano.it/| ollama run llama3 'Come vanno le elezioni europee?'
 	./curlit.rb https://www.youtrend.it/| ollama run gemma 'Come vanno le elezioni europee?'
 
+	./curlit.rb https://www.repubblica.it/ | ollama run gemma '\n---\n\n Raccontami le ultime notizie: '
+
 lint:
 #rubocop -A
 	rubocop --autocorrect-all
