@@ -24,8 +24,9 @@ def substitute_with_rag(template_path:, rag_content:)
     date_today: Date.today,
     rag_from_website: rag_content
   }
+  binding_object = binding
   sample_variables.each do |key, value|
-    binding.local_variable_set(key, value)
+    binding_object.local_variable_set(key, value)
   end
 
   # 5. Render the Template
