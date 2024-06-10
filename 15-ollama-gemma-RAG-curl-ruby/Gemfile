@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# To cleanup HTML.
+gem 'actionview' #, '~> 7.1', '>= 7.1.3.4'
