@@ -11,6 +11,7 @@ rag-example-complex:
 summarize-eu-elections:
 	./curlit.rb https://www.ilfattoquotidiano.it/| ollama run gemma 'Come vanno le elezioni europee?'
 	./curlit.rb https://www.ilfattoquotidiano.it/| ollama run llama3 'Come vanno le elezioni europee?'
+	./curlit.rb https://www.youtrend.it/| ollama run gemma 'Come vanno le elezioni europee?'
 
 lint:
 #rubocop -A
