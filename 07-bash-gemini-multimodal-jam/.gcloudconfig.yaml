@@ -4,17 +4,13 @@
 # Code: https://github.com/palladius/sakura/blob/master/bin/auto_import_config.py
 ########################################################
 # Once done you can do: gcloud config configurations activate YOUR_VAVORITE_CONFIG
+#
+# Note: this is PUBLIC
+#
+#
 local_config:
   auto: true
 configurations:
-  # You probably DONT WANT TO USE default unless you started on GCP yesterday
-  #default:
-  #  gcloud:
-  #    project: my-default-personal-project
-  #    compute/region: us-central1
-  #    compute/zone: us-central1-b
-  #    account: your.personal.email@gmail.com
-  # Note: gcloud wont accept this config name if it starts with a number (#btdt)
   07-bash-gemini-multimodal-jam:
     gcloud:
       project: my-local-work-project
@@ -31,5 +27,4 @@ configurations:
       BUCKET: "gs://my-unique-${PROJECT_ID}-bucket"
       IMAGE_URI: "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/my_vertex_image:latest"
 
-# ... Now its time to CRL-D
 

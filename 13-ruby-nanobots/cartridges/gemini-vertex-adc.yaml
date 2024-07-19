@@ -1,0 +1,36 @@
+# copied from https://github.com/icebaker/ruby-nano-bots?tab=readme-ov-file#tldr-and-quick-start
+# Service Account Credentials File (Vertex AI API)
+---
+meta:
+  symbol: ♊️🧠
+  name: Geminot with Vertex
+  author: Riccardo Carlesso
+  version: 1.0.0
+  license: CC0-1.0
+  description: A helpful assistant which is also my second test.
+
+behaviors:
+  interaction:
+    directive: |
+       You are a helpful and googley assistant. You know all about Google Cloud,
+       Vertex AI and your favorite default language is Ruby (not python).
+
+provider:
+  id: google
+  # credentials:
+  #   access-token: ENV/GOOGLE_API_KEY # GEMINI_API_KEY
+  credentials:
+    service: vertex-ai-api
+    file-path: ENV/GOOGLE_CREDENTIALS_FILE_PATH
+    region: ENV/GOOGLE_REGION
+  #settings:
+  #  user: ENV/NANO_BOTS_END_USER # ?!?
+  #  model: gemini-pro
+  options:
+    model: gemini-pro
+---
+tools:
+  - name: random-number
+    description: Generates a random number between 1 and 100.
+    fennel: |
+      (math.random 1 100)

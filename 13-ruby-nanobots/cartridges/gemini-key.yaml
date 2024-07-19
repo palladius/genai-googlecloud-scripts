@@ -1,8 +1,8 @@
 # copied from https://github.com/icebaker/ruby-nano-bots?tab=readme-ov-file#tldr-and-quick-start
 ---
 meta:
-  symbol: 🤖
-  name: Geminot
+  symbol: ♊️🔑
+  name: Geminot with Key
   author: Riccardo Carlesso
   version: 1.0.0
   license: CC0-1.0
@@ -24,8 +24,8 @@ provider:
   options:
     # models: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
     #model: gemini-pro
-    #model: gemini-1.5-pro # 3.75s
-    model: gemini-1.5-flash # 2.9s
+    model: gemini-1.5-pro # 3.75s
+    #model: gemini-1.5-flash # 2.9s
     stream: true
   settings:
     safetySettings:
@@ -38,3 +38,14 @@ provider:
       topP: 1.0
       stopSequences:
         - .
+---
+tools:
+  - name: random-number
+    description: Generates a random number between 1 and 100.
+    fennel: |
+      (math.random 1 100)
+# ---
+# clojure: |
+#   (-> (java.time.ZonedDateTime/now)
+#       (.format (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm"))
+#       (clojure.string/trimr))
