@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'combine_pdf'
+gem 'eqn'
+gem 'google_search_results'
+gem 'langchainrb'
+gem 'open-weather-ruby-client'
+
+# vscode complains otherwise, also: sudo apt-get install rustc
+gem 'rubocop'
+
+gem 'pdf-reader'
