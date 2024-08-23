@@ -83,7 +83,8 @@ def header():
         ),
     ):
         me.text(
-            "DuoChat",
+            #https://google.github.io/mesop/codelab/5/
+            "DuoChat (Riccardo you just need the Part 5: Wrapping it up)",
             style=me.Style(
                 font_weight=500,
                 font_size=24,
