@@ -8,3 +8,5 @@ genai-apptemplates-googlecloud/
 _env_gaic.*
 private/
 .env.derek
+__pycache__/
+.venv

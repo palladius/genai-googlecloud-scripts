@@ -1,0 +1,3 @@
+
+run:
+	mesop main.py
