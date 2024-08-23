@@ -1,106 +1,104 @@
- {
-    "prompt_version": "1.7a",
-    "llm_temperature": "0.2",
-    "author_name": "Romin Irani",
-    "author_nationality": null,
-    "author_style": "Romin Irani's writing style can be described as professional, informative, and engaging. He often uses clear and concise language, and he provides helpful examples and illustrations to support his points. Additionally, he is skilled at explaining complex technical concepts in a way that is easy to understand.",
-    "author_favorite_languages": "Java, Python",
-    "typos": [
-        {
-            "current": "blog post",
-            "correct": "blog post"
-        },
-        {
-            "current": "summarize documents",
-            "correct": "summarize documents"
-        },
-        {
-            "current": "Jump Start Solution",
-            "correct": "Jump Start Solution"
-        }
-    ],
-    "articles_feedback": [
-        {
-            "title": "Integrating langchain4j and PaLM 2 Chat Bison Model",
-            "summary": "The article describes how to integrate the Google Cloud GenAI Application templates with the langchain4j framework. The integration allows developers to use the PaLM 2 Chat Bison Model in their Java applications.",
-            "url": "https://medium.com/google-cloud/integrating-langchain4j-and-palm-2-chat-bison-model-a684cefd67af?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": true,
-            "song": "We Will Rock You"
-        },
-        {
-            "title": "Google Cloud Platform Technology Nuggets \u2014 October 15\u201331, 2023 Edition",
-            "summary": "The article provides a summary of Google Cloud Platform technology news from October 15-31, 2023. Topics covered include the South Pacific Connect initiative, a new blog post on building sustainable infrastructure for AI, and Google Cloud Next London.",
-            "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-october-15-31-2023-edition-4d5ea0689e30?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "Sweet Child o' Mine"
-        },
-        {
-            "title": "Develop a FlutterFlow App powered by Vertex AI PaLM 2 Integration",
-            "summary": "The article provides a tutorial on how to develop a FlutterFlow app that uses the Vertex AI PaLM 2 Integration. The app allows users to enter a query and receive a response from the PaLM 2 Text Foundational Model.",
-            "url": "https://medium.com/google-cloud/flutterflow-and-vertex-ai-palm-2-integration-14c137e83053?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": true,
-            "song": "Don't Stop Me Now"
-        },
-        {
-            "title": "Google Cloud Platform Technology Nuggets \u2014 October 1\u201315, 2023 Edition",
-            "summary": "The article provides a summary of Google Cloud Platform technology news from October 1-15, 2023. Topics covered include a blog post on how Spotify uses Fleet Management to keep engineers and code in sync, a customer story about how Google Cloud Consulting and Snap collaborated to reduce latency, and a new HTTP/2-based DDoS attack.",
-            "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-october-1-15-2023-edition-ab8298c2b9d9?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "Another One Bites the Dust"
-        },
-        {
-            "title": "Google Cloud Platform Technology Nuggets \u2014 September 16\u201330, 2023 Edition",
-            "summary": "The article provides a summary of Google Cloud Platform technology news from September 16-30, 2023. Topics covered include Google Cloud VMware Engine, new regions for Google Cloud services, Confidential Virtual Machines, and the launch of the Nuvem subsea cable.",
-            "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-september-16-30-2023-edition-4612c32ac57d?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "Billie Jean"
-        },
-        {
-            "title": "What \u201cAI-Assistant for a Developer\u201d is all about?",
-            "summary": "The article discusses the potential of AI-powered assistants for developers. It highlights the benefits of using AI assistants, such as improved accuracy and efficiency, and provides examples of how AI assistants can be used in development environments.",
-            "url": "https://medium.com/google-cloud/what-ai-assistant-for-a-developer-is-all-about-723de644a449?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "Imagine"
-        },
-        {
-            "title": "Top 10 Google Cloud Resources to bookmark for learning",
-            "summary": "The article lists 10 Google Cloud resources that are useful for learning about the platform. These resources include documentation, tutorials, code samples, and release notes.",
-            "url": "https://medium.com/google-cloud/top-10-google-cloud-resources-to-bookmark-for-learning-10a74ab117d3?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "I Will Survive"
-        },
-        {
-            "title": "Google Cloud Jump Start Solution Deep Dive: Summarize Large Documents \u2014 Part 3",
-            "summary": "The article provides a deep dive into the Google Cloud Jump Start Solution for summarizing large documents. It covers the architecture of the solution, the core logic, and how to customize the solution.",
-            "url": "https://medium.com/google-cloud/google-cloud-jump-start-solution-deep-dive-summarize-large-documents-part-3-756715d5a579?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": true,
-            "song": "Born This Way"
-        },
-        {
-            "title": "Google Cloud Platform Technology Nuggets \u2014 Sep 1\u201315, 2023 Edition",
-            "summary": "The article provides a summary of Google Cloud Platform technology news from September 1-15, 2023. Topics covered include Google Next 2023, Cloud TPUs in Google Kubernetes Engine, Future reservations in Compute Engine, and the demand for AI-accelerated computing.",
-            "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-sep-1-15-2023-edition-d8ce246cdc58?source=rss-802a4d428d95------2",
-            "accuracy": 8,
-            "is_gcp": true,
-            "is_technical": false,
-            "song": "Hey Jude"
-        },
-        {
-            "title": "Google Cloud Jump Start Solution Deep Dive: Summarize Large Documents \u2014 Part 2",
-            "summary": "The article provides a deep dive into the Google Cloud Jump Start Solution for summarizing large documents. It covers the architecture of the solution, the
+ ```json
+{
+  "prompt_version": "1.10",
+  "llm_temperature": "0.9",
+  "author_name": "Romin Irani",
+  "author_nationality": "Unknown",
+  "author_style": "Romin Irani writes in a professional and informative style, with a focus on providing practical, actionable information for developers and IT professionals.",
+  "author_favorite_languages": "Java, Python",
+  "author_favorite_cloud": "Google Cloud Platform",
+  "typos": [],
+  "articles_feedback": [
+    {
+      "title": "Integrating langchain4j and PaLM 2 Chat Bison Model",
+      "summary": "The article describes how to integrate Google Cloud's Text Bison and Chat Bison models using the langchain4j framework. It provides technical details on setting up a Java Cloud Function to invoke the PaLM2 model hosted in Vertex AI.",
+      "url": "https://medium.com/google-cloud/integrating-langchain4j-and-palm-2-chat-bison-model-a684cefd67af?source=rss-802a4d428d95------2",
+      "accuracy": 9,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": true
+    },
+    {
+      "title": "Google Cloud Platform Technology Nuggets \u2015 October 15\u201331, 2023 Edition",
+      "summary": "The article is a compilation of technology-related news and updates from Google Cloud Platform, such as the launch of new subsea cables, sustainability initiatives, and the Google Cloud Next London event.",
+      "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-october-15-31-2023-edition-4d5ea0689e30?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "Develop a FlutterFlow App powered by Vertex AI PaLM 2 Integration",
+      "summary": "The article shows how to combine Google Cloud's Vertex AI PaLM 2 model with FlutterFlow, a development tool for building user interfaces. It explains how to create an app that can send queries to the PaLM 2 model and display the responses.",
+      "url": "https://medium.com/google-cloud/flutterflow-and-vertex-ai-palm-2-integration-14c137e83053?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": true
+    },
+    {
+      "title": "Google Cloud Platform Technology Nuggets \u2015 October 1\u201315, 2023 Edition",
+      "summary": "Similar to the previous article, this one provides technology updates from Google Cloud, including customer stories from Spotify and Snap, security-related news, and new product announcements.",
+      "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-october-1-15-2023-edition-ab8298c2b9d9?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "Google Cloud Platform Technology Nuggets \u2015 September 16\u201330, 2023 Edition",
+      "summary": "Another installment of technology updates from Google Cloud, covering topics such as Google Cloud VMware Engine, infrastructure expansion, and the introduction of Confidential VMs.",
+      "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-september-16-30-2023-edition-4612c32ac57d?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "What \u201cAI-Assistant for a Developer\u201d is all about?",
+      "summary": "The article discusses the current state of AI-powered developer assistants, their potential benefits, and some available resources and tools, including Google Cloud's Duet AI.",
+      "url": "https://medium.com/google-cloud/what-ai-assistant-for-a-developer-is-all-about-723de644a449?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "Top 10 Google Cloud Resources to bookmark for learning",
+      "summary": "A curation of 10 helpful Google Cloud resources for learning and development, including documentation, tutorials, code samples, release notes, and blog posts.",
+      "url": "https://medium.com/google-cloud/top-10-google-cloud-resources-to-bookmark-for-learning-10a74ab117d3?source=rss-802a4d428d95------2",
+      "accuracy": 9,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "Google Cloud Jump Start Solution Deep Dive: Summarize Large Documents \u2013 Part 3",
+      "summary": "Part 3 of a series diving deep into a Google Cloud Jump Start Solution for summarizing large documents. It focuses on modifying the Cloud Function to process audio files for transcription and summarization.",
+      "url": "https://medium.com/google-cloud/google-cloud-jump-start-solution-deep-dive-summarize-large-documents-part-3-756715d5a579?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": true
+    },
+    {
+      "title": "Google Cloud Platform Technology Nuggets \u2015 Sep 1\u201315, 2023 Edition",
+      "summary": "Another edition of technology updates from Google Cloud, featuring highlights from Google Next 2023, infrastructure announcements, and advancements in AI-accelerated computing.",
+      "url": "https://medium.com/google-cloud/google-cloud-platform-technology-nuggets-sep-1-15-2023-edition-d8ce246cdc58?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": false
+    },
+    {
+      "title": "Google Cloud Jump Start Solution Deep Dive: Summarize Large Documents \u2013 Part 2",
+      "summary": "Part 2 of the deep dive into the Google Cloud Jump Start Solution for summarizing large documents. It goes through the process of deploying the solution using Terraform and setting up a Cloud Function for the core functionality.",
+      "url": "https://medium.com/google-cloud/google-cloud-jump-start-solution-deep-dive-summarize-large-documents-part-2-76aa5053ea52?source=rss-802a4d428d95------2",
+      "accuracy": 8,
+      "year_publication": 2023,
+      "is_gcp": true,
+      "is_technical": true
+    }
+  ]
+}
+```
