@@ -76,28 +76,6 @@ ROOT_BOX_STYLE = me.Style(
     flex_direction="column",
 )
 
-@me.page(
-    path="/",
-    stylesheets=[
-        "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-    ],
-)
-def page():
-    model_picker_dialog()
-    with me.box(style=ROOT_BOX_STYLE):
-        header()
-        with me.box(
-            style=me.Style(
-                width="min(680px, 100%)",
-                margin=me.Margin.symmetric(horizontal="auto", vertical=36),
-            )
-        ):
-            me.text(
-                "Chat with multiple models at once",
-                style=me.Style(font_size=20, margin=me.Margin(bottom=24)),
-            )
-            chat_input()
-
 def header():
     with me.box(
         style=me.Style(
@@ -114,11 +92,18 @@ def header():
             ),
         )
 
+
+def on_blur(e: me.InputBlurEvent):
+    state = me.state(State)
+    state.input = e.value
+
+
 def switch_model(e: me.ClickEvent):
     state = me.state(State)
     state.is_model_picker_dialog_open = True
     dialog_state = me.state(ModelDialogState)
     dialog_state.selected_models = state.models[:]
+
 
 def chat_input():
     state = me.state(State)
@@ -164,12 +149,86 @@ def chat_input():
         ):
             me.icon("send")
 
-def on_blur(e: me.InputBlurEvent):
-    state = me.state(State)
-    state.input = e.value
 
+# Replace page() with this:
+@me.page(
+    path="/",
+    stylesheets=[
+        "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+    ],
+)
+def page():
+    model_picker_dialog()
+    with me.box(style=ROOT_BOX_STYLE):
+        header()
+        with me.box(
+            style=me.Style(
+                width="min(680px, 100%)",
+                margin=me.Margin.symmetric(horizontal="auto", vertical=36),
+            )
+        ):
+            me.text(
+                "Chat with multiple models at once",
+                style=me.Style(font_size=20, margin=me.Margin(bottom=24)),
+            )
+            chat_input()
+            display_conversations()
+
+# Add display_conversations and display_message:
+def display_conversations():
+    state = me.state(State)
+    for conversation in state.conversations:
+        with me.box(style=me.Style(margin=me.Margin(bottom=24))):
+            me.text(f"Model: {conversation.model}", style=me.Style(font_weight=500))
+            for message in conversation.messages:
+                display_message(message)
+
+def display_message(message: ChatMessage):
+    style = me.Style(
+        padding=me.Padding.all(12),
+        border_radius=8,
+        margin=me.Margin(bottom=8),
+    )
+    if message.role == "user":
+        style.background = "#e7f2ff"
+    else:
+        style.background = "#ffffff"
+
+    with me.box(style=style):
+        me.markdown(message.content)
+        if message.in_progress:
+            me.progress_spinner()
+
+# Update send_prompt:
 def send_prompt(e: me.ClickEvent):
     state = me.state(State)
-    print(f"Sending prompt: {state.input}")
-    print(f"Selected models: {state.models}")
+    if not state.conversations:
+        for model in state.models:
+            state.conversations.append(Conversation(model=model, messages=[]))
+    input = state.input
     state.input = ""
+
+    for conversation in state.conversations:
+        model = conversation.model
+        messages = conversation.messages
+        history = messages[:]
+        messages.append(ChatMessage(role="user", content=input))
+        messages.append(ChatMessage(role="model", in_progress=True))
+        yield
+
+        if model == Models.GEMINI_1_5_FLASH.value:
+            llm_response = gemini.send_prompt_flash(input, history)
+        elif model == Models.GEMINI_1_5_PRO.value:
+            llm_response = gemini.send_prompt_pro(input, history)
+        elif model == Models.CLAUDE_3_5_SONNET.value:
+            llm_response = claude.call_claude_sonnet(input, history)
+        else:
+            raise Exception("Unhandled model", model)
+
+        for chunk in llm_response:
+            messages[-1].content += chunk
+            yield
+        messages[-1].in_progress = False
+        yield
+
+
