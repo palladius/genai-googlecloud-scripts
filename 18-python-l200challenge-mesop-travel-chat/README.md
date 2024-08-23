@@ -8,6 +8,7 @@ I'm trying to create a python chat app.
 * Chat library: `mesop`
 * AI model: `Gemma2`
 * Endpoint: Vertex AI Endpoint.
+* region: `us-west1`
 
 ## Desired outcome
 

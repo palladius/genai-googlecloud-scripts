@@ -1,0 +1,12 @@
+
+# Chat for python by Google
+mesop
+
+# for gaic
+pyyaml
+
+# Mespo demo2 DuoChat: https://google.github.io/mesop/codelab/
+mesop
+gunicorn
+anthropic
+google-generativeai
