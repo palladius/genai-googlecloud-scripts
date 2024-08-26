@@ -1,0 +1,72 @@
+I am a developer Advocate working for Google and my ldap is "kweinmeinster".
+
+Today it is "2024-08-26".
+
+You are a helpful travel assistant and here is a CSV file with all the scheduled events in the near future (some in the
+past): the first line contains the field names.
+
+
+CSV File:
+
+==================================
+date_end,date_start,timestamp,title,attendees,opportunity_id,event_id,url,report,graphic_city,report_magic_url,sheetless_magic_url,bug_magic_url,opportunity_magic_url,id,city,state,country,region,latitude,longitude,event_creator_ldap,event_creation_timestamp,safe_notes,safe_concatenated_tags,code_ver
+2024-10-11,2024-10-11,1717773326000000,DevSecOps Days (Bologna) - Keynote speaker!,0,null,9079,https://2024.devsecopsday.it/welcome/cfp.html,https://docs.google.com/document/d/1lwoEmBWiEMvYr_SJZKUD5P6MXNjDB4nb_Az-XfXEQwY/edit?usp=drivesdk&resourcekey=0-DeNvtOEJmkMUPSqOGDCU2w,Bologna,[📝Report](https://docs.google.com/document/d/1lwoEmBWiEMvYr_SJZKUD5P6MXNjDB4nb_Az-XfXEQwY/edit?usp=drivesdk&resourcekey=0-DeNvtOEJmkMUPSqOGDCU2w),[🟩DevSecOps Days (Bologna) - Keynote speaker! (Bologna)](https://sheetless-das.googleplex.com/event/view?id=9079),null,null,500,Bologna,,Italy,EMEA,44.494887,11.342616,ricc,1717773326000000,ricc applied.,",_____,",1.4
+2025-05-23,2025-05-23,1724442574000000,Helvetic Ruby 2025,100,null,9212,https://helvetic-ruby.ch/,,Geneva,null,[🟩Helvetic Ruby 2025 (Geneva)](https://sheetless-das.googleplex.com/event/view?id=9212),null,null,158,Geneva,,Switzerland,EMEA,46.204391,6.143158,ricc,1724442574000000,Organized by Hana,",_____,",1.4
+2025-04-26,2025-04-25,1718378286000000,[deleteme] Balkan Ruby 2025,100,null,9094,https://balkanruby.com/,,Sofia,null,[🟩[deleteme] Balkan Ruby 2025 (Sofia)](https://sheetless-das.googleplex.com/event/view?id=9094),null,null,142,Sofia,,Bulgaria,EMEA,42.697708,23.321868,ricc,1718378286000000,"ricc was invited by Bozhidar.
+Not going",",_____,",1.4
+2024-11-30,2024-11-29,1717771870000000,DroidCon 2024 (Milan),1000,null,9076,https://papers.synesthesia.it/droidcon-2024/cfp,,Milan,null,[🟩DroidCon 2024 (Milan) (Milan)](https://sheetless-das.googleplex.com/event/view?id=9076),null,null,120,Milan,,Italy,EMEA,45.465422,9.185924,ricc,1717771870000000,"Big event - ricc heard about it from GDE Forlastro.
+1000 people.
+I've applied
+---
+
+
+droidcon Italy 2024
+Your proposal: A News Crawler agent with Langchain, Ruby, Gemini APIs on Android
+Hi!
+
+We have received your proposal ""A News Crawler agent with Langchain, Ruby, Gemini APIs on Android"" to droidcon Italy 2024. We will notify you once we have had time to consider all proposals, but until then you can see and edit your proposal at https://papers.synesthesia.it/droidcon-2024/me/submissions/WWKN9U/.
+
+Please do not hesitate to contact us if you have any questions!
+
+The droidcon Italy 2024 organisers
+
+Full proposal content:
+
+Proposal title: A News Crawler agent with Langchain, Ruby, Gemini APIs on Android
+
+Abstract: How can we get an LLM to be updated to today’s news? Gen AI is great at answering questions.. from the past. After the LLM was trained, all you can do is RAG.
+
+Imagine this: How about asking your android phone for latest news about X Y Z, having an agent crawling the web for latest news with Gemini for multimodal extraction, offering summarization by your favorite topic and also saving to local DB for further processing, like similarity search?
+
+Other info: This is a 30m slides + demo-intensive showing 4 small demos
+
+Language: en
+
+Tags: AI/ML, Development, Database
+
+Level: Advanced
+
+Have you presented this talk before?: Yes",",_____,",1.4
+2024-10-23,2024-10-22,1717707696000000,Codemotion Milan 2024 [tentative],2000,null,9073,https://conferences.codemotion.com/milan2024/it/home/,https://docs.google.com/document/d/19kdpjdW5FqbBygrgzL6Kv3fBv_guJu6fEFNuIXY8uPg/edit?usp=drivesdk,Milan,[📝Report](https://docs.google.com/document/d/19kdpjdW5FqbBygrgzL6Kv3fBv_guJu6fEFNuIXY8uPg/edit?usp=drivesdk),[🟩Codemotion Milan 2024 [tentative] (Milan)](https://sheetless-das.googleplex.com/event/view?id=9073),null,null,120,Milan,,Italy,EMEA,45.465422,9.185924,ricc,1717707696000000,"applied for two talks
+
+* RAG with Langchain and ruby
+* MLOps with Ivan",",GenAI,_____,",1.4
+2024-09-13,2024-09-11,1717773535000000,Euruko 2024,1000,null,9080,https://euruko.org/,,Sarajevo,null,[🟩Euruko 2024 (Sarajevo)](https://sheetless-das.googleplex.com/event/view?id=9080),null,null,590,Sarajevo,,Bosnia and Herzegovina,EMEA,43.856259,18.413076,ricc,1717773535000000,"Ricc has a plan.
+go/ricc-euruko",",_____,",1.4
+2024-08-21,2024-08-21,1724341002000000,Railshöck at Puzzle (ZRH Rails Meetup) Aug24,35,null,9207,https://www.meetup.com/it-IT/rubyonrails-ch/events/298503717/?eventorigin=group_past_events,https://docs.google.com/document/d/1eWjSRiJxx3SPqASevV-W_7ZefcWGyyclk5p05ohhWG8/edit?resourcekey=0-V3stklsyVAcJCbisg219ug&tab=t.0,Zurich,[📝Report](https://docs.google.com/document/d/1eWjSRiJxx3SPqASevV-W_7ZefcWGyyclk5p05ohhWG8/edit?resourcekey=0-V3stklsyVAcJCbisg219ug&tab=t.0),[🟩Railshöck at Puzzle (ZRH Rails Meetup) Aug24 (Zurich)](https://sheetless-das.googleplex.com/event/view?id=9207),null,null,287,Zurich,,Switzerland,EMEA,47.376887,8.541694,ricc,1724341002000000,I've spoken to Ruby/Rails enthusiasts and demoed my Gemini & function Calling demo.,",Rails,Ruby,Gemini,gemini function calling,_____,",1.4
+2024-08-15,2024-08-15,1724094069000000,SRE Brownbag - BQ and AI magic in Cloud Ops,25,null,9203,,,🏠,null,[🟩SRE Brownbag - BQ and AI magic in Cloud Ops (🏠)](https://sheetless-das.googleplex.com/event/view?id=9203),null,null,78,Online / Remote,,,,35.683302,-81.228409,ricc,1724094069000000,"Title: Big Query and AI magic in Google Cloud Operations
+By: Rushil Sharma
+Abstract:  Dealing with logs can be a big mess at times specially when you have too many services or ( micro services ?) running in your environment.
+In the session we will have a look at the new capabilities that we have integrated in our cloud operations suite by integrating Machine Learning and BQ for logging issues by checking out a few errors through the lens of automated AI overviews and how to enable su",",SRE,SLO,SRE Brownbag,_____,",1.4
+2024-11-10,2024-11-08,1724363153000000,GDG DevFest Pescara,1000,null,9211,,,Pescara,null,[🟩GDG DevFest Pescara (Pescara)](https://sheetless-das.googleplex.com/event/view?id=9211),[🐛b/361550076](http://b/361550076),null,598,Pescara,,Italy,EMEA,42.461762,14.216032,ricc,1724363153000000,"Applied to go to Pescara for the biggest DevFest in Italy (1000ppl).
+Talked to organizers to find best fit to apply for CfP happening now.
+
+1. Friday: workshops where I can do the Duet AI workshops again.Plenty of students!
+2. Sat: speaker - if I get taken :)",",Devfest,Accelerate,GDG Cloud,Italy,_____,",1.4
+2024-11-21,2024-11-21,1717772044000000,SRE Day Amsterdam,200,null,9077,https://www.papercall.io/sreday-2024-amsterdam,,Amsterdam,null,[🟩SRE Day Amsterdam (Amsterdam)](https://sheetless-das.googleplex.com/event/view?id=9077),null,null,3,Amsterdam,null,Netherlands,EMEA,52.370216,4.895168,ricc,1717772044000000,I've been asked to be a speaker there,",_____,",1.4
+==================================
+
+Questions:
+
+* What events are in the past?
+* What are the events approaching within a month from now? Sort by date, and give me title, topic and size (# of people).
