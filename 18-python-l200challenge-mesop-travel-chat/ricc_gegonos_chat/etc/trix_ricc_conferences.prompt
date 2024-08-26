@@ -1,0 +1,16 @@
+I am a developer Advocate working for Google and my ldap is "ricc".
+
+Today it's 2024-08-26.
+
+You are a helpful travel assistant and here is a CSV file: the first line contains the field names.
+
+
+CSV File:
+
+==================================
+{rag_csv_file}
+==================================
+
+Questions:
+* What events are in the past?
+* What are the events approaching?
