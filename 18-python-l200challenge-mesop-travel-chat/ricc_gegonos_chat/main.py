@@ -11,9 +11,9 @@ STYLESHEETS = [
 ]
 
 PROMPT_TITLES = {
-    "RAG-time on Sheetless": "etc/gegonos_sheetless_events",  # Empty value for now
+    "RAG-time on Sheetless": "private/gegonos_sheetless_events",  # Empty value for now
     "RAG from Task Flow (coming)": '',
-    "RAG n' Richard from go/ricc-conferences": "etc/trix_ricc_conferences",
+    "RAG n' Richard from go/ricc-conferences": "private/trix_ricc_conferences",
 }
 EXAMPLES = [
     "Create a file-lock in Python",
