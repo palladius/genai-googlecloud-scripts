@@ -31,11 +31,14 @@ class Conversation:
 
 @me.stateclass
 class State:
+    #dDefaultSelectedModel = "Gemini 1.5 Pro"
     is_model_picker_dialog_open: bool = False
     input: str = ""
     input_ricc_prompt: str = ""
     conversations: list[Conversation] = field(default_factory=list)
-    models: list[str] = field(default_factory=list)
+    #models: list[str] = field(default_factory=list)
+    models: list[str] = field(default_factory=lambda: ["Gemini 1.5 Pro"])
+
     gemini_api_key: str = os.environ.get('GEMINI_KEY') or '<Add Key here>'
     #claude_api_key: str = ""
     ldap: str = "ricc"

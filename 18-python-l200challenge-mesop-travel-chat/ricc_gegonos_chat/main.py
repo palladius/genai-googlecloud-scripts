@@ -260,7 +260,7 @@ def model_picker_dialog():
                 on_blur=set_gemini_api_key,
             )
             me.input(
-                label="Your ldap",
+                label="Your ldap (ie Googler username)",
                 value=state.ldap,
                 on_blur=set_ldap,
             )
