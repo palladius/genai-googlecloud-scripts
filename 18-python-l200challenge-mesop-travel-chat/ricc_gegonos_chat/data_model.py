@@ -24,6 +24,8 @@ class Models(Enum):
     CLAUDE_3_5_SONNET = "Claude 3.5 Sonnet"
     RICCARDO_S_WIFE =  "My wife knows everything"
 
+DefaultSelectedModel = "Gemini 1.5 Flash" # "Gemini 1.5 Pro"
+
 @dataclass
 class Conversation:
     model: str = ""
@@ -31,17 +33,19 @@ class Conversation:
 
 @me.stateclass
 class State:
-    #dDefaultSelectedModel = "Gemini 1.5 Pro"
+    #
     is_model_picker_dialog_open: bool = False
-    input: str = ""
-    input_ricc_prompt: str = ""
+    input: str = "also empty"
+    input_ricc_prompt: str = "empty"
+    input_either: str = "" # "Either Normal (lab) or RAG (Riccardo)"
     conversations: list[Conversation] = field(default_factory=list)
     #models: list[str] = field(default_factory=list)
-    models: list[str] = field(default_factory=lambda: ["Gemini 1.5 Pro"])
+    models: list[str] = field(default_factory=lambda: [DefaultSelectedModel])
 
     gemini_api_key: str = os.environ.get('GEMINI_KEY') or '<Add Key here>'
     #claude_api_key: str = ""
     ldap: str = "ricc"
+    big_prompt: str = '' # contains the BIG caluclated prompt.
 
 @me.stateclass
 class ModelDialogState:

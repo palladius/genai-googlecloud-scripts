@@ -5,6 +5,7 @@ from dialog import dialog, dialog_actions
 #import claude
 import gemini
 from ricc_utils import read_file_to_string
+from ricc_prompts import get_manual_prompt, substitute_prompt
 
 STYLESHEETS = [
   "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
@@ -12,7 +13,7 @@ STYLESHEETS = [
 
 PROMPT_TITLES = {
     "RAG-time on Sheetless": "private/gegonos_sheetless_events",  # Empty value for now
-    "RAG from Task Flow (coming)": '',
+    "RAG from Task Flow (coming)": 'private/advocacy_taskflow_open_bugs', # todo
     "RAG n' Richard from go/ricc-conferences": "private/trix_ricc_conferences",
 }
 EXAMPLES = [
@@ -133,37 +134,6 @@ def model_message(message: ChatMessage):
 
 # ... (keep the existing helper functions)
 
-def send_prompt(e: me.ClickEvent):
-    state = me.state(State)
-    if not state.conversations:
-        me.navigate("/conversation")
-        for model in state.models:
-            state.conversations.append(Conversation(model=model, messages=[]))
-    input = state.input
-    state.input = ""
-
-    for conversation in state.conversations:
-        model = conversation.model
-        messages = conversation.messages
-        history = messages[:]
-        messages.append(ChatMessage(role="user", content=input))
-        messages.append(ChatMessage(role="model", in_progress=True))
-        yield
-        me.scroll_into_view(key="end_of_messages")
-        if model == Models.GEMINI_1_5_FLASH.value:
-            llm_response = gemini.send_prompt_flash(input, history)
-        elif model == Models.GEMINI_1_5_PRO.value:
-            llm_response = gemini.send_prompt_pro(input, history)
-        elif model == Models.CLAUDE_3_5_SONNET.value:
-            llm_response = claude.call_claude_sonnet(input, history)
-        else:
-            raise Exception("Unhandled model", model)
-        for chunk in llm_response:
-            messages[-1].content += chunk
-            yield
-        messages[-1].in_progress = False
-        yield
-
 
 def change_model_option(e: me.CheckboxChangeEvent):
     s = me.state(ModelDialogState)
@@ -192,7 +162,7 @@ def examples_row():
 def prompts_row():
     with me.box(
         style=me.Style(
-            display="flex", flex_direction="row", gap=16, margin=me.Margin(bottom=24)
+            display="flex", flex_direction="row", gap=8, margin=me.Margin(bottom=12)
         )
     ):
         for k,v in PROMPT_TITLES.items():
@@ -243,11 +213,24 @@ def example(text: str):
         me.text(text)
 
 def click_example(e: me.ClickEvent):
+    print(f"We clicked the blue example button.  e.key={ e.key}")
     state = me.state(State)
-    state.input = e.key
+    state.input        = "(click_example1)" + e.key
+    state.input_ricc_prompt = "(click_example3) meh"
+    state.either_input = "(click_example2)" + e.key
+
 def click_ricc_prompt(e: me.ClickEvent):
+    rag_value = PROMPT_TITLES[e.key]
+    #big_prompt = get_manual_prompt(rag_value)
+    big_prompt = substitute_prompt(f"{rag_value}.prompt", ldap, f"{rag_value}.csv")
+    print(f"We clicked the Riccardo Teal RAG button. e.key={e.key}. RAG Value is in fact: {rag_value}")
+    print(f"Big Prompt: {big_prompt}")
     state = me.state(State)
-    state.input_ricc_prompt = e.key
+    state.input_ricc_prompt = "(click_ricc_prompt1)" + e.key
+    state.either_input      = "(click_ricc_prompt2)" + e.key
+    state.input = "(click_ricc_prompt3)" + rag_value
+    state.big_prompt = big_prompt
+
 
 def model_picker_dialog():
     state = me.state(State)
@@ -395,9 +378,14 @@ def header_old():
         )
 
 
+# Non capisco cosa faccia..
 def on_blur(e: me.InputBlurEvent):
+    '''Ricc: not sure what this does! TBD'''
     state = me.state(State)
-    state.input = e.value
+    print("[ON BLUR] We clicked ")
+    #state.input = e.value + " {blur}"
+    #state.input_ricc_prompt = e.value + " {oasis}"
+    state.input_either = e.value + " {suede}"
 
 
 def switch_model(e: me.ClickEvent):
@@ -420,8 +408,9 @@ def chat_input():
     ):
         with me.box(style=me.Style(flex_grow=1)):
             me.native_textarea(
-                value=state.input,
-                placeholder="Enter a prompt",
+                # TODO should be EITHER
+                value=state.input_either, # input_ricc_prompt,
+                placeholder="Enter a prompt for trivial queries",
                 on_blur=on_blur,
                 style=me.Style(
                     padding=me.Padding(top=16, left=16),
@@ -605,16 +594,33 @@ def display_message(message: ChatMessage):
             me.progress_spinner()
 
 
-
 def send_prompt(e: me.ClickEvent):
     state = me.state(State)
     if not state.conversations:
         me.navigate("/conversation")
         for model in state.models:
             state.conversations.append(Conversation(model=model, messages=[]))
-    #input = state.input
-    input = "[yericc]" + state.input
-    state.input = ""
+    # ok now we start
+    #input = 'pre if'
+    #input = f"[YESSSS Prompt] {state.input_ricc_prompt}"
+    input = state.big_prompt
+    state.big_prompt = '' # reset it then as its big
+    if state.input_ricc_prompt:
+        # This works, just doesnt visualize!
+
+        state.input_ricc_prompt = ""
+        state.input = ""
+        state.input_either = input
+        #state.input_either = ""
+    else:
+        input = f"[no Prompt sotrry] {state.input}"
+        state.input_ricc_prompt = ""
+        state.input = ""
+        state.input_either = input
+        #state.input_either = ""
+# Original
+#    input = state.input
+#    state.input = ""
 
     for conversation in state.conversations:
         model = conversation.model
@@ -628,8 +634,8 @@ def send_prompt(e: me.ClickEvent):
             llm_response = gemini.send_prompt_flash(input, history)
         elif model == Models.GEMINI_1_5_PRO.value:
             llm_response = gemini.send_prompt_pro(input, history)
-        #elif model == Models.CLAUDE_3_5_SONNET.value:
-        #    llm_response = claude.call_claude_sonnet(input, history)
+        elif model == Models.CLAUDE_3_5_SONNET.value:
+            llm_response = claude.call_claude_sonnet(input, history)
         else:
             raise Exception("Unhandled model", model)
         for chunk in llm_response:
