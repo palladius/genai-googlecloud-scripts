@@ -63,11 +63,13 @@ def substitute_prompt(prompt_filename, ldap, rag_csv_file, dump_output_to_file=T
 
   # Substitute placeholders
   today = datetime.date.today().strftime("%Y-%m-%d")
-  prompt = prompt.replace("{ldap}", ldap).replace("{date}", today).replace("{rag_csv_file}", rag_csv_file)
 
   # Read CSV file content
   with open(rag_csv_file, "r") as csvfile:
     csv_content = csvfile.read()
+
+  #prompt = prompt.replace("{ldap}", ldap).replace("{today}", today).replace("{rag_csv_file}", rag_csv_file)
+  prompt = prompt.replace("{ldap}", ldap).replace("{today}", today).replace("{rag_csv_file}", csv_content)
 
   # Dump output to file if requested
   if dump_output_to_file:
@@ -75,4 +77,4 @@ def substitute_prompt(prompt_filename, ldap, rag_csv_file, dump_output_to_file=T
     with open(output_filename, "w") as output_file:
       output_file.write(prompt)
 
-  return prompt, csv_content
+  return prompt # , csv_content

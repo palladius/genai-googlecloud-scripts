@@ -220,12 +220,14 @@ def click_example(e: me.ClickEvent):
     state.either_input = "(click_example2)" + e.key
 
 def click_ricc_prompt(e: me.ClickEvent):
+    state = me.state(State)
+
     rag_value = PROMPT_TITLES[e.key]
     #big_prompt = get_manual_prompt(rag_value)
+    ldap = state.ldap
     big_prompt = substitute_prompt(f"{rag_value}.prompt", ldap, f"{rag_value}.csv")
     print(f"We clicked the Riccardo Teal RAG button. e.key={e.key}. RAG Value is in fact: {rag_value}")
-    print(f"Big Prompt: {big_prompt}")
-    state = me.state(State)
+    #print(f"Big Prompt (first 80): {big_prompt[:80]}")
     state.input_ricc_prompt = "(click_ricc_prompt1)" + e.key
     state.either_input      = "(click_ricc_prompt2)" + e.key
     state.input = "(click_ricc_prompt3)" + rag_value
@@ -382,10 +384,10 @@ def header_old():
 def on_blur(e: me.InputBlurEvent):
     '''Ricc: not sure what this does! TBD'''
     state = me.state(State)
-    print("[ON BLUR] We clicked ")
+    print("[ON BLUR] We clicked I believe on the triangolino bottom right in white text area")
     #state.input = e.value + " {blur}"
     #state.input_ricc_prompt = e.value + " {oasis}"
-    state.input_either = e.value + " {suede}"
+    state.input_either = e.value + " {on_blur: suede}"
 
 
 def switch_model(e: me.ClickEvent):
@@ -613,7 +615,7 @@ def send_prompt(e: me.ClickEvent):
         state.input_either = input
         #state.input_either = ""
     else:
-        input = f"[no Prompt sotrry] {state.input}"
+        input = f"[no input_ricc_prompt sotrry] {state.input}"
         state.input_ricc_prompt = ""
         state.input = ""
         state.input_either = input
@@ -634,6 +636,12 @@ def send_prompt(e: me.ClickEvent):
             llm_response = gemini.send_prompt_flash(input, history)
         elif model == Models.GEMINI_1_5_PRO.value:
             llm_response = gemini.send_prompt_pro(input, history)
+        # Carlessian Add on
+        elif model == Models.GEMINI_EXP_PRO.value:
+            llm_response = gemini.send_prompt_gemini_generic_carless('gemini-pro-experimental', input, history)
+        elif model == Models.GEMINI_EXP_FLASH.value:
+            llm_response = gemini.send_prompt_gemini_generic_carless('gemini-flash-experimental', input, history)
+        # /Carlesso
         elif model == Models.CLAUDE_3_5_SONNET.value:
             llm_response = claude.call_claude_sonnet(input, history)
         else:
