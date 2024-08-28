@@ -42,3 +42,19 @@ def send_prompt_flash(prompt: str, history: list[ChatMessage]) -> Iterable[str]:
     )
     for chunk in chat_session.send_message(prompt, stream=True):
         yield chunk.text
+
+
+# Gemneric for all.
+def send_prompt_gemini_generic_carless(model_name: str, prompt: str, history: list[ChatMessage]) -> Iterable[str]:
+    configure_gemini()
+    model = genai.GenerativeModel(
+        model_name=model_name,
+        generation_config=generation_config,
+    )
+    chat_session = model.start_chat(
+        history=[
+            {"role": message.role, "parts": [message.content]} for message in history
+        ]
+    )
+    for chunk in chat_session.send_message(prompt, stream=True):
+        yield chunk.text
