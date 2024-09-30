@@ -615,7 +615,8 @@ def send_prompt(e: me.ClickEvent):
         state.input_either = input
         #state.input_either = ""
     else:
-        input = f"[no input_ricc_prompt sotrry] {state.input}"
+        #input = f"[no input_ricc_prompt sotrry] {state.input}"
+        input = state.input
         state.input_ricc_prompt = ""
         state.input = ""
         state.input_either = input
