@@ -7,4 +7,6 @@ And see what happens.
 
 ## Data
 
-* From: `go/ricc-conferences` => `etc/ricc-conferences.csv`
+* From: `go/ricc-conferences` => `private/ricc-conferences.csv`
+* To work this program needs some priovate fiels (prompts and DBs). See cl/680550198.
+
