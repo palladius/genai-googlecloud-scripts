@@ -13,8 +13,9 @@ STYLESHEETS = [
 
 PROMPT_TITLES = {
     "RAG-time on Sheetless": "private/gegonos_sheetless_events",  # Empty value for now
-    "RAG from Task Flow (coming)": 'private/advocacy_taskflow_open_bugs', # todo
+    "(old) RAG from Task Flow (coming)": 'private/advocacy_taskflow_open_bugs', # todo
     "RAG n' Richard from go/ricc-conferences": "private/trix_ricc_conferences",
+    "02 Task Flow (new Remi)": 'private/02-taskflow',
 }
 EXAMPLES = [
     "Create a file-lock in Python",

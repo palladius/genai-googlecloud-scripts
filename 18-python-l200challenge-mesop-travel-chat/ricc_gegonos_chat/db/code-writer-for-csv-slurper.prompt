@@ -1,0 +1,14 @@
+Can you help me write a SqlAlchemy python script to import a file under `private/{csv_filename}` into a sqlite3 file
+called `gegonos.sqlite3`?
+
+
+To infer the schema of the file, look at the first few lines:
+-----------------------------------------------------------------------------------------------------------------------
+{csv_head}
+-----------------------------------------------------------------------------------------------------------------------
+
+Some possible errors to avoid:
+
+* Some fields have "TRUE"/"FALSE" Strings. If you store them as Booleans, you might want to convert them to 0/1.
+* Manage 'NULL' and 'null' correctly: sqlalchemy.exc.StatementError: (builtins.TypeError) Not a boolean value: 'null'
+* Use a brand new, non-existing, `id` field and map it to an autoincrement row-line or with a uuid.uuid4().
