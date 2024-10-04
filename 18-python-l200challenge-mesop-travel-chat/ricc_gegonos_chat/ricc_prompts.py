@@ -2,22 +2,6 @@
 '''functionality around Prompts and RAGazzi.
 '''
 
-
-# def get_prompt_by_id(prompt_id):
-#     '''TODO return RAGified prompt for id. eg,
-
-#     * you click on "💻 RAG-time on Sheetless" and you get the Sheetless one.
-
-#     Could use PROMPT_TITLES to know it.
-
-#     Uses `State.input_ricc_prompt`
-
-#     Also called in prompt_id.
-#     '''
-#     example = 'private/advocacy_taskflow_open_bugs'
-#     should_return 'Content of private/advocacy_taskflow_open_bugs.manual.prompt'
-#     return f"TODO(ricc): nearly there! Prompt by id={prompt_id}"
-
 import csv
 #from datetime import datetime, timedelta
 import datetime
