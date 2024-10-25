@@ -87,5 +87,7 @@ def call_a_function(chat, response):
       return response
 
 
+# Sample usage:
+
 #print(get_location_data("Il grande tempio di Atene"))
 #print(get_location_data("Athens"))

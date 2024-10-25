@@ -2,7 +2,7 @@
 
 #  pip install ipdb
 
-APP_VERSION = '1.1b'
+APP_VERSION = '1.2'
 
 import socketserver
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -49,8 +49,9 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash-002")
 PORT = int(os.getenv("PORT", 8080))  # Convert PORT to an integer
 DEBUG = os.getenv("DEBUG", "fAlSe").lower() == "true"
 
-SERVICE_NAME=f"Gemini whelper (weather-helper) powered by '{GEMINI_MODEL}' 🧵 thread-safe TCP-server" #and ⚟
-APP_SHORT = f"whelper v{APP_VERSION}"
+CODE_LINK = 'https://github.com/palladius/genai-googlecloud-scripts/blob/main/20-multilang-agents/README.md'
+SERVICE_NAME=f"Gemini OSS whelper (weather-helper) powered by '{GEMINI_MODEL}' 🧵 thread-safe TCP-server" #and ⚟
+APP_SHORT = f"OSS whelper v{APP_VERSION}"
 
 if GCP_PROJECT is None:
     raise Exception("Sorry, GCP_PROJECT is null, either define in .env or set it manually with: GCP_PROJECT=... <this script>")
@@ -86,7 +87,7 @@ def handle_client(client_socket, send_funcall_via_tcp=True, debug=DEBUG):
     )
     chat = model.start_chat()
     deb(f"👋 Sending Welcome message to client in {client_ip}:{client_port}")
-    welcome_message = f"👋 Welcome to: {cyan(SERVICE_NAME)}, powered by ♊︎ (v{APP_VERSION})\n"
+    welcome_message = f"👋 Welcome to: {cyan(SERVICE_NAME)}, powered by ♊︎ (v{APP_VERSION})\nCode available: {CODE_LINK}\n"
     client_socket.sendall((welcome_message).encode("utf-8")) # cyan
 
     cached_content = ""
