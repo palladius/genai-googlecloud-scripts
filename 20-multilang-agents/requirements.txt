@@ -1,0 +1,15 @@
+
+# from https://open-meteo.com/en/docs
+openmeteo-requests
+requests-cache
+retry-requests
+numpy
+pandas
+# pip install --upgrade google-cloud-aiplatform --quiet
+google-cloud-aiplatform
+#vertexai
+requests
+sockets
+python-dotenv
+#thread - OLD!
+#socketserver
