@@ -1,11 +1,6 @@
 from datetime import datetime
 from vertexai.generative_models import (
-#    Content,
     FunctionDeclaration,
-    # GenerativeModel,
-    # GenerationConfig,
-    # Part,
-    # Tool,
 )
 
 
