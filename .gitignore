@@ -10,3 +10,4 @@ private/
 .env.derek
 __pycache__/
 .venv
+.env
