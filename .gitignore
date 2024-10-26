@@ -12,3 +12,6 @@ __pycache__/
 .venv
 .env
 .tmp*
+*tmp.txt
+t.*
+.hello*appname
