@@ -72,10 +72,6 @@ The cover of Genesis' album Selling England by the Pound features a painting by 
 
 A quick googling confirms that https://en.wikipedia.org/wiki/Paul_Whitehead actually covered one of my favourite album of all times. If you love Genesis too and want to see me play Firth of Fifth, please check https://www.youtube.com/watch?v=4VBxd9n1dSU
 
-## Let's try a few more images
-
-TODO
-
 ## Let's compare TWO images!
 
 Since we're celebrating Gemini launch and I'm a huge fan of the Saint Seiya manga/anime, I've asked Gemini to compare

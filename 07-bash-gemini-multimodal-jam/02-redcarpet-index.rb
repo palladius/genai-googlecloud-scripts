@@ -4,6 +4,8 @@
 # Luckily Github uses redcarpet gem for rendering Markdown.
 # SO I can generate it cheap with 2 lines of code.
 
+# Riccardo, try vscode "markdown preview enhanced ;)"
+
 #  gem install redcarpet
 #  Generated index.html for local testing :)
 require 'redcarpet'
