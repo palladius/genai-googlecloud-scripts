@@ -45,3 +45,6 @@ vertexai-images/sky.jpg:
 # Test without Carlessian scripts
 test-ricc-mac:
 	PATH=/bin/:/usr/bin/:/opt/homebrew/bin/:"/Users/ricc/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/" make age-test
+
+auth:
+	gcloud auth login
