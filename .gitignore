@@ -6,8 +6,9 @@ genai-apptemplates-googlecloud/
 .ondir.was.here.touch
 .gcloudconfig.yaml
 _env_gaic.*
-private/
+private
 .env.derek
 __pycache__/
 .venv
 .env
+.tmp*
