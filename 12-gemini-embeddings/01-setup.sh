@@ -1,0 +1,1 @@
+../07-bash-gemini-multimodal-jam/01-setup.sh
