@@ -1,0 +1,19 @@
+{
+    "folders": [
+        {
+            "name": "Ruby - PDF Reader app",
+            "path": "17-ruby-pdf-reader",
+        },
+        {
+            "name": "Ruby - RAG curl",
+            "path": "15-ollama-gemma-RAG-curl-ruby",
+        },
+    ],
+    "settings": {
+      // To avoid having VS Code display the same files twice, we can simply exclude the frontend sub-directory. This
+      // means it will only show up as a separate workspace
+        "files.exclude": {
+            "PDF Reader app": true,
+        },
+    },
+}
