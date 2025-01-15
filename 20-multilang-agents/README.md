@@ -1,3 +1,5 @@
+Self: https://github.com/palladius/genai-googlecloud-scripts/blob/main/20-multilang-agents/
+
 A function-calling multi-language demo for Gemini.
 
 It doesn't **seroisuly** get any better than this... apart from my grammar.

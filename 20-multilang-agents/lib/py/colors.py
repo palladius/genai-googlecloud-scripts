@@ -3,20 +3,6 @@ def cyan(str):
     """Wraps the input string in ANSI escape codes to make it cyan-colored."""
     return f"\033[96m{str}\033[0m"
 
-# def colorize(text, color):
-#   """Wraps the input text in ANSI escape codes to colorize it."""
-#   color_codes = {
-#       "yellow": "\033[93m",
-#       "green": "\033[92m",
-#       "red": "\033[91m",
-#       "purple": "\033[95m",
-#       "orange": "\033[38;5;208m",  # ANSI code for a nice orange
-#       "gray": "\033[90m",
-#       "blue": "\033[94m",
-#       # Add more colors as needed!
-#   }
-#   return f"{color_codes[color]}{text}\033[0m"
-
 def colorize(text, color):
     """Wraps the input text in ANSI escape codes to colorize it.
         Handles invalid color requests gracefully.
