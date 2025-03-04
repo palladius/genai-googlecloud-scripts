@@ -33,6 +33,19 @@ async def main():
                 # Process the text with proper formatting
                 colored_text = response.text
 
+                # Handle bold text with multiple occurrences
+                bold_pattern = re.compile(r'\*\*(.+?)\*\*')
+                while "**" in colored_text:  # Continue as long as there are bold markers
+                    match = bold_pattern.search(colored_text)
+                    if not match:
+                        break
+                    bold_text = match.group(1)
+                    start, end = match.span()
+                    colored_text = (
+                        colored_text[:start] +
+                        f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}" +
+                        colored_text[end:]
+                    )
 
                 # Google colors for bullet points with corresponding emojis
                 google_colors = [
@@ -61,19 +74,6 @@ async def main():
                     color, emoji = google_colors[bullet_count % 4]
                     colored_text = colored_text.replace(orig_text, f"{color}{emoji} {li.text}{Style.RESET_ALL}")
                     bullet_count += 1
-
-
-
-                bold_pattern = re.compile(r'\*\*(.+?)\*\*')
-                for match in bold_pattern.finditer(colored_text):
-                    bold_text = match.group(1)
-                    original = f"**{bold_text}**"
-                    colored_text = colored_text.replace(original, f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}")
-
-
-                # for strong in soup.find_all('strong'):  # Find bold text
-                #     orig_text = f"**{strong.text}**"
-                #     colored_text = colored_text.replace(orig_text, f"{Fore.CYAN}{strong.text}{Style.RESET_ALL}")
 
                 for em in soup.find_all('em'):  # Find italic text
                     orig_text = f"*{em.text}*"
