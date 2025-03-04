@@ -16,7 +16,6 @@ config = {"response_modalities": ["TEXT"]}
 
 async def main():
     async with client.aio.live.connect(model=model_id, config=config) as session:
-
         while True:
             try:
                 if sys.stdin.isatty():
@@ -27,43 +26,38 @@ async def main():
                     message = sys.stdin.readline()
                     if not message:  # EOF reached
                         break
+
                 message = message.strip()
                 if not message or message.lower() == "exit":
                     break
-                await session.send(input=message, end_of_turn=True)
 
-        # while True:
-        #     message = input("👤> ")
-        #     if message.lower() == "exit":
-        #         break
-        #     await session.send(input=message, end_of_turn=True)
+                await session.send(input=message, end_of_turn=True)
 
                 first_response = True
                 async for response in session.receive():
                     if response.text is None:
                         continue
-#                    print("🐞") # check for bugs
 
-                                    # Convert markdown to HTML
-                    html = markdown.markdown(response.text)
-                    soup = BeautifulSoup(html, 'html.parser')
+                                # Convert markdown to HTML
+                html = markdown.markdown(response.text)
+                soup = BeautifulSoup(html, 'html.parser')
 
-                    # Process the text with proper formatting
-                    colored_text = response.text
+                # Process the text with proper formatting
+                colored_text = response.text
 
-                    # Handle bold text with multiple occurrences
-                    bold_pattern = re.compile(r'\*\*(.+?)\*\*')
-                    while "**" in colored_text:  # Continue as long as there are bold markers
-                        match = bold_pattern.search(colored_text)
-                        if not match:
-                            break
-                        bold_text = match.group(1)
-                        start, end = match.span()
-                        colored_text = (
-                            colored_text[:start] +
-                            f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}" +
-                            colored_text[end:]
-                        )
+                # Handle bold text with multiple occurrences
+                bold_pattern = re.compile(r'\*\*([^*]+?)\*\*', re.UNICODE)
+                while "**" in colored_text:  # Continue as long as there are bold markers
+                    match = bold_pattern.search(colored_text)
+                    if not match:
+                        break
+                    bold_text = match.group(1)
+                    start, end = match.span()
+                    colored_text = (
+                        colored_text[:start] +
+                        f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}" +
+                        colored_text[end:]
+                    )
 
                     # Google colors for bullet points with corresponding emojis
                     google_colors = [
@@ -76,6 +70,7 @@ async def main():
 
                     # Find all bullet points with any indentation
     #                bullet_pattern = re.compile(r'^(\s*)[*-]\s+(.+)$', re.MULTILINE)
+                    #bullet_pattern = re.compile(r'^(\s*)[*-](?:\s+|\.\s+)(.+)$', re.MULTILINE)
                     bullet_pattern = re.compile(r'^(\s*)[*-](?:\s+|\.\s+)(.+)$', re.MULTILINE)
                     # Process all bullet points
                     for match in bullet_pattern.finditer(colored_text):
@@ -93,14 +88,27 @@ async def main():
                         colored_text = colored_text.replace(orig_text, f"{color}{emoji} {li.text}{Style.RESET_ALL}")
                         bullet_count += 1
 
+
+
+                    bold_pattern = re.compile(r'\*\*([^*]+?)\*\*', re.UNICODE)
+                    for match in bold_pattern.finditer(colored_text):
+                        bold_text = match.group(1)
+                        original = f"**{bold_text}**"
+                        colored_text = colored_text.replace(original, f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}")
+
+
+                    # for strong in soup.find_all('strong'):  # Find bold text
+                    #     orig_text = f"**{strong.text}**"
+                    #     colored_text = colored_text.replace(orig_text, f"{Fore.CYAN}{strong.text}{Style.RESET_ALL}")
+
                     for em in soup.find_all('em'):  # Find italic text
                         orig_text = f"*{em.text}*"
                         # \x1B[3m enables italics in terminals that support it
                         colored_text = colored_text.replace(orig_text, f"{Style.BRIGHT}{Fore.WHITE}\x1B[3m{em.text}{Style.RESET_ALL}")
 
-                    prefix = "🤖 " if first_response else ""
-                    first_response = False
-                    print(prefix + colored_text, end="")
+                prefix = "🤖 " if first_response else ""
+                first_response = False
+                print(prefix + colored_text, end="")
 
             except Exception as e:
                 print(f"Error: {e}")
