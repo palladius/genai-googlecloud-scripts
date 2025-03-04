@@ -2,6 +2,7 @@ import os
 import json
 from colorama import init, Fore, Style
 
+
 init()  # Initialize colorama
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')

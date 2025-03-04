@@ -1,6 +1,6 @@
 
 install:
-	echo setup virtualenv and pip install reqs.txt as usual... when done do touch install to silence this
+	echo setup virtualenv and pip install reqs.txt as usual... when done do touch install to silence this..
 
 run: install
 	python structured-output-wrong.py
@@ -12,3 +12,7 @@ demo-multimodal: install
 	echo Dimmi i 12 segni zodiacali, o 13 se li sai | python multimodal.py
 	echo Spiegami il gioco del DanDan a MTG | python multimodal.py
 
+
+
+image-demo:
+	python image-generation.py
