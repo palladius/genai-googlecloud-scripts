@@ -2,3 +2,5 @@ pydantic
 google_genai
 python-dotenv
 colorama
+markdown
+beautifulsoup4
