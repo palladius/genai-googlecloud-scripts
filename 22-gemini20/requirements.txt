@@ -1,0 +1,4 @@
+pydantic
+google_genai
+python-dotenv
+colorama
