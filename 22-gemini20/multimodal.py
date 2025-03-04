@@ -24,15 +24,21 @@ async def main():
             async for response in session.receive():
                 if response.text is None:
                     continue
-                # Convert markdown bold to cyan color
+
+                                # Convert markdown to HTML
+                html = markdown.markdown(response.text)
+                soup = BeautifulSoup(html, 'html.parser')
+
+                # Process the text with proper formatting
                 colored_text = response.text
-                while "**" in colored_text:
-                    start = colored_text.find("**")
-                    end = colored_text.find("**", start + 2)
-                    if end == -1:
-                        break
-                    bold_text = colored_text[start+2:end]
-                    colored_text = colored_text[:start] + f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}" + colored_text[end+2:]
+                for strong in soup.find_all('strong'):  # Find bold text
+                    orig_text = f"**{strong.text}**"
+                    colored_text = colored_text.replace(orig_text, f"{Fore.CYAN}{strong.text}{Style.RESET_ALL}")
+
+                for em in soup.find_all('em'):  # Find italic text
+                    orig_text = f"*{em.text}*"
+                    # \x1B[3m enables italics in terminals that support it
+                    colored_text = colored_text.replace(orig_text, f"{Style.BRIGHT}{Fore.WHITE}\x1B[3m{em.text}{Style.RESET_ALL}")
 
                 prefix = "🤖 " if first_response else ""
                 first_response = False
