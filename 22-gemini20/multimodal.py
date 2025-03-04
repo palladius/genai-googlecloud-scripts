@@ -4,6 +4,7 @@ from constants import *
 import markdown
 from bs4 import BeautifulSoup
 from colorama import Fore, Style
+import re
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -31,9 +32,48 @@ async def main():
 
                 # Process the text with proper formatting
                 colored_text = response.text
-                for strong in soup.find_all('strong'):  # Find bold text
-                    orig_text = f"**{strong.text}**"
-                    colored_text = colored_text.replace(orig_text, f"{Fore.CYAN}{strong.text}{Style.RESET_ALL}")
+
+
+                # Google colors for bullet points with corresponding emojis
+                google_colors = [
+                    (Fore.BLUE, "🔵"),   # Blue
+                    (Fore.RED, "🔴"),    # Red
+                    (Fore.YELLOW, "🟡"), # Yellow
+                    (Fore.GREEN, "🟢"),  # Green
+                ]
+                bullet_count = 0
+
+                # Find all bullet points with any indentation
+#                bullet_pattern = re.compile(r'^(\s*)[*-]\s+(.+)$', re.MULTILINE)
+                bullet_pattern = re.compile(r'^(\s*)[*-](?:\s+|\.\s+)(.+)$', re.MULTILINE)
+                # Process all bullet points
+                for match in bullet_pattern.finditer(colored_text):
+                    indent, content = match.groups()
+                    color, emoji = google_colors[bullet_count % 4]
+                    # Preserve the original separator (space or dot)
+                    original = match.group(0)
+                    replacement = f"{indent}{color}{emoji} {content}{Style.RESET_ALL}"
+                    colored_text = colored_text.replace(original, replacement)
+                    bullet_count += 1
+                # # Find all list items and replace bullets with Google-colored emojis
+                for li in soup.find_all('li'):
+                    orig_text = f"- {li.text}"
+                    color, emoji = google_colors[bullet_count % 4]
+                    colored_text = colored_text.replace(orig_text, f"{color}{emoji} {li.text}{Style.RESET_ALL}")
+                    bullet_count += 1
+
+
+
+                bold_pattern = re.compile(r'\*\*(.+?)\*\*')
+                for match in bold_pattern.finditer(colored_text):
+                    bold_text = match.group(1)
+                    original = f"**{bold_text}**"
+                    colored_text = colored_text.replace(original, f"{Fore.CYAN}{bold_text}{Style.RESET_ALL}")
+
+
+                # for strong in soup.find_all('strong'):  # Find bold text
+                #     orig_text = f"**{strong.text}**"
+                #     colored_text = colored_text.replace(orig_text, f"{Fore.CYAN}{strong.text}{Style.RESET_ALL}")
 
                 for em in soup.find_all('em'):  # Find italic text
                     orig_text = f"*{em.text}*"
