@@ -2,6 +2,9 @@ from google import genai
 from google.genai.types import Tool, GenerateContentConfig, GoogleSearch
 from google.genai import types
 import time
+import sys
+
+VERSION = '1.1b'
 
 # Carlessian
 from dotenv import load_dotenv
@@ -19,15 +22,42 @@ google_search_tool = Tool(
 )
 
 GROUNDED_QUERIES = [
-    "What's the weather like today in Milan and Zurich? Use Celsius and provide min, max, and [chance of] rain.",
+    "What's the weather like today in Milan (IT), Zurich (CH) and Rio de Janeiro (BR)? Use Celsius and provide min, max, and [chance of] rain. Give results in tabular format. Plus add date of today in bold.",
     "When is the next total solar eclipse in the United States?",
-    "What is the sum of the first 10 primes? Explain the reasoning"
+    "What is the sum of the first 10 primes? Explain the reasoning",
+    "What are the top 10 cities in Europe by population? Give me a ranked table (id, city, nation, urban population) and sort by population in descending order.",
 ]
-for grounded_query in GROUNDED_QUERIES:
 
+def print_help():
+    print(f"""Gemini Grounding Tool v{VERSION}
+
+Usage:
+    1. Run with no arguments to execute default queries:
+       $ python grounding.py
+       This will run some example queries, such as:
+       - Weather in Milan and Zurich
+       - Next US solar eclipse
+       - Sum of first 10 primes
+
+    2. Run with your own query:
+       $ python grounding.py "your query here"
+       Example:
+       $ python grounding.py "What are the top 20 cities in Europe, ranked by city population?"
+    """)
+    sys.exit(0)
+
+if len(sys.argv) > 1:
+    if sys.argv[1] in ['-h', '--help']:
+        print_help()
+    # Use command line arguments as a single query
+    queries = [' '.join(sys.argv[1:])]
+else:
+    print(f"{Fore.CYAN}No args passed, using default queries{Style.RESET_ALL}")
+    queries = GROUNDED_QUERIES
+
+for grounded_query in queries:
     print(f"Query to be 🕳️grounded🪨 : {Fore.YELLOW}{grounded_query}{Style.RESET_ALL}")
     start_time = time.time()
-
 
     response = client.models.generate_content(
         model=model_id,
@@ -39,9 +69,10 @@ for grounded_query in GROUNDED_QUERIES:
     )
 
     for each in response.candidates[0].content.parts:
-        print("🦄> " + each.text)
+        #print("🦄> " + each.text)
+        print("🦄 " + each.text)
         execution_time = round(time.time() - start_time, 1)
-        print(f"⏱️ Execution time: {Fore.CYAN}{execution_time}s{Style.RESET_ALL}\n")
+        print(f"⏱️  {Fore.CYAN}Execution time:{Style.RESET_ALL} {Fore.WHITE}{execution_time}s{Style.RESET_ALL}")
         #print("Total time: TODO⏳")
 # Example response:
 # The next total solar eclipse visible in the contiguous United States will be on ...

@@ -7,9 +7,17 @@ from colorama import Fore, Style
 import re
 import sys
 
+VERSION = '1.2'
+APP_NAME = 'MultimodalAsyncChat'
+APP_DESCRIPTION = 'A succulent MultimodalAsync Chat built elaborating on Gemini2 Public Docs, and some Markdown colorful/emoji magic.'
 from dotenv import load_dotenv
 load_dotenv()
 
+print(f"Welcome to {Fore.YELLOW}{APP_NAME} v{VERSION}{Style.RESET_ALL}")
+print(f"Welcome to {Fore.WHITE}{APP_DESCRIPTION}{Style.RESET_ALL}")
+print(f"DEBUG: GEMINI_API_KEY={Fore.RED}{GEMINI_API_KEY}{Style.RESET_ALL} (needs to start with AIza)")
+
+#sys.exit(42)
 client = genai.Client(api_key=GEMINI_API_KEY, http_options={'api_version': 'v1alpha'})
 model_id = "gemini-2.0-flash-exp"
 config = {"response_modalities": ["TEXT"]}

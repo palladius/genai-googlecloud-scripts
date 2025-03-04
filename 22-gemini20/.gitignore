@@ -1,0 +1,6 @@
+bin/
+build/
+dist/
+g2asyncchat.spec
+g2imagegen.spec
+grounding2better.spec
