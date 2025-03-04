@@ -6,3 +6,5 @@ markdown
 beautifulsoup4
 # PIL
 pillow
+
+# packagization: pip install pyinstaller

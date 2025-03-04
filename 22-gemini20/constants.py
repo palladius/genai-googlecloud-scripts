@@ -6,7 +6,7 @@ from colorama import init, Fore, Style
 init()  # Initialize colorama
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-#GEMINI_API_KEY = 'todo'
+print(f"[constants] {Fore.LIGHTBLACK_EX}DEBUG{Style.RESET_ALL} GEMINI_API_KEY={Fore.RED}{GEMINI_API_KEY}{Style.RESET_ALL} (needs to start with AIza)")
 
 def print_recipe(recipes_json):
     #recipes_json = '''[{"recipe_name": "Chocolate Chip Cookies",...}]'''  # Your JSON string here
