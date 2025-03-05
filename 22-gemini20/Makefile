@@ -1,3 +1,17 @@
+UNAME := $(shell uname)
+
+# /Users/ricc/git/gic/bin/arch
+
+# ifeq ($(UNAME), Darwin)
+#     # macOS
+#     GIC_BIN := $(HOME)/Library/bin
+# else ifeq ($(UNAME), Linux)
+#     # Linux
+#     GIC_BIN := $(HOME)/.local/bin
+# else
+#     # Windows or other
+#     $(error Unsupported operating system: $(UNAME))
+# endif
 
 install:
 	echo setup virtualenv and pip install reqs.txt as usual... when done do touch install to silence this..
