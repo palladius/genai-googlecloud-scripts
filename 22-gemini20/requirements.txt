@@ -8,3 +8,6 @@ beautifulsoup4
 pillow
 
 # packagization: pip install pyinstaller
+
+#
+# IPython for the image-NEW-w-refrences

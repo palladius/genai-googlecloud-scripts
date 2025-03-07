@@ -1,0 +1,3 @@
+
+ pip install matplotlib
+ pip install --upgrade --user google-cloud-aiplatform
