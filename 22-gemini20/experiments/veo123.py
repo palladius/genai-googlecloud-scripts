@@ -7,11 +7,15 @@ import os
 import re
 from typing import List
 
+APP_VERSION='1.0'
+APP_NAME = 'Veo cURL-based video-generator'
+APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
+
 # Configuration (you might want to move these to a config file)
 PROJECT_ID = "veo-testing"
 LOCATION_ID = "us-central1"
 API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
-MODEL_ID = "veo-2.0-generate-001"
+VEO_MODEL_ID = "veo-2.0-generate-001"
 POLLING_INTERVAL = 5  # Seconds
 MAX_POLLING_ATTEMPTS = 60 # 5 minutes max
 
@@ -37,7 +41,7 @@ def generate_video(prompt: str, sample_count: int = 4, duration_seconds: int = 8
         "Authorization": f"Bearer {access_token}",
     }
     request_data = {
-        "endpoint": f"projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{MODEL_ID}",
+        "endpoint": f"projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}",
         "instances": [{"prompt": prompt}],
         "parameters": {
             "aspectRatio": aspect_ratio,
@@ -51,7 +55,7 @@ def generate_video(prompt: str, sample_count: int = 4, duration_seconds: int = 8
         },
     }
 
-    url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{MODEL_ID}:predictLongRunning"
+    url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}:predictLongRunning"
     response = requests.post(url, headers=headers, json=request_data)
     response.raise_for_status()  # Raise an exception for bad status codes
 
@@ -71,18 +75,26 @@ def retrieve_video(operation_id: str) -> dict:
         "Authorization": f"Bearer {access_token}",
     }
     request_data = {"operationName": operation_id}
-    url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{MODEL_ID}:fetchPredictOperation"
+    url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}:fetchPredictOperation"
     response = requests.post(url, headers=headers, json=request_data)
     response.raise_for_status()
     return response.json()
 
-def decode_and_save_videos(response_json: dict, operation_id: str):
+def clean_prompt_for_filename(prompt: str) -> str:
+    """Cleans the prompt to be used as part of a filename."""
+    # Remove strange characters and replace spaces with underscores
+    cleaned_prompt = re.sub(r"[^\w\s-]", "", prompt).replace(" ", "_")
+    # Chop to max 64 characters
+    return cleaned_prompt[:64]
+
+def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
     """Decodes base64-encoded videos and saves them to files."""
     if "response" not in response_json or "videos" not in response_json["response"]:
         raise ValueError("Invalid response format: 'response' or 'videos' key not found.")
 
     videos = response_json["response"]["videos"]
     counter = 1
+    cleaned_prompt = clean_prompt_for_filename(prompt)
     for video in videos:
         if "bytesBase64Encoded" not in video:
             print(f"Warning: 'bytesBase64Encoded' not found in video data. Skipping.")
@@ -93,7 +105,7 @@ def decode_and_save_videos(response_json: dict, operation_id: str):
             print(f"Warning: Empty base64 data encountered. Skipping.")
             continue
 
-        output_file = f"video-{operation_id.split('/')[-1]}-{counter}.mp4"
+        output_file = f"video-{cleaned_prompt}-{operation_id.split('/')[-1]}-{counter}.mp4"
         try:
             decoded_data = base64.b64decode(base64_data)
             with open(output_file, "wb") as f:
@@ -105,7 +117,7 @@ def decode_and_save_videos(response_json: dict, operation_id: str):
 
 def main():
     """Main function to orchestrate the video generation, retrieval, and decoding."""
-    prompt = "Shrek wakes up in Bologna, the view from Shrek to the Due Torri out of the window"
+    prompt = "Shrek wakes up in Milan, the view from Shrek to the Castello Sforzesco out of the window"
     print(f"Generating video with prompt: '{prompt}'")
 
     try:
@@ -121,7 +133,7 @@ def main():
             response_json = retrieve_video(operation_id)
             if response_json.get("done"):
                 print("Video generation complete.")
-                decode_and_save_videos(response_json, operation_id)
+                decode_and_save_videos(response_json, operation_id, prompt)
                 print("Done processing videos.")
                 return
             else:
