@@ -5,3 +5,4 @@ dist/
 #g2imagegen.spec
 #grounding2better.spec
 *.spec
+out/
