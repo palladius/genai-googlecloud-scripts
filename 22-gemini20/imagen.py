@@ -14,7 +14,7 @@ from lib.filez import * # create_filename_from_prompt
 
 load_dotenv()
 
-APP_VERSION = '1.3'
+APP_VERSION = '1.3b'
 APP_NAME = 'Image Generation Tool'
 APP_HISTORY = '''
 2025-03-07 v1.3 Set up $0 and moved code to lib/ for better code reuse.
@@ -47,6 +47,7 @@ Examples:
     {script_name} A CD cover with elements of Pink Floyd and Genesis
     {script_name} A futuristic cityscape at sunset with 4-colored traffic lights, in the style of Dali.
     {script_name} The swiss village of Duloc, with a lake, surrounded by alps, in the style of Shrek and Dreamworks.
+    {script_name} 'Sicilian Volcano Etna erupts: From its lava emerges a beautiful fiery phoenix, in the style of Pixar'
     """)
     sys.exit(0)
 
