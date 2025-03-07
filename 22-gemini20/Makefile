@@ -30,19 +30,17 @@ demo-multimodal: install
 image-demo:
 	python imagen.py 'A CD cover with elements of Pink Floyd and Genesis titled "Makefile (by Stuart Feldman)".'
 
+packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding
+
 packetize-grounding:
-	pyinstaller --onefile --name grounding2better \
+	pyinstaller --onefile --name g2grounding \
 				--add-data ".env:." \
 				--hidden-import colorama \
 				--hidden-import google.generativeai \
 				grounding.py
-	cp dist/grounding2better $(GIC)/bin/arch/`arch`/gemini20-grounding
-	cp dist/grounding2better bin/gemini20-grounding
+	bin/scopiazza dist/g2grounding gemini20-grounding
 
-# markdown
-# beautifulsoup4
 
-packetize-all: packetize-imagegen packetize-asyncchat packetize-veo
 
 packetize-imagegen:
 	pyinstaller --onefile --name g2imagegen \
@@ -50,18 +48,15 @@ packetize-imagegen:
 				--hidden-import colorama \
 				--hidden-import google.generativeai \
 				imagen.py
-#manhouse:	cp dist/g2imagegen $GIC/bin/gemini20-imagen
-	cp dist/g2imagegen $(GIC)/bin/gemini20-imagen
+	bin/scopiazza dist/g2imagegen gemini20-imagen
 
 packetize-asyncchat:
 	pyinstaller --onefile --name g2asyncchat \
 				--add-data ".env:." \
 				--hidden-import colorama \
 				--hidden-import google.generativeai \
-				multimodal.py
-#manhouse:	cp dist/g2multimodal $GIC/bin/gemini20-imagen
-	cp dist/g2asyncchat $(GIC)/bin/gemini20-chat
-
+				chat-multimodal.py
+	bin/scopiazza dist/g2asyncchat gemini20-chat
 
 
 packetize-veo:
@@ -69,6 +64,4 @@ packetize-veo:
 				--add-data ".env:." \
 				--hidden-import colorama \
 				veo.py
-	cp dist/g2videogen $(GIC)/bin/gemini20-veo-on-`uname`
-	cp dist/g2videogen $(GIC)/bin/arch/`arch`/gemini20-veo
-	cp dist/g2videogen bin/gemini20-veo
+	bin/scopiazza dist/g2videogen gemini20-veo

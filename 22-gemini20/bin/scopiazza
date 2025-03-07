@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# scopiazza SRC to DEST
+set -euo pipefail
+
+SRC="$1"
+DST="$2"
+
+cp "$SRC" $GIC/bin/"$DST"-on-`uname`
+cp "$SRC" $GIC/bin/arch/`arch`/"$DST"
+cp "$SRC" bin/"$DST"
