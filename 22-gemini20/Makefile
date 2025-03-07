@@ -36,12 +36,13 @@ packetize-grounding:
 				--hidden-import colorama \
 				--hidden-import google.generativeai \
 				grounding.py
-	cp dist/grounding2better $(GIC)/bin/gemini20-grounding
+	cp dist/grounding2better $(GIC)/bin/arch/`arch`/gemini20-grounding
+	cp dist/grounding2better bin/gemini20-grounding
 
 # markdown
 # beautifulsoup4
 
-packetize-all: packetize-imagegen packetize-asyncchat
+packetize-all: packetize-imagegen packetize-asyncchat packetize-veo
 
 packetize-imagegen:
 	pyinstaller --onefile --name g2imagegen \
@@ -61,3 +62,13 @@ packetize-asyncchat:
 #manhouse:	cp dist/g2multimodal $GIC/bin/gemini20-imagen
 	cp dist/g2asyncchat $(GIC)/bin/gemini20-chat
 
+
+
+packetize-veo:
+	pyinstaller --onefile --name g2videogen \
+				--add-data ".env:." \
+				--hidden-import colorama \
+				veo.py
+	cp dist/g2videogen $(GIC)/bin/gemini20-veo-on-`uname`
+	cp dist/g2videogen $(GIC)/bin/arch/`arch`/gemini20-veo
+	cp dist/g2videogen bin/gemini20-veo

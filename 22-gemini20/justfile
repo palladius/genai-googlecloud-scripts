@@ -1,0 +1,9 @@
+
+# List JUST targets
+list:
+    just -l
+
+
+# python packetizes the quickest of them all - a SAMPLE PRINTF. 11sec first time, 1s afterwards.
+packetize-test:
+    time make packetize-veo
