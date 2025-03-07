@@ -30,7 +30,7 @@ demo-multimodal: install
 image-demo:
 	python imagen.py 'A CD cover with elements of Pink Floyd and Genesis titled "Makefile (by Stuart Feldman)".'
 
-packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding
+packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding packetize-veo123
 
 packetize-grounding:
 	pyinstaller --onefile --name g2grounding \
@@ -60,9 +60,18 @@ packetize-asyncchat:
 	bin/scopiazza dist/g2asyncchat gemini20-chat
 
 
+# fake hellow
 packetize-veo:
 	pyinstaller --onefile --name g2videogen \
 				--add-data ".env:." \
 				--hidden-import colorama \
 				veo.py
 	bin/scopiazza dist/g2videogen gemini20-veo
+
+# TAken from REAL curl example into python :)
+packetize-veo123:
+	pyinstaller --onefile --name g2videogen123 \
+				--add-data ".env:." \
+				--hidden-import google-cloud-aiplatform \
+				experiments/veo123.py
+	bin/scopiazza dist/g2videogen123 gemini20-veo123
