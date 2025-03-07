@@ -6,23 +6,35 @@ from io import BytesIO
 from dotenv import load_dotenv
 import datetime
 import re
-
-from constants import *
 from colorama import Fore, Style
+
+# Riccardo stuff
+from constants import *
+from lib.filez import * # create_filename_from_prompt
 
 load_dotenv()
 
-APP_VERSION = '1.1'
+APP_VERSION = '1.3'
 APP_NAME = 'Image Generation Tool'
+APP_HISTORY = '''
+2025-03-07 v1.3 Set up $0 and moved code to lib/ for better code reuse.
+...
+2025-03-07 v1.0 First working version.
+'''
 
 #IMAGE_PROMPT = 'Fuzzy bunnies in my kitchen, eating a carrot and dipping their paws onto a fondue.'
 
 def print_help():
+    #print(f"{Fore.BLUE}{APP_NAME} v{APP_VERSION}{Style.RESET_ALL}")
+    # Use sys.argv[0] to get the script name dynamically
+    # Better functionality: https://stackoverflow.com/questions/59297692/python-obtaining-the-oss-argv0-not-sys-argv0
+    script_name = os.path.basename(sys.argv[0])
+
     print(f"""
-Image Generation Tool
+{APP_NAME} v{APP_VERSION}
 
 Usage:
-    python imagen.py [--help] <image_prompt>
+    {script_name} [--help] <image_prompt>
 
     <image_prompt>: The description of the image you want to generate.
 
@@ -30,10 +42,11 @@ Options:
     --help: Display this help message.
 
 Examples:
-    python imagen.py Fuzzy bunnies in my kitchen, eating a carrot and dipping their paws onto a fondue.
-    python imagen.py --help
-    python imagen.py A CD cover with elements of Pink Floyd and Genesis
-    python imagen.py 'A futuristic cityscape at sunset with 4-colored traffic lights, in the style of Dali.'
+    {script_name} Fuzzy bunnies in my kitchen, eating a carrot and dipping their paws onto a fondue.
+    {script_name} --help
+    {script_name} A CD cover with elements of Pink Floyd and Genesis
+    {script_name} A futuristic cityscape at sunset with 4-colored traffic lights, in the style of Dali.
+    {script_name} The swiss village of Duloc, with a lake, surrounded by alps, in the style of Shrek and Dreamworks.
     """)
     sys.exit(0)
 
@@ -46,71 +59,9 @@ def create_filename_from_prompt(prompt, extension='png'):
     '''
     return ...
 
-
-# def create_filename_from_prompt_old(prompt, id='', extension='png'):
-#     '''Generate a possible filename based on a generic genai prompt.
-
-#     - if prompt is long, it should be shortened/chopped to max 64 chars.
-#     - all spaces should be moved to underscores.
-#     - a YYYYMMDD date should be prepended for alpha sorting.
-
-#     Should have some sort of ID.
-#     '''
-#     max_length = 96 # 64
-
-#     # Get current date in YYYYMMDD format
-#     today = datetime.date.today().strftime("%Y%m%d")
-
-#     # Shorten the prompt if it's too long
-#     if len(prompt) > max_length:
-#         prompt = prompt[:max_length]
-
-#     # Replace spaces with underscores
-#     prompt = prompt.replace(" ", "_")
-
-#     # Remove any characters that are not alphanumeric or underscores
-#     prompt = re.sub(r'[^a-zA-Z0-9_]', '', prompt)
-
-#     # Construct the filename
-#     filename = f"{today}_{prompt}_{id}.{extension}"
-#     return filename
-
-def create_filename_from_prompt(prompt, id='', extension='png', out_folder='out/'):
-    '''Generate a possible filename based on a generic genai prompt.
-
-    - if prompt is long, it should be shortened/chopped to max 64 chars.
-    - all spaces should be moved to underscores.
-    - a YYYYMMDD date should be prepended for alpha sorting.
-    - if out_folder is not None, it will be prepended to the filename.
-
-    Should have some sort of ID.
-    '''
-    max_length = 96 # 64
-
-    # Get current date in YYYYMMDD format
-    today = datetime.date.today().strftime("%Y%m%d")
-
-    # Shorten the prompt if it's too long
-    if len(prompt) > max_length:
-        prompt = prompt[:max_length]
-
-    # Replace spaces with underscores
-    prompt = prompt.replace(" ", "_")
-
-    # Remove any characters that are not alphanumeric or underscores
-    prompt = re.sub(r'[^a-zA-Z0-9_]', '', prompt)
-
-    # Construct the filename
-    filename = f"{today}_{prompt}_{id}.{extension}"
-
-    if out_folder is not None:
-        # Ensure the output folder exists
-        os.makedirs(out_folder, exist_ok=True)
-        filename = os.path.join(out_folder, filename)
-
-    return filename
-
 def main():
+    also_show_image = True
+
     if len(sys.argv) < 2 or "--help" in sys.argv:
         print_help()
 
@@ -132,9 +83,10 @@ def main():
     image_counter = 1
     for generated_image in response.generated_images:
         image = Image.open(BytesIO(generated_image.image.image_bytes))
-        #image.show()
-        filename = create_filename_from_prompt(image_prompt, id=image_counter) #id=image_counter,
-        print(f"Saving image to: {filename}")
+        if also_show_image:
+            image.show()
+        filename = midjourneyish_filename_from_prompt(image_prompt, id=image_counter)
+        print(f"💾 Saving image to: {Fore.MAGENTA}{filename}{Style.RESET_ALL}")
         image.save(f"{filename}")
         image_counter +=1
 
