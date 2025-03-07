@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import asyncio
 from google import genai
 from constants import *
@@ -6,23 +8,72 @@ from bs4 import BeautifulSoup
 from colorama import Fore, Style
 import re
 import sys
-
-VERSION = '1.2'
-APP_NAME = 'MultimodalAsyncChat'
-APP_DESCRIPTION = 'A succulent MultimodalAsync Chat built elaborating on Gemini2 Public Docs, and some Markdown colorful/emoji magic.'
+import argparse
 from dotenv import load_dotenv
+
 load_dotenv()
 
-print(f"Welcome to {Fore.YELLOW}{APP_NAME} v{VERSION}{Style.RESET_ALL}")
-print(f"Welcome to {Fore.WHITE}{APP_DESCRIPTION}{Style.RESET_ALL}")
-print(f"DEBUG: GEMINI_API_KEY={Fore.RED}{GEMINI_API_KEY}{Style.RESET_ALL} (needs to start with AIza)")
+VERSION = '1.3'
+APP_NAME = 'MultimodalAsyncChat'
+APP_DESCRIPTION = 'A succulent MultimodalAsync Chat built elaborating on Gemini2 Public Docs, and some Markdown colorful/emoji magic.'
+APP_HISTORY = '''
+2025-03-07 v1.3  Added argparse support with --help and ---version
+'''
+
+
+
+#print(f"DEBUG: GEMINI_API_KEY={Fore.RED}{GEMINI_API_KEY}{Style.RESET_ALL} (needs to start with AIza)")
 
 #sys.exit(42)
 client = genai.Client(api_key=GEMINI_API_KEY, http_options={'api_version': 'v1alpha'})
 model_id = "gemini-2.0-flash-exp"
 config = {"response_modalities": ["TEXT"]}
 
+def print_help():
+    """Prints the help message."""
+    prog_name = sys.argv[0]
+    print(f"""{APP_NAME} v{VERSION}
+
+{APP_DESCRIPTION}
+
+Usage:
+    {prog_name} [options]
+
+Options:
+    -h, --help      Show this help message and exit.
+    -v, --version   Show the version number and exit.
+
+    (no options)    Starts the interactive chat.
+    (pipe mode)     Reads input from stdin, line by line.
+
+Examples:
+    {prog_name}
+    echo "Hello" | {prog_name}
+    {prog_name} -h
+    {prog_name} --version
+    """)
+    sys.exit(0)
+
+def print_version():
+    """Prints the version number."""
+    print(f"{APP_NAME} v{VERSION}")
+    sys.exit(0)
+
 async def main():
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
+    parser.add_argument("-v", "--version", action="store_true", help="Show the version number and exit")
+    args = parser.parse_args()
+
+    if args.help:
+        print_help()
+    if args.version:
+        print_version()
+
+    print(f"Welcome to {Fore.YELLOW}{APP_NAME} v{VERSION}{Style.RESET_ALL}")
+    print(f"Welcome to {Fore.WHITE}{APP_DESCRIPTION}{Style.RESET_ALL}")
+
     async with client.aio.live.connect(model=model_id, config=config) as session:
 
         while True:
@@ -39,12 +90,6 @@ async def main():
                 if not message or message.lower() == "exit":
                     break
                 await session.send(input=message, end_of_turn=True)
-
-        # while True:
-        #     message = input("👤> ")
-        #     if message.lower() == "exit":
-        #         break
-        #     await session.send(input=message, end_of_turn=True)
 
                 first_response = True
                 async for response in session.receive():
