@@ -28,7 +28,7 @@ demo-multimodal: install
 
 
 image-demo:
-	python image-generation.py
+	python imagen.py 'A CD cover with elements of Pink Floyd and Genesis titled "Makefile (by Stuart Feldman)".'
 
 packetize-grounding:
 	pyinstaller --onefile --name grounding2better \
@@ -49,7 +49,7 @@ packetize-imagegen:
 				--add-data ".env:." \
 				--hidden-import colorama \
 				--hidden-import google.generativeai \
-				image-generation.py
+				imagen.py
 #manhouse:	cp dist/g2imagegen $GIC/bin/gemini20-imagen
 	cp dist/g2imagegen $(GIC)/bin/gemini20-imagen
 
