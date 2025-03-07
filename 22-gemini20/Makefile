@@ -46,6 +46,7 @@ packetize-imagegen:
 	pyinstaller --onefile --name g2imagegen \
 				--add-data ".env:." \
 				--hidden-import colorama \
+				--hidden-import pillow \
 				--hidden-import google.generativeai \
 				imagen.py
 	bin/scopiazza dist/g2imagegen gemini20-imagen
