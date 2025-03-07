@@ -7,3 +7,7 @@ list:
 # python packetizes the quickest of them all - a SAMPLE PRINTF. 11sec first time, 1s afterwards.
 packetize-test:
     time make packetize-veo
+
+# Generate images.
+imagen-test:
+    python imagen.py The city of Duloc in Shrek is surrounded by a Zurich lake in summer, in the style of Dreamworks cartoon.
