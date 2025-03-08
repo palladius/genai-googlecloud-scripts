@@ -8,10 +8,17 @@ import re
 import argparse
 from typing import List
 
-APP_VERSION = '1.1'
+from colorama import Style, Fore
+
+APP_VERSION = '1.1b'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
-
+APP_CHANGELOG = '''
+20250308 v1.2 happy woemns day, added support for GCS.
+20250308 v1.2b Just nice skleep icon
+20250307 v1.1 copied from above folder and moved to 1.1.
+20250307 v1.0  Was just in above folder under experiments/
+'''
 # Configuration (you might want to move these to a config file)
 PROJECT_ID = "veo-testing"
 LOCATION_ID = "us-central1"
@@ -19,6 +26,14 @@ API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
 VEO_MODEL_ID = "veo-2.0-generate-001"
 POLLING_INTERVAL = 5  # Seconds
 MAX_POLLING_ATTEMPTS = 60  # 5 minutes max
+SAVE_TO_GCS = True
+VEO_GS_BUCKET = os.getenv('VEO_GS_BUCKET')
+
+#APP_VERSION = '0.2'
+#APP_NAME = 'Veo Video Generator - uses Veo to create 5sec videos based on some prompt. Also the filename is based on prompt like MJ (TODO)'
+
+print(f"🎥 Veo Generator v{APP_VERSION}: {Style.BRIGHT}{Fore.WHITE}At piasria!{Style.RESET_ALL} 📹")
+print(f"🎥 {Fore.BLUE}{APP_NAME}{Style.RESET_ALL}")
 
 
 def get_access_token():
@@ -111,6 +126,7 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
             print(f"Warning: Empty base64 data encountered. Skipping.")
             continue
 
+
         output_file = f"video-{cleaned_prompt}-{operation_id.split('/')[-1]}-{counter}.mp4"
         try:
             decoded_data = base64.b64decode(base64_data)
@@ -120,6 +136,37 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
         except Exception as e:
             print(f"Error decoding or saving video to {output_file}: {e}")
         counter += 1
+
+def save_videos_to_gcs(prompt, operation_id):
+    '''Saves all files called video-{operation_id}-X.mp4 to GCS.
+
+    Example: copy all files just created such as:
+    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-1.mp4
+    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-2.mp4
+    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-3.mp4
+    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-4.mp4
+
+    gsutil cp ./video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/
+    '''
+    print(f"Output prompt={prompt} to GCS: {VEO_GS_BUCKET}")
+    if VEO_GS_BUCKET is None:
+        print(f"Warning: VEO_GS_BUCKET is not set. Skipping GCS upload.")
+        return
+    operation_uuid = operation_id.split('/')[-1]
+    output_folder = f"{VEO_GS_BUCKET}/videos/{operation_uuid}/"
+    # VEO_GS_BUCKET = gs://my-bucket/...}")
+    command = f"gsutil cp video-*{operation_uuid}-*.mp4 {VEO_GS_BUCKET}/videos/{operation_uuid}/"
+    print(f"🎥 Trying executing this command: {Fore.BLUE}{command}{Style.RESET_ALL}")
+
+    try:
+        subprocess.run(command, shell=True, check=True)
+        print(f"Successfully uploaded videos to GCS: {output_folder}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error uploading videos to GCS: {e}")
+
+#
+    # command = f"gsutil cp video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/"
+    # print("Try executing this command: {yellow(command)}")
 
 
 def main():
@@ -150,6 +197,7 @@ def main():
         - "A person walking in a forest, autumn colors"
         - "A spaceship landing on Mars, science fiction"
         - A cinematic shot captures a fluffy Cockapoo, perched atop a vibrant pink flamingo float, in a sun-drenched Los Angeles swimming pool. The crystal-clear water sparkles under the bright California sun, reflecting the playful scene. The Cockapoo's fur, a soft blend of white and apricot, is highlighted by the golden sunlight, its floppy ears gently swaying in the breeze. Its happy expression and wagging tail convey pure joy and summer bliss. The vibrant pink flamingo adds a whimsical touch, creating a picture-perfect image of carefree fun in the LA sunshine
+        - 'Dramatic rotating view of a Panettone on a table. On top, a writing appears: "Panettone is on the table"'
         """,
     )
 
@@ -174,12 +222,17 @@ def main():
         try:
             response_json = retrieve_video(operation_id)
             if response_json.get("done"):
-                print("Video generation complete.")
+                print("🎥 Video generation complete.")
+
                 decode_and_save_videos(response_json, operation_id, prompt)
-                print("Done processing videos.")
+                print("🎥 OK Done processing videos.")
+                if SAVE_TO_GCS:
+                    #print(f"Let's now save to a GCP bucket: {}")
+                    # find files by matching operation_id..
+                    save_videos_to_gcs(prompt, operation_id)
                 return
             else:
-                print(f"Video generation not yet complete. Attempt {polling_attempts+1}/{MAX_POLLING_ATTEMPTS}...")
+                print(f"Video generation not yet complete. Attempt {polling_attempts+1}/{MAX_POLLING_ATTEMPTS}... 💤 Sleeping {POLLING_INTERVAL}s")
                 polling_attempts += 1
                 time.sleep(POLLING_INTERVAL)
         except Exception as e:

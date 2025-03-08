@@ -76,3 +76,8 @@ packetize-veo123:
 				veo1234.py
 #				experiments/veo123.py
 	bin/scopiazza dist/g2videogen123 gemini20-veo123
+
+
+push2gcs:
+#	gsutil mv *mp4 gs://ricc-genai-prove/videos/unlisted/
+	gsutil mv experiments/*mp4 gs://ricc-genai-prove/videos/unlisted/
