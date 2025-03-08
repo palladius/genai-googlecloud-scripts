@@ -87,6 +87,7 @@ def main():
     #       contents='What is your name?',
     #   )
 
+# code: https://github.com/googleapis/python-genai/blob/main/google/genai/models.py#L4982
 # google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/imagen-3.0-generate-002 is not found for API version v1beta, or is not supported for countTokens. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
     # count_tokens = client.models.count_tokens(
     #       model='imagen-3.0-generate-002',

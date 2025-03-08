@@ -68,10 +68,23 @@ for grounded_query in queries:
         )
     )
 
+    n_tokens =  client.models.count_tokens(
+        model=model_id,
+        contents=grounded_query,
+        # config=GenerateContentConfig(
+        #     tools=[google_search_tool],
+        #     response_modalities=["TEXT"],
+        # )
+    )
+
+
     for each in response.candidates[0].content.parts:
         #print("🦄> " + each.text)
         print("🦄 " + each.text)
         execution_time = round(time.time() - start_time, 1)
+        # https://ai.google.dev/gemini-api/docs/pricing - rough idea for text: 0.10
+        usd_cost = 0.10 * n_tokens.total_tokens / 1000000
+        print(f"💰 INPUT n_tokens (ohne grounding): {Fore.GREEN}{n_tokens.total_tokens}{Style.RESET_ALL} ({usd_cost}$)")
         print(f"⏱️  {Fore.CYAN}Execution time:{Style.RESET_ALL} {Fore.WHITE}{execution_time}s{Style.RESET_ALL}")
         #print("Total time: TODO⏳")
 # Example response:
