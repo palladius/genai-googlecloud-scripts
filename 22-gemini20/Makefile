@@ -73,5 +73,6 @@ packetize-veo123:
 	pyinstaller --onefile --name g2videogen123 \
 				--add-data ".env:." \
 				--hidden-import google-cloud-aiplatform \
-				experiments/veo123.py
+				veo1234.py
+#				experiments/veo123.py
 	bin/scopiazza dist/g2videogen123 gemini20-veo123
