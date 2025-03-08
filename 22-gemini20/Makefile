@@ -30,7 +30,7 @@ demo-multimodal: install
 image-demo:
 	python imagen.py 'A CD cover with elements of Pink Floyd and Genesis titled "Makefile (by Stuart Feldman)".'
 
-packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding packetize-veo123
+packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding packetize-veo
 
 packetize-grounding:
 	pyinstaller --onefile --name g2grounding \
@@ -61,23 +61,29 @@ packetize-asyncchat:
 
 
 # fake hellow
-packetize-veo:
-	pyinstaller --onefile --name g2videogen \
-				--add-data ".env:." \
-				--hidden-import colorama \
-				veo.py
-	bin/scopiazza dist/g2videogen gemini20-veo
+# packetize-veo:
+# 	pyinstaller --onefile --name g2videogen \
+# 				--add-data ".env:." \
+# 				--hidden-import colorama \
+# 				veo.py
+# 	bin/scopiazza dist/g2videogen gemini20-veo
 
 # TAken from REAL curl example into python :)
-packetize-veo123:
+packetize-veo:
 	pyinstaller --onefile --name g2videogen123 \
 				--add-data ".env:." \
 				--hidden-import google-cloud-aiplatform \
 				veo1234.py
-#				experiments/veo123.py
 	bin/scopiazza dist/g2videogen123 gemini20-veo123
 
 
 push2gcs:
-#	gsutil mv *mp4 gs://ricc-genai-prove/videos/unlisted/
-	gsutil mv experiments/*mp4 gs://ricc-genai-prove/videos/unlisted/
+	gsutil mv *mp4 gs://ricc-genai-prove/gemini20/videos/unlisted/
+#	gsutil mv experiments/*mp4 gs://ricc-genai-prove/videos/unlisted/
+
+
+video-elio:
+	python veo1234.py 'Panettone is on the table and everybody is drinking Moscato. Below, a writing appears: "christmas with the yours"'
+	python veo1234.py 'A nativity scene with a very beef above a radiator surrounded by funny zombies. Below, a writing appears: "Il bue riscaldante"'
+	python veo1234.py 'A fun-loving veal whose hooves are on top of tuna sauce. Below, a writing appears: "vitello dai piedi tonnati"'
+	python veo1234.py 'A fun-loving veal whose hooves are  made of balsa wood. Below, a writing appears: "vitello dai piedi di balsa"'

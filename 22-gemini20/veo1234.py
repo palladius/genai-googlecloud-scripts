@@ -7,14 +7,14 @@ import os
 import re
 import argparse
 from typing import List
-
+from google.cloud import storage
 from colorama import Style, Fore
 
-APP_VERSION = '1.1b'
+APP_VERSION = '1.2'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
-20250308 v1.2 happy woemns day, added support for GCS.
+20250308 v1.2 happy women's day, added support for GCS and it WORKS!
 20250308 v1.2b Just nice skleep icon
 20250307 v1.1 copied from above folder and moved to 1.1.
 20250307 v1.0  Was just in above folder under experiments/
@@ -32,8 +32,8 @@ VEO_GS_BUCKET = os.getenv('VEO_GS_BUCKET')
 #APP_VERSION = '0.2'
 #APP_NAME = 'Veo Video Generator - uses Veo to create 5sec videos based on some prompt. Also the filename is based on prompt like MJ (TODO)'
 
-print(f"🎥 Veo Generator v{APP_VERSION}: {Style.BRIGHT}{Fore.WHITE}At piasria!{Style.RESET_ALL} 📹")
-print(f"🎥 {Fore.BLUE}{APP_NAME}{Style.RESET_ALL}")
+#print(f"🎥 Veo Generator v{APP_VERSION}: {Style.BRIGHT}{Fore.WHITE}At piasria!{Style.RESET_ALL} 📹")
+print(f"🎥 {Fore.BLUE}{APP_NAME}{Style.RESET_ALL} v{APP_VERSION} 📹")
 
 
 def get_access_token():
@@ -137,36 +137,77 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
             print(f"Error decoding or saving video to {output_file}: {e}")
         counter += 1
 
+
 def save_videos_to_gcs(prompt, operation_id):
-    '''Saves all files called video-{operation_id}-X.mp4 to GCS.
-
-    Example: copy all files just created such as:
-    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-1.mp4
-    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-2.mp4
-    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-3.mp4
-    - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-4.mp4
-
-    gsutil cp ./video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/
-    '''
+    """Saves all files called video-{operation_id}-X.mp4 to GCS using the Cloud Storage library."""
     print(f"Output prompt={prompt} to GCS: {VEO_GS_BUCKET}")
     if VEO_GS_BUCKET is None:
         print(f"Warning: VEO_GS_BUCKET is not set. Skipping GCS upload.")
         return
+
     operation_uuid = operation_id.split('/')[-1]
-    output_folder = f"{VEO_GS_BUCKET}/videos/{operation_uuid}/"
-    # VEO_GS_BUCKET = gs://my-bucket/...}")
-    command = f"gsutil cp video-*{operation_uuid}-*.mp4 {VEO_GS_BUCKET}/videos/{operation_uuid}/"
-    print(f"🎥 Trying executing this command: {Fore.BLUE}{command}{Style.RESET_ALL}")
+    bucket_name = VEO_GS_BUCKET.replace("gs://", "")
+    if "/" in bucket_name:
+        bucket_name = bucket_name.split("/")[0]
 
+    destination_folder = f"gemini20/videos/{operation_uuid}/"
+    #output_folder = f"{VEO_GS_BUCKET}/gemini20/videos/{operation_uuid}/"
+
+
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+
+    video_files = [f for f in os.listdir(".") if f.startswith(f"video-") and operation_uuid in f and f.endswith(".mp4")]
+
+    for video_file in video_files:
+        blob = bucket.blob(os.path.join(destination_folder, video_file))
+        try:
+            blob.upload_from_filename(video_file)
+            print(f"File {video_file} uploaded to {VEO_GS_BUCKET}/{destination_folder}/{video_file}.")
+        except Exception as e:
+            print(f"Error uploading {video_file} to GCS: {e}")
+
+    # Create and upload README.md
+    readme_content = f"Model: {VEO_MODEL_ID}\nOperation id: {operation_id}\n## Prompt\n{prompt}"
+    readme_file = "README.md"
+    with open(readme_file, "w") as f:
+        f.write(readme_content)
+
+    readme_blob = bucket.blob(os.path.join(destination_folder, readme_file))
     try:
-        subprocess.run(command, shell=True, check=True)
-        print(f"Successfully uploaded videos to GCS: {output_folder}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error uploading videos to GCS: {e}")
+        readme_blob.upload_from_filename(readme_file)
+        print(f"File {readme_file} uploaded to {VEO_GS_BUCKET}/{destination_folder}/{readme_file}.")
+    except Exception as e:
+        print(f"Error uploading {readme_file} to GCS: {e}")
 
-#
-    # command = f"gsutil cp video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/"
-    # print("Try executing this command: {yellow(command)}")
+    os.remove(readme_file)
+
+# def save_videos_to_gcs_old_riccardo(prompt, operation_id):
+#     '''Saves all files called video-{operation_id}-X.mp4 to GCS.
+
+#     Example: copy all files just created such as:
+#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-1.mp4
+#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-2.mp4
+#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-3.mp4
+#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-4.mp4
+
+#     gsutil cp ./video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/
+#     '''
+#     print(f"Output prompt={prompt} to GCS: {VEO_GS_BUCKET}")
+#     if VEO_GS_BUCKET is None:
+#         print(f"Warning: VEO_GS_BUCKET is not set. Skipping GCS upload.")
+#         return
+#     operation_uuid = operation_id.split('/')[-1]
+#     output_folder = f"{VEO_GS_BUCKET}/gemini20/videos/{operation_uuid}/"
+#     # VEO_GS_BUCKET = gs://my-bucket/...}")
+#     command = f"gsutil cp video-*{operation_uuid}-*.mp4 {VEO_GS_BUCKET}/videos/{operation_uuid}/"
+#     print(f"🎥 Trying executing this command: {Fore.BLUE}{command}{Style.RESET_ALL}")
+
+#     try:
+#         subprocess.run(command, shell=True, check=True)
+#         print(f"Successfully uploaded videos to GCS: {output_folder}")
+#     except subprocess.CalledProcessError as e:
+#         print(f"Error uploading videos to GCS: {e}")
 
 
 def main():
