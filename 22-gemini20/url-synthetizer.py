@@ -20,9 +20,12 @@ import argparse
 import os
 from typing import List
 from lib.colorz import *
+from colorama import Fore, Style
+
 
 VERSION = '1.1b'
 MODEL_ID = "gemini-2.0-flash"
+OUT_FOLDER = "out/rag/"
 
 # Carlessian
 from dotenv import load_dotenv
@@ -36,6 +39,12 @@ from constants import *
 #genai.configure(api_key=GEMINI_API_KEY)
 client = genai.Client(api_key=GEMINI_API_KEY)
 
+
+def sanitize_filename(filename: str) -> str:
+    """Sanitizes a string to be used as a filename."""
+    # Remove invalid characters and replace spaces with underscores
+    sanitized = re.sub(r'[^\w\-_\.]', '_', filename)
+    return sanitized[:64]
 
 def download_and_extract_text(url: str) -> str:
     """Downloads a webpage and extracts its text content."""
