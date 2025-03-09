@@ -39,3 +39,25 @@ def midjourneyish_filename_from_prompt(prompt, id='', extension='png', out_folde
         filename = os.path.join(out_folder, filename)
 
     return filename
+
+
+# def write_to_file(file_name, content, verbose=True):
+#     '''Writes a file content ot file. If vrbose, prints what it just did with content size.'''
+import json
+
+def write_to_file(file_name, content, verbose=True):
+    '''Writes a file content ot file. If verbose, prints what it just did with content size.'''
+    try:
+        with open(file_name, 'w') as f:
+            if isinstance(content, dict) or isinstance(content, list):
+                json.dump(content, f, indent=2)
+            elif isinstance(content, str):
+                f.write(content)
+            else:
+                f.write(str(content))
+
+        if verbose:
+            file_size = os.path.getsize(file_name)
+            print(f"💾 Wrote {file_size}B to '{file_name}'")
+    except Exception as e:
+        print(f"🔴 Error in write_to_file: {e}")

@@ -37,3 +37,9 @@ ImportError: cannot import name '_imaging' from 'PIL' (/var/folders/ml/1t92vmgs3
 💾 Saving image to: out/20250307_c_import_os_sys_time_timesleep20_osremovesysargv1_varfoldersml1t92vmgs3_j8xfcj_4.png
 [PYI-18295:ERROR] Failed to load Python shared library '/var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/_MEIsJmnyu/Python': dlopen: dlopen(/var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/_MEIsJmnyu/Python, 0x000A): tried: '/var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/_MEIsJmnyu/Python' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/_MEIsJmnyu/Python' (no such file), '/var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/_MEIsJmnyu/Python' (no such file)
 ```
+
+
+## GCS issue on Mac
+
+Error during video retrieval: Project was not passed and could not be determined from the environment.
+

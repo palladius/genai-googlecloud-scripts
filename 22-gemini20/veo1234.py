@@ -9,11 +9,15 @@ import argparse
 from typing import List
 from google.cloud import storage
 from colorama import Style, Fore
+from lib.filez import * # write_to_file
+import sys
 
-APP_VERSION = '1.3'
+APP_VERSION = '1.5'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
+20250309 v1.5 Added write_to_file for broken stuff.
+20250309 v1.4 Waiting4Paolo. Accepting prompt from STDIN and from file
 20250309 v1.3 Waiting4Paolo. Some nice addons and fixing install for Mac.
 20250308 v1.2 happy women's day, added support for GCS and it WORKS!
 20250308 v1.2b Just nice skleep icon
@@ -183,33 +187,37 @@ def save_videos_to_gcs(prompt, operation_id):
 
     os.remove(readme_file)
 
-# def save_videos_to_gcs_old_riccardo(prompt, operation_id):
-#     '''Saves all files called video-{operation_id}-X.mp4 to GCS.
+def get_prompt_from_source(prompt_file, argv_prompt):
+    """
+    Gets the prompt from either a file or command-line arguments.
 
-#     Example: copy all files just created such as:
-#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-1.mp4
-#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-2.mp4
-#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-3.mp4
-#     - ./video-Dramatic_rotating_view_of_a_Panettone_on_a_table_On_top_a_writin-95e61899-818a-4765-ae55-6af74d6b111b-4.mp4
+    Args:
+        prompt_file: Path to the prompt file or "-" for stdin.
+        argv_prompt: Prompt provided through command line arguments (list of strings).
 
-#     gsutil cp ./video-*{operation_id}-*.mp4 gs://my-bucket/videos/{operation_id}/
-#     '''
-#     print(f"Output prompt={prompt} to GCS: {VEO_GS_BUCKET}")
-#     if VEO_GS_BUCKET is None:
-#         print(f"Warning: VEO_GS_BUCKET is not set. Skipping GCS upload.")
-#         return
-#     operation_uuid = operation_id.split('/')[-1]
-#     output_folder = f"{VEO_GS_BUCKET}/gemini20/videos/{operation_uuid}/"
-#     # VEO_GS_BUCKET = gs://my-bucket/...}")
-#     command = f"gsutil cp video-*{operation_uuid}-*.mp4 {VEO_GS_BUCKET}/videos/{operation_uuid}/"
-#     print(f"🎥 Trying executing this command: {Fore.BLUE}{command}{Style.RESET_ALL}")
+    Returns:
+        The prompt as a string.
+    """
+    if prompt_file:
+        if prompt_file == "-":
+            print("Reading prompt from stdin...")
+            prompt = sys.stdin.read().strip()
+        else:
+            try:
+                with open(prompt_file, "r") as f:
+                    prompt = f.read().strip()
+            except FileNotFoundError:
+                print(f"Error: Prompt file '{prompt_file}' not found.")
+                return None
+            except Exception as e:
+                print(f"Error reading prompt file '{prompt_file}': {e}")
+                return None
+    elif argv_prompt:
+      prompt = " ".join(argv_prompt)
+    else:
+      prompt = None
 
-#     try:
-#         subprocess.run(command, shell=True, check=True)
-#         print(f"Successfully uploaded videos to GCS: {output_folder}")
-#     except subprocess.CalledProcessError as e:
-#         print(f"Error uploading videos to GCS: {e}")
-
+    return prompt
 
 def main():
     """Main function to orchestrate the video generation, retrieval, and decoding."""
@@ -222,6 +230,12 @@ def main():
         "--version",
         action="version",
         version=f"%(prog)s {APP_VERSION}",
+    )
+    parser.add_argument(
+        "--promptfile",
+        help="""Path to a file containing the video generation prompt.
+        Use '-' to read from stdin. If provided, command line prompt is ignored.""",
+        default=None
     )
     parser.add_argument(
         "prompt",
@@ -246,11 +260,11 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.prompt:
-        parser.print_help()
+    prompt = get_prompt_from_source(args.promptfile, args.prompt)
+    if prompt is None:
+        if not args.promptfile:
+            parser.print_help()
         return
-
-    prompt = " ".join(args.prompt)
     print(f"Generating video with prompt: '{prompt}'")
 
     try:
@@ -259,7 +273,7 @@ def main():
         print(f"Error during video generation: {e}")
         return
 
-    print("Polling for video generation completion...")
+    print("💤 Polling for video generation completion...")
     polling_attempts = 0
     while polling_attempts < MAX_POLLING_ATTEMPTS:
         try:
@@ -275,11 +289,14 @@ def main():
                     save_videos_to_gcs(prompt, operation_id)
                 return
             else:
-                print(f"Video generation not yet complete. Attempt {polling_attempts+1}/{MAX_POLLING_ATTEMPTS}... 💤 Sleeping {POLLING_INTERVAL}s")
+                print(f"💤 Video generation not yet complete. Attempt {polling_attempts+1}/{MAX_POLLING_ATTEMPTS}... 💤 Sleeping {POLLING_INTERVAL}s")
                 polling_attempts += 1
                 time.sleep(POLLING_INTERVAL)
         except Exception as e:
             print(f"Error during video retrieval: {e}")
+            #if response_json:
+            #    print(f"Response JSON: {response_json}")
+            write_to_file('veo_error.json', response_json)
             return
 
     print(f"Error: Max polling attempts ({MAX_POLLING_ATTEMPTS}) reached. Video generation may have failed or is taking too long.")
