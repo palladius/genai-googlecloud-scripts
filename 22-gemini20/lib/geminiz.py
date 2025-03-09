@@ -32,7 +32,7 @@ def cost_of_api_call(context=None, printCost=True):
         with open('tmp.gemini_api_call_context.json', 'w', encoding='utf-8') as f:
             #f.write(response.candidates[0].grounding_metadata.search_entry_point.rendered_content)
 #            TypeError: write() argument must be str, not GenerateImagesResponse
-            f.write(context.__str__())
+            f.write(context.)
             f.write(context.__dict__)
         print(context)
     if printCost:

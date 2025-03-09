@@ -6,3 +6,4 @@ dist/
 #grounding2better.spec
 *.spec
 out/
+video*mp4
