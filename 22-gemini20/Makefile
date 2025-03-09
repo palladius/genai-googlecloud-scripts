@@ -60,19 +60,12 @@ packetize-asyncchat:
 	bin/scopiazza dist/g2asyncchat gemini20-chat
 
 
-# fake hellow
-# packetize-veo:
-# 	pyinstaller --onefile --name g2videogen \
-# 				--add-data ".env:." \
-# 				--hidden-import colorama \
-# 				veo.py
-# 	bin/scopiazza dist/g2videogen gemini20-veo
-
 # TAken from REAL curl example into python :)
 packetize-veo:
 	pyinstaller --onefile --name g2videogen123 \
 				--add-data ".env:." \
 				--hidden-import google-cloud-aiplatform \
+				--hidden-import google-cloud-storage \
 				veo1234.py
 	bin/scopiazza dist/g2videogen123 gemini20-veo123
 
@@ -87,3 +80,6 @@ video-elio:
 	python veo1234.py 'A nativity scene with a very beef above a radiator surrounded by funny zombies. Below, a writing appears: "Il bue riscaldante"'
 	python veo1234.py 'A fun-loving veal whose hooves are on top of tuna sauce. Below, a writing appears: "vitello dai piedi tonnati"'
 	python veo1234.py 'A fun-loving veal whose hooves are  made of balsa wood. Below, a writing appears: "vitello dai piedi di balsa"'
+
+clean:
+	rm -rf tmp.* t.* *.spec

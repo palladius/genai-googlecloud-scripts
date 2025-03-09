@@ -10,10 +10,11 @@ from typing import List
 from google.cloud import storage
 from colorama import Style, Fore
 
-APP_VERSION = '1.2'
+APP_VERSION = '1.3'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
+20250309 v1.3 Waiting4Paolo. Some nice addons and fixing install for Mac.
 20250308 v1.2 happy women's day, added support for GCS and it WORKS!
 20250308 v1.2b Just nice skleep icon
 20250307 v1.1 copied from above folder and moved to 1.1.
@@ -237,7 +238,8 @@ def main():
         - "A dog surfing on a wave, slow motion"
         - "A person walking in a forest, autumn colors"
         - "A spaceship landing on Mars, science fiction"
-        - A cinematic shot captures a fluffy Cockapoo, perched atop a vibrant pink flamingo float, in a sun-drenched Los Angeles swimming pool. The crystal-clear water sparkles under the bright California sun, reflecting the playful scene. The Cockapoo's fur, a soft blend of white and apricot, is highlighted by the golden sunlight, its floppy ears gently swaying in the breeze. Its happy expression and wagging tail convey pure joy and summer bliss. The vibrant pink flamingo adds a whimsical touch, creating a picture-perfect image of carefree fun in the LA sunshine
+        - "A cinematic shot captures a fluffy Cockapoo, perched atop a vibrant pink flamingo float, in a sun-drenched Los Angeles swimming pool. The crystal-clear water sparkles under the bright California sun, reflecting the playful scene. The Cockapoo's fur, a soft blend of white and apricot, is highlighted by the golden sunlight, its floppy ears gently swaying in the breeze. Its happy expression and wagging tail convey pure joy and summer bliss. The vibrant pink flamingo adds a whimsical touch, creating a picture-perfect image of carefree fun in the LA sunshine
+        - "A cinematic shot captures a fluffy Cockapoo, perched atop a vibrant pink flamingo float, in a sun-drenched Zurich See beach. The crystal-clear water sparkles under the bright Swiss sun, reflecting the playful scene. The Cockapoo's fur, a soft blend of white and apricot, is highlighted by the golden sunlight, its floppy ears gently swaying in the breeze. Its happy expression and wagging tail convey pure joy and summer bliss. The vibrant pink flamingo adds a whimsical touch, creating a picture-perfect image of carefree fun in the swiss sunshine"
         - 'Dramatic rotating view of a Panettone on a table. On top, a writing appears: "Panettone is on the table"'
         """,
     )
