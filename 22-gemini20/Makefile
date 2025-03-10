@@ -97,3 +97,10 @@ clean:
 
 url-summarize-test:
 	python url-synthetizer.py --url-file etc/summarize-urls-rag.txt
+
+
+test-classification:
+	echo Create a Gioconda in style of Van Gogh | python classificator.py  -
+	echo A vscode with PHP code shrinks and becomes a rocket which gets launched into space | python classificator.py  -
+	echo 'What is your name?' | python classificator.py  -
+
