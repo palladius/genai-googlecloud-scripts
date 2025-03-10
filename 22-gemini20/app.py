@@ -20,7 +20,6 @@ Let's start with images. Im going to trigger an image function I already have in
 
 Now I'd like on top left some sort of "mosaic" button which visualizes ALL the pictures in a tiled manner. Every picture and video from HISTORY.json is visualized and HOVER reveals their prompt. A click opens a page with just the image (this time BIG) and the prompt.
 '''
-
 # app.py
 import streamlit as st
 import yaml
@@ -49,6 +48,7 @@ GOOGLE_COLORS = {
 }
 
 HISTORY_FILE = "history.json"
+OUTPUT_FOLDER = 'streamlit/generated_images/'
 
 # Load sample prompts from YAML
 def load_sample_prompts(filepath="etc/prompts.yaml"):
@@ -95,13 +95,13 @@ def save_history(history):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
 
-def cleanup_generated_files(image_files):
-    """Removes the generated image files."""
-    for image_file in image_files:
-        try:
-            os.remove(image_file)
-        except FileNotFoundError:
-            pass
+# def cleanup_generated_files(image_files):
+#     """Removes the generated image files."""
+#     for image_file in image_files:
+#         try:
+#             os.remove(image_file)
+#         except FileNotFoundError:
+#             pass
 
 # Streamlit app
 def main():
@@ -179,7 +179,7 @@ def main():
                     if media["type"] == "image":
                         try:
                             image = Image.open(media["file"])
-                            st.image(image, caption=f"Prompt: {media['prompt']}", use_column_width=True)
+                            st.image(image, caption=f"Prompt: {media['prompt']}", use_container_width=True)
                             if st.button(f"Open {media['file']}", key=f"open-{media['file']}"):
                                 st.session_state.selected_media = media
                                 st.session_state.show_mosaic = False
@@ -197,7 +197,7 @@ def main():
         if media["type"] == "image":
             try:
                 image = Image.open(media["file"])
-                st.image(image, use_column_width=True)
+                st.image(image, use_container_width=True)
             except FileNotFoundError:
                 st.write(f"Image {media['file']} not found.")
         # Clear the selected media
@@ -236,7 +236,7 @@ def main():
                     image_files = []
                     if classification == "image_prompt":
                         st.write("Generating images...")
-                        image_files = generate_images(cleanedup_prompt, out_folder='streamlit/generated_images/')
+                        image_files = generate_images(cleanedup_prompt, out_folder=OUTPUT_FOLDER)
                         # Display images in a 2x2 grid
                         cols = st.columns(2)
                         for i, image_file in enumerate(image_files):
@@ -281,7 +281,7 @@ def main():
                     })
                     save_history(history)
                     # Cleanup generated files
-                    cleanup_generated_files(image_files)
+                    #cleanup_generated_files(image_files)
 
                 else:
                     st.error("Error during classification.")
