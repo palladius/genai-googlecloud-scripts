@@ -30,7 +30,7 @@ demo-multimodal: install
 image-demo:
 	python imagen.py 'A CD cover with elements of Pink Floyd and Genesis titled "Makefile (by Stuart Feldman)".'
 
-packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding packetize-veo
+packetize-all: packetize-imagegen packetize-asyncchat packetize-veo packetize-grounding packetize-veo packetize-url-summarizer
 
 packetize-grounding:
 	pyinstaller --onefile --name g2grounding \
@@ -69,6 +69,13 @@ packetize-veo:
 				veo1234.py
 	bin/scopiazza dist/g2videogen123 gemini20-veo123
 
+
+packetize-url-summarizer:
+	pyinstaller --onefile --name g2urlsynth \
+				--add-data ".env:." \
+				--hidden-import google-cloud-aiplatform \
+				url-synthetizer.py
+	bin/scopiazza dist/g2urlsynth gemini20-urlsynth
 
 push2gcs:
 	gsutil mv *mp4 gs://ricc-genai-prove/gemini20/videos/unlisted/

@@ -19,13 +19,23 @@ from google.genai.types import Tool, GenerateContentConfig, GoogleSearch
 import argparse
 import os
 from typing import List
-from lib.colorz import *
 from colorama import Fore, Style
+import hashlib
+import re
+
+# Carless stuff
+from lib.colorz import *
+from lib.filez import write_to_file
+from veo1234 import APP_CHANGELOG  # Using the existing write_to_file
 
 
-VERSION = '1.1b'
+VERSION = '1.1'
 MODEL_ID = "gemini-2.0-flash"
 OUT_FOLDER = "out/rag/"
+APP_CHANGELOG = '''
+2024-03-09 v1.1 Now adding more interesting stuff, like writing to out/ and nice coloring.
+2024-03-09 v1.0 Gemini wrote this.
+'''
 
 # Carlessian
 from dotenv import load_dotenv
@@ -46,8 +56,8 @@ def sanitize_filename(filename: str) -> str:
     sanitized = re.sub(r'[^\w\-_\.]', '_', filename)
     return sanitized[:64]
 
-def download_and_extract_text(url: str) -> str:
-    """Downloads a webpage and extracts its text content."""
+def download_and_extract_text(url: str) -> tuple[str, str]:
+    """Downloads a webpage and extracts its text content and raw HTML."""
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
@@ -63,10 +73,10 @@ def download_and_extract_text(url: str) -> str:
         chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
         text = '\n'.join(chunk for chunk in chunks if chunk)
 
-        return text
+        return text, response.text
     except requests.exceptions.RequestException as e:
         print(f"Error downloading {url}: {e}")
-        return ""
+        return "", ""
 
 def summarize_with_gemini(text: str) -> tuple[str, str]:
     """Summarizes the given text and suggests a title using Gemini."""
@@ -80,8 +90,6 @@ def summarize_with_gemini(text: str) -> tuple[str, str]:
     {text}
     """
     try:
-        #response = model.generate_content(prompt)
-        #response.resolve() # if it is blocked, you will get an error here
 
         response = client.models.generate_content(
             model=MODEL_ID,
@@ -107,31 +115,86 @@ def summarize_with_gemini(text: str) -> tuple[str, str]:
         print(f"Error generating summary with Gemini: {e}")
         return "",""
 
-def process_urls(urls: List[str]):
-    """Processes a list of URLs, summarizing their content."""
-    for url in urls:
-        print(f"Processing {cyan(url)}...")
-        text = download_and_extract_text(url)
-        if text:
-            title, summary = summarize_with_gemini(text)
-            if title and summary:
-                print(f"## {title}\n")
-                print(f"URL: {url}\n")
-                print(f"{summary}\n")
-            else:
-                print(f"Error: could not create title or summary for {url}")
+def process_url(url: str):
+    """Processes a single URL, summarizing its content and saving it to a file."""
+    print(f"Processing {url}...")
+    text, raw_html = download_and_extract_text(url)
+    if text:
+        title, summary = summarize_with_gemini(text)
+        if title and summary:
+            print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
+            print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
+            #print(f"Error: could not create title or summary for {url}")
+
+            # Create the file name
+            url_hash = hashlib.md5(url.encode()).hexdigest()
+            sanitized_url = sanitize_filename(url)
+            filename = f"{sanitized_url}-{url_hash}.md"
+            filepath = os.path.join(OUT_FOLDER, filename)
+
+            # Create the directory if it doesn't exist
+            os.makedirs(OUT_FOLDER, exist_ok=True)
+
+            # Create the markdown content
+            markdown_content = f"""# {title}
+
+URL: {url}
+GeminiTitle: {title}
+
+## Summary
+
+{summary}
+
+## Full Text content
+
+```text
+{text}
+```
+
+## Full HTML
+
+{raw_html}"""
+            write_to_file(filepath, markdown_content)
         else:
-            print(f"Skipping {url} due to download error.")
+            print(f"Error: could not create title or summary for {url}")
+    else:
+        print(f"Skipping {url} due to download error.")
+
+
+# def process_urls_vecchio(urls: List[str]):
+#     """Processes a list of URLs, summarizing their content."""
+#     for url in urls:
+#         print(f"Processing {cyan(url)}...")
+#         text = download_and_extract_text(url)
+#         if text:
+#             title, summary = summarize_with_gemini(text)
+#             if title and summary:
+#                 print(f"## {title}\n")
+#                 print(f"URL: {url}\n")
+#                 print(f"{summary}\n")
+#             else:
+#                 print(f"Error: could not create title or summary for {url}")
+#         else:
+#             print(f"Skipping {url} due to download error.")
+
+from typing import List
 
 def get_urls_from_file(file_path: str) -> List[str]:
-    """Reads URLs from a file, one URL per line."""
+    """Reads URLs from a file, one URL per line, skipping lines starting with '#'."""
     try:
         with open(file_path, 'r') as f:
-            urls = [line.strip() for line in f if line.strip()]
+            urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
         return urls
     except FileNotFoundError:
         print(f"Error: File not found: {file_path}")
         return []
+
+
+def process_urls(urls: List[str]):
+    """Processes a list of URLs, summarizing their content and saving them to files."""
+    for url in urls:
+        process_url(url)
+
 
 def main():
     """Main function to handle command-line arguments and process URLs."""
