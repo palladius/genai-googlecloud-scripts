@@ -60,14 +60,9 @@ def create_filename_from_prompt(prompt, extension='png'):
     '''
     return ...
 
-def main():
-    also_show_image = True
-
-    if len(sys.argv) < 2 or "--help" in sys.argv:
-        print_help()
-
-    image_prompt = ' '.join(sys.argv[1:])
-
+def generate_images(image_prompt, also_show_image=True):
+    '''Generates images'''
+    image_filenames = []
     client = genai.Client(api_key=GEMINI_API_KEY)
 
     print(f"Creating 4 images with this prompt (please be patient): {Fore.YELLOW}{image_prompt}{Style.RESET_ALL}")
@@ -90,6 +85,21 @@ def main():
         print(f"💾 Saving image to: {Fore.MAGENTA}{filename}{Style.RESET_ALL}")
         image.save(f"{filename}")
         image_counter +=1
+        image_filenames += [filename]
+
+    return image_filenames
+
+def main():
+    #also_show_image = True
+
+    if len(sys.argv) < 2 or "--help" in sys.argv:
+        print_help()
+
+    image_prompt = ' '.join(sys.argv[1:])
+
+    images =  generate_images(image_prompt)
+    print(f"images generated: {images}" )
+
 
 if __name__ == "__main__":
     main()
