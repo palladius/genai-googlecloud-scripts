@@ -1,5 +1,11 @@
 https://ai.google.dev/gemini-api/docs/document-processing?lang=python
 https://ai.google.dev/gemini-api/docs/grounding?lang=python
+# Skip me
 https://ai.google.dev/gemini-api/docs/grounding/search-suggestions
 https://stackoverflow.com/questions/16768302/does-python-have-a-tostring-equivalent-and-can-i-convert-a-class-to-string
 https://ai.google.dev/gemini-api/docs/structured-output?lang=python
+https://pypi.org/project/pyricc/
+# consistent stuff..
+https://hasanaboulhasan.medium.com/how-to-get-consistent-json-from-google-gemini-with-practical-example-48612ed1ab40
+https://ai.google.dev/gemini-api/docs/models/gemini
+https://ai.google.dev/gemini-api/docs/function-calling/tutorial?lang=python
