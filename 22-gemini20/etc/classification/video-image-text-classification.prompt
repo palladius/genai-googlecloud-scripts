@@ -8,6 +8,7 @@ Based on the following input, please find the most pertinent class for the promp
 - "video_prompt". Choose this if you seem to be asked something to create a video (there is a concept of time, variation, ..).
 - "url". Choose this if the content contains an URL.
 - "chat". Choose this if the content contains a sample text, something which an LLM might want to summarize or respond to.
+- "code". The content seems to ask you to write code.
 - "summary". Choose this if the content contains a sample text, something which an LLM might want to summarize or respond to.
 - "unknown". If nothing really fits.
 
@@ -15,4 +16,4 @@ Based on the following input, please find the most pertinent class for the promp
 {{content}}
 --- GIVEN PROMPT END ---
 
-Make sure to return just one of these: ['image_prompt', 'video_prompt', 'chat', 'url', 'summary', 'unknown' ]:
+Make sure to return just one of these: ['image_prompt', 'video_prompt', 'chat', 'url', 'summary', 'code', 'unknown' ]:
