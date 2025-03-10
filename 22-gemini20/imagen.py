@@ -60,7 +60,7 @@ def create_filename_from_prompt(prompt, extension='png'):
     '''
     return ...
 
-def generate_images(image_prompt, also_show_image=True):
+def generate_images(image_prompt, out_folder='out/', also_show_image=True):
     '''Generates images'''
     image_filenames = []
     client = genai.Client(api_key=GEMINI_API_KEY)
@@ -81,7 +81,7 @@ def generate_images(image_prompt, also_show_image=True):
         image = Image.open(BytesIO(generated_image.image.image_bytes))
         if also_show_image:
             image.show()
-        filename = midjourneyish_filename_from_prompt(image_prompt, id=image_counter)
+        filename = midjourneyish_filename_from_prompt(image_prompt, id=image_counter, out_folder=out_folder)
         print(f"💾 Saving image to: {Fore.MAGENTA}{filename}{Style.RESET_ALL}")
         image.save(f"{filename}")
         image_counter +=1
