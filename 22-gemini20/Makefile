@@ -104,4 +104,6 @@ test-classification:
 	echo A vscode with PHP code shrinks and becomes a rocket which gets launched into space | python classificator.py  -
 	echo 'What is your name?' | python classificator.py  -
 	echo "A cat playing the piano in a jazz club, cinematic lighting" | python classificator.py -
+	echo "Write an iterative fibonacci function in Rust" | python classificator.py -
+	echo "Write an iterative fibonacci function in Rust" | python classificator.py -c etc/classification/video-image-text-classification.prompt -
 
