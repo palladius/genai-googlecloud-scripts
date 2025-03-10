@@ -20,6 +20,9 @@ run: install
 	python structured-output-wrong.py
 	python structured-output-right.py
 
+app:
+	streamlit run app.py
+
 demo-multimodal: install
 	echo Dammi una lista NON ORDINATA dei 12 segni zodiacali. | python multimodal.py
 	echo Dimmi i 12 segni zodiacali, o 13 se li sai | python multimodal.py

@@ -202,6 +202,10 @@ def main():
 
     if result:
         print(json.dumps(result, indent=2))
+        # Write the result to last-classification.json
+        with open("last-classification.json", "w") as f:
+            json.dump(result, f, indent=2)
+        print(f"Saved classification to {Fore.GREEN}last-classification.json{Style.RESET_ALL}")
 
 
 if __name__ == "__main__":
