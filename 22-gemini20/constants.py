@@ -8,6 +8,11 @@ init()  # Initialize colorama
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 print(f"[constants] {Fore.LIGHTBLACK_EX}DEBUG{Style.RESET_ALL} GEMINI_API_KEY={Fore.RED}{GEMINI_API_KEY}{Style.RESET_ALL} (needs to start with AIza)")
 
+
+# Suppress logging warnings - https://stackoverflow.com/questions/78780089/how-do-i-get-rid-of-the-annoying-terminal-warning-when-using-gemini-api
+os.environ["GRPC_VERBOSITY"] = "ERROR"
+os.environ["GLOG_minloglevel"] = "2"
+
 def print_recipe(recipes_json):
     #recipes_json = '''[{"recipe_name": "Chocolate Chip Cookies",...}]'''  # Your JSON string here
     recipes_json = recipes_json.replace('```json', '').replace('```', '').strip()
