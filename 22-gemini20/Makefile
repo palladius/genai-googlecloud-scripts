@@ -89,8 +89,8 @@ video-elio:
 	python veo1234.py 'A fun-loving veal whose hooves are  made of balsa wood. Below, a writing appears: "vitello dai piedi di balsa"'
 
 video-from-prompt:
-#	python veo1234.py --prompt etc/veo-pizzorni.prompt
 	python veo1234.py --prompt etc/veo-saint-seya.prompt
+	python veo1234.py --promptfile etc/videos/php-amarcord.prompt
 
 clean:
 	rm -rf tmp.* t.* *.spec
