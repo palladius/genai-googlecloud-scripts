@@ -4,6 +4,8 @@
 #
 Usage: classificator.py --classification-prompt etc/classification.prompt content.txt
 Usage: classificator.py -c etc/classification.prompt -
+Usage: classificator.py -c etc/classification.prompt -- This is my prompt
+
 
 '''
 
@@ -20,7 +22,16 @@ from constants import GEMINI_API_KEY
 VERSION = '1.0'
 APP_NAME = 'QuickClassifier'
 GEMINI_MODEL = "gemini-2.0-flash-001" # needs to be fast
+APP_CHANGELOG = '''
+20250310 v1.0 Initial classificator from Gemini and Ricc.
+'''
+'''classificator.py
 
+#
+Usage: classificator.py --classification-prompt etc/classification.prompt content.txt
+Usage: classificator.py -c etc/classification.prompt -
+
+'''
 
 # Default classification prompt (as provided in the original file)
 DefaultClassificationPrompt = """You're a useful prompt classifier.
@@ -55,11 +66,12 @@ def classify_prompt(content, classification_prompt=DefaultClassificationPrompt):
         A dictionary containing the classification result and the cleaned-up prompt.
         Returns None if there is an error.
     """
+    model = None
     try:
-        #api_key = GEMINI_API_KEY # = os.getenv(GEMINI_API_KEY)
-        #if not api_key:
-        #    raise ValueError("GEMINI_API_KEY environment variable not set.")
-        genai.configure(api_key=GEMINI_API_KEY)
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable not set.")
+        genai.configure(api_key=api_key)
         model = genai.GenerativeModel(GEMINI_MODEL)
 
         # Replace {{content}} placeholder in the prompt
@@ -89,6 +101,8 @@ def classify_prompt(content, classification_prompt=DefaultClassificationPrompt):
     except Exception as e:
         print(f"{Fore.RED}Error during classification: {e}{Style.RESET_ALL}")
         return None
+    finally:
+        del model # this should help to close the connection.
 
 
 def get_content_from_source(content_file):
