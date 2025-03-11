@@ -9,3 +9,5 @@ https://pypi.org/project/pyricc/
 https://hasanaboulhasan.medium.com/how-to-get-consistent-json-from-google-gemini-with-practical-example-48612ed1ab40
 https://ai.google.dev/gemini-api/docs/models/gemini
 https://ai.google.dev/gemini-api/docs/function-calling/tutorial?lang=python
+# RoR 8
+https://www.youtube.com/watch?v=X_Hw9P1iZfQ
