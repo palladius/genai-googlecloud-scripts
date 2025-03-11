@@ -1,8 +1,95 @@
 [
   {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-2.mp4"
+    ]
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_76749f28_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_8e780b82_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_2378c5e6_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_8f52fe50_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
     "classification": "video_prompt",
-    "image_files": []
+    "image_files": [],
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-2.mp4"
+    ]
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-4.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-2.mp4"
+    ]
+  },
+  {
+    "prompt": "Kal-El_lands_in_Milan_duomo_square",
+    "classification": "video_prompt",
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-4.mp4"
+    ]
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-4.mp4"
+    ]
   },
   {
     "prompt": "Paw Patrol playing a grand piano, in isometric view",
@@ -42,12 +129,12 @@
   {
     "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
     "classification": "video_prompt",
-    "image_files": []
+    "video_files": []
   },
   {
     "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
     "classification": "video_prompt",
-    "image_files": []
+    "video_files": []
   },
   {
     "prompt": "A cat playing the piano in a jazz club, cinematic lighting",

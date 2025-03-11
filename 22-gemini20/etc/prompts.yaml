@@ -2,7 +2,7 @@
 prompts:
   - name: Video Prompt
     class: video_prompt
-    text: A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone
+    text: A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone
   - name: Image Prompt 1
     class: image_prompt
     text: A futuristic city at night, neon lights, flying cars

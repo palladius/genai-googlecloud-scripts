@@ -12,17 +12,18 @@ import os
 #import re
 import argparse
 from typing import List
-
+import pprint
+import colorama
 from colorama import Style, Fore
 from lib.filez import * # write_to_file
 from lib.videoz import veo_generate_and_poll
 import sys
 
-APP_VERSION = '1.8'
+APP_VERSION = '1.9'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
-
+20250310 v1.9 Now videos support an output folder. Default to out/videos/
 20250310 v1.8 Supports calling with just operation_id now.  ## big bug was introduced here - check for regressions!
 20250310 v1.7 Obsoleting old veo1234 and moving stuff to a lib where i can call it with simple "generate_video(prompt)"
 20250310 v1.6 Better error handling from Veo APIs.
@@ -140,7 +141,8 @@ def main():
     print(f"Generating video with prompt: '{prompt}'")
 
     video_files_info = veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id=args.operation)
-    print(f"Some files were generated: {video_files_info}")
+    print(f"👍 Some files were generated:")
+    pprint.pp(video_files_info)
 
 if __name__ == "__main__":
     main()
