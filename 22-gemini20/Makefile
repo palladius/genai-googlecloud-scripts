@@ -110,3 +110,8 @@ test-classification:
 	echo "Write an iterative fibonacci function in Rust" | python classificator.py -
 	echo "Write an iterative fibonacci function in Rust" | python classificator.py -c etc/classification/video-image-text-classification.prompt -
 
+
+# TEST
+video-test-operation:
+	python veo.py -o projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178 --promptfile etc/veo-saint-seya.prompt
+

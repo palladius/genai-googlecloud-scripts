@@ -1,0 +1,202 @@
+from .authz import get_access_token
+import requests
+import os
+import base64
+import sys
+import re
+import time
+from colorama import Style, Fore
+from google.cloud import storage
+
+# Veo Constants
+LOCATION_ID = "us-central1"
+API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
+VEO_MODEL_ID = "veo-2.0-generate-001"
+VEO_PROJECT_ID = "veo-testing"
+
+DFLT_POLLING_INTERVAL = 5  # Seconds
+DFLT_MAX_POLLING_ATTEMPTS = 60  # 5 minutes max
+
+
+
+def async_trigger_video_generation(prompt: str, sample_count: int = 4, duration_seconds: int = 8, aspect_ratio: str = "16:9", fps: str = "24", person_generation: str = "allow_adult", enable_prompt_rewriting: bool = True, add_watermark: bool = True, include_rai_reason: bool = True) -> str:
+    """Generates a video using the specified prompt and parameters.
+
+    Returns an operation id.
+    """
+    access_token = get_access_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+    request_data = {
+        "endpoint": f"projects/{VEO_PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}",
+        "instances": [{"prompt": prompt}],
+        "parameters": {
+            "aspectRatio": aspect_ratio,
+            "sampleCount": sample_count,
+            "durationSeconds": str(duration_seconds),
+            "fps": fps,
+            "personGeneration": person_generation,
+            "enablePromptRewriting": enable_prompt_rewriting,
+            "addWatermark": add_watermark,
+            "includeRaiReason": include_rai_reason,
+        },
+    }
+
+    url = f"https://{API_ENDPOINT}/v1/projects/{VEO_PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}:predictLongRunning"
+    response = requests.post(url, headers=headers, json=request_data)
+    response.raise_for_status()  # Raise an exception for bad status codes
+
+    operation_name_match = re.search(r'"name":\s*"([^"]+)"', response.text)
+    if operation_name_match:
+        operation_id = operation_name_match.group(1)
+        print(f"Veo 🎥  OPERATION_ID: {operation_id} (you can get videos in 1min given this id..)")
+        return operation_id
+    else:
+        raise ValueError("Could not extract operation ID from response.")
+
+
+
+def retrieve_video(operation_id: str) -> dict:
+    """Retrieves the video generation result using the operation ID."""
+    access_token = get_access_token()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+    request_data = {"operationName": operation_id}
+    url = f"https://{API_ENDPOINT}/v1/projects/{VEO_PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}:fetchPredictOperation"
+    response = requests.post(url, headers=headers, json=request_data)
+    response.raise_for_status()
+    return response.json()
+
+def clean_prompt_for_filename(prompt: str) -> str:
+    """Cleans the prompt to be used as part of a filename."""
+    # Remove strange characters and replace spaces with underscores
+    cleaned_prompt = re.sub(r"[^\w\s-]", "", prompt).replace(" ", "_")
+    # Chop to max 64 characters
+    return cleaned_prompt[:64]
+
+
+def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
+    """Decodes base64-encoded videos and saves them to files."""
+    if "response" not in response_json or "videos" not in response_json["response"]:
+        raise ValueError("Invalid response format: 'response' or 'videos' key not found.")
+
+    videos = response_json["response"]["videos"]
+    counter = 1
+    cleaned_prompt = clean_prompt_for_filename(prompt)
+    for video in videos:
+        if "bytesBase64Encoded" not in video:
+            print(f"Warning: 'bytesBase64Encoded' not found in video data. Skipping.")
+            continue
+
+        base64_data = video["bytesBase64Encoded"]
+        if not base64_data:
+            print(f"Warning: Empty base64 data encountered. Skipping.")
+            continue
+
+
+        output_file = f"video-{cleaned_prompt}-{operation_id.split('/')[-1]}-{counter}.mp4"
+        try:
+            decoded_data = base64.b64decode(base64_data)
+            with open(output_file, "wb") as f:
+                f.write(decoded_data)
+            print(f"Created: {output_file}")
+        except Exception as e:
+            print(f"Error decoding or saving video to {output_file}: {e}")
+        counter += 1
+
+
+def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
+    """Saves all files called video-{operation_id}-X.mp4 to GCS using the Cloud Storage library."""
+    print(f"Output prompt={prompt} to GCS: {veo_gs_bucket}")
+    if veo_gs_bucket is None:
+        print(f"Warning: veo_gs_bucket is not set. Skipping GCS upload.")
+        return
+
+    operation_uuid = operation_id.split('/')[-1]
+    bucket_name = veo_gs_bucket.replace("gs://", "")
+    if "/" in bucket_name:
+        bucket_name = bucket_name.split("/")[0]
+
+    destination_folder = f"gemini20/videos/{operation_uuid}/"
+
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+
+    video_files = [f for f in os.listdir(".") if f.startswith(f"video-") and operation_uuid in f and f.endswith(".mp4")]
+
+    for video_file in video_files:
+        blob = bucket.blob(os.path.join(destination_folder, video_file))
+        try:
+            blob.upload_from_filename(video_file)
+            print(f"File {video_file} uploaded to {veo_gs_bucket}/{destination_folder}/{video_file}.")
+        except Exception as e:
+            print(f"Error uploading {video_file} to GCS: {e}")
+
+    # Create and upload README.md
+    readme_content = f"Model: {VEO_MODEL_ID}\nOperation id: {operation_id}\n## Prompt\n{prompt}"
+    readme_file = "README.md"
+    with open(readme_file, "w") as f:
+        f.write(readme_content)
+
+    readme_blob = bucket.blob(os.path.join(destination_folder, readme_file))
+    try:
+        readme_blob.upload_from_filename(readme_file)
+        print(f"📔 README uploaded to {veo_gs_bucket}/{destination_folder}/{readme_file}.")
+    except Exception as e:
+        print(f"Error uploading {readme_file} to GCS: {e}")
+
+    # Deletes local copy of README
+    os.remove(readme_file)
+
+
+def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None):
+    '''Given a video prompt, it calls the API and polls it every 5 seconds until it's done.
+
+    Note: if Op is None, calls the API. If not none, it means we know it was already called and we're just doing the polling and get videos and do the ambaradan from base564 into files.
+
+    '''
+
+    print(f"veo_generate_and_poll(veo_gs_bucket={Fore.BLUE}{veo_gs_bucket}{Style.RESET_ALL}) called. Prompt: {Fore.YELLOW}{prompt}{Style.RESET_ALL}")
+    # Phaes 1: async gen video and get op it
+
+    try:
+        if operation_id is None:
+            operation_id = async_trigger_video_generation(prompt)
+        else:
+            print(f"Operation given as arg ({operation_id}). Wow! Skipping generation then.")
+    except Exception as e:
+        print(f"Error during video generation: {e}")
+        return
+
+    # Phaes 2: poll from op id...
+
+    print("💤 Polling for video generation completion...")
+    polling_attempts = 0
+    while polling_attempts < max_polling_attempts:
+        try:
+            response_json = retrieve_video(operation_id)
+            if response_json.get("done"):
+                print("🎥 Video generation complete.")
+
+                decode_and_save_videos(response_json, operation_id, prompt)
+                print("🎥 OK Done processing videos.")
+                if save_to_gcs:
+                    # find files by matching operation_id..
+                    save_videos_to_gcs(prompt, operation_id, veo_gs_bucket)
+                return
+            else:
+                print(f"💤 Video generation not yet complete. Attempt {polling_attempts+1}/{max_polling_attempts}... 💤 Sleeping {polling_interval}s")
+                polling_attempts += 1
+                time.sleep(polling_interval)
+        except Exception as e:
+            print(f"Error during video retrieval: {e}. Maybe check error: cat veo_error.json | jq .error ")
+            if response_json and "error" in response_json:
+                print(f"JSON Error from Veo APIs: {Fore.RED}{response_json['error']}{Style.RESET_ALL}", file=sys.stderr)
+                write_to_file('veo_error.json', response_json)
+            return
+
+    print(f"Error: Max polling attempts ({max_polling_attempts}) reached. Video generation may have failed or is taking too long.")
