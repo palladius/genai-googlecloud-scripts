@@ -1,3 +1,9 @@
+'''
+Example:
+
+$ python veo.py -o projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178
+
+'''
 #import requests
 #import json
 #import subprocess
@@ -16,7 +22,8 @@ APP_VERSION = '1.8'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
-20250310 v1.8 Supports calling with just operation_id now.
+
+20250310 v1.8 Supports calling with just operation_id now.  ## big bug was introduced here - check for regressions!
 20250310 v1.7 Obsoleting old veo1234 and moving stuff to a lib where i can call it with simple "generate_video(prompt)"
 20250310 v1.6 Better error handling from Veo APIs.
 20250309 v1.5 Added write_to_file for broken stuff.
@@ -132,11 +139,9 @@ def main():
         return
     print(f"Generating video with prompt: '{prompt}'")
 
-#    veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id='projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178')
-#projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178
-    veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id=args.operation)
+    video_files_info = veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id=args.operation)
+    print(f"Some files were generated: {video_files_info}")
 
 if __name__ == "__main__":
     main()
 
-# Example: python veo.py -o projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178

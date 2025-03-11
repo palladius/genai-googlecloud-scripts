@@ -183,7 +183,7 @@ def display_prompting_view(history, sample_prompts):
                 # Display the classification with color
                 color = get_color_for_class(classification)
                 st.markdown(
-                    f"<p style='color:{color}; font-size: 24px;'>Classification: {classification}</p>",
+                    f"Classification: <tt style='color:{color}; font-size: 24px;'>{classification}</tt> found.",
                     unsafe_allow_html=True,
                 )
                 st.write(f"Cleaned up prompt: {cleanedup_prompt}")
@@ -210,6 +210,7 @@ def display_prompting_view(history, sample_prompts):
                     st.write("Generating video...")
                     # TODO: Add video generation and display here
                     st.write("TODO: Add video generation and display here")
+                    # async_trigger_video_generation()
                 elif classification == "code":
                     st.write("Generating code...")
                     # TODO: Add code generation and display here
