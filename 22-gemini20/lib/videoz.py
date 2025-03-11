@@ -6,6 +6,7 @@ import sys
 import re
 import time
 from colorama import Style, Fore
+import colorama
 from google.cloud import storage
 
 # Veo Constants
@@ -16,6 +17,7 @@ VEO_PROJECT_ID = "veo-testing"
 
 DFLT_POLLING_INTERVAL = 5  # Seconds
 DFLT_MAX_POLLING_ATTEMPTS = 60  # 5 minutes max
+DEFAULT_OUTPUT_FOLDER ="out/videos/"
 
 
 
@@ -79,10 +81,13 @@ def clean_prompt_for_filename(prompt: str) -> str:
     return cleaned_prompt[:64]
 
 
-def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
+def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str, output_folder: str = DEFAULT_OUTPUT_FOLDER):
     """Decodes base64-encoded videos and saves them to files."""
     if "response" not in response_json or "videos" not in response_json["response"]:
         raise ValueError("Invalid response format: 'response' or 'videos' key not found.")
+    # Create output_folder if doesnt exist
+    os.makedirs(output_folder, exist_ok=True)
+
     video_files = []
     videos = response_json["response"]["videos"]
     counter = 1
@@ -100,11 +105,12 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
 
         output_file = f"video-{cleaned_prompt}-{operation_id.split('/')[-1]}-{counter}.mp4"
         try:
+            full_filename = os.path.join(output_folder, output_file)
             decoded_data = base64.b64decode(base64_data)
-            with open(output_file, "wb") as f:
+            with open(full_filename, "wb") as f:
                 f.write(decoded_data)
-            print(f"Created: {output_file}")
-            video_files.append(output_file)
+            print(f"Created: {full_filename}")
+            video_files.append(full_filename)
         except Exception as e:
             print(f"Error decoding or saving video to {output_file}: {e}")
         counter += 1
@@ -161,15 +167,22 @@ def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
     return { "gcs_folder" : destination_folder, "files" : final_destinations }
 
 
-def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None):
+def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None,output_folder=None):
     '''Given a video prompt, it calls the API and polls it every 5 seconds until it's done.
 
     Note: if Op is None, calls the API. If not none, it means we know it was already called and we're just doing the polling and get videos and do the ambaradan from base564 into files.
 
     return a dictionary with relevant data.
 
+    TODO: implement a DELETE adfterwards. for now good to keep.
+
     '''
     video_files = []
+
+    if output_folder is None:
+        output_folder = "./"
+    #os.chdir(output_folder)
+
 
     print(f"veo_generate_and_poll(veo_gs_bucket={Fore.BLUE}{veo_gs_bucket}{Style.RESET_ALL}) called. Prompt: {Fore.YELLOW}{prompt}{Style.RESET_ALL}")
     # Phaes 1: async gen video and get op it
@@ -193,14 +206,10 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
             if response_json.get("done"):
                 print("🎥 Video generation complete.")
 
-                video_files = decode_and_save_videos(response_json, operation_id, prompt)
+                video_files = decode_and_save_videos(response_json, operation_id, prompt, output_folder)
                 print(f"🎥 OK Done processing videos. video_files={video_files}")
                 if save_to_gcs:
-                    # find files by matching operation_id..
-#                    try:
                         folder_and_files = save_videos_to_gcs(prompt, operation_id, veo_gs_bucket)
-#                   except Exception as e:
-#                       print(f"Error during GCS saving: {e}. No biggie.")
                 return { "local_files" : video_files, "gcs_stuff" : folder_and_files }
 
             else:
@@ -218,3 +227,10 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
     error = f"Error: Max polling attempts ({max_polling_attempts}) reached. Video generation may have failed or is taking too long."
     print(error)
     return { "error": error, video_files: video_files }
+
+
+
+                    # find files by matching operation_id..
+#                    try:
+#                   except Exception as e:
+#                       print(f"Error during GCS saving: {e}. No biggie.")

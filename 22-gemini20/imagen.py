@@ -17,6 +17,7 @@ load_dotenv()
 APP_VERSION = '1.3b'
 APP_NAME = 'Image Generation Tool'
 APP_HISTORY = '''
+TODO: add save_to_gcs() functionality too.
 2025-03-07 v1.3 Set up $0 and moved code to lib/ for better code reuse.
 ...
 2025-03-07 v1.0 First working version.
