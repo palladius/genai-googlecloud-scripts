@@ -62,7 +62,10 @@ def create_filename_from_prompt(prompt, extension='png'):
     return ...
 
 def generate_images(image_prompt, out_folder='out/', also_show_image=True):
-    '''Generates images'''
+    '''Generates images.
+
+    TODO(ricc): move to lib/imagez.py
+    '''
     image_filenames = []
     client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -70,7 +73,6 @@ def generate_images(image_prompt, out_folder='out/', also_show_image=True):
 
     response = client.models.generate_images(
         model='imagen-3.0-generate-002',
-#        model='imagen-3.0-generate',
         prompt=image_prompt,
         config=types.GenerateImagesConfig(
             number_of_images=4,
