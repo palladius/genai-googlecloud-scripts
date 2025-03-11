@@ -180,7 +180,8 @@ def main():
                         try:
                             image = Image.open(media["file"])
                             st.image(image, caption=f"Prompt: {media['prompt']}", use_container_width=True)
-                            if st.button(f"Open {media['file']}", key=f"open-{media['file']}"):
+#                            if st.button(f"Open {media['file']}", key=f"open-{media['file']}"):
+                            if st.button(f"Open media", key=f"open-{media['file']}"):
                                 st.session_state.selected_media = media
                                 st.session_state.show_mosaic = False
                                 st.experimental_rerun()
