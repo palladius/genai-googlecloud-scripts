@@ -1,5 +1,17 @@
 [
   {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/f81c6194-97d9-40f3-8460-682325a9d024"
+  },
+  {
     "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [

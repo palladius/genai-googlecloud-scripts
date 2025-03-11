@@ -65,12 +65,12 @@ packetize-asyncchat:
 
 # TAken from REAL curl example into python :)
 packetize-veo:
-	pyinstaller --onefile --name g2videogen123 \
+	pyinstaller --onefile --name g2videogen \
 				--add-data ".env:." \
 				--hidden-import google-cloud-aiplatform \
 				--hidden-import google-cloud-storage \
-				veo1234.py
-	bin/scopiazza dist/g2videogen123 gemini20-veo123
+				veo.py
+	bin/scopiazza dist/g2videogen gemini20-veo
 
 
 packetize-url-summarizer:
@@ -86,17 +86,18 @@ push2gcs:
 
 
 video-elio:
-	python veo1234.py 'Panettone is on the table and everybody is drinking Moscato. Below, a writing appears: "christmas with the yours"'
-	python veo1234.py 'A nativity scene with a very beef above a radiator surrounded by funny zombies. Below, a writing appears: "Il bue riscaldante"'
-	python veo1234.py 'A fun-loving veal whose hooves are on top of tuna sauce. Below, a writing appears: "vitello dai piedi tonnati"'
-	python veo1234.py 'A fun-loving veal whose hooves are  made of balsa wood. Below, a writing appears: "vitello dai piedi di balsa"'
+	python veo.py 'Panettone is on the table and everybody is drinking Moscato. Below, a writing appears: "christmas with the yours"'
+	python veo.py 'A nativity scene with a very beef above a radiator surrounded by funny zombies. Below, a writing appears: "Il bue riscaldante"'
+	python veo.py 'A fun-loving veal whose hooves are on top of tuna sauce. Below, a writing appears: "vitello dai piedi tonnati"'
+	python veo.py 'A fun-loving veal whose hooves are  made of balsa wood. Below, a writing appears: "vitello dai piedi di balsa"'
 
 video-from-prompt:
-	python veo1234.py --prompt etc/veo-saint-seya.prompt
-	python veo1234.py --promptfile etc/videos/php-amarcord.prompt
+	python veo.py --prompt etc/veo-saint-seya.prompt
+	python veo.py --promptfile etc/videos/php-amarcord.prompt
 
 clean:
 	rm -rf tmp.* t.* *.spec
+	mv video-*.mp4 ~/Videos/veo-unsorted/
 
 url-summarize-test:
 	python url-synthetizer.py --url-file etc/summarize-urls-rag.txt
@@ -115,3 +116,6 @@ test-classification:
 video-test-operation:
 	python veo.py -o projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/c1ba0947-077c-4e17-a897-8308f639e178 --promptfile etc/veo-saint-seya.prompt
 
+video-test-from-image:
+#	python veo.py -i etc/images/ricc-pescara.jpg person gets wing and flies on top of Milan Piazza Duomo and circulates around it on a sunny day.
+	python veo.py -i etc/images/ricc-pescara.jpg Person grow wings and flies on top of Milan Piazza Duomo and circulates around it on a sunny day. then he puts on a Google hat, sunglasses and smiles at the camera. Fades out.
