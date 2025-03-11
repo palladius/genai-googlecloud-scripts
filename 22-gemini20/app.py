@@ -101,7 +101,9 @@ def display_mosaic_view(history):
                 if media["type"] == "image":
                     try:
                         image = Image.open(media["file"])
-                        st.image(image, caption=f"Prompt: {media['prompt']}", use_container_width=True)
+                        # help=media["prompt"],
+                        #st.image(image, caption=f"_Prompt_: :blue[{media['prompt']}]",  use_container_width=True)
+                        st.image(image, use_container_width=True)
                         col1, col2 = st.columns(2)
                         with col1:
                             if st.button(f"Open", key=f"open-{media['file']}", use_container_width=True, type="secondary"):
@@ -132,8 +134,8 @@ def display_mosaic_view(history):
 
 def display_media_view(media):
     """Displays the selected media."""
-    st.header(f"Media: {media['file']}")
-    st.write(f"Prompt: {media['prompt']}")
+#    st.header(f"Prompt: {media['prompt']}")
+    st.header(media['prompt'])
     if media["type"] == "image":
         try:
             image = Image.open(media["file"])
@@ -145,6 +147,7 @@ def display_media_view(media):
             st.video(media["file"])
         except FileNotFoundError:
             st.write(f"Video {media['file']} not found.")
+    st.write(f"Media: {media['file']}")
     # Clear the selected media
     st.session_state.selected_media = None
     if st.button("Back to main"):
@@ -265,7 +268,18 @@ def display_main_view(history, sample_prompts):
 # Streamlit app
 def main():
     st.set_page_config(layout="wide")
-    st.title("Prompt Classifier")
+    st.title(f"{APP_NAME} v{APP_VERSION}")
+
+    #     # --- Top Bar ---
+    # st.markdown(
+    #     f"""
+    #     <div style="background-color:#f0f0f0;padding:10px;border-radius:5px;">
+    #         <h1 style="color:black;text-align:center;">{APP_NAME} v{APP_VERSION}</h1>
+    #     </div>
+    #     """,
+    #     unsafe_allow_html=True,
+    # )
+
 
     # Cleanup generated files on startup
     # if CLEANUP_GENERATED_FILES:
@@ -305,7 +319,7 @@ def main():
     if selected_history_item:
         selected_history_index = int(selected_history_item.split(":")[0].replace("#", "")) - 1
         selected_history = history[selected_history_index]
-        st.sidebar.write(f"Prompt: {selected_history['prompt']}")
+        st.sidebar.write(f"Prompt: **{selected_history['prompt']}**")
         st.sidebar.write(f"Classification: {selected_history['classification']}")
         if selected_history['classification'] == "image_prompt":
             st.sidebar.write("Images:")
@@ -313,7 +327,8 @@ def main():
             for i, image_file in enumerate(selected_history["image_files"]):
                 with cols[i % 2]:
                     try:
-                        st.image(Image.open(image_file), caption=image_file, use_container_width=True)
+#                        st.image(Image.open(image_file), caption=image_file, use_container_width=True)
+                        st.image(Image.open(image_file), use_container_width=True)
                     except FileNotFoundError:
                         st.write(f"Image {image_file} not found.")
         elif selected_history['classification'] == "video_prompt":
@@ -328,10 +343,10 @@ def main():
 
     # Mosaic and Prompting buttons in sidebar
     st.sidebar.header("Navigation")
-    if st.sidebar.button("Prompting"):
+    if st.sidebar.button("🏡 Prompting"):
         st.session_state.current_view = "prompting"
         st.rerun()
-    if st.sidebar.button("Mosaic"):
+    if st.sidebar.button("📷🖼️ Mosaic"):
         st.session_state.current_view = "mosaic"
         st.rerun()
 

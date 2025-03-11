@@ -12,9 +12,10 @@ HISTORY_FILE = "history.json"
 OUTPUT_IMAGES_FOLDER = 'streamlit/generated_images/'
 OUTPUT_VIDEOS_FOLDER = 'streamlit/generated_videos/'
 
-APP_NAME = 'Gemini 2.0 AutoPrompter'
-APP_VERSION = '1.3'
+APP_NAME = '♊ Gemini 2.0 AutoPrompter'
+APP_VERSION = '1.4'
 APP_HISTORY = '''
+20250310 v1.4 Refactored code in lib/streamlitz #bloodbath
 20250310 v1.3 Video generation now works smoothly!
 20250310 v1.2 Added Prompting page
 20250310 v1.1 Added Mosaic
