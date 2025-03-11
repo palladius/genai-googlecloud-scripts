@@ -13,6 +13,7 @@ import pprint
 from lib.videoz import veo_generate_and_poll
 
 CLEANUP_GENERATED_FILES = False
+
 APP_VERSION = '1.2'
 APP_HISTORY = '''
 20250310 v1.2 Added Prompting page
@@ -92,7 +93,8 @@ def cleanup_generated_files(out_folder):
     """Removes the generated image files."""
     for filename in glob.glob(os.path.join(out_folder, "generated_image_*.png")):
         try:
-            os.remove(filename)
+            if CLEANUP_GENERATED_FILES:
+                os.remove(filename)
         except FileNotFoundError:
             pass
 
@@ -101,7 +103,8 @@ def delete_media(history, media_file):
     for item in history:
         if "image_files" in item and media_file in item["image_files"]:
             try:
-                os.remove(media_file)
+                if CLEANUP_GENERATED_FILES:
+                    os.remove(media_file)
                 item["image_files"].remove(media_file)
                 if not item["image_files"]:
                     history.remove(item)
@@ -195,17 +198,28 @@ def handle_image_prompt(cleanedup_prompt, history):
     return image_files
 
 def handle_video_prompt(cleanedup_prompt, history, folder=OUTPUT_VIDEOS_FOLDER):
-    """Handles the video_prompt classification."""
+    """Handles the video_prompt classification.
+
+
+    returns [ARRAY(video_files) , operation_id ]
+    """
     st.write("Generating videos (be patient, it can take up to 60 seconds)...")
     # Call the video generation function
     video_files_info = veo_generate_and_poll(prompt=cleanedup_prompt, output_folder=OUTPUT_VIDEOS_FOLDER)
     #video_files_info = veo_generate_and_poll(prompt=cleanedup_prompt, operation_id='projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/b140acd9-e1a6-4f56-897e-e7add5cac9a4', output_folder=OUTPUT_VIDEOS_FOLDER)
     pprint.pp(video_files_info)
     local_files_with_path = [os.path.join(folder, f) for f in os.listdir(folder)]
-    st.write(f"## 1. video_files_info \n ```json\n{video_files_info}\n```")
+    #st.write(f"## 1. video_files_info \n ```json\n{video_files_info}\n```")
     local_files = video_files_info.get('local_files', [])
-    st.write(f"## 2. local_files \n{local_files}")
-    st.write(f"## 3. local_files_with_path \n{local_files_with_path}\n")
+    st.write(f"## local_files \n{local_files}")
+    gcs_stuff = video_files_info.get('gcs_stuff', [])
+    operation_id = video_files_info.get('operation_id', [])
+    if gcs_stuff:
+        st.write(f"## 2. gcs_stuff \n{gcs_stuff}")
+    if operation_id:
+        st.write(f"## 3. operation_id \n{operation_id}")
+
+    #st.write(f"## 3. local_files_with_path \n{local_files_with_path}\n")
 #    gcs_stuff = video_files_info.get('gcs_stuff', {})
 
 #     {'local_files': ['video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4',
@@ -232,27 +246,27 @@ def handle_video_prompt(cleanedup_prompt, history, folder=OUTPUT_VIDEOS_FOLDER):
                 except FileNotFoundError:
                     st.write(f"Video {video_file} not found.")
 
-    return local_files_with_path # video_files_info
+    return [local_files_with_path, operation_id] # video_files_info amnd operation_id
 
 def handle_code_prompt(cleanedup_prompt, history):
     """Handles the code classification."""
     st.write("Generating code...")
     # TODO: Add code generation and display here
-    st.write("TODO: Add code generation and display here")
+    st.write("*TODO: Add code generation and display here*")
     return []
 
 def handle_url_prompt(cleanedup_prompt, history):
     """Handles the url classification."""
     st.write("Parsing URL...")
     # TODO: Add URL parsing and display here
-    st.write("TODO: Add URL parsing and display here")
+    st.write("*TODO: Add URL parsing and display here*")
     return []
 
 def handle_chat_prompt(cleanedup_prompt, history):
     """Handles the chat classification."""
     st.write("Chatting...")
     # TODO: Add chat functionality here
-    st.write("TODO: Add chat functionality here")
+    st.write("*TODO: Add chat functionality here*")
     return []
 
 def handle_summary_prompt(cleanedup_prompt, history):
@@ -269,7 +283,8 @@ def handle_classification(classification, cleanedup_prompt, user_prompt, history
     if classification == "image_prompt":
         image_files = handle_image_prompt(cleanedup_prompt, history)
     elif classification == "video_prompt":
-        video_files = handle_video_prompt(cleanedup_prompt, history)
+        video_files = []
+        video_files, operation_id = handle_video_prompt(cleanedup_prompt, history)
     elif classification == "code":
         handle_code_prompt(cleanedup_prompt, history)
     elif classification == "url":
@@ -288,6 +303,7 @@ def handle_classification(classification, cleanedup_prompt, user_prompt, history
         "classification": classification,
         "image_files": [os.path.abspath(f) for f in image_files],
         "video_files": [os.path.abspath(f) for f in video_files],
+        "operation_id": operation_id,
     })
     save_history(history)
 
