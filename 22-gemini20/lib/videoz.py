@@ -1,3 +1,4 @@
+
 from .authz import get_access_token
 import requests
 import os
@@ -8,6 +9,8 @@ import time
 from colorama import Style, Fore
 import colorama
 from google.cloud import storage
+
+from lib.filez import write_to_file
 
 # Veo Constants
 LOCATION_ID = "us-central1"
@@ -21,19 +24,37 @@ DEFAULT_OUTPUT_FOLDER ="out/videos/"
 
 
 
-def async_trigger_video_generation(prompt: str, sample_count: int = 4, duration_seconds: int = 8, aspect_ratio: str = "16:9", fps: str = "24", person_generation: str = "allow_adult", enable_prompt_rewriting: bool = True, add_watermark: bool = True, include_rai_reason: bool = True) -> str:
+def async_trigger_video_generation(prompt: str, sample_count: int = 4, duration_seconds: int = 8, aspect_ratio: str = "16:9", fps: str = "24", person_generation: str = "allow_adult", enable_prompt_rewriting: bool = True, add_watermark: bool = True, include_rai_reason: bool = True, image_file: str = None) -> str:
     """Generates a video using the specified prompt and parameters.
 
     Returns an operation id.
     """
+    print(f"async_trigger_video_generation: image+file={image_file}")
     access_token = get_access_token()
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {access_token}",
     }
+    single_instance = {"prompt": prompt}
+
+    if image_file:
+        print("🎉 Oh wow - image given to us 🎉 {image_file}")
+        print(f"async_trigger_video_generation: image_file={Fore.BLUE}{image_file}{Style.RESET_ALL}")
+
+        with open(image_file, "rb") as f:
+            image_data = f.read()
+        encoded_image = base64.b64encode(image_data).decode("utf-8")
+        single_instance["image"] = {
+                "bytesBase64Encoded": encoded_image,
+                "mimeType": "image/png", # TODO(ricc)L: detect MIME or filename.
+        }
+    #else:
+        #print("🎉 DEBUG - no image given.")
+        #exit(1)
+
     request_data = {
         "endpoint": f"projects/{VEO_PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}",
-        "instances": [{"prompt": prompt}],
+        "instances": [single_instance],
         "parameters": {
             "aspectRatio": aspect_ratio,
             "sampleCount": sample_count,
@@ -45,6 +66,11 @@ def async_trigger_video_generation(prompt: str, sample_count: int = 4, duration_
             "includeRaiReason": include_rai_reason,
         },
     }
+
+
+    # dump the request_data into a "veo_request.json":
+    write_to_file('veo_request.json', request_data)
+
 
     url = f"https://{API_ENDPOINT}/v1/projects/{VEO_PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{VEO_MODEL_ID}:predictLongRunning"
     response = requests.post(url, headers=headers, json=request_data)
@@ -167,7 +193,7 @@ def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket=None): #
     return { "gcs_folder" : destination_folder, "files" : final_destinations }
 
 
-def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None,output_folder=None):
+def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None, output_folder=None, image_file=None):
     '''Given a video prompt, it calls the API and polls it every 5 seconds until it's done.
 
     Note: if Op is None, calls the API. If not none, it means we know it was already called and we're just doing the polling and get videos and do the ambaradan from base564 into files.
@@ -185,11 +211,12 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
 
 
     print(f"veo_generate_and_poll(veo_gs_bucket={Fore.BLUE}{veo_gs_bucket}{Style.RESET_ALL}) called. Prompt: {Fore.YELLOW}{prompt}{Style.RESET_ALL}")
+    #print(f"veo_generate_and_poll(image_file={Fore.BLUE}{image_file}{Style.RESET_ALL})")
     # Phaes 1: async gen video and get op it
 
     try:
         if operation_id is None:
-            operation_id = async_trigger_video_generation(prompt)
+            operation_id = async_trigger_video_generation(prompt, image_file=image_file)
         else:
             print(f"Operation given as arg ({operation_id}). Wow! Skipping generation then.")
     except Exception as e:

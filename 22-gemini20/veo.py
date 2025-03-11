@@ -19,10 +19,11 @@ from lib.filez import * # write_to_file
 from lib.videoz import veo_generate_and_poll
 import sys
 
-APP_VERSION = '1.9'
+APP_VERSION = '1.10'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
+20250310 v1.10 Trying to support an image in input! And it works, WOW!
 20250310 v1.9 Now videos support an output folder. Default to out/videos/
 20250310 v1.8 Supports calling with just operation_id now.  ## big bug was introduced here - check for regressions!
 20250310 v1.7 Obsoleting old veo1234 and moving stuff to a lib where i can call it with simple "generate_video(prompt)"
@@ -129,6 +130,13 @@ def main():
         """,
         default=None
     )
+    parser.add_argument(
+        "-i",
+        "--image",
+        help="""File of an image (.png or .jpg).
+        """,
+        default=None
+    )
 
 
     args = parser.parse_args()
@@ -139,8 +147,10 @@ def main():
             parser.print_help()
         return
     print(f"Generating video with prompt: '{prompt}'")
+    print(f"Generating video with image: '{args.image}'")
+    print(f"Generating video with operation: '{args.operation}'")
 
-    video_files_info = veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id=args.operation)
+    video_files_info = veo_generate_and_poll(prompt, veo_gs_bucket=os.getenv('VEO_GS_BUCKET'), operation_id=args.operation, image_file=args.image)
     print(f"👍 Some files were generated:")
     pprint.pp(video_files_info)
 
