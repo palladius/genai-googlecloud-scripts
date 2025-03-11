@@ -4,6 +4,35 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/e85055c5-fbd6-4cff-995e-b99a5bdfe9f4"
+  },
+  {
+    "prompt": "A futuristic city at night, neon lights, flying cars",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c8fe5b8b_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c467660d_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_754fccf1_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_68f1ebbc_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Summarize the main points of the following text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n",
+    "classification": "summary",
+    "image_files": [],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
       "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-1.mp4",
       "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-2.mp4",
       "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-3.mp4",
