@@ -1,8 +1,14 @@
 # etc/prompts.yaml
 prompts:
-  - name: Video Prompt
+  - name: Video Prompt Smurfs
     class: video_prompt
     text: A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone
+  - name: Video Prompt Shrek
+    class: video_prompt
+    text: |
+      Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.
+      The camera fades out, then the view goes to above.
+      On a distance, donkey is taking pictures of the green couple, on top of his big red dragon.
   - name: Image Prompt 1
     class: image_prompt
     text: A futuristic city at night, neon lights, flying cars

@@ -77,8 +77,8 @@ def clean_prompt_for_filename(prompt: str) -> str:
     """Cleans the prompt to be used as part of a filename."""
     # Remove strange characters and replace spaces with underscores
     cleaned_prompt = re.sub(r"[^\w\s-]", "", prompt).replace(" ", "_")
-    # Chop to max 64 characters
-    return cleaned_prompt[:64]
+    # Chop to max 64 characters -> 96 now.
+    return cleaned_prompt[:96]
 
 
 def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str, output_folder: str = DEFAULT_OUTPUT_FOLDER):
@@ -117,7 +117,7 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str, 
     return video_files
 
 
-def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
+def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket=None): #
     """Saves all files called video-{operation_id}-X.mp4 to GCS using the Cloud Storage library."""
     print(f"Output prompt={prompt} to GCS: {veo_gs_bucket}")
     if veo_gs_bucket is None:
@@ -210,7 +210,7 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
                 print(f"🎥 OK Done processing videos. video_files={video_files}")
                 if save_to_gcs:
                         folder_and_files = save_videos_to_gcs(prompt, operation_id, veo_gs_bucket)
-                return { "local_files" : video_files, "gcs_stuff" : folder_and_files }
+                return { "local_files" : video_files, "gcs_stuff" : folder_and_files , "operation_id": operation_id}
 
             else:
                 print(f"💤 Video generation not yet complete. Attempt {polling_attempts+1}/{max_polling_attempts}... 💤 Sleeping {polling_interval}s")
@@ -226,7 +226,7 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
 
     error = f"Error: Max polling attempts ({max_polling_attempts}) reached. Video generation may have failed or is taking too long."
     print(error)
-    return { "error": error, video_files: video_files }
+    return { "error": error, "operation_id": operation_id, video_files: video_files }
 
 
 
