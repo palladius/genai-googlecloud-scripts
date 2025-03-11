@@ -1,9 +1,13 @@
 [
   {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "image_files": []
+  },
+  {
     "prompt": "Paw Patrol playing a grand piano, in isometric view",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_0de9698c_1.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_34e31ea6_2.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_ba4f98d8_3.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_0f574f76_4.png"
