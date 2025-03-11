@@ -9,9 +9,9 @@ prompts:
       Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.
       The camera fades out, then the view goes to above.
       On a distance, donkey is taking pictures of the green couple, on top of his big red dragon.
-  - name: Image Prompt 1
+  - name: Image Past
     class: image_prompt
-    text: A futuristic city at night, neon lights, flying cars
+    text: A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.
   - name: Image2
     class: image_prompt
     text: A CD album cover by Dream Theater with a Phoenix rising.

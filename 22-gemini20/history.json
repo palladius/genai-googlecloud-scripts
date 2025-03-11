@@ -1,5 +1,37 @@
 [
   {
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_fdacad3d_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_ab1c67f0_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_bb064c64_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_ead0a861_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_123d4111_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3b0b2301_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_c4efec94_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A futuristic city at night, neon lights, flying cars",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_2299039d_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_8355cd2d_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_80c23711_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_4b58e46c_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
     "classification": "video_prompt",
     "image_files": [],
