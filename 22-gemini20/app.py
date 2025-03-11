@@ -89,14 +89,14 @@ def save_history(history):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
 
-def cleanup_generated_files(out_folder):
-    """Removes the generated image files."""
-    for filename in glob.glob(os.path.join(out_folder, "generated_image_*.png")):
-        try:
-            if CLEANUP_GENERATED_FILES:
-                os.remove(filename)
-        except FileNotFoundError:
-            pass
+# def cleanup_generated_files(out_folder):
+#     """Removes the generated image files."""
+#     for filename in glob.glob(os.path.join(out_folder, "generated_image_*.png")):
+#         try:
+#             if CLEANUP_GENERATED_FILES:
+#                 os.remove(filename)
+#         except FileNotFoundError:
+#             pass
 
 def delete_media(history, media_file):
     """Deletes a media item from history and the file system."""
@@ -107,6 +107,18 @@ def delete_media(history, media_file):
                     os.remove(media_file)
                 item["image_files"].remove(media_file)
                 if not item["image_files"]:
+                    history.remove(item)
+                save_history(history)
+                st.rerun()
+            except FileNotFoundError:
+                pass
+            break
+        if "video_files" in item and media_file in item["video_files"]:
+            try:
+                if CLEANUP_GENERATED_FILES:
+                    os.remove(media_file)
+                item["video_files"].remove(media_file)
+                if not item["video_files"]:
                     history.remove(item)
                 save_history(history)
                 st.rerun()
@@ -135,23 +147,35 @@ def display_mosaic_view(history):
                     try:
                         image = Image.open(media["file"])
                         st.image(image, caption=f"Prompt: {media['prompt']}", use_container_width=True)
-                        if st.button(f"Open media", key=f"open-{media['file']}"):
-                            st.session_state.selected_media = media
-                            st.session_state.current_view = "media"
-                            st.rerun()
-                        if st.button(f"Delete", key=f"delete-{media['file']}"):
-                            delete_media(history, media["file"])
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            if st.button(f"Open", key=f"open-{media['file']}", use_container_width=True, type="secondary"):
+                                st.session_state.selected_media = media
+                                st.session_state.current_view = "media"
+                                st.rerun()
+                        with col2:
+                            if st.button(f"Del", key=f"delete-{media['file']}", use_container_width=True, type="primary"):
+                                delete_media(history, media["file"])
+                        # if st.button(f"Open media", key=f"open-{media['file']}"):
+                        #     st.session_state.selected_media = media
+                        #     st.session_state.current_view = "media"
+                        #     st.rerun()
+                        # if st.button(f"Delete", key=f"delete-{media['file']}"):
+                        #     delete_media(history, media["file"])
                     except FileNotFoundError:
                         st.write(f"Image {media['file']} not found.")
                 elif media["type"] == "video":
                     try:
                         st.video(media["file"])
-                        if st.button(f"Open media", key=f"open-{media['file']}"):
-                            st.session_state.selected_media = media
-                            st.session_state.current_view = "media"
-                            st.rerun()
-                        if st.button(f"Delete", key=f"delete-{media['file']}"):
-                            delete_media(history, media["file"])
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            if st.button(f"Open 📹", key=f"open-{media['file']}"):
+                                st.session_state.selected_media = media
+                                st.session_state.current_view = "media"
+                                st.rerun()
+                        with col2:
+                            if st.button(f"Del", key=f"delete-{media['file']}"):
+                                delete_media(history, media["file"])
                     except FileNotFoundError:
                         st.write(f"Video {media['file']} not found.")
     else:
@@ -208,7 +232,8 @@ def handle_video_prompt(cleanedup_prompt, history, folder=OUTPUT_VIDEOS_FOLDER):
     video_files_info = veo_generate_and_poll(prompt=cleanedup_prompt, output_folder=OUTPUT_VIDEOS_FOLDER)
     #video_files_info = veo_generate_and_poll(prompt=cleanedup_prompt, operation_id='projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/b140acd9-e1a6-4f56-897e-e7add5cac9a4', output_folder=OUTPUT_VIDEOS_FOLDER)
     pprint.pp(video_files_info)
-    local_files_with_path = [os.path.join(folder, f) for f in os.listdir(folder)]
+    #local_files_with_path = [os.path.join(folder, f) for f in os.listdir(folder)] # BUG
+    #local_files_with_path = []
     #st.write(f"## 1. video_files_info \n ```json\n{video_files_info}\n```")
     local_files = video_files_info.get('local_files', [])
     st.write(f"## local_files \n{local_files}")
@@ -218,20 +243,22 @@ def handle_video_prompt(cleanedup_prompt, history, folder=OUTPUT_VIDEOS_FOLDER):
         st.write(f"## 2. gcs_stuff \n{gcs_stuff}")
     if operation_id:
         st.write(f"## 3. operation_id \n{operation_id}")
-
-    #st.write(f"## 3. local_files_with_path \n{local_files_with_path}\n")
-#    gcs_stuff = video_files_info.get('gcs_stuff', {})
+    #if local_files:
+    #    local_files_with_path = local_files # [os.path.join(folder, f) for f in local_files]
+    # Now fixed on library side!
+    #st.write(f"## 4. DEBUG local_files_with_path \n{local_files_with_path}\n")
 
 #     {'local_files': ['video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4',
 #                  'video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-2.mp4',
 #                  'video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4',
 #                  'video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4'],
-#  'gcs_stuff': None}
+#      'operation_id': '...',
+#      'gcs_stuff': None}
 
     # Display the video
     if video_files_info:
         cols = st.columns(2)
-        for i, video_file in enumerate(local_files_with_path):
+        for i, video_file in enumerate(local_files):
             with cols[i % 2]:
                 try:
                     st.video(video_file)
@@ -246,7 +273,7 @@ def handle_video_prompt(cleanedup_prompt, history, folder=OUTPUT_VIDEOS_FOLDER):
                 except FileNotFoundError:
                     st.write(f"Video {video_file} not found.")
 
-    return [local_files_with_path, operation_id] # video_files_info amnd operation_id
+    return [local_files, operation_id] # video_files_info amnd operation_id
 
 def handle_code_prompt(cleanedup_prompt, history):
     """Handles the code classification."""
