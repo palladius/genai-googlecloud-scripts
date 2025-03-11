@@ -83,7 +83,7 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
     """Decodes base64-encoded videos and saves them to files."""
     if "response" not in response_json or "videos" not in response_json["response"]:
         raise ValueError("Invalid response format: 'response' or 'videos' key not found.")
-
+    video_files = []
     videos = response_json["response"]["videos"]
     counter = 1
     cleaned_prompt = clean_prompt_for_filename(prompt)
@@ -104,9 +104,11 @@ def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str):
             with open(output_file, "wb") as f:
                 f.write(decoded_data)
             print(f"Created: {output_file}")
+            video_files.append(output_file)
         except Exception as e:
             print(f"Error decoding or saving video to {output_file}: {e}")
         counter += 1
+    return video_files
 
 
 def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
@@ -128,11 +130,15 @@ def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
 
     video_files = [f for f in os.listdir(".") if f.startswith(f"video-") and operation_uuid in f and f.endswith(".mp4")]
 
+    final_destinations = []
+
     for video_file in video_files:
+        final_destination = f"{veo_gs_bucket}/{destination_folder}/{video_file}" # file dest
         blob = bucket.blob(os.path.join(destination_folder, video_file))
         try:
             blob.upload_from_filename(video_file)
             print(f"File {video_file} uploaded to {veo_gs_bucket}/{destination_folder}/{video_file}.")
+            final_destinations.append(final_destination)
         except Exception as e:
             print(f"Error uploading {video_file} to GCS: {e}")
 
@@ -146,11 +152,13 @@ def save_videos_to_gcs(prompt, operation_id, veo_gs_bucket): # =None
     try:
         readme_blob.upload_from_filename(readme_file)
         print(f"📔 README uploaded to {veo_gs_bucket}/{destination_folder}/{readme_file}.")
+        final_destinations.append(os.path.join(destination_folder, readme_file))
     except Exception as e:
         print(f"Error uploading {readme_file} to GCS: {e}")
 
     # Deletes local copy of README
     os.remove(readme_file)
+    return { "gcs_folder" : destination_folder, "files" : final_destinations }
 
 
 def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLLING_INTERVAL, max_polling_attempts=DFLT_MAX_POLLING_ATTEMPTS, save_to_gcs=True, operation_id=None):
@@ -158,7 +166,10 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
 
     Note: if Op is None, calls the API. If not none, it means we know it was already called and we're just doing the polling and get videos and do the ambaradan from base564 into files.
 
+    return a dictionary with relevant data.
+
     '''
+    video_files = []
 
     print(f"veo_generate_and_poll(veo_gs_bucket={Fore.BLUE}{veo_gs_bucket}{Style.RESET_ALL}) called. Prompt: {Fore.YELLOW}{prompt}{Style.RESET_ALL}")
     # Phaes 1: async gen video and get op it
@@ -170,7 +181,7 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
             print(f"Operation given as arg ({operation_id}). Wow! Skipping generation then.")
     except Exception as e:
         print(f"Error during video generation: {e}")
-        return
+        return video_files
 
     # Phaes 2: poll from op id...
 
@@ -182,21 +193,28 @@ def veo_generate_and_poll(prompt, veo_gs_bucket=None, polling_interval=DFLT_POLL
             if response_json.get("done"):
                 print("🎥 Video generation complete.")
 
-                decode_and_save_videos(response_json, operation_id, prompt)
-                print("🎥 OK Done processing videos.")
+                video_files = decode_and_save_videos(response_json, operation_id, prompt)
+                print(f"🎥 OK Done processing videos. video_files={video_files}")
                 if save_to_gcs:
                     # find files by matching operation_id..
-                    save_videos_to_gcs(prompt, operation_id, veo_gs_bucket)
-                return
+#                    try:
+                        folder_and_files = save_videos_to_gcs(prompt, operation_id, veo_gs_bucket)
+#                   except Exception as e:
+#                       print(f"Error during GCS saving: {e}. No biggie.")
+                return { "local_files" : video_files, "gcs_stuff" : folder_and_files }
+
             else:
                 print(f"💤 Video generation not yet complete. Attempt {polling_attempts+1}/{max_polling_attempts}... 💤 Sleeping {polling_interval}s")
                 polling_attempts += 1
                 time.sleep(polling_interval)
+                #return video_files
         except Exception as e:
             print(f"Error during video retrieval: {e}. Maybe check error: cat veo_error.json | jq .error ")
             if response_json and "error" in response_json:
                 print(f"JSON Error from Veo APIs: {Fore.RED}{response_json['error']}{Style.RESET_ALL}", file=sys.stderr)
                 write_to_file('veo_error.json', response_json)
-            return
+            return video_files
 
-    print(f"Error: Max polling attempts ({max_polling_attempts}) reached. Video generation may have failed or is taking too long.")
+    error = f"Error: Max polling attempts ({max_polling_attempts}) reached. Video generation may have failed or is taking too long."
+    print(error)
+    return { "error": error, video_files: video_files }
