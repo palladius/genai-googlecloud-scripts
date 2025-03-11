@@ -1,12 +1,29 @@
 [
   {
+    "prompt": "Paw Patrol playing a grand piano, in isometric view",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_0de9698c_1.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_34e31ea6_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_ba4f98d8_3.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_0f574f76_4.png"
+    ]
+  },
+  {
+    "prompt": "A Genesis album cover with a smurf in it",
+    "classification": "image_prompt",
+    "image_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_Genesis_album_cover_with_a_smurf_in_it_bee12dfe_2.png",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_Genesis_album_cover_with_a_smurf_in_it_0543b086_4.png"
+    ]
+  },
+  {
     "prompt": "A medieval city at night, torch lights, flying carts and winged giraffes",
     "classification": "image_prompt",
     "image_files": [
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_1.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_4.png"
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_3.png"
     ]
   },
   {
@@ -15,7 +32,6 @@
     "image_files": [
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_1.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3.png",
       "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_4.png"
     ]
   },
