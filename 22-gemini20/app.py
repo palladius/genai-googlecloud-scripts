@@ -9,8 +9,9 @@ import shutil
 import base64
 import glob
 
-APP_VERSION = '1.1'
+APP_VERSION = '1.2'
 APP_HISTORY = '''
+20250310 v1.2 Added Prompting page
 20250310 v1.1 Added Mosaic
 20250310 v1.0 Created streamlit app with Gemini cloud code.
 '''
@@ -149,8 +150,9 @@ def display_media_view(media):
         st.session_state.current_view = "main"
         st.rerun()
 
-def display_main_view(history, sample_prompts):
-    """Displays the main view."""
+def display_prompting_view(history, sample_prompts):
+    """Displays the prompting view."""
+    st.header("Prompting View")
     # Textarea for user input
     selected_prompt_text = next(
         (
@@ -238,6 +240,11 @@ def display_main_view(history, sample_prompts):
             else:
                 st.error("Error during classification.")
 
+def display_main_view(history, sample_prompts):
+    """Displays the main view."""
+    # We don't need anything here, we just use the sidebar buttons
+    pass
+
 # Streamlit app
 def main():
     st.set_page_config(layout="wide")
@@ -254,7 +261,7 @@ def main():
 
     # Initialize session state
     if "current_view" not in st.session_state:
-        st.session_state.current_view = "main"
+        st.session_state.current_view = "prompting" # default to prompting
     if "selected_prompt" not in st.session_state:
         st.session_state.selected_prompt = sample_prompts[0]["name"] if sample_prompts else ""
     if "selected_media" not in st.session_state:
@@ -292,8 +299,11 @@ def main():
                     except FileNotFoundError:
                         st.write(f"Image {image_file} not found.")
 
-    # Mosaic button in sidebar
-    st.sidebar.header("Mosaic")
+    # Mosaic and Prompting buttons in sidebar
+    st.sidebar.header("Navigation")
+    if st.sidebar.button("Prompting"):
+        st.session_state.current_view = "prompting"
+        st.rerun()
     if st.sidebar.button("Mosaic"):
         st.session_state.current_view = "mosaic"
         st.rerun()
@@ -305,6 +315,8 @@ def main():
         display_mosaic_view(history)
     elif st.session_state.current_view == "media":
         display_media_view(st.session_state.selected_media)
+    elif st.session_state.current_view == "prompting":
+        display_prompting_view(history, sample_prompts)
 
 if __name__ == "__main__":
     main()

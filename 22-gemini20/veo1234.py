@@ -16,6 +16,7 @@ APP_VERSION = '1.5'
 APP_NAME = 'Veo cURL-based video-generator'
 APP_DESCRIPTION = 'Veo video generator from cURL since I still have to figure out how to do it with genai official libs'
 APP_CHANGELOG = '''
+20250310 v1.6 Better error handling from Veo APIs.
 20250309 v1.5 Added write_to_file for broken stuff.
 20250309 v1.4 Waiting4Paolo. Accepting prompt from STDIN and from file
 20250309 v1.3 Waiting4Paolo. Some nice addons and fixing install for Mac.
@@ -293,10 +294,10 @@ def main():
                 polling_attempts += 1
                 time.sleep(POLLING_INTERVAL)
         except Exception as e:
-            print(f"Error during video retrieval: {e}")
-            #if response_json:
-            #    print(f"Response JSON: {response_json}")
-            write_to_file('veo_error.json', response_json)
+            print(f"Error during video retrieval: {e}. Maybe check error: cat veo_error.json | jq .error ")
+            if response_json and "error" in response_json:
+                print(f"JSON Error from Veo APIs: {Fore.RED}{response_json['error']}{Style.RESET_ALL}", file=sys.stderr)
+                write_to_file('veo_error.json', response_json)
             return
 
     print(f"Error: Max polling attempts ({MAX_POLLING_ATTEMPTS}) reached. Video generation may have failed or is taking too long.")
