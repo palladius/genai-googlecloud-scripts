@@ -1,5 +1,12 @@
 [
   {
+    "prompt": "The two protagonists transform into a prince and a princess of England",
+    "classification": "video_prompt",
+    "video_files": [
+      "streamlit/generated_videos/video-The_two_protagonists_transform_into_a_prince_and_a_princess_of_England-88ac48bd-613c-4e0a-8a8d-22c6a7fd1f29-3.mp4"
+    ]
+  },
+  {
     "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
     "classification": "image_prompt",
     "image_files": [
