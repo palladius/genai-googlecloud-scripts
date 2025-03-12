@@ -99,12 +99,28 @@ def retrieve_video(operation_id: str) -> dict:
     response.raise_for_status()
     return response.json()
 
-def clean_prompt_for_filename(prompt: str) -> str:
+def clean_prompt_for_filename_old(prompt: str) -> str:
     """Cleans the prompt to be used as part of a filename."""
     # Remove strange characters and replace spaces with underscores
+    # Also remove \n and stuff..
+    #prompt = re.sub(r'[^a-zA-Z0-9_]', '', prompt) # copied from images...
     cleaned_prompt = re.sub(r"[^\w\s-]", "", prompt).replace(" ", "_")
     # Chop to max 64 characters -> 96 now.
     return cleaned_prompt[:96]
+#import re
+
+def clean_prompt_for_filename(prompt: str) -> str:
+    """Cleans the prompt to be used as part of a filename."""
+    # Remove strange characters, newline characters, and replace spaces with underscores
+    # Keep only alphanumeric characters and underscores
+    cleaned_prompt = re.sub(r"[^\w]", "_", prompt)
+    # Remove multiple consecutive underscores
+    cleaned_prompt = re.sub(r"_{2,}", "_", cleaned_prompt)
+    # Remove leading and trailing underscores
+    cleaned_prompt = cleaned_prompt.strip("_")
+    # Chop to max 96 characters
+    return cleaned_prompt[:96]
+
 
 
 def decode_and_save_videos(response_json: dict, operation_id: str, prompt: str, output_folder: str = DEFAULT_OUTPUT_FOLDER):
