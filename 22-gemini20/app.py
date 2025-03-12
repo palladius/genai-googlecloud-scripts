@@ -1,4 +1,7 @@
 # app.py
+from os import stat_result
+
+
 import streamlit as st
 import yaml
 import os, sys
@@ -22,6 +25,29 @@ from lib.streamlitz.media import handle_image_prompt, handle_video_prompt
 
 # Import the classify_prompt function from classificator.py
 from classificator import classify_prompt
+
+
+def file_exists(file_name):
+    '''implemented on a flight to istanbul so pls forgive me.
+
+    TODO when internet is back, check if its ok.
+    '''
+    try:
+        stat: stat_result = os.stat(file_name)
+        print(stat)
+        return True
+    except FileNotFoundError as e:
+        print('non trovato quindi falseo')
+        return False
+    print('🐞 Some other error probably a bug')
+    return False
+
+def show_video_if_exists(filename):
+    if file_exists(filename):
+        st.video(filename)
+    else:
+        short_file = filename.split('/')[-1]  # .last
+        st.error(f"File exitiert nood: {short_file}")
 
 
 # Load sample prompts from YAML
@@ -97,8 +123,11 @@ def display_mosaic_view(history):
     if all_media:
         cols = st.columns(4)
         for i, media in enumerate(all_media):
+          # todo when back at a keyboard make nice indenting.
+          # Note if file doesnt exist still i is incremented..
+          if file_exists(media["file"]):
             with cols[i % 4]:
-                if media["type"] == "image":
+                if media["type"] == "image" and file_exists(media["file"]):
                     try:
                         image = Image.open(media["file"])
                         # help=media["prompt"],
@@ -115,9 +144,11 @@ def display_mosaic_view(history):
                                 delete_media(history, media["file"])
                     except FileNotFoundError:
                         st.write(f"Image {media['file']} not found.")
-                elif media["type"] == "video":
+                elif media["type"] == "video" and file_exists(media["file"]):
                     try:
-                        st.video(media["file"])
+                        # if file_exists(media["file"]):
+                        #     st.video(media["file"])
+                        show_video_if_exists(media["file"])
                         col1, col2 = st.columns(2)
                         with col1:
                             if st.button(f"Open 📹", key=f"open-{media['file']}"):
@@ -337,7 +368,8 @@ def main():
             for i, video_file in enumerate(selected_history["video_files"]):
                 with cols[i % 2]:
                     try:
-                        st.video(video_file)
+                        if file_exists(video_file):
+                            st.video(video_file)
                     except FileNotFoundError:
                         st.write(f"Video {video_file} not found.")
 
