@@ -13,4 +13,3 @@ google-cloud-storage
 
 # Other stuff I might need to install but not as part of normal stuff.
 # packagization: pip install pyinstaller
-# IPython for the image-NEW-w-refrences

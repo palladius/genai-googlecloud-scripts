@@ -1,0 +1,4 @@
+pyyaml
+streamlit
+google-generativeai
+google-genai
