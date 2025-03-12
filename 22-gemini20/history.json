@@ -1,5 +1,15 @@
 [
   {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
+  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
+  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
+  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
+    ]
+  },
+  {
     "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
     "classification": "video_prompt",
     "image_files": [],
