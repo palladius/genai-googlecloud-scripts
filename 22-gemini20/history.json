@@ -1,5 +1,41 @@
 [
   {
+    "prompt": "Camera is black.\nTitle says \"/dev/cloud Day\".\nCamera fades in, revealing Istanbul vibrant City.\nGoogle Cloud logo flying from the sky everywhere.\nThe camera fades out, then the view goes to above Istiklal Caddesi to move then to Aya Sophia.\nOn a distance, an Android is taking pictures of the Google Cloud logos, with \"GDG\" on Android's chest.",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-1.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-2.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-3.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/97c37f0c-4294-46d6-b3ea-c20abff592cb"
+  },
+  {
+    "prompt": "Camera is black. \nTitle says \"/dev/cloud Day\".\nCamera fades in, revealing Amsterdam vibrant City.\nGoogle Cloud logo flying from the sky everywhere.\nThe camera fades out, then the view goes to above Istiklal Caddesi to move then to Aya Sophia.\nOn a distance, an Android is taking pictures of the Google Cloud logos, with \"GDG\" on Android's chest.",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-1.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-2.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-3.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/333c9a93-f322-4992-8ccd-9fa253cbcb94"
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-1.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-2.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-3.mp4",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/8bb81ef9-3fb1-4adb-a101-0a30d90010f4"
+  },
+  {
     "prompt": "(Image) The two protagonists transform into a prince and a princess of England",
     "classification": "image_prompt",
     "image_files": [
@@ -17,10 +53,10 @@
     "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
     "classification": "image_prompt",
     "image_files": [
-  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
-  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
-  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
-  "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
+      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
+      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
+      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
+      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
     ]
   },
   {
