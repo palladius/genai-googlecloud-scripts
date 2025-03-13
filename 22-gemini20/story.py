@@ -26,8 +26,8 @@ APP_HISTORY = '''
 20250313 v1.1 Added creation of story.md
 20250313 v1.0 INITIAL FUNCTION - clunky
 '''
-STORY_PROMPT = "Generate a story about a cute baby puffin in a 3d digital art style who finds a key to the number 42. For each scene, generate an image."
-SHORT_STORY_FILE_ADDON = "puffin-story"
+STORY_PROMPT = "Generate a story about a Googler in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image."
+SHORT_STORY_FILE_ADDON = "da-story"
 FOLDER_BASE = "out/"
 FOLDER_NAME = datetime.date.today().strftime("%Y%m%d") + "-" + datetime.datetime.now().strftime("%H%M") + "-" + SHORT_STORY_FILE_ADDON
 print(f"Folder will be: {Fore.BLUE}{FOLDER_NAME}{Style.RESET_ALL}")
