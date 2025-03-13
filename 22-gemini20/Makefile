@@ -21,6 +21,7 @@ run: install
 	python structured-output-right.py
 
 app:
+	pip install -r requirements-streamlit.txt
 	streamlit run app.py
 
 demo-multimodal: install
@@ -44,7 +45,7 @@ packetize-grounding:
 	bin/scopiazza dist/g2grounding gemini20-grounding
 
 
-
+# TODO(): use dockerfile
 packetize-imagegen:
 	pyinstaller --onefile --name g2imagegen \
 				--add-data ".env:." \
