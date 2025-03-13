@@ -33,7 +33,7 @@ STORY_MODEL="gemini-2.0-flash-exp"
 #SHORT_STORY_FILE_ADDON = "da-story"
 STORY_PROMPT = '''Generate a story about a cute little Shrek in a 3d digital art style, walking around Milan and looking for the perfect Panettone. For each scene, generate an image.'''
 SHORT_STORY_FILE_ADDON = "babyshrek-milan"
-FOLDER_BASE = "out/"
+FOLDER_BASE = "out/stories/"
 FOLDER_NAME = datetime.date.today().strftime("%Y%m%d") + "-" + datetime.datetime.now().strftime("%H%M") + "-" + SHORT_STORY_FILE_ADDON
 print(f"Folder will be: {Fore.BLUE}{FOLDER_NAME}{Style.RESET_ALL}")
 
@@ -72,7 +72,7 @@ def generate_story(story_prompt):
     for i, candidate in enumerate(response.candidates):
         print(f"DEB candidate ##{i}")
         # Add a new chapter
-        story_markdown += f"## Chapter #{i} {chapter_counter}\n\n"
+        story_markdown += f"## Chapter {chapter_counter }\n\n"
         chapter_counter += 1
 
         if candidate.content is None:
