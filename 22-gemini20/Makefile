@@ -120,3 +120,13 @@ video-test-operation:
 video-test-from-image:
 #	python veo.py -i etc/images/ricc-pescara.jpg person gets wing and flies on top of Milan Piazza Duomo and circulates around it on a sunny day.
 	python veo.py -i etc/images/ricc-pescara.jpg Person grow wings and flies on top of Milan Piazza Duomo and circulates around it on a sunny day. then he puts on a Google hat, sunglasses and smiles at the camera. Fades out.
+
+
+# story-test-cli:
+# 	python story.py Story of Pollicino in italian with images.
+story-test-shrek-milan:
+	python story.py --prompt etc/stories/shrek-milan.prompt
+story-test-turtle:
+	python story.py --prompt etc/stories/turtle-original.prompt
+story-test-istanbul:
+	python story.py -p etc/stories/puffin-istanbul.prompt

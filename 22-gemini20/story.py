@@ -9,7 +9,7 @@ from google.genai import types
 from PIL import Image
 from io import BytesIO
 import datetime
-import os
+import os, sys
 import argparse  # Import the argparse module
 
 # Riccardo stuff
@@ -19,29 +19,38 @@ from lib.filez import *  # create_filename_from_prompt
 from colorama import Fore, Style
 from dotenv import load_dotenv
 from lib.filez import write_to_file
+import os
 
 load_dotenv()
 
-APP_VERSION = '1.3'
+APP_VERSION = '1.4'
 APP_NAME = 'Text&Image Story Generation Tool'
 APP_HISTORY = '''
+20250314 v1.4 CLi is now complete and works great!
 20250314 v1.3 Added CLI options --prompt, --help and CLI-prompt
 20250313 v1.2 Move to function and add some debugging.
 20250313 v1.1 Added creation of story.md
 20250313 v1.0 INITIAL FUNCTION - clunky
 '''
 STORY_MODEL = "gemini-2.0-flash-exp"
-# STORY_PROMPT = "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
-# SHORT_STORY_FILE_ADDON = "da-story"
+DEFAULT_STORY_PROMPT =  \
+    "Generate a story about a cute baby turtle in a 3d digital art style. " + \
+    "For each scene, generate an image."
+
+DEFAULT_STORY_PROMPT2 =  \
+    "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. " + \
+    "For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
+
+
+"Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
+#DEFAULT_STORY_PROMPT = "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
 #STORY_PROMPT = '''Generate a story about a cute little Shrek in a 3d digital art style, walking around Milan and looking for the perfect Panettone. For each scene, generate an image.'''
-#SHORT_STORY_FILE_ADDON = "babyshrek-milan"
 FOLDER_BASE = "out/stories/"
 
 
 def generate_story(story_prompt, short_story_file_addon):
     '''Generates a story thanks to Mar12 new API :)'''
 
-    # SHORT_STORY_FILE_ADDON = "babyshrek-milan" # TODO use
     FOLDER_NAME = datetime.date.today().strftime("%Y%m%d") + "-" + datetime.datetime.now().strftime("%H%M") + "-" + short_story_file_addon
     print(f"Folder will be: {Fore.BLUE}{FOLDER_NAME}{Style.RESET_ALL}")
 
@@ -108,7 +117,18 @@ def generate_story(story_prompt, short_story_file_addon):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a story with images using Gemini.")
+    parser = argparse.ArgumentParser(description="Generate a story with images using Gemini.",
+                            formatter_class=argparse.RawDescriptionHelpFormatter,
+                            epilog=f"""
+Possible invocations:
+    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORY_PROMPT}"
+    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORY_PROMPT2}"
+    🔷 {os.path.basename(sys.argv[0])} --prompt etc/stories/shrek-milan.prompt
+
+    Enjoy!
+"""
+    )
+
     parser.add_argument("-p", "--prompt", help="Path to a file containing the story prompt.")
     parser.add_argument("prompt_cli", nargs="*", help="Story prompt (or part of it) from the command line.")
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {APP_VERSION}")
@@ -118,12 +138,13 @@ def main():
     if args.prompt:
         with open(args.prompt, "r") as f:
             story_prompt = f.read()
+            # TODO: change parsed story_prompt: \n to ' '
         short_story_file_addon = os.path.basename(args.prompt)[:-7] # remove .prompt
     else:
         if args.prompt_cli:
             story_prompt = " ".join(args.prompt_cli)
         else:
-            print("Error: no prompt given! You must use --prompt or the command line.")
+            print("Error: no prompt given! You must use --prompt or the command line.", file=sys.stderr)
             parser.print_help()
             exit(1)
         short_story_file_addon = "cli" # default name
