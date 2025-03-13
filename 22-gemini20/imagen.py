@@ -67,9 +67,10 @@ def generate_images(image_prompt, out_folder='out/', also_show_image=True):
     TODO(ricc): move to lib/imagez.py
     '''
     image_filenames = []
+    print(f"Creating 4 images with this prompt (please be patient): {Fore.YELLOW}{image_prompt}{Style.RESET_ALL}")
+
     client = genai.Client(api_key=GEMINI_API_KEY)
 
-    print(f"Creating 4 images with this prompt (please be patient): {Fore.YELLOW}{image_prompt}{Style.RESET_ALL}")
 
     response = client.models.generate_images(
         model='imagen-3.0-generate-002',
@@ -83,6 +84,7 @@ def generate_images(image_prompt, out_folder='out/', also_show_image=True):
     for generated_image in response.generated_images:
         image = Image.open(BytesIO(generated_image.image.image_bytes))
         if also_show_image:
+            print("Note: this contains a bug in the packaged version. The bug is in PIL :: ImageShow.py")
             image.show()
         filename = midjourneyish_filename_from_prompt(image_prompt, id=image_counter, out_folder=out_folder)
         print(f"💾 Saving image to: {Fore.MAGENTA}{filename}{Style.RESET_ALL}")
@@ -106,3 +108,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+#Creating 4 images with this prompt (please be patient): -c import os, sys, time; time.sleep(20); os.remove(sys.argv[1]) /var/folders/ml/1t92vmgs3_j8xfcjnczvjwnr0050ys/T/tmprbghbooe.PNG
