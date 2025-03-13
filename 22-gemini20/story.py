@@ -69,7 +69,8 @@ def generate_story(story_prompt, short_story_file_addon):
         ),
     )
 
-    write_to_file(file_name=FINAL_FOLDER + 'story-gemini-response.json', content=response)
+#    write_to_file(file_name=FINAL_FOLDER + 'story-gemini-response.json', content=response)
+    write_to_file(file_name='story-gemini-response.json', content=response)
 
     story_markdown = f"# {APP_NAME} - {FOLDER_NAME}\n\n"
     story_markdown += f"**Prompt:** {story_prompt}\n\n"
