@@ -42,7 +42,13 @@ DEFAULT_STORY_PROMPT2 =  \
     "For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
 
 
-"Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
+DEFAULT_STORIES = [
+    DEFAULT_STORY_PROMPT,
+    DEFAULT_STORY_PROMPT2,
+    """Generate an illustrated story about a cute little Shrek in a 3d digital art style, walking around Duloc with donkey and looking for the perfect present for Fiona. Finally he finds a great present: a panettone. For each scene, generate an image. """
+]
+
+#"Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
 #DEFAULT_STORY_PROMPT = "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
 #STORY_PROMPT = '''Generate a story about a cute little Shrek in a 3d digital art style, walking around Milan and looking for the perfect Panettone. For each scene, generate an image.'''
 FOLDER_BASE = "out/stories/"
@@ -70,6 +76,7 @@ def generate_story(story_prompt, short_story_file_addon):
     )
 
 #    write_to_file(file_name=FINAL_FOLDER + 'story-gemini-response.json', content=response)
+    # I want just one local, so it doesnt conflict
     write_to_file(file_name='story-gemini-response.json', content=response)
 
     story_markdown = f"# {APP_NAME} - {FOLDER_NAME}\n\n"
@@ -122,8 +129,10 @@ def main():
                             formatter_class=argparse.RawDescriptionHelpFormatter,
                             epilog=f"""
 Possible invocations:
-    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORY_PROMPT}"
-    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORY_PROMPT2}"
+    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORIES[0]}"
+    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORIES[1]}"
+    🔷 {os.path.basename(sys.argv[0])} "{DEFAULT_STORIES[2]}"
+
     🔷 {os.path.basename(sys.argv[0])} --prompt etc/stories/shrek-milan.prompt
 
     Enjoy!
@@ -138,8 +147,9 @@ Possible invocations:
 
     if args.prompt:
         with open(args.prompt, "r") as f:
-            story_prompt = f.read()
             # TODO: change parsed story_prompt: \n to ' '
+            story_prompt = f.read()
+            story_prompt = story_prompt.replace("\n", " ")  # Replace newlines with spaces
         short_story_file_addon = os.path.basename(args.prompt)[:-7] # remove .prompt
     else:
         if args.prompt_cli:
