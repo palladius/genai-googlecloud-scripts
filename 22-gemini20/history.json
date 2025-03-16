@@ -4,10 +4,10 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-1.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-2.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-3.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-4.mp4"
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-1.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-2.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-3.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/97c37f0c-4294-46d6-b3ea-c20abff592cb"
   },
@@ -16,10 +16,10 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-1.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-2.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-3.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-4.mp4"
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-1.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-2.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-3.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/333c9a93-f322-4992-8ccd-9fa253cbcb94"
   },
@@ -28,10 +28,10 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-1.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-2.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-3.mp4",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-4.mp4"
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-1.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-2.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-3.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/8bb81ef9-3fb1-4adb-a101-0a30d90010f4"
   },
@@ -53,10 +53,10 @@
     "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
     "classification": "image_prompt",
     "image_files": [
-      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
-      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
-      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
-      "out/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
     ]
   },
   {
@@ -64,10 +64,10 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-1.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-2.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-3.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-4.mp4"
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-1.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-2.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-3.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/f81c6194-97d9-40f3-8460-682325a9d024"
   },
@@ -75,9 +75,9 @@
     "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_fdacad3d_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_ab1c67f0_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_bb064c64_4.png"
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_fdacad3d_1.png",
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_ab1c67f0_3.png",
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_bb064c64_4.png"
     ],
     "video_files": []
   },
@@ -85,10 +85,10 @@
     "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_ead0a861_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_123d4111_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3b0b2301_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_c4efec94_4.png"
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_ead0a861_1.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_123d4111_2.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3b0b2301_3.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_c4efec94_4.png"
     ],
     "video_files": []
   },
@@ -96,10 +96,10 @@
     "prompt": "A futuristic city at night, neon lights, flying cars",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_2299039d_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_8355cd2d_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_80c23711_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_4b58e46c_4.png"
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_2299039d_1.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_8355cd2d_2.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_80c23711_3.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_4b58e46c_4.png"
     ],
     "video_files": []
   },
@@ -108,10 +108,10 @@
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-1.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-2.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-3.mp4",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-4.mp4"
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-1.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-2.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-3.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/e85055c5-fbd6-4cff-995e-b99a5bdfe9f4"
   },
@@ -119,10 +119,10 @@
     "prompt": "A futuristic city at night, neon lights, flying cars",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c8fe5b8b_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c467660d_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_754fccf1_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_68f1ebbc_4.png"
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c8fe5b8b_1.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c467660d_2.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_754fccf1_3.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_68f1ebbc_4.png"
     ],
     "video_files": []
   },
