@@ -1,0 +1,6 @@
+
+list:
+    just -l
+
+install:
+    bundle install

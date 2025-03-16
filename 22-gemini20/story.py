@@ -9,7 +9,8 @@ from google.genai import types
 from PIL import Image
 from io import BytesIO
 import datetime
-import os, sys
+import os
+import sys
 import argparse  # Import the argparse module
 
 # Riccardo stuff
@@ -19,11 +20,10 @@ from lib.filez import *  # create_filename_from_prompt
 from colorama import Fore, Style
 from dotenv import load_dotenv
 from lib.filez import write_to_file
-import os
 
 load_dotenv()
 
-APP_VERSION = '1.6'
+APP_VERSION = '1.6a'
 APP_NAME = 'Text&Image Story Generation Tool'
 APP_HISTORY = '''
 20250316 v1.6 Better understanding of when and why it stops, and better documentation of FinishReason.
@@ -234,7 +234,7 @@ Possible invocations:
         print("✅ Story probably generated with success. Enjoy!")
     else:
         print("❌ Some error came along. Sorry.")
-        exit(-1)
+        sys.exit(-1)
 
 if __name__ == "__main__":
     main()
