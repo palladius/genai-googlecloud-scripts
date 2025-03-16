@@ -15,6 +15,7 @@ UNAME := $(shell uname)
 
 install:
 	echo setup virtualenv and pip install reqs.txt as usual... when done do touch install to silence this..
+	pip install --upgrade -r requirements.txt
 
 run: install
 	python structured-output-wrong.py
