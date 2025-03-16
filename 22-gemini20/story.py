@@ -23,28 +23,31 @@ import os
 
 load_dotenv()
 
-APP_VERSION = '1.4'
+APP_VERSION = '1.5'
 APP_NAME = 'Text&Image Story Generation Tool'
 APP_HISTORY = '''
+20250315 v1.5 Moving story.md to readme.md => easier on github ;)
 20250314 v1.4 CLi is now complete and works great!
 20250314 v1.3 Added CLI options --prompt, --help and CLI-prompt
 20250313 v1.2 Move to function and add some debugging.
-20250313 v1.1 Added creation of story.md
+20250313 v1.1 Added creation of README.md
 20250313 v1.0 INITIAL FUNCTION - clunky
 '''
 STORY_MODEL = "gemini-2.0-flash-exp"
-DEFAULT_STORY_PROMPT =  \
-    "Generate a story about a cute baby turtle in a 3d digital art style. " + \
-    "For each scene, generate an image."
+# DEFAULT_STORY_PROMPT =  \
+#     "Generate a story about a cute baby turtle in a 3d digital art style. " + \
+#     "For each scene, generate an image."
 
-DEFAULT_STORY_PROMPT2 =  \
-    "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. " + \
-    "For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
+# DEFAULT_STORY_PROMPT2 =  \
+#     "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. " + \
+#     "For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes."
 
 
 DEFAULT_STORIES = [
-    DEFAULT_STORY_PROMPT,
-    DEFAULT_STORY_PROMPT2,
+        "Generate a story about a cute baby turtle in a 3d digital art style. " + \
+    "For each scene, generate an image.",
+        "Generate a story about a Googler with a funny googler hat in Istanbul in a 3d digital art style who finds a key to Istanbul Topkapi. " + \
+    "For each scene, generate an image in a photographic style. Ensure the main character is present in all scenes.",
     """Generate an illustrated story about a cute little Shrek in a 3d digital art style, walking around Duloc with donkey and looking for the perfect present for Fiona. Finally he finds a great present: a panettone. For each scene, generate an image. """
 ]
 
@@ -118,8 +121,8 @@ def generate_story(story_prompt, short_story_file_addon):
                 relative_filename = os.path.relpath(filename, FINAL_FOLDER)  # To keep the md portable
                 story_markdown += f"![Chapter Image](./{relative_filename})\n\n"
 
-    write_to_file(file_name=os.path.join(FINAL_FOLDER, "STORY.md"), content=story_markdown)
-    final_readme_location = os.path.join(FINAL_FOLDER, 'STORY.md')
+    write_to_file(file_name=os.path.join(FINAL_FOLDER, "README.md"), content=story_markdown)
+    final_readme_location = os.path.join(FINAL_FOLDER, 'README.md')
     print(f"✅ Story saved to: {Fore.GREEN}{final_readme_location}{Style.RESET_ALL}")
     return final_readme_location
 
