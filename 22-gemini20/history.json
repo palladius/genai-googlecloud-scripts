@@ -3,10 +3,19 @@
     "prompt": "Shrek and donkey are in Turin, in Piazza San Carlo, reading a SRE book titled \"SRE gone wrong\".",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_815b0197_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_d04d8b17_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_3e0877d6_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_6247ad24_4.png"
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_815b0197_1.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_d04d8b17_2.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_3e0877d6_3.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_6247ad24_4.png"
+      ],
+    "video_files": []
+  },
+  {
+  "prompt": "A middle-age Milan-inspired village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market in front of Milan Duomo cathedral. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_8d23698b_2.png",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_4e9f0e1d_4.png"
     ],
     "video_files": []
   },
@@ -14,10 +23,19 @@
     "prompt": "Shrek is a  Platform Engineer.\nHe's trying to get fairy creatures inside his beautiful \"Platform Engineering\" fairy building, full of computers and fairy marvels.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_c5202f7b_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_932cee29_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_94de9196_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_b2259036_4.png"
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_c5202f7b_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_932cee29_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_94de9196_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_b2259036_4.png"
+    ]
+  },
+  {
+
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_5bb7ea03_2.png",
+      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_be835e9d_3.png"
     ],
     "video_files": []
   },
@@ -25,10 +43,10 @@
     "prompt": "Shrek is an SRE and does Platform Engineering.\nHe's trying to get fairy creatures inside his beautiful \"Platform Engineering\" fairy building",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_7a9d4f52_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_b65a326f_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_c57350da_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_73412526_4.png"
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_7a9d4f52_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_b65a326f_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_c57350da_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_73412526_4.png"
     ],
     "video_files": []
   },
@@ -36,9 +54,9 @@
     "prompt": "Shrek is reading to Donkey a big \"SRE book\".\nIt's the last page, with written \"The END\".\nThey seem both satisfied and happy.\n\nA cute little colorful \"Google\" Logo on the bottom of the image.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_048fdaa7_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3805041f_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_07836357_3.png"
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_048fdaa7_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3805041f_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_07836357_3.png"
     ],
     "video_files": []
   },
@@ -46,10 +64,10 @@
     "prompt": "Shrek is reading to Donkey a big \"SRE book\".\nIt's the last page, with written \"The END\".\nThey seem both satisfied and happy.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_37fef4ca_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_01170454_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_858bf008_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3afdb4ee_4.png"
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_37fef4ca_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_01170454_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_858bf008_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3afdb4ee_4.png"
     ],
     "video_files": []
   },
@@ -57,8 +75,8 @@
     "prompt": "A cute robotic Shrek is Actively Nurturing Success, and telling Fiona she's really good at the job.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_214cdb3a_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_11005893_2.png"
+      "streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_214cdb3a_1.png",
+      "streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_11005893_2.png"
     ],
     "video_files": []
   },
@@ -66,9 +84,9 @@
     "prompt": "A cute Shrek-faced robot is Actively Nurturing Success, and telling Fiona she's really good at the job.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_94a441bc_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_dffbd707_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_8011263a_3.png"
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_94a441bc_1.png",
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_dffbd707_2.png",
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_8011263a_3.png"
     ],
     "video_files": []
   },
@@ -76,7 +94,7 @@
     "prompt": "A cute Shrek-robot  with Shrek's face is Actively Nurturing Success, and telling Fiona she's really good.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_Shrekrobot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_rea_c65749b7_1.png"
+      "streamlit/generated_images/20250324_A_cute_Shrekrobot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_rea_c65749b7_1.png"
     ],
     "video_files": []
   },
@@ -84,9 +102,9 @@
     "prompt": "A cute robot  with Shrek's face is Actively Nurturing Success, and telling Fiona she's really good.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_8e4822b7_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_6fddf0dc_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_f5d53b4d_3.png"
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_8e4822b7_1.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_6fddf0dc_2.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_f5d53b4d_3.png"
     ],
     "video_files": []
   },
@@ -94,10 +112,10 @@
     "prompt": "A cute robot  with Shrek's face is playing with toys and tools.\nHe's very intent in the work he's doing.\nAn \"SRE\" book is half-open on the ground.",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_2b6e78fe_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_501f41e0_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_fb20a429_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_6412d67e_4.png"
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_2b6e78fe_1.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_501f41e0_2.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_fb20a429_3.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_6412d67e_4.png"
     ],
     "video_files": []
   },
@@ -105,10 +123,10 @@
     "prompt": "A Shrek-shaped cute robot is playing with toys and tools.\nHe's very intent in the work he's doing.\nAn \"SRE\" book is half-open on the ground",
     "classification": "image_prompt",
     "image_files": [
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_0ded2440_1.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_819124d3_2.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_7b44c5b4_3.png",
-      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_bfb11048_4.png"
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_0ded2440_1.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_819124d3_2.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_7b44c5b4_3.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_bfb11048_4.png"
     ],
     "video_files": []
   },
@@ -338,17 +356,6 @@
       "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4",
       "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4",
       "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4"
-    ]
-  },
-  {
-    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
-    "classification": "video_prompt",
-    "image_files": [],
-    "video_files": [
-      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-4.mp4",
-      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-3.mp4",
-      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-1.mp4",
-      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-2.mp4"
     ],
     "operation_id": "video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-"
   },
