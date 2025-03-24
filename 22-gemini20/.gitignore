@@ -6,7 +6,7 @@ dist/
 #grounding2better.spec
 *.spec
 out/
-video*mp4
+#video*mp4
 veo_error.json
 last-classification.json
 experiments/
