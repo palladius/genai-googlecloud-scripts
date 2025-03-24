@@ -1,5 +1,12 @@
 On my Mac, something happens to the compiled version:
 
+## P4 b/02
+
+the JSOn contains full paths which is incompatible with Mac/Linux:
+
+* BAD: /usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-1.mp4
+* WANTED: streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-1.mp4
+
 ## BUG Compiled imagen
 
 Funny thing is, starts creating generated pictures of an error prompt :)

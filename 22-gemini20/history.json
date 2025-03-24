@@ -1,5 +1,17 @@
 [
   {
+    "prompt": "Shrek wakes up in Turin, the view from Shrek to the Mole Antonelliana out of the window. On the bedside table, a small jar of Nutella. Beside it, a big book with written \"SRE book\"; Shrek puts on his glasses and opens the SRE book. Camera zooms in into the book content",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-1.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-2.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-3.mp4",
+      "/usr/local/google/home/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/996c8765-b641-4fff-a30f-753279c294b0"
+  },
+  {
     "prompt": "Camera is black.\nTitle says \"/dev/cloud Day\".\nCamera fades in, revealing Istanbul vibrant City.\nGoogle Cloud logo flying from the sky everywhere.\nThe camera fades out, then the view goes to above Istiklal Caddesi to move then to Aya Sophia.\nOn a distance, an Android is taking pictures of the Google Cloud logos, with \"GDG\" on Android's chest.",
     "classification": "video_prompt",
     "image_files": [],
