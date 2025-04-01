@@ -14,8 +14,8 @@
   "prompt": "A middle-age Milan-inspired village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market in front of Milan Duomo cathedral. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_8d23698b_2.png",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_4e9f0e1d_4.png"
+      "streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_8d23698b_2.png",
+      "streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_4e9f0e1d_4.png"
     ],
     "video_files": []
   },
@@ -34,8 +34,8 @@
     "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_5bb7ea03_2.png",
-      "/Users/ricc/git/genai-googlecloud-scripts/22-gemini20/streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_be835e9d_3.png"
+      "streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_5bb7ea03_2.png",
+      "streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_be835e9d_3.png"
     ],
     "video_files": []
   },

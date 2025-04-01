@@ -2,6 +2,8 @@
 # List JUST targets
 list:
     just -l
+    glow README.md
+#go install -v github.com/charmbracelet/glow@latest
 
 
 # python packetizes the quickest of them all - a SAMPLE PRINTF. 11sec first time, 1s afterwards.
