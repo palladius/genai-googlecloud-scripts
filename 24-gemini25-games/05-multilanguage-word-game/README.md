@@ -1,0 +1,42 @@
+aa
+
+I have two kids who are 5 and 7 and they're native in English, Italian and German; the big one is also leaarning French (!). I would like to build a fun game which they can play on a mobile. I was thinking of an anagram game where they need to position the words correctly when they start anagrammed. Since they're starting to read, I think giving them a visual feedback of what they're trying to build could help. You will have a list of words in the three languages, for each you'll have a structure like this:
+
+words = [
+    {emoji: '🍎', it: 'mela', en: 'apple', de: 'apfel', fr: 'pomme' },
+    {emoji: '👀', it: 'occhi', en: 'eyes', de: 'eigen', fr: 'yeux' },
+]
+
+## 2.
+
+
+1. I noticed the game does work perfectly on my computer but on mobile it doesnt. This is because a drag and drop on the letter on my android is consiedered me trying to resize the page. Please play with CSS or HTML so the page is STATIC and i cant increase or decrease it. This will hopefully fix the drag and drop problem on mobile.
+
+2. even with your fix, I get this error on https://editor.p5js.org/ console:
+
+
+```
+TypeError: p.preventDefault is not a function
+
+🌸 p5.js says:
+
+[sketch.js, line 662] "preventDefault" could not be called as a function.
+
+Verify whether "p" has "preventDefault" in it and check the spelling, letter-casing (JavaScript is case-sensitive) and its type.
+
+
+
++ More info: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Errors/Not_a_function#What_went_wrong
+
+┌[blob:https://preview.p5js.org/a850d3b5-2295-4aba-875e-09102620f5ea:662:12]
+
+Error at line 662 in handleKeyPressed()
+
+└[blob:https://preview.p5js.org/a850d3b5-2295-4aba-875e-09102620f5ea:791:26]
+
+Called from line 791 in p.keyPressed()
+```
+
+## 3.
+
+please paste the WHOLE new sketch.js - Im afraid I might do it wrong.
