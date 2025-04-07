@@ -73,3 +73,7 @@ If I may suggest a refcator, we could do something like this:
 3. If my finger touches any of those 4 letters, uncolor all letters and swap A with the touched letter.
 
 Maybe this different behaviour can have its own code and might be easier to test. Just an idea.
+
+## 1.5.0 and it works
+
+AND IT WORKS! YES! One last thing. I'd like to separate business logic from words. Can we move the `const words` somewhere else? You choose whatever it makes more sense! Could be another .js or a JSON file. Ideally we can take it locally (/words.js or /words.json). If this doesnt like, we can also pick it from Github as a public resource. Tell me which implementation you prefer and why so I learn something new. I'm not a great JS or clientside developer, I'm just used to ServerSide coding.
