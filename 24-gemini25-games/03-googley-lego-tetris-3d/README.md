@@ -26,7 +26,9 @@ They board will memorize what you put down in a chessboard which is 16x16 and sa
     * Some sort of gray shadow (or darker brick's color) will help the player understand where the piece is going to land, in the three-dimensions. This can be hard to see, given the space.
 * Upon game over, have a dramatic and fun rotation of my creation.
 
-##
+## Other iterations
+
+*I forgot to paste them here sorry*
 
 ## p5
 
@@ -34,6 +36,6 @@ ok I pushed to mobile and indeed there are areas where I can move up and left, b
 
 - 85% on top: where the bricks go down and container and everything. Here tapping would produce tilting of the 3d as the Easycam tab is designed to do.
 
-- 15% below (well separated from a horiuontal gray line). Here you put the 6 controls: left/right, up/down, rotate (big), and drop fast (small button - if pressed by mistake its error prone).
+- 15% below (well separated from a horizontal gray line). Here you put the 6 controls: left/right, up/down, rotate (big), and drop fast (small button - if pressed by mistake its error prone).
 
 Please give me the code that visualizes those 6 buttons in ALL visualizations, and its clickable by mouse in normal mode, since the developer feedback loop for mouse and click on Desktop is immediate (seconds), on phone its longer (I need to just trust, deploy, free cache, test omn mobile, so it takes one minute).
