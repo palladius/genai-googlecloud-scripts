@@ -13,16 +13,18 @@ write a python script which:
 
 fantastic! Now I'd like each URL to be saved under "out/rag/" folder with a unique file, something like "{url-with-sanitze-characters-chopped to max 64 chars}-{url-md5}.md" This should save also the WHOLE url content in the markdown under "## Full content" for RAG purposes.
 
-Usage (used for wotk asnd its amazing!):
+Usage (used for work and its amazing!):
 
 1.
 
 2. python url-inquirer.py https://medium.com/@palladiusbonton/wip-code-3d-kid-games-with-gemini-2-5-d580d6b9802b 'For each of the 5 Riccardo apps (not Paolos) create a H2 (##) with game title, two bullet points with link to the code and to the app, and then a summary of what the game does with some emojis'
 
+3. python url-inquirer.py https://medium.com/@palladiusbonton/wip-code-3d-kid-games-with-gemini-2-5-d580d6b9802b 'Please spell check it and propose an array of modifications (current vs proposed change, and reason if needed) '
 '''
 
 import requests
 from bs4 import BeautifulSoup
+import datetime
 from google import genai
 from google.genai import types
 from google.genai.types import Tool, GenerateContentConfig, GoogleSearch
@@ -39,11 +41,13 @@ from lib.filez import write_to_file
 #from veo1234 import APP_CHANGELOG  # Using the existing write_to_file
 
 
-VERSION = '1.2'
+VERSION = '1.4'
 MODEL_ID = "gemini-2.0-flash"
 OUT_FOLDER = "out/rag/inquiry/"
 APP_CHANGELOG = '''
-2024-04-07 v1.a Just spawned by url-synthetizer :)
+2024-04-07 v1.4 Persisting to file and doing some pindaric flights on the meta-prompting!
+2024-04-07 v1.3 First running version (and amazing!)
+2024-04-07 v1.2a Just spawned by url-synthetizer :)
 2024-03-09 v1.1 Now adding more interesting stuff, like writing to out/ and nice coloring.
 2024-03-09 v1.0 Gemini wrote this.
 '''
@@ -53,13 +57,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from constants import *
 
-# Configure your Gemini API key here
-#GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-#if not GEMINI_API_KEY:
-#    raise ValueError("GEMINI_API_KEY environment variable not set.")
-#genai.configure(api_key=GEMINI_API_KEY)
 client = genai.Client(api_key=GEMINI_API_KEY)
-
 
 def sanitize_filename(filename: str) -> str:
     """Sanitizes a string to be used as a filename."""
@@ -99,6 +97,8 @@ def apply_prompt_to_url_content(website_text: str, user_prompt: str) -> str:
     meta_prompt_template = f"""
 Given the following curled website, try to follow as well as you can the user instructions.
 Provide output in markdown, possibly in a structured way (tables, bullet points).
+Never use H1s or H2s in your answer, as your answer will be embedded in a H2 paragraph so if you use paragraphs
+please start from H3 going down.
 Humour and light behaviour is appreciated. User is based in Europe, so please use metric if needed.
 
 == USER INSTRUCTIONS ==
@@ -186,71 +186,36 @@ def process_url_with_prompt(url: str, prompt: str):
     text, raw_html = download_and_extract_text(url)
     if text:
         ret = apply_prompt_to_url_content(text, prompt)
-        print(f"RET: {ret}")
-        #title, summary = summarize_with_gemini(text)
-        # if title and summary:
-        #     print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
-        #     print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
+        #print(f"RET: {ret}")
+        try:
+            datetime_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            markdown_content = '''* **Synopsis**
 
-            # Create the file name
-        print("TODO create file name - not sure if this is relevant")
-            # url_hash = hashlib.md5(url.encode()).hexdigest()
-            # sanitized_url = sanitize_filename(url)
-            # filename = f"{sanitized_url}-{url_hash}.md"
-            # filepath = os.path.join(OUT_FOLDER, filename)
+* URL: {url}
+* Gemini model: {MODEL_ID}
+* Inquiry (user prompt): **{prompt}**
+* Date: {datetime_now}
+* App Version: {VERSION}
 
-            # # Create the directory if it doesn't exist
-            # os.makedirs(OUT_FOLDER, exist_ok=True)
-            # write_to_file(filepath, markdown_content)
-        # else:
-        #     print(f"Error: could not create title or summary for {url}")
-    else:
-        print(f"Skipping {url} due to download error.")
+Ricc: I'm leaving the only H1 here to make sure it is one level above any H2 Gemini might create.
 
-# def process_url(url: str):
-#     """Processes a single URL, summarizing its content and saving it to a file."""
-#     print(f"Processing {url}...")
-#     text, raw_html = download_and_extract_text(url)
-#     if text:
-#         title, summary = summarize_with_gemini(text)
-#         if title and summary:
-#             print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
-#             print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
+## Answer to inquiry
 
-#             # Create the file name
-#             url_hash = hashlib.md5(url.encode()).hexdigest()
-#             sanitized_url = sanitize_filename(url)
-#             filename = f"{sanitized_url}-{url_hash}.md"
-#             filepath = os.path.join(OUT_FOLDER, filename)
+'''.format(url=url, MODEL_ID=MODEL_ID, prompt=prompt, VERSION=VERSION, datetime_now=datetime_now)
+            markdown_content += ret
+            #print(f"[DEB] markdown_content: {Fore.CYAN}{markdown_content}{Style.RESET_ALL}")
 
-#             # Create the directory if it doesn't exist
-#             os.makedirs(OUT_FOLDER, exist_ok=True)
+                # Create the file name
+            url_hash = hashlib.md5(url.encode()).hexdigest()
+            sanitized_url = sanitize_filename(url)
+            filename = f"{sanitized_url}-{url_hash}.md"
+            filepath = os.path.join(OUT_FOLDER, filename)
 
-#             # Create the markdown content
-#             # markdown_content = f"""# {title}
-
-#             # URL: {url}
-#             # GeminiTitle: {title}
-
-#             # ## Summary
-
-#             # {summary}
-
-#             # ## Full Text content
-
-#             # ` ` `text
-#             # {text}
-#             # ` ` `
-
-#             # ## Full HTML
-
-#             # {raw_html}"""
-#             write_to_file(filepath, markdown_content)
-#         else:
-#             print(f"Error: could not create title or summary for {url}")
-#     else:
-#         print(f"Skipping {url} due to download error.")
-
+                # # Create the directory if it doesn't exist
+            os.makedirs(OUT_FOLDER, exist_ok=True)
+            write_to_file(filepath, markdown_content)
+        except Exception as e:
+            print(f"Error: could not create title or summary for {url}: => {e}")
 
 def get_urls_from_file(file_path: str) -> List[str]:
     """Reads URLs from a file, one URL per line, skipping lines starting with '#'."""
