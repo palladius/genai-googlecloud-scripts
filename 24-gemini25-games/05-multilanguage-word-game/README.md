@@ -1,4 +1,4 @@
-aa
+## initial prompt
 
 I have two kids who are 5 and 7 and they're native in English, Italian and German; the big one is also leaarning French (!). I would like to build a fun game which they can play on a mobile. I was thinking of an anagram game where they need to position the words correctly when they start anagrammed. Since they're starting to read, I think giving them a visual feedback of what they're trying to build could help. You will have a list of words in the three languages, for each you'll have a structure like this:
 
@@ -7,13 +7,12 @@ words = [
     {emoji: '👀', it: 'occhi', en: 'eyes', de: 'eigen', fr: 'yeux' },
 ]
 
-## 2.
+## 2. first correction
 
 
 1. I noticed the game does work perfectly on my computer but on mobile it doesnt. This is because a drag and drop on the letter on my android is consiedered me trying to resize the page. Please play with CSS or HTML so the page is STATIC and i cant increase or decrease it. This will hopefully fix the drag and drop problem on mobile.
 
 2. even with your fix, I get this error on https://editor.p5js.org/ console:
-
 
 ```
 TypeError: p.preventDefault is not a function
@@ -37,6 +36,6 @@ Error at line 662 in handleKeyPressed()
 Called from line 791 in p.keyPressed()
 ```
 
-## 3.
+## 3. Reiterate I want the whole code, not the delta: I'm not *that* smart
 
 please paste the WHOLE new sketch.js - Im afraid I might do it wrong.
