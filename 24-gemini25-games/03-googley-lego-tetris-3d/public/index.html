@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Googley Blox 3D (v2.1b)</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://freshfork.github.io/p5.EasyCam/p5.easycam.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="canvas-holder"></div>
+        <div id="top-overlay">
+            <h1 id="game-title">Googley Blox 3D</h1>
+            <div id="score-display">Score: 0</div>
+            <div id="game-over-message" style="display: none;">GAME OVER!</div>
+        </div>
+        <div id="control-panel">
+            <button id="btn-left" class="control-button btn-blue">⬅️</button>
+            <button id="btn-right" class="control-button btn-blue">➡️</button>
+            <button id="btn-fwd" class="control-button btn-green">⬆️</button>
+            <button id="btn-back" class="control-button btn-green">⬇️</button>
+            <button id="btn-rotate" class="control-button btn-yellow btn-large">🔄</button>
+            <button id="btn-drop" class="control-button btn-red btn-small">⏬</button>
+        </div>
+    </div>
+    <script src="sketch.js"></script>
+</body>
+</html>
