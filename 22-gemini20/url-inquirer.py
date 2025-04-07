@@ -1,5 +1,8 @@
 
 '''
+Spawned by URL Synthetizer as I can't just add a custom prompt to it. US expects a certain format in output.
+Here We DONT :)
+
 Given N URLs in CLI (or a --url-files <urls.txt> with a \n separated list of URLs),
 write a python script which:
 - downloads them and extracts text.
@@ -29,10 +32,11 @@ from lib.filez import write_to_file
 #from veo1234 import APP_CHANGELOG  # Using the existing write_to_file
 
 
-VERSION = '1.1'
+VERSION = '1.2'
 MODEL_ID = "gemini-2.0-flash"
-OUT_FOLDER = "out/rag/"
+OUT_FOLDER = "out/rag/inquiry/"
 APP_CHANGELOG = '''
+2024-04-07 v1.a Just spawned by url-synthetizer :)
 2024-03-09 v1.1 Now adding more interesting stuff, like writing to out/ and nice coloring.
 2024-03-09 v1.0 Gemini wrote this.
 '''
@@ -78,11 +82,12 @@ def download_and_extract_text(url: str) -> tuple[str, str]:
         print(f"Error downloading {url}: {e}")
         return "", ""
 
-def summarize_with_gemini(text: str) -> tuple[str, str]:
+def summarize_with_gemini(text: str, prompt: str = None) -> tuple[str, str]:
     """Summarizes the given text and suggests a title using Gemini."""
     #model = genai.GenerativeModel('gemini-pro')
     #model = MODEL_ID
-    prompt = f"""
+    if prompt is None:
+        prompt = f"""
         Please summarize the following text and suggest a suitable title for it.
         Provide the output in markdown format, with the title in a single line, starting with 'Title: '.
         Then, a line with the summary starting with 'Summary: '.
@@ -114,6 +119,39 @@ def summarize_with_gemini(text: str) -> tuple[str, str]:
         print(f"Error generating summary with Gemini: {e}")
         return "",""
 
+
+def process_url_with_prompt(url: str, prompt: str):
+    '''Processes ONE url with one prompt.
+
+    ARGS:
+      url:  eg www.google.com
+      prompt: eg "summarize this in Italian"
+    '''
+    print(f"Processing {url}...")
+    text, raw_html = download_and_extract_text(url)
+    if text:
+        ret = apply_prompt_to_url_content(text, prompt)
+        print(f"RET: {ret}")
+        #title, summary = summarize_with_gemini(text)
+        # if title and summary:
+        #     print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
+        #     print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
+
+            # Create the file name
+        print("TODO create file name - not sure if this is relevant")
+            # url_hash = hashlib.md5(url.encode()).hexdigest()
+            # sanitized_url = sanitize_filename(url)
+            # filename = f"{sanitized_url}-{url_hash}.md"
+            # filepath = os.path.join(OUT_FOLDER, filename)
+
+            # # Create the directory if it doesn't exist
+            # os.makedirs(OUT_FOLDER, exist_ok=True)
+            # write_to_file(filepath, markdown_content)
+        # else:
+        #     print(f"Error: could not create title or summary for {url}")
+    else:
+        print(f"Skipping {url} due to download error.")
+
 def process_url(url: str):
     """Processes a single URL, summarizing its content and saving it to a file."""
     print(f"Processing {url}...")
@@ -134,24 +172,24 @@ def process_url(url: str):
             os.makedirs(OUT_FOLDER, exist_ok=True)
 
             # Create the markdown content
-            markdown_content = f"""# {title}
+            # markdown_content = f"""# {title}
 
-URL: {url}
-GeminiTitle: {title}
+            # URL: {url}
+            # GeminiTitle: {title}
 
-## Summary
+            # ## Summary
 
-{summary}
+            # {summary}
 
-## Full Text content
+            # ## Full Text content
 
-```text
-{text}
-```
+            # ` ` `text
+            # {text}
+            # ` ` `
 
-## Full HTML
+            # ## Full HTML
 
-{raw_html}"""
+            # {raw_html}"""
             write_to_file(filepath, markdown_content)
         else:
             print(f"Error: could not create title or summary for {url}")
@@ -170,21 +208,55 @@ def get_urls_from_file(file_path: str) -> List[str]:
         return []
 
 
-def process_urls(urls: List[str]):
+def process_urls_with_prompt(urls: List[str], prompt: str):
     """Processes a list of URLs, summarizing their content and saving them to files."""
     for url in urls:
-        process_url(url)
+        process_url_with_prompt(url, prompt)
 
+
+
+def get_prompt_from_source(prompt_file, argv_urls):
+    """Gets the prompt from either a file or command-line arguments."""
+    if prompt_file:
+        try:
+            with open(prompt_file, "r") as f:
+                prompt = f.read().strip()
+        except FileNotFoundError:
+            print(f"Error: Prompt file '{prompt_file}' not found.")
+            return None
+        except Exception as e:
+            print(f"Error reading prompt file '{prompt_file}': {e}")
+            return None
+    elif argv_urls:
+        # Extract prompt from command-line arguments, excluding URLs
+        prompt = " ".join(arg for arg in argv_urls if not arg.startswith("https://"))
+    else:
+        prompt = None  # Handle case where no prompt is provided
+
+    return prompt
 
 def main():
     """Main function to handle command-line arguments and process URLs."""
     parser = argparse.ArgumentParser(description="Summarize web pages using Gemini.")
+
+    parser.add_argument("-p", "--prompt", help="Path to a file containing the prompt.")
+
     parser.add_argument('urls', metavar='URL', type=str, nargs='*',
                         help='URLs to summarize.')
     parser.add_argument('--url-file', dest='url_file',
                         help='File containing URLs to summarize (one per line).')
+    # Add a -p/--prompt to get prompt from file. Alternatively, the prompt will just be everything except the URLs (ARGV.join(' ') without things starting with HTTPS://...
+    # which instead goes to increase the arg.urls
+
+
 
     args = parser.parse_args()
+
+    prompt = get_prompt_from_source(args.prompt, args.urls)
+    if prompt is None:
+            print("No prompt provided. Please provide a prompt using -p/--prompt or as command-line arguments.")
+            parser.print_help()
+            return
 
     if args.url_file:
         urls = get_urls_from_file(args.url_file)
@@ -199,7 +271,9 @@ def main():
     print(f"1. URLs to process: {Fore.GREEN}{urls}{Style.RESET_ALL}")
     print(f"2. Output folder: {Fore.GREEN}{OUT_FOLDER}{Style.RESET_ALL}")
     print(f"3. Model: {Fore.GREEN}{MODEL_ID}{Style.RESET_ALL}")
-    process_urls(urls)
+    print(f"4. Prompt: {Fore.GREEN}{prompt}{Style.RESET_ALL}")
+    exit(42)
+    process_urls_with_prompt(urls, prompt=prompt)
 
 if __name__ == "__main__":
     main()
