@@ -12,6 +12,13 @@ write a python script which:
 ...
 
 fantastic! Now I'd like each URL to be saved under "out/rag/" folder with a unique file, something like "{url-with-sanitze-characters-chopped to max 64 chars}-{url-md5}.md" This should save also the WHOLE url content in the markdown under "## Full content" for RAG purposes.
+
+Usage (used for wotk asnd its amazing!):
+
+1.
+
+2. python url-inquirer.py https://medium.com/@palladiusbonton/wip-code-3d-kid-games-with-gemini-2-5-d580d6b9802b 'For each of the 5 Riccardo apps (not Paolos) create a H2 (##) with game title, two bullet points with link to the code and to the app, and then a summary of what the game does with some emojis'
+
 '''
 
 import requests
