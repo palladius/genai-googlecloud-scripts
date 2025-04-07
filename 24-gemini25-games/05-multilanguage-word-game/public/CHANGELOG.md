@@ -2,6 +2,7 @@
 ## CHANGELOG
 
 ```
+v1.5.5 the words.json refactor doesnt work on firebase. Trying adding a "Loading words" on home page. Still broken.
 v1.5.4 many back and forth now it seems to work with the JSON refactor.
 ...
 v1.5.0 took my suggestion. AND IT WORKS!
