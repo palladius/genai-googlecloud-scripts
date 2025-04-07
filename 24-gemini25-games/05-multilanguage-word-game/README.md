@@ -39,3 +39,18 @@ Called from line 791 in p.keyPressed()
 ## 3. Reiterate I want the whole code, not the delta: I'm not *that* smart
 
 please paste the WHOLE new sketch.js - Im afraid I might do it wrong.
+
+## 4. ...
+
+
+## 5.
+
+1. Interesting. The keyboard pressed works on p5js.org editor, but in the version I pushed. It seems the only difference is the viewport line on index.html which I have on my local comptuer (and pushed via firebase). I removed that and it works! Fixed. Just take note I had to remove the viewport.
+
+2. Lets change the behaviour of the keyboard pressed. When you press the first -> yellow -> I like that. When you press the second, do not wait for ENTER. Just swap! So we can remove the enter binding and simplify the coding.
+
+3. The drag and drop on mobile functionality is STILL broken. Actually, I click on letter "U" and I got a letter Uw chich follows my finger anywhere and I can't pressy anything else, event he reset game. This is clearly malfunctioning.
+
+4. Lets explicitly add a version in JS we bump every time we improve the code. This gives me a good visual feedback loop and help me understand if I refreshed the version online (browsers are quite cache-greedy you know!). Let's start with 1.4.0.
+
+## TODO refactor the words in a different file.

@@ -29,8 +29,7 @@ WIP
 
 WIP
 
-## Game 5
+## Game 5: multilanguage word game (anagrams)
 
 Prod URL: https://zurigram.web.app/
-Code: under [05-multilanguage-word-game/](05-multilanguage-word-game/) `05-multilanguage-word-game/` folder.
-
+Code: under [05-multilanguage-word-game/](05-multilanguage-word-game/) folder.
