@@ -82,13 +82,61 @@ def download_and_extract_text(url: str) -> tuple[str, str]:
         print(f"Error downloading {url}: {e}")
         return "", ""
 
+
+def apply_prompt_to_url_content(website_text: str, user_prompt: str) -> str:
+    '''given a website content and a prompt, call Gemini to generate a response.
+
+    '''
+
+    # If instructions are unclear, just ignore them and summarize the content with plenty of emojis instead.
+    meta_prompt_template = f"""
+Given the following curled website, try to follow as well as you can the user instructions.
+Provide output in markdown, possibly in a structured way (tables, bullet points).
+Humour and light behaviour is appreciated. User is based in Europe, so please use metric if needed.
+
+== USER INSTRUCTIONS ==
+
+{{user_prompt}}
+
+=== Website Text (obtained via curl) ===
+
+{{website_text}}
+"""
+    # substitute website_text and user_prompt here:
+    meta_prompt = meta_prompt_template.format(website_text=website_text, user_prompt=user_prompt)
+    print(meta_prompt)
+    try:
+        response = client.models.generate_content(
+            model=MODEL_ID,
+            contents=meta_prompt,
+            config=GenerateContentConfig(
+                response_modalities=["TEXT"],
+            )
+        )
+        print(f"DEB response: {response}")
+        return response.text
+        # Extract the summary and title from response
+        # title = ""
+        # summary = ""
+        # for line in response.text.splitlines():
+        #     if line.startswith("Title: "):
+        #         title = line[7:].strip()
+        #     elif line.startswith("Summary: "):
+        #         summary = line[9:].strip()
+
+        # return title, summary
+
+    except Exception as e:
+        print(f"Error generating summary with Gemini: {e}")
+        return "",""
+
 def summarize_with_gemini(text: str, prompt: str = None) -> tuple[str, str]:
     """Summarizes the given text and suggests a title using Gemini."""
     #model = genai.GenerativeModel('gemini-pro')
     #model = MODEL_ID
-    if prompt is None:
-        prompt = f"""
-        Please summarize the following text and suggest a suitable title for it.
+
+    meta_prompt = f"""
+        Given the following curled website
         Provide the output in markdown format, with the title in a single line, starting with 'Title: '.
         Then, a line with the summary starting with 'Summary: '.
         Text:
@@ -152,49 +200,49 @@ def process_url_with_prompt(url: str, prompt: str):
     else:
         print(f"Skipping {url} due to download error.")
 
-def process_url(url: str):
-    """Processes a single URL, summarizing its content and saving it to a file."""
-    print(f"Processing {url}...")
-    text, raw_html = download_and_extract_text(url)
-    if text:
-        title, summary = summarize_with_gemini(text)
-        if title and summary:
-            print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
-            print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
+# def process_url(url: str):
+#     """Processes a single URL, summarizing its content and saving it to a file."""
+#     print(f"Processing {url}...")
+#     text, raw_html = download_and_extract_text(url)
+#     if text:
+#         title, summary = summarize_with_gemini(text)
+#         if title and summary:
+#             print(f"Title: {Fore.CYAN}{title}{Style.RESET_ALL}")
+#             print(f"Summary: {Fore.YELLOW}{summary}{Style.RESET_ALL}")
 
-            # Create the file name
-            url_hash = hashlib.md5(url.encode()).hexdigest()
-            sanitized_url = sanitize_filename(url)
-            filename = f"{sanitized_url}-{url_hash}.md"
-            filepath = os.path.join(OUT_FOLDER, filename)
+#             # Create the file name
+#             url_hash = hashlib.md5(url.encode()).hexdigest()
+#             sanitized_url = sanitize_filename(url)
+#             filename = f"{sanitized_url}-{url_hash}.md"
+#             filepath = os.path.join(OUT_FOLDER, filename)
 
-            # Create the directory if it doesn't exist
-            os.makedirs(OUT_FOLDER, exist_ok=True)
+#             # Create the directory if it doesn't exist
+#             os.makedirs(OUT_FOLDER, exist_ok=True)
 
-            # Create the markdown content
-            # markdown_content = f"""# {title}
+#             # Create the markdown content
+#             # markdown_content = f"""# {title}
 
-            # URL: {url}
-            # GeminiTitle: {title}
+#             # URL: {url}
+#             # GeminiTitle: {title}
 
-            # ## Summary
+#             # ## Summary
 
-            # {summary}
+#             # {summary}
 
-            # ## Full Text content
+#             # ## Full Text content
 
-            # ` ` `text
-            # {text}
-            # ` ` `
+#             # ` ` `text
+#             # {text}
+#             # ` ` `
 
-            # ## Full HTML
+#             # ## Full HTML
 
-            # {raw_html}"""
-            write_to_file(filepath, markdown_content)
-        else:
-            print(f"Error: could not create title or summary for {url}")
-    else:
-        print(f"Skipping {url} due to download error.")
+#             # {raw_html}"""
+#             write_to_file(filepath, markdown_content)
+#         else:
+#             print(f"Error: could not create title or summary for {url}")
+#     else:
+#         print(f"Skipping {url} due to download error.")
 
 
 def get_urls_from_file(file_path: str) -> List[str]:
@@ -261,7 +309,8 @@ def main():
     if args.url_file:
         urls = get_urls_from_file(args.url_file)
     else:
-        urls = args.urls
+#        urls = args.urls
+        urls = [arg for arg in args.urls if arg.startswith("http")] # Filter out non-HTTP args
 
     if not urls:
         print("No URLs provided. Please provide URLs as command line arguments or using --url-file.")
@@ -272,7 +321,7 @@ def main():
     print(f"2. Output folder: {Fore.GREEN}{OUT_FOLDER}{Style.RESET_ALL}")
     print(f"3. Model: {Fore.GREEN}{MODEL_ID}{Style.RESET_ALL}")
     print(f"4. Prompt: {Fore.GREEN}{prompt}{Style.RESET_ALL}")
-    exit(42)
+    #exit(42)
     process_urls_with_prompt(urls, prompt=prompt)
 
 if __name__ == "__main__":
