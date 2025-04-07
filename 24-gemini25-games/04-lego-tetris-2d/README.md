@@ -3,6 +3,10 @@
 * when: 5apr25
 * model: gemini2.5
 * rendered in https://editor.p5js.org/
+* editor page: https://gemini.google.com/corp/app/0e3471c657935603
+* app: https://legoey-2d-carlessian-tetris.web.app/
+* video: https://youtu.be/9Tz4HJxsKU4
+
 
 ## Prompt
 

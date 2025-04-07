@@ -17,6 +17,7 @@ load_dotenv()
 APP_VERSION = '1.3b'
 APP_NAME = 'Image Generation Tool'
 APP_HISTORY = '''
+Seems broken !!
 TODO: add save_to_gcs() functionality too.
 2025-03-07 v1.3 Set up $0 and moved code to lib/ for better code reuse.
 ...
@@ -31,6 +32,7 @@ def print_help():
     # Better functionality: https://stackoverflow.com/questions/59297692/python-obtaining-the-oss-argv0-not-sys-argv0
     script_name = os.path.basename(sys.argv[0])
 
+    script_name = "python " + script_name
     print(f"""
 {APP_NAME} v{APP_VERSION}
 
@@ -49,6 +51,7 @@ Examples:
     {script_name} A futuristic cityscape at sunset with 4-colored traffic lights, in the style of Dali.
     {script_name} The swiss village of Duloc, with a lake, surrounded by alps, in the style of Shrek and Dreamworks.
     {script_name} 'Sicilian Volcano Etna erupts: From its lava emerges a beautiful fiery phoenix, in the style of Pixar'
+    {script_name} 'A funny robotic puffin, surrounded by playful students, is coding a kids game on a computer. The computer screen shows a funny game. The image has a cartoon Shrek style. The robot has a tshirt with written "Gemini 2.5"'
     """)
     sys.exit(0)
 
@@ -81,6 +84,13 @@ def generate_images(image_prompt, out_folder='out/', also_show_image=True):
     )
 
     image_counter = 1
+    # if not os.path.exists(out_folder):
+    #     os.makedirs(out_folder)
+    if not response.generated_images:
+        print("No image was generated. Probably some issue with the prompt.")
+        print(f"response for you to investigate: {Fore.RED}{response}{Style.RESET_ALL}")
+        return []
+
     for generated_image in response.generated_images:
         image = Image.open(BytesIO(generated_image.image.image_bytes))
         if also_show_image:
