@@ -3,7 +3,7 @@
 // Changes: Added visible word load status. Refined preload logic for robustness.
 
 // --- lib/config.js ---
-const GAME_VERSION = "1.5.5"; // Updated version number
+const GAME_VERSION = "1.57"; // Updated version number
 // (Rest of config, colors, utils, placeholder, game_state remain the same)
 const MAX_WORDS_PER_GAME = 5; const SCORE_THRESHOLDS = { fast: 30, medium: 60, slow: 120 }; const SCORE_POINTS = { fast: 100, medium: 50, slow: 25, slowest: 10 }; const DEFAULT_LETTER_SIZE = 40; const DEFAULT_LETTER_SPACING = 10; const DEFAULT_FLAG_SIZE = 30; const HEADER_HEIGHT_PERCENT = 0.15; const GAME_AREA_HEIGHT_PERCENT = 1.0 - HEADER_HEIGHT_PERCENT; const BACKGROUND_COLOR = '#f0f8ff'; const FONT_SIZE_UI = 18; const FONT_SIZE_EMOJI = 50; const FONT_SIZE_LETTER = 30;
 const COLORS = { text: '#333333', loadStatusText: '#555555', loadErrorText: '#ff0000', letterBg: '#ffffff', letterBgSelected: '#ffff99', letterBgSelectedKeyboard: '#add8e6', letterBgTouchSelectedSource: '#d3d3d3', letterBgTouchTarget: '#ffb6c1', letterBorder: '#cccccc', correctHighlight: '#90ee90', buttonBg: '#87cefa', buttonText: '#ffffff', buttonHover: '#4682b4', toggleOn: '#90ee90', toggleOff: '#d3d3d3', resetButtonBg: '#ff6347', resetButtonHover: '#dc143c', };
@@ -20,7 +20,8 @@ let touchSelectionState = { active: false, langIndex: -1, letterIndex: -1 };
 let uiElements = { langToggles: [], difficultyButtons: [], startButton: null, playAgainButton: null, resetButton: null };
 
 // --- Global variable for word loading status ---
-let wordLoadStatus = "Loading words..."; // Default message
+let wordLoadStatus = "Loading words from GitHub..."; // Default message
+const githubURL = 'https://raw.githubusercontent.com/palladius/genai-googlecloud-scripts/refs/heads/main/24-gemini25-games/05-multilanguage-word-game/public/words.json';
 
 
 // --- lib/drawing.js ---
@@ -103,7 +104,7 @@ const sketch = (p) => {
         // *** UPDATED PRELOAD LOGIC ***
         wordLoadStatus = "Loading words..."; // Reset status at start of preload
         try {
-            p.loadJSON('words.json',
+            p.loadJSON(githubURL, // 'words.json',
                 // Success Callback
                 (rawData) => {
                     console.log("loadJSON success callback fired. Data type:", typeof rawData);
@@ -127,7 +128,7 @@ const sketch = (p) => {
                     // Assign FINAL array to global words and update status
                     words = processedData;
                     if (Array.isArray(words) && words.length > 0) {
-                         wordLoadStatus = `Loaded ${words.length} words.`;
+                         wordLoadStatus = `Loaded ${words.length} words from github.`;
                          console.log(`Success: Global words assigned (Array, ${words.length})`);
                     } else {
                          // Update status if conversion failed or data was invalid
