@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dragon Runner Game</title>
+    <style>
+      /* Basic styling to make canvas fit well */
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevent scrollbars from appearing */
+        background-color: #282323; /* Match background */
+        width: 100%; /* Ensure body takes full width */
+        height: 100%; /* Ensure body takes full height */
+      }
+      canvas {
+        display: block; /* Removes extra space below canvas */
+        margin: auto; /* Center canvas horizontally */
+        width: 100%; /* Make canvas take full width */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 100%; /* Prevent canvas from overflowing */
+        max-height: 100%; /* Prevent canvas from overflowing */
+      }
+    </style>
+    <!-- Load p5.js library from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    <!-- Optional: Load p5.js sound library if you plan to add sounds -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Your p5.js game script -->
+    <script src="sketch.js"></script>
+  </body>
+</html>

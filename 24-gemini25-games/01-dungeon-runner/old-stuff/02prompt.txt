@@ -1,0 +1,9 @@
+Oh wow this is amazing! Now please change the code in two ways:
+
+When you start you can choose among 4 named characters: a red dragon ("Ale"), a giraffe ("Seby"), a puffin ("Papino") or a waffle ("waffle"). Less pixelated than it is now please.
+
+with SPACE you have single/double jump - as it is
+
+with letter "f/F" you spit fire on obstacles and destroy them with a mini explosion effect. This gives you five points
+
+always visualize score on top right.

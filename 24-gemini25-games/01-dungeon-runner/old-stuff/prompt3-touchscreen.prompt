@@ -1,0 +1,9 @@
+it works perfectly! As you suggested, this does NOt work on mobile. Can you please give me the updated code to also work on touch screen? I would expect a few interactions:
+
+the initial choice of runner might just work tapping on the area of the 4 characters. If too difficult, a tap triggering a round robin ( move 1/2/3/4/1/2/3/4) woudl also work
+
+the fire would be a single tap to the right
+
+the jump would be a single tap on the left (on our character).
+
+can you code it for me?
