@@ -57,3 +57,19 @@ please paste the WHOLE new sketch.js - Im afraid I might do it wrong.
 1. In 1.4.1, please add the version to "Word Scramble fun" -> "Word Scramble Fun v{VERSION}".
 
 2. The drag and drop on mobile functionality is STILL broken. Actually, I click on letter "U" and I got a letter "U" chich follows my finger anywhere and I can't press anything else, even the reset game. This is clearly malfunctioning.
+
+## still doesnt work... 1.4.3
+
+No, same problem. if it helps:
+
+ the first letter is correctly interecepted. I click on 'G'  and now everywhere I tap over the screen, a yellow "G" appears there. I've tried tapping anywhere in the row where I took it, but it wont work. So it feels like the first action works, the second doesnt.
+
+If I may suggest a refcator, we could do something like this:
+
+1. if you click with mouse or use letters -> keep behaviour as it is, its GREAT
+
+2. If you tap with finger, say "A" in "ABCDE", make A light gray, and turn BCDE pink. Those are the only legal targets for me to land.
+
+3. If my finger touches any of those 4 letters, uncolor all letters and swap A with the touched letter.
+
+Maybe this different behaviour can have its own code and might be easier to test. Just an idea.

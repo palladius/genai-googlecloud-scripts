@@ -1,3 +1,4 @@
+v1.4.1 adding version to app, and tackling the browkn tap on mobile.
 v.1.4.0 Three big changes -> see readme. now the swap with keyboard is 2 simple selections. No ENTER anymore.
 v1.3.2 removed viewport from index.
 v1.3.1 i forgot to copy latest to code here
