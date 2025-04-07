@@ -2,6 +2,8 @@
 ## CHANGELOG
 
 ```
+v1.5.4 many back and forth now it seems to work with the JSON refactor.
+...
 v1.5.0 took my suggestion. AND IT WORKS!
 v1.4.1 adding version to app, and tackling the browkn tap on mobile.
 v.1.4.0 Three big changes -> see readme. now the swap with keyboard is 2 simple selections. No ENTER anymore.

@@ -1,0 +1,28 @@
+[
+    // easy
+    { "emoji": "🍎", "it": "mela", "en": "apple", "de": "apfel", "fr": "pomme", "difficulty": "easy" },
+    { "emoji": "👀", "it": "occhi", "en": "eyes", "de": "augen", "fr": "yeux", "difficulty": "easy" },
+    { "emoji": "🏠", "it": "casa", "en": "house", "de": "haus", "fr": "maison", "difficulty": "easy" },
+    { "emoji": "🐶", "it": "cane", "en": "dog", "de": "hund", "fr": "chien", "difficulty": "easy" },
+    { "emoji": "🐱", "it": "gatto", "en": "cat", "de": "katze", "fr": "chat", "difficulty": "easy" },
+    { "emoji": "☀️", "it": "sole", "en": "sun", "de": "sonne", "fr": "soleil", "difficulty": "easy" },
+    { "emoji": "🌙", "it": "luna", "en": "moon", "de": "mond", "fr": "lune", "difficulty": "easy" },
+    { "emoji": "💧", "it": "acqua", "en": "water", "de": "wasser", "fr": "eau", "difficulty": "easy" },
+    { "emoji": "🌳", "it": "albero", "en": "tree", "de": "baum", "fr": "arbre", "difficulty": "easy" },
+    { "emoji": "🚗", "it": "automobile", "en": "car", "de": "auto", "fr": "voiture", "difficulty": "easy" },
+    // medium
+    { "emoji": "🍓", "it": "fragola", "en": "strawberry", "de": "erdbeere", "fr": "fraise", "difficulty": "medium" },
+    { "emoji": "🐘", "it": "elefante", "en": "elephant", "de": "elefant", "fr": "éléphant", "difficulty": "medium" },
+    { "emoji": "⏰", "it": "orologio", "en": "clock", "de": "uhr", "fr": "horloge", "difficulty": "medium" },
+    { "emoji": "🦋", "it": "farfalla", "en": "butterfly", "de": "schmetterling", "fr": "papillon", "difficulty": "medium" },
+    { "emoji": "🌻", "it": "girasole", "en": "sunflower", "de": "sonnenblume", "fr": "tournesol", "difficulty": "medium" },
+    { "emoji": "🌍", "it": "mondo", "en": "world", "de": "welt", "fr": "monde", "difficulty": "medium" },
+    { "emoji": "🎤", "it": "microfono", "en": "microphone", "de": "mikrofon", "fr": "microphone", "difficulty": "medium" },
+    // hard
+    { "emoji": "♊️", "it": "gemelli", "en": "twins", "de": "zwillinge", "fr": "jumeaux", "difficulty": "hard" },
+    { "emoji": "🧭", "it": "bussola", "en": "compass", "de": "kompass", "fr": "boussole", "difficulty": "hard" },
+    { "emoji": "🔬", "it": "microscopio", "en": "microscope", "de": "mikroskop", "fr": "microscope", "difficulty": "hard" },
+    { "emoji": "🤔", "it": "pensare", "en": "thinking", "de": "denken", "fr": "penser", "difficulty": "hard" },
+    { "emoji": "🚀", "it": "razzo", "en": "rocket", "de": "rakete", "fr": "fusée", "difficulty": "hard" },
+    { "emoji": "🥳", "it": "festa", "en": "party", "de": "party", "fr": "fête", "difficulty": "hard" }
+]

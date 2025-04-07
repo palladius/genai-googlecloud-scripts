@@ -77,3 +77,83 @@ Maybe this different behaviour can have its own code and might be easier to test
 ## 1.5.0 and it works
 
 AND IT WORKS! YES! One last thing. I'd like to separate business logic from words. Can we move the `const words` somewhere else? You choose whatever it makes more sense! Could be another .js or a JSON file. Ideally we can take it locally (/words.js or /words.json). If this doesnt like, we can also pick it from Github as a public resource. Tell me which implementation you prefer and why so I learn something new. I'm not a great JS or clientside developer, I'm just used to ServerSide coding.
+
+
+## 1.5.1 refactor and mistake
+
+Initiated loading words.json...
+words.json loaded successfully!
+Game Setup Complete! v1.5.1
+Words array is empty or failed to load after preload!
+TypeError: words.filter is not a function
+
+🌸 p5.js says:
+[sketch.js, line 93] "filter" could not be called as a function.
+Verify whether "words" has "filter" in it and check the spelling, letter-casing (JavaScript is case-sensitive) and its type.
+
++ More info: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Errors/Not_a_function#What_went_wrong
+┌[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:93:30]
+	 Error at line 93 in startGame()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:118:761]
+	 Called from line 118 in handleStartScreenInput()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:112:185]
+	 Called from line 112 in handleMousePressed()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:180:28]
+	 Called from line 180 in p.mousePressed()
+
+TypeError: words.filter is not a function
+
+🌸 p5.js says:
+[sketch.js, line 93] "filter" could not be called as a function.
+Verify whether "words" has "filter" in it and check the spelling, letter-casing (JavaScript is case-sensitive) and its type.
+
++ More info: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Errors/Not_a_function#What_went_wrong
+┌[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:93:30]
+	 Error at line 93 in startGame()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:118:761]
+	 Called from line 118 in handleStartScreenInput()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:112:185]
+	 Called from line 112 in handleMousePressed()
+└[blob:https://preview.p5js.org/f85930fb-d2f0-4f6e-a5c1-c11e20789497:180:28]
+	 Called from line 180 in p.mousePressed()
+
+### another small bug
+
+it works great! But I see a small bug in p5js editor:
+
+
+
+ReferenceError: clearTouchSelectionState is not defined
+
+
+
+
+
+🌸 p5.js says:
+
+[sketch.js, line 45] "clearTouchSelectionState" is not defined in the current scope. If you have defined it in your code, you should check its scope, spelling, and letter-casing (JavaScript is case-sensitive).
+
+
+
++ More info: https://p5js.org/tutorials/variables-and-change/
+
+┌[blob:https://preview.p5js.org/2854dbea-5739-46b0-b015-a163c97b9ade:45:849]
+
+Error at line 45 in startDragging()
+
+└[blob:https://preview.p5js.org/2854dbea-5739-46b0-b015-a163c97b9ade:38:320]
+
+Called from line 38 in handleMousePressed()
+
+└[blob:https://preview.p5js.org/2854dbea-5739-46b0-b015-a163c97b9ade:127:28]
+
+Called from line 127 in p.mousePressed()
+
+
+Mouse Drag ended at (338, 830)
+
+Dropped on target: lang 0, letter 0
+
+Swapping lang 0: idx 2 & 0
+
+Resetting mouse dragging state.
