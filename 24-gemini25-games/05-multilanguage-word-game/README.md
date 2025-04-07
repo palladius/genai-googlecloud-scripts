@@ -1,3 +1,7 @@
+## Pointers
+
+* Paolo app: https://teal-georgianne-19.tiiny.site/ (with Lithuanian and Dutch).
+
 ## initial prompt
 
 I have two kids who are 5 and 7 and they're native in English, Italian and German; the big one is also leaarning French (!). I would like to build a fun game which they can play on a mobile. I was thinking of an anagram game where they need to position the words correctly when they start anagrammed. Since they're starting to read, I think giving them a visual feedback of what they're trying to build could help. You will have a list of words in the three languages, for each you'll have a structure like this:
