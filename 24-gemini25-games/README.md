@@ -41,7 +41,7 @@ A Mario Bros clone featuring Riccardo's family (and the nanny!) as playable char
 
 *   **Code:** [02-smurfs-and-dragons]([02-smurfs-and-dragons/)
 *   **App:** [https://smurfs-and-dragons.web.app/](https://smurfs-and-dragons.web.app/)
-*
+
 ![alt text](image-1.png)
 
 Vertical shoot'em'up where the player army chooses between math operations such as "x3" or "+25" (blue, good), and "-10" or "/2" (red, bad). The player has to defeat dragons and smurfs, who represent the enemies.
