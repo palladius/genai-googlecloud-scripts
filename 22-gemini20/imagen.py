@@ -80,6 +80,8 @@ def generate_images(image_prompt, out_folder='out/', also_show_image=True):
         prompt=image_prompt,
         config=types.GenerateImagesConfig(
             number_of_images=4,
+            #aspect_ratio=types.AspectRatio.SQUARE,
+            #image_bytes_base64_encoded=True,
         )
     )
 

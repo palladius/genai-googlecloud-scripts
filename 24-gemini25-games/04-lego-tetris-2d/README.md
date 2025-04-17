@@ -7,7 +7,6 @@
 * app: https://legoey-2d-carlessian-tetris.web.app/
 * video: https://youtu.be/9Tz4HJxsKU4
 
-
 ## Prompt
 
 Design a 2D tetris clone where you can dump Lego pieces with the 4 colors of Google (red blue green yellow).
