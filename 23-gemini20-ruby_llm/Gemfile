@@ -1,5 +1,6 @@
 
 source "https://rubygems.org"
 
-gem 'ruby_llm'
+gem 'ruby_llm', '1.2.0'
+gem 'dotenv'
 gem 'rainbow'
