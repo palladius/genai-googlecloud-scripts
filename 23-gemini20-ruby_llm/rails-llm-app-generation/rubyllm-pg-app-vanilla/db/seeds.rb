@@ -17,6 +17,12 @@ else
   puts('🌱 some user found - skipping generating.')
 end
 
-puts('🌱 Creating a sample chat WITH TITLE and SUMMARY.')
+puts('🌱 Creating two samples chat WITH TITLE and SUMMARY.')
 
 chat_record = Chat.create!(user: User.first, title: 'Generated from seed.', summary: 'TOOD ricc generate only if this title doesnt exist. oh and make title unique per user_id.')
+
+chat2_with_instr = Chat.create!(
+  user: User.last,
+  title: 'Generated from seed (with Instructions)',
+  summary: 'TOOD ricc generate only if this title doesnt exist. oh and make title unique per user_id.')
+chat2_with_instr.with_instructions 'You only speak German and use emoji for anything. You try to be snarky and make humour but its not funny.'

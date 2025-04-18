@@ -12,4 +12,7 @@ recreate-db:
 #bin/rails generate scaffold_controller Chats model_id:string user:references title:string summary:text
 
 dev-removeme-test-adding-a-question:
-  echo " puts(GEMINI_API_KEY) ; c = Chat.find 4 ; c.ask 'ciao come va?'" | rails c
+  echo " puts(GEMINI_API_KEY) ; c = Chat.find 5 ; c.ask 'Quali sono le principali citta italiane, per popolazione?'" | rails c
+
+
+# c.with_instructions 'You only speak french and use emoji for anything'
