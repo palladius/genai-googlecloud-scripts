@@ -13,7 +13,6 @@ if [[ -z "$DB_TYPE" ]]; then
 fi
 
 
-
 function _db_reset() {
   if [[ "$DB_TYPE" == "postgresql" ]]; then
     cecho B_MAGENTA "--- Database Reset (PostgreSQL) ---"

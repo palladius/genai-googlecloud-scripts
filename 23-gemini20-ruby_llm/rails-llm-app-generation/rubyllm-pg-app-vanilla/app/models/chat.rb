@@ -14,8 +14,8 @@ class Chat < ApplicationRecord
   after_initialize :init
   def init
     self.model_id  ||= RubyLLM.config.default_model
-    self.user_id   ||= (current_user.id rescue nil)
-    #self.summary   ||= 'This is gonna be populated by Gemini later..'
+    #NONVA self.user_id   ||= current_user.id # 43 # (current_user.id rescue nil)
+    #self.summary   ||= '[This is gonna be populated by Gemini later..]'
   end
 
 end

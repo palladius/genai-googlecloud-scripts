@@ -4,7 +4,8 @@ class ChatsController < ApplicationController
   # GET /chats or /chats.json
   def index
     # TODO only for current_user
-    @chats = Chat.all
+    @all_chats = Chat.all # use;ess
+    @chats = Chat.where(user: current_user)
   end
 
   # GET /chats/1 or /chats/1.json
