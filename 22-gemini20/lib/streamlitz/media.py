@@ -2,6 +2,7 @@
 
 from PIL import Image
 import pprint
+import os
 
 from .constantz import *
 
