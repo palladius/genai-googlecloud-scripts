@@ -1,3 +1,4 @@
+<%# app/views/layouts/application.html.erb %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,11 +23,19 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= render 'layouts/header' %>
+  <body class="flex flex-col min-h-screen"> <%# Ensure footer stays at bottom %>
+    <%# Render header ABOVE the main content area %>
+    <%= render 'layouts/header' %>
+
+    <%# Main content area - removed flex, adjusted margin-top %>
+    <%# Use consistent padding with header %>
+    <main class="container mx-auto mt-4 px-4 sm:px-6 lg:px-8 flex-grow">
       <%= yield %>
-      <%= render 'layouts/footer' %>
     </main>
+
+    <%# Render footer AFTER the main content area %>
+    <div class="container mx-auto mt-8 px-4 sm:px-6 lg:px-8"> <%# Wrap footer for consistent padding %>
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>

@@ -1,2 +1,21 @@
-<hr/>
-appname version github page
+<%# app/views/layouts/_footer.html.erb %>
+<footer class="py-4 border-t border-gray-200"> <%# Add padding and a top border %>
+  <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 space-y-2 sm:space-y-0">
+    <%# App Name and Version %>
+    <div class="text-center sm:text-left">
+      <span><%= APP_NAME %></span> <%# Replace with your actual app name or a helper %>
+      <span class="mx-1">·</span>
+      <span>v<%= APP_VERSION %></span> <%# Replace with your actual version or make dynamic %>
+      <span class="mx-1">·</span>
+      <span><%= Time.zone.now.year %></span> <%# Display current year %>
+    </div>
+
+    <%# GitHub Link %>
+    <div class="text-center sm:text-right">
+      <%= link_to "https://github.com/palladius/genai-googlecloud-scripts", target: "_blank", rel: "noopener noreferrer", class: "hover:text-gray-700 hover:underline" do %>
+        <span class="inline-block align-middle">View on GitHub</span>
+        <span class="inline-block align-middle ml-1">🐙</span> <%# GitHub Octocat emoji %>
+      <% end %>
+    </div>
+  </div>
+</footer>
