@@ -4,3 +4,9 @@ list:
 
 install:
     bundle install
+
+chat-glow:
+    ruby chat.rb | glow
+
+image-test:
+    ruby imagen.rb
