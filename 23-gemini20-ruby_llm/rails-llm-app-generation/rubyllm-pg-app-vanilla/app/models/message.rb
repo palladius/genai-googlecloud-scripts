@@ -7,6 +7,6 @@ class Message < ApplicationRecord
 
   # --- Add your standard Rails model logic below ---
   # Optional: Use Rails enums for roles
-  enum role: { system: 'system', user: 'user', assistant: 'assistant', tool: 'tool' }
+  #enum role: { system: 'system', user: 'user', assistant: 'assistant', tool: 'tool' }
 
 end

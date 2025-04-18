@@ -1,0 +1,6 @@
+
+list:
+    just -l
+
+recreate-db:
+    rails db:drop db:migrate db:seed
