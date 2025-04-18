@@ -1,0 +1,6 @@
+
+list:
+    just -l
+
+generate:
+    ./sbrodola.sh --fast
