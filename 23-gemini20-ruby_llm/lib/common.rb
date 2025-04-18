@@ -1,8 +1,9 @@
 require 'ruby_llm'
 require 'rainbow'
 
+# I'm kind of deprecating this for common_auth..
 chomped_key = ENV['GEMINI_API_KEY'].first(5) rescue :boh
-puts("🔑 Gemini key: #{Rainbow(chomped_key).yellow)}..")
+puts("🔑 [common] Gemini key: #{Rainbow(chomped_key).yellow}..")
 
 RubyLLM.configure do |config|
   config.gemini_api_key = ENV['GEMINI_API_KEY']

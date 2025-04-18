@@ -1,20 +1,17 @@
 require 'ruby_llm'
 require 'rainbow'
 
-require_relative 'lib/common'
+#require_relative 'lib/common'
+require_relative 'lib/common_auth'
+require_relative 'lib/silly_colors'
 
 
-# RubyLLM.configure do |config|
-#   config.gemini_api_key = ENV['GEMINI_API_KEY']
-# end
-
-# chat = RubyLLM.chat
-
-final_message = GeminiChat.ask "Write a short story about a programmer" do |chunk|
+final_message = CommonChat.ask "Scrivi una Barzelletta alla Berlusconi" do |chunk|
   # Each chunk contains a portion of the response
-#  print "[#{chunk.input_tokens}/#{chunk.output_tokens}] #{chunk.content}"
   print_rotating_color_no_newline chunk.content
 end
 
-puts "\nFinal message length: #{final_message.content.length}"
-puts "Token usage: #{final_message.output_tokens} tokens"
+puts('')
+puts "🔹 Final message length: #{final_message.content.length}"
+puts "🔹 Token usage: #{final_message.output_tokens} tokens"
+puts("🔹 Note: I used Google Colors to demonstrate streaming on CLI: one color one chunk")
