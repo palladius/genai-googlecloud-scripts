@@ -2,5 +2,11 @@
 list:
     just -l
 
+run:
+  bin/dev
+
 recreate-db:
-    rails db:drop db:migrate db:seed
+    rails db:drop db:setup db:migrate db:seed
+
+# echo  🏗️ scaffolding:
+#bin/rails generate scaffold_controller Chats model_id:string user:references title:string summary:text

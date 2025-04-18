@@ -11,7 +11,11 @@ class Chat < ApplicationRecord
 
   # TODO https://stackoverflow.com/questions/328525/rails-how-can-i-set-default-values-in-activerecord
   # Add Gemini model from RubyLLM.config.default_model
-  # after_initialize :init
-  # def init = self.model_id  ||= RubyLLM.config.default_model
+  after_initialize :init
+  def init
+    self.model_id  ||= RubyLLM.config.default_model
+    self.user_id   ||= (current_user.id rescue nil)
+    #self.summary   ||= 'This is gonna be populated by Gemini later..'
+  end
 
 end

@@ -17,6 +17,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_134920) do
   create_table "chats", force: :cascade do |t|
     t.string "model_id"
     t.bigint "user_id"
+    t.string "title"
+    t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_chats_on_user_id"

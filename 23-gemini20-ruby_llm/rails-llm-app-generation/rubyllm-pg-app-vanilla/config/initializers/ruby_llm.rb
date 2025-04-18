@@ -4,6 +4,7 @@ require 'rainbow'
 chomped_key = ENV['GEMINI_API_KEY'][0..4] rescue :unknown
 puts("🔑 [config/initializers/ruby_llm] ENV[GEMINI_API_KEY]: #{Rainbow(chomped_key).red}..")
 
+DEFAULT_LLM_MODEL = "gemini-2.0-flash"
 
 RubyLLM.configure do |config|
   # --- Provider API Keys ---
@@ -20,7 +21,7 @@ RubyLLM.configure do |config|
 
   config.default_image_model = "imagen-3.0-generate-002"
   config.default_embedding_model = "text-embedding-004" # Google's model
-  config.default_model = "gemini-2.0-flash"
+  config.default_model = DEFAULT_LLM_MODEL # "gemini-2.0-flash"
 
   # --- Connection Settings ---
   config.request_timeout = 120  # Request timeout in seconds (default: 120)
