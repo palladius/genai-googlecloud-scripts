@@ -62,6 +62,8 @@ class ChatsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @chat = Chat.find(params.expect(:id))
+      @user = current_user # rescue nil
+      @user_id = current_user.id
     end
 
     # Only allow a list of trusted parameters through.
