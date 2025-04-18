@@ -1,30 +1,30 @@
 <%# app/views/layouts/_header.html.erb %>
-<%# Updated with purple color scheme %>
+<%# Updated with purple color scheme and app description %>
 <header class="bg-purple-600 text-white shadow-md"> <%# Changed bg-gray-800 to bg-purple-600 %>
   <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
     <div class="flex items-center justify-between h-16">
-      <%# Logo or Site Name %>
+      <%# Logo or Site Name & Description %>
       <div class="flex items-center">
         <%# Changed hover:text-gray-300 to hover:text-purple-100 %>
-        <%= link_to "LLMRailsApp", root_path, class: "text-xl font-bold hover:text-purple-100" %>
+        <%= link_to "LLMRailsApp", root_path, class: "text-xl font-bold hover:text-purple-100 flex-shrink-0" %> <%# Added flex-shrink-0 %>
+        <%# Add App Description - hidden on small, visible medium+ %>
+        <span class="ml-3 text-xs text-purple-200 hidden md:inline-block whitespace-nowrap overflow-hidden text-ellipsis" title="<%= APP_DESCRIPTION %>">
+          <%= APP_DESCRIPTION %>
+        </span>
       </div>
 
       <%# Navigation Links %>
       <div class="hidden sm:ml-6 sm:block">
         <div class="flex space-x-4">
           <%# Current: "bg-purple-700 text-white", Default: "text-purple-100 hover:bg-purple-500 hover:text-white" %>
-          <%# Example of highlighting the current page (add logic as needed) %>
           <% is_current_home = current_page?(root_path) %>
           <% is_current_chats = current_page?(chats_path) %>
-          <%# is_current_about = current_page?(about_path) %> <%# Assuming about_path exists %>
+          <%# is_current_about = current_page?(about_path) %>
 
           <%# Updated default/hover colors %>
           <%= link_to "Home", root_path, class: "#{is_current_home ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
           <%= link_to "Chats", chats_path, class: "#{is_current_chats ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
-          <%# Make sure about_path exists in your routes if you uncomment this %>
           <%#= link_to "About", about_path, class: "#{is_current_about ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
-
-          <%# Add more links here following the same pattern %>
         </div>
       </div>
 
