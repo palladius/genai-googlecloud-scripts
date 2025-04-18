@@ -10,3 +10,7 @@ chat-glow:
 
 image-test:
     ruby imagen.rb
+
+summarize-test:
+    # ruby pdf-summarizer.rb ../extras/instruction-manuals/Acrux-User-Manual-4700503.pdf
+    ruby pdf-summarizer.rb ../extras/instruction-manuals/bash.pdf
