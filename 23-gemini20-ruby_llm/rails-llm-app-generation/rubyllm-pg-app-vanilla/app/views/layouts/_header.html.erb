@@ -1,29 +1,37 @@
 <%# app/views/layouts/_header.html.erb %>
-<header class="bg-gray-800 text-white shadow-md">
+<%# Updated with purple color scheme %>
+<header class="bg-purple-600 text-white shadow-md"> <%# Changed bg-gray-800 to bg-purple-600 %>
   <nav class="container mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
     <div class="flex items-center justify-between h-16">
       <%# Logo or Site Name %>
       <div class="flex items-center">
-        <%= link_to "LLMRailsApp", root_path, class: "text-xl font-bold hover:text-gray-300" %>
+        <%# Changed hover:text-gray-300 to hover:text-purple-100 %>
+        <%= link_to "LLMRailsApp", root_path, class: "text-xl font-bold hover:text-purple-100" %>
       </div>
 
       <%# Navigation Links %>
       <div class="hidden sm:ml-6 sm:block">
         <div class="flex space-x-4">
-          <%# Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" %>
+          <%# Current: "bg-purple-700 text-white", Default: "text-purple-100 hover:bg-purple-500 hover:text-white" %>
           <%# Example of highlighting the current page (add logic as needed) %>
-          <%# is_current = current_page?(root_path) %>
-          <%= link_to "Home", root_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-          <%= link_to "Chats", chats_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-          <%= link_to "About", about_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          <% is_current_home = current_page?(root_path) %>
+          <% is_current_chats = current_page?(chats_path) %>
+          <%# is_current_about = current_page?(about_path) %> <%# Assuming about_path exists %>
 
-          <%# Add more links here %>
+          <%# Updated default/hover colors %>
+          <%= link_to "Home", root_path, class: "#{is_current_home ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to "Chats", chats_path, class: "#{is_current_chats ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
+          <%# Make sure about_path exists in your routes if you uncomment this %>
+          <%#= link_to "About", about_path, class: "#{is_current_about ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} px-3 py-2 rounded-md text-sm font-medium" %>
+
+          <%# Add more links here following the same pattern %>
         </div>
       </div>
 
       <%# Mobile menu button (optional - requires JS for toggle) %>
       <div class="-mr-2 flex sm:hidden">
-        <button type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+        <%# Updated button colors %>
+        <button type="button" class="bg-purple-600 inline-flex items-center justify-center p-2 rounded-md text-purple-200 hover:text-white hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <%# Heroicon name: outline/menu %>
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -41,10 +49,11 @@
   <%# Mobile menu, show/hide based on menu state (optional - requires JS for toggle) %>
   <div class="sm:hidden hidden" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1">
-      <%# Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" %>
-      <%= link_to "Home", root_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" %>
-      <%= link_to "Chats", chats_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" %>
-      <%= link_to "About", about_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" %>
+      <%# Current: "bg-purple-700 text-white", Default: "text-purple-100 hover:bg-purple-500 hover:text-white" %>
+      <%# Updated mobile link colors %>
+      <%= link_to "Home", root_path, class: "#{is_current_home ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} block px-3 py-2 rounded-md text-base font-medium" %>
+      <%= link_to "Chats", chats_path, class: "#{is_current_chats ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} block px-3 py-2 rounded-md text-base font-medium" %>
+      <%#= link_to "About", about_path, class: "#{is_current_about ? 'bg-purple-700 text-white' : 'text-purple-100 hover:bg-purple-500 hover:text-white'} block px-3 py-2 rounded-md text-base font-medium" %>
     </div>
   </div>
 </header>
