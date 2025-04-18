@@ -186,7 +186,9 @@ cleanup
 # 3. Build Rails New Options
 cecho B_CYAN "🛠️ Preparing Rails options..."
 # Use the selected DB type
-RAILS_NEW_OPTS="-d $db_type --css tailwind --skip-git"
+#RAILS_NEW_OPTS="-d $db_type --css tailwind --skip-git"
+# Riccardo: i DO need git for the gitignore, then i can just rm -rf  .git :)
+RAILS_NEW_OPTS="-d $db_type --css tailwind "
 
 if [[ "$fast_mode" == true ]]; then
   cecho YELLOW "   Adding FAST mode options..."
