@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :chats
+  #resources :chats
+  resources :chats do
+    member do
+      post :send_msg # Add this line
+    end
+  end
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

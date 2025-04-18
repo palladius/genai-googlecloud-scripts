@@ -1,0 +1,34 @@
+
+  <%# --- NEW: Add chat input form --- %>
+  <%# This form assumes you will define a route like: %>
+  <%# resources :chats do %>
+  <%#   member do %>
+  <%#     post :send_msg %>
+  <%#   end %>
+  <%# end %>
+  <%# And a corresponding action `send_msg` in ChatsController %>
+
+  <%# We use url: send_msg_chat_path(chat) and method: :post %>
+  <%= form_with(url: send_msg_chat_path(chat), method: :post,
+                html: {
+                  class: "mt-4 flex items-start space-x-2",
+                  # Add Stimulus controller for Enter key handling
+                  "data-controller": "chat-input"
+                }) do |form| %>
+
+    <%# Text area for the message content %>
+    <%= form.text_field :message_content, # Use a descriptive name for the param
+                       #rows: 2,
+                       class: "flex-grow block shadow-sm rounded-md border border-gray-300 px-3 py-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+                       placeholder: "Type your message...",
+                       # Add Stimulus action and target
+                       data: { action: "keydown->chat-input#submitOnEnter", chat_input_target: "input" }
+                       %>
+
+    <%# Submit button %>
+    <%= form.submit "Send", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer",
+                      # Add Stimulus target if needed by the controller
+                      data: { chat_input_target: "submitButton" }
+                      %>
+  <% end %>
+  <%# --- END: Add chat input form --- %>

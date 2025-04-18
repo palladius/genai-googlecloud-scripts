@@ -8,6 +8,7 @@
   <h1 class="font-bold text-4xl">Showing chat</h1>
 
   <%= render @chat %>
+  <%= render 'chats/chat_send_message', { chat: @chat } %>
 
   <%= link_to "Edit this chat", edit_chat_path(@chat), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
   <%= link_to "Back to chats", chats_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
