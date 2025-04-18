@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def name
+    email.split('@')[0]
+  end
 
   def to_s
     "🙊 #{self.email}"
