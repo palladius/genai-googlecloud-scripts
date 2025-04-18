@@ -16,3 +16,19 @@ Lets see.
 Note from [here](https://sqlite.org/jsonb.html#what_is_jsonb_): **Beginning with version 3.45.0 (pending), SQLite supports an alternative binary encoding of JSON which we call "JSONB"**.
 
 
+## Tests:
+
+DB Setup:
+```bash
+rake db:create db:migrate db:seed # generates one user :)
+rails console
+...
+```
+
+See console:
+```ruby
+chat_record = Chat.create!(model_id: RubyLLM.config.default_model, user: User.first)
+# works!
+response = chat_record.ask "What is the capital of France?"
+
+```
