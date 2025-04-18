@@ -1,20 +1,34 @@
 #!/bin/bash
 
 # Script to generate a new sample Rails 8+ application
-# Options: --fast, --db=[sqlite3|postgresql|pg]
+# Usage: ./sbrodola.sh [app_name] [--fast] [--db=sqlite3|postgresql|pg]
 # Uses Tailwind, skips Git, adds custom gems, runs post-generation steps.
 # Designed to be rerunnable! 🎉
 
-# --- Configuration ---
-APP_NAME="${1:-sample-llm-app}"
-GEMS_TO_ADD=("ruby_llm" "rainbow") # Add your desired gems here!
+# --- Default Configuration ---
+DEFAULT_APP_NAME="sample-llm-app"
+# APP_NAME will be set below after checking arguments
+GEMS_TO_ADD=("ruby_llm" "rainbow" "devise") # Add your desired gems here!
 MIN_RAILS_MAJOR_VERSION=8
 
-# --- Script Flags ---
+# --- Script Flags / Options ---
 fast_mode=false
 db_type="sqlite3" # Default DB
+APP_NAME=""       # Placeholder, will be set below
 
 # --- Argument Parsing ---
+
+# Check for optional App Name as the first argument
+if [[ $# -gt 0 ]] && [[ "$1" != -* ]]; then
+  # First argument exists and doesn't start with '-', assume it's the app name
+  APP_NAME="$1"
+  shift # Consume the app name argument, so flags start at $1 now
+else
+  # No app name provided as first argument, use the default
+  APP_NAME="$DEFAULT_APP_NAME"
+fi
+
+# Now process the remaining arguments (flags)
 while [[ $# -gt 0 ]]; do
   key="$1"
   case $key in
@@ -28,16 +42,25 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)    # unknown option
       # Load colors early for error message if possible
-      [[ -f "lib/colors.sh" ]] && source "lib/colors.sh"
-      cecho() { [[ -z "$B_RED" ]] && echo "${2}" || echo -e "${B_RED}${2}${RESET}"; }
-      cecho B_RED "Unknown option: $1"
-      echo "Usage: $0 [--fast] [--db=sqlite3|postgresql|pg]"
+      # Ensure colors are loaded only once even if script exits here
+      if ! command -v cecho &> /dev/null && [[ -f "lib/colors.sh" ]]; then
+          source "lib/colors.sh"
+      fi
+      # Define dummy cecho if colors still not available
+      if ! command -v cecho &> /dev/null; then
+          cecho() { echo "${2}"; }
+          B_RED='' RESET=''
+      fi
+
+      cecho B_RED "Error: Unknown option: $key"
+      echo "Usage: $0 [app_name] [--fast] [--db=sqlite3|postgresql|pg]"
+      echo "  Example: $0 my_cool_app --db=pg --fast"
       exit 1
       ;;
   esac
 done
 
-# --- Load Colors (Ensure loaded after parsing potentially used colors in error) ---
+# --- Load Colors (Ensure loaded properly now) ---
 if [[ -f "lib/colors.sh" ]]; then
   # shellcheck source=lib/colors.sh
   source "lib/colors.sh"
@@ -51,6 +74,7 @@ else
 fi
 
 # --- Validate DB Type ---
+# (DB Type validation remains the same)
 if [[ "$db_type" != "sqlite3" && "$db_type" != "postgresql" && "$db_type" != "pg" ]]; then
     cecho B_RED "🛑 Invalid database type: '$db_type'."
     cecho YELLOW "   Supported types: 'sqlite3' (default), 'postgresql' (or 'pg')."
@@ -60,7 +84,12 @@ fi
 if [[ "$db_type" == "pg" ]]; then
     db_type="postgresql"
 fi
-cecho B_CYAN "Selected database type: $db_type"
+
+# --- Announce effective settings ---
+cecho B_CYAN "Effective settings:"
+cecho B_CYAN "  App Name: $APP_NAME"
+cecho B_CYAN "  Database: $db_type"
+cecho B_CYAN "  Fast Mode: $fast_mode"
 
 
 # --- Helper Functions ---
@@ -229,6 +258,7 @@ else
         exit 1
     fi
 fi
+# In sbrodola.sh, near the end:
 
 # 7. Run Post-Generation Script
 post_generate_script="../lib/post_generate.sh" # Path relative to inside APP_NAME dir
@@ -236,7 +266,8 @@ if [[ -f "$post_generate_script" ]]; then
     cecho B_CYAN "🚀 Running post-generation script: $post_generate_script"
     # Make sure it's executable (useful if pulled from git)
     chmod +x "$post_generate_script"
-    if bash "$post_generate_script"; then
+    # Pass the database type as an argument
+    if bash "$post_generate_script" "$db_type"; then # <--- MODIFIED HERE
         cecho GREEN "✅ Post-generation script executed successfully."
     else
         cecho B_RED "🛑 Error executing post-generation script. Check output above."
@@ -246,7 +277,6 @@ if [[ -f "$post_generate_script" ]]; then
 else
     cecho B_YELLOW "🤷 Post-generation script ($post_generate_script) not found. Skipping."
 fi
-
 
 # 8. Final Instructions
 cecho B_MAGENTA "🎉 All done! Your '$APP_NAME' app is ready."
