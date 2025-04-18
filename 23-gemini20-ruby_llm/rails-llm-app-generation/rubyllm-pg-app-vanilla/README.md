@@ -5,20 +5,21 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version: 3.3.4
+* Rails: 8.0.1
 
-* System dependencies
+## INSTALL
 
-* Configuration
+```bash
+cp .env.dist .env
+```
 
-* Database creation
+## Tests:
 
-* Database initialization
+Elaborated from this: https://rubyllm.com/guides/rails
 
-* How to run the test suite
+```
+chat_record = Chat.create!(user: User.first, title: 'test.')
+response = chat_record.ask "What is the capital of France?"
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -47,10 +47,10 @@ class ChatsController < ApplicationController
     # Basic validation: Ensure message is not blank
     if message_content.blank?
       # Option 1: Redirect back with an alert
-      redirect_to @chat, alert: "Message cannot be empty."
+      #redirect_to @chat, alert: "Message cannot be empty."
       # Option 2: Render the show page again (might need @messages loaded)
-      # flash.now[:alert] = "Message cannot be empty."
-      # render :show, status: :unprocessable_entity
+      flash.now[:alert] = "Message cannot be empty."
+      render :show, status: :unprocessable_entity
       return # Stop further processing
     end
 
@@ -58,8 +58,10 @@ class ChatsController < ApplicationController
     # Msg is NOT blank now.
     #return @chat.ask(message_content)
 
-    # Message Create (0.7ms)  INSERT INTO "messages" ("chat_id", "role", "content", "model_id", "input_tokens", "output_tokens", "tool_call_id", "created_at", "updated_at") VALUES (4, 'assistant', '', 'gemini-2.0-flash', NULL, NULL, NULL, '2025-04-18 17:55:29.657000', '2025-04-18 17:55:29.657000') RETURNING "id" /*application='RubyllmPgAppVanilla'*/
+    # Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...); return".
 
+
+    # Message Create (0.7ms)  INSERT INTO "messages" ("chat_id", "role", "content", "model_id", "input_tokens", "output_tokens", "tool_call_id", "created_at", "updated_at") VALUES (4, 'assistant', '', 'gemini-2.0-flash', NULL, NULL, NULL, '2025-04-18 17:55:29.657000', '2025-04-18 17:55:29.657000') RETURNING "id" /*application='RubyllmPgAppVanilla'*/
 
     # --- Core Logic ---
     # Assuming the ruby-llm gem's `acts_as_chat` sets up a `has_many :messages`
