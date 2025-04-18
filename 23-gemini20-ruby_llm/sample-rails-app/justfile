@@ -2,5 +2,11 @@
 list:
     just -l
 
-generate:
-    ./sbrodola.sh --fast
+generate-sqlite3:
+    ./sbrodola.sh --fast tmp-fast-sqlite3
+
+generate-pg:
+    ./sbrodola.sh --fast --db=postgresql tmp-fast-pg
+
+clean:
+    rm -rf sample-llm-app

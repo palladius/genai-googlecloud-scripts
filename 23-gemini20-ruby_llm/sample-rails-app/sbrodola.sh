@@ -1,24 +1,43 @@
 #!/bin/bash
 
 # Script to generate a new sample Rails 8+ application
-# Uses Tailwind, SQLite3, skips Git, and adds custom gems.
-# Includes a --fast mode for quicker, minimal generation.
+# Options: --fast, --db=[sqlite3|postgresql|pg]
+# Uses Tailwind, skips Git, adds custom gems, runs post-generation steps.
 # Designed to be rerunnable! 🎉
 
 # --- Configuration ---
-APP_NAME="sample-llm-app-sqlite3"
+APP_NAME="${1:-sample-llm-app}"
 GEMS_TO_ADD=("ruby_llm" "rainbow") # Add your desired gems here!
 MIN_RAILS_MAJOR_VERSION=8
 
 # --- Script Flags ---
 fast_mode=false
-if [[ "$1" == "--fast" ]]; then
-  fast_mode=true
-  shift # Remove --fast from arguments if processing more later
-fi
+db_type="sqlite3" # Default DB
 
-# --- Load Colors ---
-# (Color loading code remains the same as before)
+# --- Argument Parsing ---
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  case $key in
+    --fast)
+      fast_mode=true
+      shift # past argument
+      ;;
+    --db=*)
+      db_type="${key#*=}"
+      shift # past argument=value
+      ;;
+    *)    # unknown option
+      # Load colors early for error message if possible
+      [[ -f "lib/colors.sh" ]] && source "lib/colors.sh"
+      cecho() { [[ -z "$B_RED" ]] && echo "${2}" || echo -e "${B_RED}${2}${RESET}"; }
+      cecho B_RED "Unknown option: $1"
+      echo "Usage: $0 [--fast] [--db=sqlite3|postgresql|pg]"
+      exit 1
+      ;;
+  esac
+done
+
+# --- Load Colors (Ensure loaded after parsing potentially used colors in error) ---
 if [[ -f "lib/colors.sh" ]]; then
   # shellcheck source=lib/colors.sh
   source "lib/colors.sh"
@@ -31,6 +50,19 @@ else
   U_BLACK='' U_RED='' U_GREEN='' U_YELLOW='' U_BLUE='' U_MAGENTA='' U_CYAN='' U_WHITE=''
 fi
 
+# --- Validate DB Type ---
+if [[ "$db_type" != "sqlite3" && "$db_type" != "postgresql" && "$db_type" != "pg" ]]; then
+    cecho B_RED "🛑 Invalid database type: '$db_type'."
+    cecho YELLOW "   Supported types: 'sqlite3' (default), 'postgresql' (or 'pg')."
+    exit 1
+fi
+# Normalize "pg" to "postgresql" for rails new command
+if [[ "$db_type" == "pg" ]]; then
+    db_type="postgresql"
+fi
+cecho B_CYAN "Selected database type: $db_type"
+
+
 # --- Helper Functions ---
 check_command() {
   # (check_command function remains the same)
@@ -41,7 +73,26 @@ check_command() {
   fi
 }
 
+check_db_prereqs() {
+    if [[ "$db_type" == "postgresql" ]]; then
+        cecho B_CYAN "🔍 Checking PostgreSQL prerequisites..."
+        if ! command -v psql &> /dev/null; then
+            cecho B_YELLOW "   ⚠️ Warning: 'psql' command not found."
+            cecho YELLOW "   Rails generation might succeed (adding the 'pg' gem),"
+            cecho YELLOW "   but you'll need PostgreSQL server installed and running,"
+            cecho YELLOW "   and potentially client libraries ('libpq-dev' or similar) installed"
+            cecho YELLOW "   for the 'pg' gem to compile and connect."
+            # Optionally, make this a hard exit:
+            # cecho B_RED "   Please install PostgreSQL client tools and ensure server is running."
+            # exit 1
+        else
+            cecho GREEN "   ✅ 'psql' command found."
+        fi
+    fi
+}
+
 check_rails_version() {
+  # (check_rails_version function remains the same)
   local rails_version_output
   local rails_version
   local major_version
@@ -97,14 +148,16 @@ fi
 check_command "ruby"
 check_command "bundle"
 check_command "rails"
-check_rails_version # New version check function
+check_rails_version
+check_db_prereqs # Check DB specific stuff
 
 # 2. Cleanup old directory if it exists
 cleanup
 
 # 3. Build Rails New Options
 cecho B_CYAN "🛠️ Preparing Rails options..."
-RAILS_NEW_OPTS="-d sqlite3 --css tailwind --skip-git"
+# Use the selected DB type
+RAILS_NEW_OPTS="-d $db_type --css tailwind --skip-git"
 
 if [[ "$fast_mode" == true ]]; then
   cecho YELLOW "   Adding FAST mode options..."
@@ -119,8 +172,6 @@ if [[ "$fast_mode" == true ]]; then
   RAILS_NEW_OPTS+=" --skip-bootsnap"
   RAILS_NEW_OPTS+=" --skip-spring"
   RAILS_NEW_OPTS+=" --skip-listen"
-  # Note: Skipping asset pipeline/sprockets/propshaft/javascript is generally
-  # NOT recommended with --css tailwind, as Tailwind relies on them.
 fi
 cecho GREEN "✅ Rails options prepared."
 
@@ -170,11 +221,6 @@ if [[ ${#GEMS_TO_ADD[@]} -gt 0 ]]; then
   fi
 else
     cecho YELLOW "🤷 No extra gems specified to add."
-    # Ensure bundle install runs even if no gems are added, just in case
-    # Needs to happen after rails new completes its own bundle install if any.
-    # Usually `rails new` runs bundle install itself, but an explicit run
-    # might be needed if `--skip-bundle` was used (which we don't).
-    # Let's just ensure it's consistent.
     cecho B_CYAN "🏃 Ensuring bundle is up-to-date..."
     if run_bundle_command install; then
         cecho GREEN "✅ Bundle install check successful."
@@ -184,14 +230,42 @@ else
     fi
 fi
 
-# 7. Final Instructions
+# 7. Run Post-Generation Script
+post_generate_script="../lib/post_generate.sh" # Path relative to inside APP_NAME dir
+if [[ -f "$post_generate_script" ]]; then
+    cecho B_CYAN "🚀 Running post-generation script: $post_generate_script"
+    # Make sure it's executable (useful if pulled from git)
+    chmod +x "$post_generate_script"
+    if bash "$post_generate_script"; then
+        cecho GREEN "✅ Post-generation script executed successfully."
+    else
+        cecho B_RED "🛑 Error executing post-generation script. Check output above."
+        # Decide if this is a fatal error
+        # exit 1
+    fi
+else
+    cecho B_YELLOW "🤷 Post-generation script ($post_generate_script) not found. Skipping."
+fi
+
+
+# 8. Final Instructions
 cecho B_MAGENTA "🎉 All done! Your '$APP_NAME' app is ready."
 if [[ "$fast_mode" == true ]]; then
-    cecho B_YELLOW "   NOTE: App generated in --fast mode. Many features (tests, mailer, etc.) were skipped."
+    cecho B_YELLOW "   NOTE: App generated in --fast mode. Many features were skipped."
 fi
-cecho GREEN "   Navigate into the directory: cd $APP_NAME"
+if [[ "$db_type" == "postgresql" ]]; then
+    cecho B_YELLOW "   Reminder for PostgreSQL:"
+    cecho B_YELLOW "   - Ensure PostgreSQL server is running."
+    cecho B_YELLOW "   - Configure 'config/database.yml' with your DB user/password/host if needed."
+    cecho B_YELLOW "   - Run 'bin/rails db:create' to create the database."
+fi
+cecho GREEN "   Navigate back to the app directory if you left it: cd $APP_NAME"
+cecho GREEN "   Run pending migrations (if any from post-generate): bin/rails db:migrate"
 cecho GREEN "   Start the server: bin/rails server"
-cecho YELLOW "   Remember to edit the Gemfile to configure/remove the placeholder gems ('foo', 'bar') if needed!"
+#cecho YELLOW "   Remember to edit the Gemfile to configure/remove the placeholder gems ('foo', 'bar') if needed!"
 cecho B_BLUE "   Happy coding! 😄"
+
+# Navigate back to the original directory (optional, good practice)
+# cd ..
 
 exit 0
