@@ -1,0 +1,3 @@
+## Content
+
+The image depicts a bustling medieval or fantasy town square filled with people and market stalls. Above the town, several grotesque floating creatures with large eyes and menacing teeth are flying in the sky. These creatures resemble Beholders from the Dungeons and Dragons universe. The town architecture includes buildings with timber framing, cobblestone streets, and tall spires. In the background, there are mountains. The overall scene has a fantastical and slightly ominous atmosphere.
