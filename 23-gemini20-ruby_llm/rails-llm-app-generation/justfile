@@ -8,5 +8,8 @@ generate-sqlite3:
 generate-pg:
     ./sbrodola.sh tmp-fast-pg --fast --db=postgresql
 
+generate-pg-REAL-one:
+    ./sbrodola.sh rubyllm-pg-app-vanilla --db=postgresql
+
 clean:
     rm -rf sample-llm-app/ tmp-*/
