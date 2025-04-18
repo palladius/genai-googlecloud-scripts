@@ -1,10 +1,14 @@
-<div id="<%= dom_id chat %>" class="w-full sm:w-auto my-5 space-y-5">
+<%# Existing content for displaying chat title/summary %>
+<div id="<%= dom_id chat %>" class="w-full my-5 space-y-5">
 
   <div>
     <strong class="block font-medium mb-1"><%= link_to chat.title, chat %></strong> (by <%= chat.user.name rescue '-' %>)
     <em class="block font-medium mb-1"><%= chat.summary %></em>
   </div>
 
+
 </div>
 
+<!--
 // ok, now I want to add to the chat show some sort of chat functionality (big long single text form and a button "send" where typing ENTER also works). This should trigger some function on the controller, like "send_msg"
+-->

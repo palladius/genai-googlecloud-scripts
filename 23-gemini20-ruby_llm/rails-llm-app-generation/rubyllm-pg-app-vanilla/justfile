@@ -10,3 +10,6 @@ recreate-db:
 
 # echo  🏗️ scaffolding:
 #bin/rails generate scaffold_controller Chats model_id:string user:references title:string summary:text
+
+dev-removeme-test-adding-a-question:
+  echo " puts(GEMINI_API_KEY) ; c = Chat.find 4 ; c.ask 'ciao come va?'" | rails c

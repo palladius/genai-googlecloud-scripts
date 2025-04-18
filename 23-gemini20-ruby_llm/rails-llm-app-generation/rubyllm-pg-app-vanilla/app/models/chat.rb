@@ -13,7 +13,7 @@ class Chat < ApplicationRecord
   # Add Gemini model from RubyLLM.config.default_model
   after_initialize :init
   def init
-    self.model_id  ||= RubyLLM.config.default_model
+    self.model_id  ||= DEFAULT_LLM_MODEL # RubyLLM.config.default_model
     #NONVA self.user_id   ||= current_user.id # 43 # (current_user.id rescue nil)
     #self.summary   ||= '[This is gonna be populated by Gemini later..]'
   end

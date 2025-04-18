@@ -1,20 +1,19 @@
 require 'ruby_llm'
 require 'rainbow'
 
+DEFAULT_LLM_MODEL = "gemini-2.0-flash"
+
 chomped_key = ENV['GEMINI_API_KEY'][0..4] rescue :unknown
+GEMINI_API_KEY = ENV.fetch 'GEMINI_API_KEY', nil
+
 puts("🔑 [config/initializers/ruby_llm] ENV[GEMINI_API_KEY]: #{Rainbow(chomped_key).red}..")
 
-DEFAULT_LLM_MODEL = "gemini-2.0-flash"
 
 RubyLLM.configure do |config|
   # --- Provider API Keys ---
   # Provide keys ONLY for the providers you intend to use.
   # Using environment variables (ENV.fetch) is highly recommended.
-#  config.openai_api_key = ENV.fetch('OPENAI_API_KEY', nil)
-#  config.anthropic_api_key = ENV.fetch('ANTHROPIC_API_KEY', nil)
-  config.gemini_api_key = ENV.fetch('GEMINI_API_KEY', nil)
-
-#  config.deepseek_api_key = ENV.fetch('DEEPSEEK_API_KEY', nil)
+  config.gemini_api_key = GEMINI_API_KEY # ENV.fetch('GEMINI_API_KEY', '')
 
   # --- Default Models ---
   # Used by RubyLLM.chat, RubyLLM.embed, RubyLLM.paint if no model is specified.
@@ -39,3 +38,8 @@ end
 #   config.default_embedding_model = "text-embedding-004" # Google's model
 #   config.default_model = "gemini-2.0-flash"
 # end
+
+# def api_key_available?
+#   GEMINI_API_KEY is not nil # or is a string
+# end
+# #GEMINI_API_KEY = ENV['GEMINI_API_KEY']
