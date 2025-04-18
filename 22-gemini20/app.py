@@ -213,6 +213,17 @@ def handle_summary_prompt(cleanedup_prompt, history):
     st.write("TODO: Add summary functionality here")
     return []
 
+def make_relative_path(filepath):
+    """Converts absolute paths to relative paths starting with streamlitz/"""
+    if filepath.startswith('/'):
+        parts = filepath.split('/')
+        try:
+            streamlitz_index = parts.index('streamlitz')
+            return 'lib/' + '/'.join(parts[streamlitz_index:])
+        except ValueError:
+            return os.path.basename(filepath)
+    return filepath
+
 def handle_classification(classification, cleanedup_prompt, user_prompt, history):
     """Handles the classification and calls the appropriate function."""
     image_files = []
@@ -239,9 +250,8 @@ def handle_classification(classification, cleanedup_prompt, user_prompt, history
     elem_to_insert = {
         "prompt": user_prompt,
         "classification": classification,
-        "image_files": [os.path.abspath(f) for f in image_files],
-        "video_files": [os.path.abspath(f) for f in video_files],
-        #"operation_id": operation_id,
+        "image_files": [make_relative_path(f) for f in (image_files or [])],
+        "video_files": [make_relative_path(f) for f in (video_files or [])],
     }
     if operation_id:
         elem_to_insert["operation_id"] = operation_id

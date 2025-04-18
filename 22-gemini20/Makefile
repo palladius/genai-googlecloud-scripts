@@ -140,3 +140,9 @@ story-test-turtle:
 	python story.py --prompt etc/stories/turtle-original.prompt
 story-test-istanbul:
 	python story.py -p etc/stories/puffin-istanbul.prompt
+
+
+history.json: fix-history.json
+
+fix-history.json:
+	echo tODO remove non-local stuff like streamlit/blah/blah in paths.
