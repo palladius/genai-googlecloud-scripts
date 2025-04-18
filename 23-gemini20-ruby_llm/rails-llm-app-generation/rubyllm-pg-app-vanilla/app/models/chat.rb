@@ -8,4 +8,10 @@ class Chat < ApplicationRecord
   # --- Add your standard Rails model logic below ---
   belongs_to :user, optional: true
   validates :model_id, presence: true
+
+  # TODO https://stackoverflow.com/questions/328525/rails-how-can-i-set-default-values-in-activerecord
+  # Add Gemini model from RubyLLM.config.default_model
+  # after_initialize :init
+  # def init = self.model_id  ||= RubyLLM.config.default_model
+
 end

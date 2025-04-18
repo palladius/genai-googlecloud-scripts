@@ -27,8 +27,12 @@ rails console
 
 See console:
 ```ruby
-chat_record = Chat.create!(model_id: RubyLLM.config.default_model, user: User.first)
-# works!
-response = chat_record.ask "What is the capital of France?"
+
+# this is now implied: model_id: RubyLLM.config.default_model,
+chat_record = Chat.create!( user: User.first)
+# works! typo on purpose.
+response = chat_record.ask "What is the capital of Switzwerland?"
+
+
 
 ```
