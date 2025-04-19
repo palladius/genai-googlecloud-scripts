@@ -38,22 +38,24 @@
       <% unless is_user || is_system %>
         <%# Add left margin (ml-2) for spacing, specific color, wrap role in parentheses %>
         <span class="font-semibold ml-2 <%= is_assistant ? 'text-purple-600' : 'text-purple-600' %>">
-          (<%= message.role.capitalize %>)
+          (<%= message.role.capitalize %>)  <%# USE THE HELPER %>
         </span>
       <% end %>
-      <!-- riccardo monkey patch
-    </div>
     <%# --- End Combined Header Line --- %>
+    </div>
 
     <%# Display the message content, preserving line breaks %>
     <%# Removed extra vertical space. Content starts right after the header margin. %>
     <%# Adjusted text alignment for system messages %>
-    <div class="text-sm <%= is_system ? 'text-center' : 'text-gray-800' %> whitespace-pre-wrap">
+    <!--
+    <div class="text-sm <%= is_system ? 'text-center' : 'text-gray-800' %>">
     -->
+    <%#= "DEBUG Raw Content: [#{message.content.inspect}]" %>
+
       <%#= message.content %>
-      <div class="prose max-w-none">
-        <%= markdown_to_html(message.content) %> <%# USE THE HELPER %>
-    </div>
+        <%#= markdown_to_html(message.content) %> <%# USE THE HELPER %>
+      <div class=" prose max-w-none [&_p:first-of-type]:mt-0 message-content">
+        <%= markdown_to_html(message.content) %>
     </div>
 
   </div>

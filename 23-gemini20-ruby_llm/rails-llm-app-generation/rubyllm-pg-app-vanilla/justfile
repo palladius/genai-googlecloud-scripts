@@ -5,6 +5,10 @@ list:
 run:
   bin/dev
 
+run-prod:
+  echo first time: DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=production rails db:drop db:setup db:migrate db:seed
+  RAILS_ENV=production rails s -p 8080
+
 recreate-db:
     rails db:drop db:setup db:migrate db:seed
 
