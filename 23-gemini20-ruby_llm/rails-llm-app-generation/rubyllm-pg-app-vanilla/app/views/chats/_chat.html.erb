@@ -1,17 +1,46 @@
-<%# Existing content for displaying chat title/summary %>
-<div id="<%= dom_id chat %>" class="w-full my-5 space-y-5">
+<%# Renders a single chat item as a card %>
+<div id="<%= dom_id chat %>" class="w-full my-5 bg-white border border-gray-200 rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow duration-150 ease-in-out">
 
-  <div>
-    <strong class="block font-big mb-1"><%= link_to chat.title, chat %></strong>
-    ( <%= chat.messages.count rescue '?' %>📨
-      by <%= chat.user.name rescue '-' %>)
-    <em class="block font-medium mb-1"><%= chat.summary %></em>
-    <tt class="block font-medium mb-1"><%= chat.model_id %></tt>
-    <% if (chat.system_message rescue nil) %>
-        ⚙️ <%= chat.system_message %>
+  <%# Card Header/Title %>
+  <h3 class="text-lg font-bold mb-2">
+    <%= link_to chat.title, chat, class: "text-blue-700 hover:text-blue-900 hover:underline" %>
+  </h3>
+
+  <%# Card Body - Metadata and Content %>
+  <div class="text-sm space-y-1"> <%# Make text smaller and add space between lines %>
+
+    <%# Metadata line: Message count and User %>
+    <p class="text-gray-600">
+      <%= pluralize(chat.messages.count, "message") rescue '?' %>
+      <% if chat.user %>
+        <span class="text-gray-400 mx-1">|</span> by <%= chat.user.name %>
+      <% end %>
+    </p>
+
+    <%# Summary %>
+    <% if chat.summary.present? %>
+      <p class="text-gray-700 italic">
+        <%= chat.summary %>
+      </p>
     <% end %>
 
-  </div>
+    <%# Model ID %>
+    <% if chat.model_id.present? %>
+      <p class="text-gray-500 font-mono text-xs"> <%# Even smaller for model ID %>
+        🤖 <%= chat.model_id %>
+      </p>
+    <% end %>
 
+    <%# System Message (if exists) %>
+    <% if (system_msg = chat.system_message rescue nil).present? %>
+      <div class="mt-2 pt-2 border-t border-gray-100"> <%# Add separator %>
+        <p class="text-gray-600">
+          <span class="font-semibold text-gray-500">System:</span>
+          <span class="ml-1">⚙️ <%= system_msg %></span>
+        </p>
+      </div>
+    <% end %>
 
-</div>
+  </div> <%# End Card Body %>
+
+</div> <%# End Card div %>
