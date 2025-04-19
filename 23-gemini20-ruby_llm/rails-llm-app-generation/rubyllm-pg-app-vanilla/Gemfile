@@ -68,3 +68,5 @@ gem "ruby_llm", "~> 1.2"
 gem "rainbow", "~> 3.1"
 gem "devise", "~> 4.9"
 gem "dotenv"
+# For markdown to html
+gem 'redcarpet'
