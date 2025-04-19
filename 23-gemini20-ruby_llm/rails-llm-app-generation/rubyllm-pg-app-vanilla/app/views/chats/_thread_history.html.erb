@@ -2,11 +2,12 @@
 <%# Expects a local variable `chat` to be passed in %>
 
 <%# Outer container with a unique ID for Turbo Stream targeting %>
-<%# We use dom_id(chat, :messages) which generates something like "messages_chat_123" %>
-<div id="<%= dom_id(chat, :messages) %>" class="mt-6 space-y-4">
+<%# Reduced top margin (mt-4) and space between messages (space-y-2) %>
+<div id="<%= dom_id(chat, :messages) %>" class="mt-4 space-y-2"> <%# WAS: mt-6 space-y-4 %>
 
   <% if chat.messages.any? %>
-    <h3 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">
+    <%# Reduced padding/margin for heading (pb-1 mb-2) %>
+    <h3 class="text-lg font-semibold text-gray-700 border-b pb-1 mb-2"> <%# WAS: pb-2 mb-4 %>
       Conversation History
     </h3>
 
@@ -18,7 +19,8 @@
 
   <% else %>
     <%# Optional: Display a message if the chat has no history yet %>
-    <div class="text-center text-gray-500 italic py-4">
+    <%# Reduced padding (py-2) %>
+    <div class="text-center text-gray-500 italic py-2"> <%# WAS: py-4 %>
       No messages in this chat yet. Start the conversation!
     </div>
   <% end %>
