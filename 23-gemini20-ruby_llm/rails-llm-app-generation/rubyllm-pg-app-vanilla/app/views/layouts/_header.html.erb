@@ -8,6 +8,7 @@
         <%= link_to "LLMRailsApp", root_path, class: "text-xl font-bold hover:text-purple-100 flex-shrink-0" %>
         <span class="ml-3 text-xs text-purple-200 hidden md:inline-block whitespace-nowrap overflow-hidden text-ellipsis" title="<%= APP_DESCRIPTION %>">
           <%= APP_DESCRIPTION %>
+          (<b><%= Rails.env %></b>)
         </span>
       </div>
 
