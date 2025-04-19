@@ -51,8 +51,9 @@
     <div class="text-sm <%= is_system ? 'text-center' : 'text-gray-800' %> whitespace-pre-wrap">
     -->
       <%#= message.content %>
+      <div class="prose max-w-none">
         <%= markdown_to_html(message.content) %> <%# USE THE HELPER %>
-
+    </div>
     </div>
 
   </div>
