@@ -9,6 +9,11 @@ class Chat < ApplicationRecord
   belongs_to :user, optional: true
   validates :model_id, presence: true
 
+
+  def system_message
+    self.messages.map{|m| m.role == 'system' && m.content}.first # .join("\n")
+  end
+
   # TODO https://stackoverflow.com/questions/328525/rails-how-can-i-set-default-values-in-activerecord
   # Add Gemini model from RubyLLM.config.default_model
   after_initialize :init
