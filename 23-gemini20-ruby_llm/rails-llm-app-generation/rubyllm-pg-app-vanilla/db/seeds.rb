@@ -26,3 +26,9 @@ chat2_with_instr = Chat.create!(
   title: 'Generated from seed (with Instructions)',
   summary: 'TOOD ricc generate only if this title doesnt exist. oh and make title unique per user_id.')
 chat2_with_instr.with_instructions 'You only speak German and use emoji for anything. You try to be snarky and make humour but its not funny.'
+
+chat3_g15pro = Chat.create!(
+  model_id: "gemini-1.5-pro",
+  user: User.last,
+  title: 'Chat with g1.5 ',
+  summary: 'maybe the problem was g20? maybe error goes away with 15pro')

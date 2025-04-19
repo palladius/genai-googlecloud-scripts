@@ -75,6 +75,8 @@ class ChatsController < ApplicationController
     if @message.save
       # --- Placeholder for LLM Interaction ---
       # TODO: Trigger the LLM response here if desired.
+      # this works but adds duplication of messages..
+      @chat.ask(message_content)
       # This might involve calling a method like `@chat.ask(message_content)`
       # or similar, depending on how ruby-llm works.
       # For now, we just save the user's message.

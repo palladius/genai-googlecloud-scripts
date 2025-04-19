@@ -2,18 +2,15 @@
 <div id="<%= dom_id chat %>" class="w-full my-5 space-y-5">
 
   <div>
-    <strong class="block font-medium mb-1"><%= link_to chat.title, chat %></strong> (by <%= chat.user.name rescue '-' %>)
+    <strong class="block font-big mb-1"><%= link_to chat.title, chat %></strong>
+    ( <%= chat.messages.count rescue '?' %>📨
+      by <%= chat.user.name rescue '-' %>)
     <em class="block font-medium mb-1"><%= chat.summary %></em>
   </div>
 
 
 </div>
 
-<h2>Thread</h2>
-
-<% chat.messages.each do |message| %>
-  <%= message %><br/>
-<% end %>
 
 
 <!--

@@ -1,12 +1,14 @@
 require 'ruby_llm'
 require 'rainbow'
 
-DEFAULT_LLM_MODEL = "gemini-2.0-flash"
+#DEFAULT_LLM_MODEL = "gemini-2.0-flash"
+DEFAULT_LLM_MODEL = "gemini-1.5-pro"
 
 chomped_key = ENV['GEMINI_API_KEY'][0..4] rescue :unknown
 GEMINI_API_KEY = ENV.fetch 'GEMINI_API_KEY', nil
 
-puts("🔑 [config/initializers/ruby_llm] ENV[GEMINI_API_KEY]: #{Rainbow(chomped_key).red}..")
+puts("🔑 [config/initializers/ruby_llm] ENV[GEMINI_API_KEY]: #{Rainbow(chomped_key).green}..")
+puts("🔑 [config/initializers/ruby_llm] DEFAULT_LLM_MODEL: #{Rainbow(DEFAULT_LLM_MODEL).purple}")
 
 
 RubyLLM.configure do |config|
