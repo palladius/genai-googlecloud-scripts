@@ -1,0 +1,18 @@
+/* app/assets/stylesheets/application.tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom rule to remove top margin from the first paragraph inside .prose */
+/* Option A: If you added the custom class */
+.message-content p:first-of-type {
+  @apply mt-0; /* Use Tailwind's apply directive */
+  /* Or standard CSS: margin-top: 0; */
+  margin-top: 0;
+}
+
+/* Option B: Target any .prose directly (might be too broad if you use .prose elsewhere) */
+.prose p:first-of-type {
+  @apply mt-0;
+}
+

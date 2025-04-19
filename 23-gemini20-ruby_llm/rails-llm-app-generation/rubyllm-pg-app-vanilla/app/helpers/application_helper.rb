@@ -6,6 +6,8 @@ module ApplicationHelper # Or MessagesHelper
     # Return an empty safe string if text is blank to avoid errors
     return ''.html_safe if text.blank?
 
+    cleaned_text = text.strip # Removes leading/trailing whitespace (including newlines)
+
     # --- Redcarpet Options ---
 
     # Renderer options control how HTML is generated
@@ -33,6 +35,6 @@ module ApplicationHelper # Or MessagesHelper
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
     # Render the markdown and mark it as HTML safe
-    markdown.render(text).html_safe
+    markdown.render(cleaned_text).html_safe
   end
 end
