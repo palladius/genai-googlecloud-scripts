@@ -6,13 +6,12 @@
     ( <%= chat.messages.count rescue '?' %>📨
       by <%= chat.user.name rescue '-' %>)
     <em class="block font-medium mb-1"><%= chat.summary %></em>
+    <tt class="block font-medium mb-1"><%= chat.model_id %></tt>
+    <% if (chat.system_message rescue nil) %>
+        ⚙️ <%= chat.system_message %>
+    <% end %>
+
   </div>
 
 
 </div>
-
-
-
-<!--
-// ok, now I want to add to the chat show some sort of chat functionality (big long single text form and a button "send" where typing ENTER also works). This should trigger some function on the controller, like "send_msg"
--->
