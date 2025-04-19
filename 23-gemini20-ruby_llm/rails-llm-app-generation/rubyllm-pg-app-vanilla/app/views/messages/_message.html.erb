@@ -1,13 +1,13 @@
-<%# Renders a single message bubble %>
+<%# Renders a single message bubble - Compact Version %>
 <%# Expects a local variable `message` %>
 
 <%# Determine styling based on role %>
 <% is_user = message.role.downcase == 'user' %>
 <% is_assistant = message.role.downcase == 'assistant' || message.role.downcase == 'model' %>
-<%# Add other roles if needed %>
+<% is_system = message.role.downcase == 'system' %>
 
-<%# Base classes for all messages %>
-<% base_classes = "p-3 rounded-lg shadow-sm max-w-xl lg:max-w-2xl break-words" %>
+<%# Base classes for all messages - Reduced padding (p-2) %>
+<% base_classes = "p-2 rounded-lg shadow-sm max-w-xl lg:max-w-2xl break-words" %>
 
 <%# Role-specific classes %>
 <% role_classes = case message.role.downcase
@@ -16,31 +16,42 @@
                   when 'assistant', 'model'
                     "bg-gray-100 border border-gray-200 mr-auto" # Assistant messages on the left
                   when 'system'
-                    "bg-yellow-50 border border-yellow-200 text-gray-600 italic text-sm text-center mx-auto w-full max-w-full" # System messages centered, different style
+                    "bg-yellow-50 border border-yellow-200 text-gray-600 italic text-sm text-center mx-auto w-full max-w-full" # System messages centered
                   else
                     "bg-white border border-gray-300 mr-auto" # Default/unknown role
                   end
 %>
 
 <%# Container for the message, includes Turbo ID %>
-<div id="<%= dom_id(message) %>" class="flex"> <%# Use flex to help with alignment %>
+<div id="<%= dom_id(message) %>" class="flex">
   <div class="<%= base_classes %> <%= role_classes %>">
 
-    <%# Optional: Display role explicitly (except maybe for user?) %>
-    <% unless is_user || message.role.downcase == 'system' %> <%# Don't show role for user or system %>
-      <p class="text-xs font-semibold mb-1 <%= is_assistant ? 'text-gray-600' : 'text-purple-600' %>">
-        <%= message.role.capitalize %>
-      </p>
-    <% end %>
+    <%# --- Combined Header Line: Timestamp and Optional Role --- %>
+    <%# Use a div container for the header line with small bottom margin (mb-1) %>
+    <div class="text-xs mb-1">
+      <%# Timestamp Span - Monospace, muted color %>
+      <span class="font-mono text-gray-500">
+        <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
+      </span>
+
+      <%# Optional: Role Span (only if not user and not system) %>
+      <% unless is_user || is_system %>
+        <%# Add left margin (ml-2) for spacing, specific color, wrap role in parentheses %>
+        <span class="font-semibold ml-2 <%= is_assistant ? 'text-purple-600' : 'text-purple-600' %>">
+          (<%= message.role.capitalize %>)
+        </span>
+      <% end %>
+      <!-- riccardo monkey patch
+    </div>
+    <%# --- End Combined Header Line --- %>
 
     <%# Display the message content, preserving line breaks %>
-    <div class="text-sm text-gray-800 whitespace-pre-wrap">
+    <%# Removed extra vertical space. Content starts right after the header margin. %>
+    <%# Adjusted text alignment for system messages %>
+    <div class="text-sm <%= is_system ? 'text-center' : 'text-gray-800' %> whitespace-pre-wrap">
+    -->
       <%= message.content %>
     </div>
 
-    <%# Optional: Timestamp %>
-    <p class="text-xs text-gray-400 mt-2 text-right">
-      <%= time_ago_in_words(message.created_at) %> ago
-    </p>
   </div>
 </div>
