@@ -1,0 +1,13 @@
+
+set export
+
+# Should get them from envrc...
+PROJECT_ID := "justfile_pincopallo"
+GCP_REGION := 'justfile-antarctica-east-1'
+
+# Lists all targets
+[group('default')]
+list:
+    @yellow "[justfile] PROJECT_ID=$PROJECT_ID"
+    @yellow "[justfile] GCP_REGION=$GCP_REGION"
+    @just -l
