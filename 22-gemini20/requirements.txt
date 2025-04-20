@@ -1,15 +1,2 @@
-pydantic
-google_genai
-python-dotenv
-colorama
-markdown
-beautifulsoup4
-# PIL
-pillow
-# GCP
-google-cloud-storage
-
-
-
-# Other stuff I might need to install but not as part of normal stuff.
-# packagization: pip install pyinstaller
+google-cloud-aiplatform>=1.40.0
+pyperclip>=1.8.2
