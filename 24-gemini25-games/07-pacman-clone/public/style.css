@@ -1,25 +1,26 @@
-
 body {
   margin: 0;
-  overflow: hidden;
+  overflow: hidden;          /* Prevent scrollbars */
   background-color: black;
-  display: flex;             // Keep flexbox for centering
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;         // Ensure body takes full height
-  min-width: 100vw;          // Ensure body takes full width
+  display: flex;
+  justify-content: center; /* Center canvas horizontally */
+  align-items: center;     /* Center canvas vertically */
+  min-height: 100vh;       /* Ensure body fills viewport height */
+  min-width: 100vw;        /* Ensure body fills viewport width */
 }
 
 canvas {
-  display: block;            // Good practice, removes extra space
-  max-width: 100vw;          // Limit canvas width to viewport width
-  max-height: 100vh;         // Limit canvas height to viewport height
-  width: auto;               // Let height determine width (if height limited first)
-  height: auto;              // Let width determine height (if width limited first)
-  object-fit: contain;       // Scale while maintaining aspect ratio & fitting within bounds
-  // Keep pixels sharp when scaling up:
+  display: block;          /* Removes extra space below canvas */
+  max-width: 100vw;        /* Max width is viewport width */
+  max-height: 100vh;       /* Max height is viewport height */
+  width: auto;             /* Calculate width based on height to keep aspect ratio */
+  height: auto;            /* Calculate height based on width to keep aspect ratio */
+  object-fit: contain;     /* Scale down nicely, maintaining aspect ratio */
+
+  /* Keep pixels sharp when scaling up: */
   image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges; // Firefox
-  image-rendering: crisp-edges;      // Other browsers
-  border: 1px solid #333;    // Optional: Keep the border if you like it
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: crisp-edges;      /* Other browsers */
+
+  border: 1px solid #333;  /* Optional border */
 }

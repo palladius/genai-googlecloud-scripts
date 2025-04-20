@@ -1,3 +1,4 @@
+v6 just changing HTML and CSS
 v5 fixing the mouse and 100% width by fixing the CSS and dont know what on JS.
 v4 adding carlessian vertical escape routes to really mess with those ghosts! 👻↕️
 v3 Fix the teleport
