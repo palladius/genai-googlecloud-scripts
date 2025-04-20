@@ -1,8 +1,8 @@
 // ==========================================
-// Single-File p5.js Pac-Man Clone (v2 - Bug Fixes!)
+// Single-File p5.js Pac-Man Clone (v3 - Teleport Fix!)
 // Paste this entire code into the p5.js editor:
 // https://editor.p5js.org/
-// Fixes: Ghost cage, Teleport tunnels, Movement bug
+// Fixes: Ghost cage, Teleport tunnels, Movement bug, Teleport logic
 // ==========================================
 
 // === lib/colors.js ===
@@ -140,8 +140,8 @@ class Maze {
     newGrid[midY][midX-2] = TILE_WALL;   /* Pen Inside */ newGrid[midY][midX+2] = TILE_WALL;
     newGrid[midY+1][midX-2] = TILE_WALL; newGrid[midY+1][midX-1] = TILE_WALL; newGrid[midY+1][midX] = TILE_WALL; newGrid[midY+1][midX+1] = TILE_WALL; newGrid[midY+1][midX+2] = TILE_WALL;
 
-    // *** FIX 1: Ghost Cage Door ***
-    newGrid[midY-1][midX] = TILE_GHOST_DOOR; // Make the top-middle wall the door
+    // Ghost Cage Door
+    newGrid[midY-1][midX] = TILE_GHOST_DOOR;
 
     // Clear inside the pen
     newGrid[midY][midX-1] = TILE_EMPTY; newGrid[midY][midX] = TILE_EMPTY; newGrid[midY][midX+1] = TILE_EMPTY;
@@ -162,19 +162,21 @@ class Maze {
     newGrid[h-3][w-3] = TILE_WALL; newGrid[h-3][w-4] = TILE_WALL; newGrid[h-3][w-5] = TILE_WALL;
     newGrid[h-4][w-5] = TILE_WALL; newGrid[h-5][w-5] = TILE_WALL;
 
-     // *** FIX 3: Teleport Tunnels ***
-     const tunnelY = midY + 2; // Place tunnel below center
-     if (tunnelY > 0 && tunnelY < h - 1) {
+    // --- Teleport Tunnels ---
+    const tunnelY = midY + 2; // Place tunnel below center
+    if (tunnelY > 0 && tunnelY < h - 1) {
          newGrid[tunnelY][0] = TILE_EMPTY; // Left Tunnel Opening
          newGrid[tunnelY][w - 1] = TILE_EMPTY; // Right Tunnel Opening
+         console.log(`Tunnel created at Y=${tunnelY}`); // Debug confirmation
+     } else {
+          console.warn(`Could not create tunnel at Y=${tunnelY}`);
      }
+
 
     // --- Fill with Dots ---
     for (let y = 1; y < h - 1; y++) {
       for (let x = 1; x < w - 1; x++) {
-        // Add dot if it's an empty floor tile (not wall, not door, not already empty inside pen)
         if (newGrid[y][x] === TILE_EMPTY) {
-             // Avoid placing dots in the ghost start/exit area for clarity
             if (!(y === midY && x >= midX-1 && x <= midX+1) && !(y === midY-1 && x === midX)) {
                  newGrid[y][x] = TILE_DOT;
             }
@@ -189,7 +191,7 @@ class Maze {
      newGrid[h-4][w-4] = TILE_POWER_PELLET;
 
     // --- Clear Pac-Man Start ---
-    newGrid[midY + 2][midX] = TILE_EMPTY; // Pacman start below center box and tunnel
+    newGrid[midY + 3][midX] = TILE_EMPTY; // Start below tunnel
 
     return newGrid;
   }
@@ -207,26 +209,30 @@ class Maze {
   }
 
   getTile(x, y) {
-    if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
-      return TILE_WALL; // Treat out of bounds as a wall for collision
-    }
+    // Important: Allow checking outside bounds for teleport logic, return specific value maybe?
+     if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
+       // If checking specifically for teleport destination, this needs care.
+       // For general collision, treat as wall.
+       return TILE_WALL;
+     }
     return this.grid[y][x];
   }
 
-  // Check if a tile is impassable *for Pac-Man*
   isWallForPacman(x, y) {
       const tile = this.getTile(x, y);
+      // Pacman cannot enter walls or ghost doors
       return tile === TILE_WALL || tile === TILE_GHOST_DOOR;
   }
 
-   // Check if a tile is impassable *for Ghosts* (they can pass the door)
    isWallForGhost(x, y, ghostState) {
        const tile = this.getTile(x, y);
-        // Eaten ghosts can potentially phase through walls if needed, but let's keep it simple
-       if (tile === TILE_GHOST_DOOR && (ghostState === GHOST_STATE_EATEN || ghostState === GHOST_STATE_EXITING_PEN)) {
-            return false; // Can pass door if eaten or trying to exit
+        // Ghosts can pass door if eaten or trying to exit/enter pen
+       if (tile === TILE_GHOST_DOOR &&
+          (ghostState === GHOST_STATE_EATEN || ghostState === GHOST_STATE_EXITING_PEN)) {
+            return false;
        }
-       return tile === TILE_WALL || tile === TILE_GHOST_DOOR; // Normal ghosts treat door as wall
+       // Normal/Vulnerable ghosts treat door as wall. All ghosts treat regular walls as walls.
+       return tile === TILE_WALL || tile === TILE_GHOST_DOOR;
    }
 
 
@@ -262,19 +268,17 @@ class Maze {
              this.p.ellipse(drawX + TILE_SIZE / 2, drawY + TILE_SIZE / 2, POWER_PELLET_SIZE, POWER_PELLET_SIZE);
           }
         } else if (tileType === TILE_GHOST_DOOR) {
-           // Draw door slightly differently (e.g., pink line)
-           applyFillColor(this.p, 'BLACK'); // Background color
-           this.p.rect(drawX, drawY, TILE_SIZE, TILE_SIZE); // Fill space first
+           applyFillColor(this.p, 'BLACK');
+           this.p.rect(drawX, drawY, TILE_SIZE, TILE_SIZE);
            applyStrokeColor(this.p, 'PINK');
            this.p.strokeWeight(4);
            this.p.line(drawX, drawY + TILE_SIZE / 2, drawX + TILE_SIZE, drawY + TILE_SIZE / 2);
-           applyNoStroke(this.p); // Reset stroke
+           applyNoStroke(this.p);
+        } else if (tileType === TILE_EMPTY) {
+            // Draw empty tiles black explicitly to cover potential gaps near tunnels
+             applyFillColor(this.p, 'BLACK');
+             this.p.rect(drawX, drawY, TILE_SIZE, TILE_SIZE);
         }
-        // TILE_EMPTY is just background, no need to draw explicitly unless debugging
-        // else {
-        //   applyFillColor(this.p, 'BLACK');
-        //   this.p.rect(drawX, drawY, TILE_SIZE, TILE_SIZE);
-        // }
       }
     }
     this.p.pop();
@@ -311,11 +315,12 @@ class Pacman {
     const currentGridY = getGridCoord(this.y);
     const nextGridX = currentGridX + dir.x;
     const nextGridY = currentGridY + dir.y;
-    return !this.maze.isWallForPacman(nextGridX, nextGridY); // Use Pac-Man specific wall check
+    // Check the tile Pacman intends to move into
+    return !this.maze.isWallForPacman(nextGridX, nextGridY);
   }
 
 
-  // *** FIX 2: Rewritten Movement Logic ***
+  // Movement Logic (v2)
   update() {
     const currentGridX = getGridCoord(this.x);
     const currentGridY = getGridCoord(this.y);
@@ -325,64 +330,72 @@ class Pacman {
     if (centered && this.nextDirection !== DIR_STOP) {
         if (this._canMove(this.nextDirection)) {
             this.direction = this.nextDirection;
-            this.nextDirection = DIR_STOP; // Consume the request
+            this.nextDirection = DIR_STOP;
         }
-        // If the requested direction is blocked, keep current direction for now.
-        // But, if the current direction ALSO becomes blocked now (e.g. just entered dead end), stop.
-        else if (!this._canMove(this.direction)) {
+        else if (!this._canMove(this.direction)){
              this.direction = DIR_STOP;
         }
     }
 
     // 2. Check if the current path is blocked ahead *if centered*
     if (centered && !this._canMove(this.direction)) {
-        this.direction = DIR_STOP; // Stop if centered and facing wall
+        this.direction = DIR_STOP;
     }
 
     // 3. Move Pac-Man if direction is not STOP
     if (this.direction !== DIR_STOP) {
-        // Before moving, predict if the *next* step crosses into a wall tile's boundary.
-        // This prevents overshooting and getting stuck partially in a wall.
         const nextPixelX = this.x + this.direction.x * PACMAN_SPEED;
         const nextPixelY = this.y + this.direction.y * PACMAN_SPEED;
-        const nextGridX = getGridCoord(nextPixelX);
-        const nextGridY = getGridCoord(nextPixelY);
 
-        let collisionAhead = false;
-        if (this.direction === DIR_RIGHT && nextGridX > currentGridX && this.maze.isWallForPacman(currentGridX + 1, currentGridY)) collisionAhead = true;
-        else if (this.direction === DIR_LEFT && nextGridX < currentGridX && this.maze.isWallForPacman(currentGridX - 1, currentGridY)) collisionAhead = true;
-        else if (this.direction === DIR_DOWN && nextGridY > currentGridY && this.maze.isWallForPacman(currentGridX, currentGridY + 1)) collisionAhead = true;
-        else if (this.direction === DIR_UP && nextGridY < currentGridY && this.maze.isWallForPacman(currentGridX, currentGridY - 1)) collisionAhead = true;
+        // Check for collision *before* actually moving pixel position
+        // This prevents entering a wall tile even slightly
+        const targetGridX = currentGridX + this.direction.x;
+        const targetGridY = currentGridY + this.direction.y;
 
-        if (collisionAhead && !centered) {
-            // If moving towards a wall and about to cross the grid line, snap to center and stop.
-            this.x = currentGridX * TILE_SIZE + TILE_SIZE / 2;
-            this.y = currentGridY * TILE_SIZE + TILE_SIZE / 2;
-            this.direction = DIR_STOP;
-            // console.log("Snap & Stop!"); // Debug
+        // If moving towards a wall AND Pacman is about to cross the grid boundary
+        let collisionImminent = false;
+        if (this.direction.x > 0 && nextPixelX >= targetGridX * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForPacman(targetGridX, targetGridY)) collisionImminent = true;
+        else if (this.direction.x < 0 && nextPixelX <= targetGridX * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForPacman(targetGridX, targetGridY)) collisionImminent = true;
+        else if (this.direction.y > 0 && nextPixelY >= targetGridY * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForPacman(targetGridX, targetGridY)) collisionImminent = true;
+        else if (this.direction.y < 0 && nextPixelY <= targetGridY * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForPacman(targetGridX, targetGridY)) collisionImminent = true;
+
+        if (collisionImminent && !centered) {
+             // Snap to current center and stop movement
+             this.x = currentGridX * TILE_SIZE + TILE_SIZE / 2;
+             this.y = currentGridY * TILE_SIZE + TILE_SIZE / 2;
+             this.direction = DIR_STOP;
         } else {
-            // No collision imminent, proceed with movement.
-            this.x += this.direction.x * PACMAN_SPEED;
-            this.y += this.direction.y * PACMAN_SPEED;
-            // console.log("Moving to", this.x, this.y); // Debug
+            // No collision, proceed with movement
+            this.x = nextPixelX;
+            this.y = nextPixelY;
         }
     }
 
 
-    // --- Wrap Around Tunnels (Teleport) ---
-    // Use the grid coordinates for tunnel check
-    const checkGridY = getGridCoord(this.y); // Y position for the tunnel
-    if (this.x < -TILE_SIZE / 2 && this.direction === DIR_LEFT) { // Gone fully off left edge
-      // Check if the corresponding tunnel entrance on the right is open
-       if(this.maze.getTile(this.maze.width - 1, checkGridY) === TILE_EMPTY) {
-           this.x = (this.maze.width - 1) * TILE_SIZE + TILE_SIZE / 2; // Appear on right edge center
-       }
-    } else if (this.x > this.maze.width * TILE_SIZE - TILE_SIZE / 2 && this.direction === DIR_RIGHT) { // Gone fully off right edge
-        // Check if the corresponding tunnel entrance on the left is open
-       if(this.maze.getTile(0, checkGridY) === TILE_EMPTY) {
-          this.x = TILE_SIZE / 2; // Appear on left edge center
-       }
+    // *** FIX 4: Corrected Teleport Logic ***
+    const teleGridX = getGridCoord(this.x);
+    const teleGridY = getGridCoord(this.y);
+    const teleCentered = isCentered(this.x, this.y);
+
+    // Check if Pacman is *centered* in the leftmost column tile and moving left
+    if (teleGridX === 0 && this.direction === DIR_LEFT && teleCentered) {
+        // Check if the destination tunnel tile on the right exists and is empty
+        if (this.maze.getTile(this.maze.width - 1, teleGridY) === TILE_EMPTY) {
+            // console.log(`Teleporting L->R from (0, ${teleGridY})`); // Debug
+            this.x = (this.maze.width - 1) * TILE_SIZE + TILE_SIZE / 2; // Emerge centered on the rightmost tile
+            this.y = teleGridY * TILE_SIZE + TILE_SIZE / 2; // Ensure Y is centered too
+        }
     }
+    // Check if Pacman is *centered* in the rightmost column tile and moving right
+    else if (teleGridX === this.maze.width - 1 && this.direction === DIR_RIGHT && teleCentered) {
+         // Check if the destination tunnel tile on the left exists and is empty
+        if (this.maze.getTile(0, teleGridY) === TILE_EMPTY) {
+             // console.log(`Teleporting R->L from (${this.maze.width - 1}, ${teleGridY})`); // Debug
+             this.x = 0 * TILE_SIZE + TILE_SIZE / 2; // Emerge centered on the leftmost tile
+             this.y = teleGridY * TILE_SIZE + TILE_SIZE / 2; // Ensure Y is centered too
+        }
+    }
+
 
     // --- Animate Mouth ---
     if (this.direction !== DIR_STOP) {
@@ -400,7 +413,6 @@ class Pacman {
 
 
   eat() {
-      // Only eat when reasonably close to the center of the tile
       if (isCentered(this.x, this.y)){
         const gridX = getGridCoord(this.x);
         const gridY = getGridCoord(this.y);
@@ -410,7 +422,6 @@ class Pacman {
             this.score += 10;
         } else if (eatenPelletType === TILE_POWER_PELLET) {
             this.score += 50;
-            // Use the globally accessible game instance
             if (window.game) {
                 window.game.activatePowerPellet();
             } else {
@@ -422,16 +433,13 @@ class Pacman {
 
    loseLife() {
         this.lives--;
-        // Reset position to start
         this.x = this.startX * TILE_SIZE + TILE_SIZE / 2;
         this.y = this.startY * TILE_SIZE + TILE_SIZE / 2;
         this.direction = DIR_STOP;
         this.nextDirection = DIR_STOP;
-        // Could add a brief pause or invulnerability here
    }
 
   getGridPos() {
-      // Return grid coords based on current pixel position
       return { x: getGridCoord(this.x) , y: getGridCoord(this.y) };
   }
 
@@ -439,34 +447,19 @@ class Pacman {
     this.p.push();
     applyFillColor(this.p, 'YELLOW');
     applyNoStroke(this.p);
-
-    this.p.translate(this.x, this.y); // Move origin to pacman's center
-
-    // Determine rotation based on current or intended direction
+    this.p.translate(this.x, this.y);
     let angle = 0;
     let facingDir = this.direction;
-    // If stopped, but trying to move, face the direction we are trying
     if (facingDir === DIR_STOP && this.nextDirection !== DIR_STOP) {
         facingDir = this.nextDirection;
     }
-    // If stopped and no next direction, keep last known rotation? Or default? Default for now.
-
-    if (facingDir === DIR_RIGHT) {
-      angle = 0;
-    } else if (facingDir === DIR_LEFT) {
-      angle = this.p.PI;
-    } else if (facingDir === DIR_UP) {
-      angle = -this.p.PI / 2;
-    } else if (facingDir === DIR_DOWN) {
-      angle = this.p.PI / 2;
-    }
+    if (facingDir === DIR_RIGHT) angle = 0;
+    else if (facingDir === DIR_LEFT) angle = this.p.PI;
+    else if (facingDir === DIR_UP) angle = -this.p.PI / 2;
+    else if (facingDir === DIR_DOWN) angle = this.p.PI / 2;
     this.p.rotate(angle);
-
-
-    // Draw Pac-Man shape (arc)
     this.p.arc(0, 0, this.size, this.size, this.mouthAngle, -this.mouthAngle, this.p.PIE);
-
-    this.p.pop(); // Restore previous drawing state
+    this.p.pop();
   }
 }
 
@@ -474,46 +467,41 @@ class Pacman {
 // === lib/ghost.js ===
 // The spooky adversaries! 👻
 const GHOST_STATE_NORMAL = 'NORMAL';
-const GHOST_STATE_VULNERABLE = 'VULNERABLE'; // Blue!
-const GHOST_STATE_EATEN = 'EATEN'; // Just eyes, returning home
-const GHOST_STATE_EXITING_PEN = 'EXITING_PEN'; // Special state for leaving the pen
+const GHOST_STATE_VULNERABLE = 'VULNERABLE';
+const GHOST_STATE_EATEN = 'EATEN';
+const GHOST_STATE_EXITING_PEN = 'EXITING_PEN';
 
 class Ghost {
   constructor(p, startX, startY, maze, colorName = 'RED') {
-    this.p = p; // Store p5 instance
+    this.p = p;
     this.maze = maze;
-    this.startX = startX; // For respawning
+    this.startX = startX;
     this.startY = startY;
     this.x = startX * TILE_SIZE + TILE_SIZE / 2;
     this.y = startY * TILE_SIZE + TILE_SIZE / 2;
     this.size = TILE_SIZE * 0.8;
-    this.direction = DIR_UP; // Ghosts initially try to move up to exit pen
+    this.direction = DIR_UP;
     this.colorName = colorName;
-    // Start in the pen, trying to exit
     this.state = GHOST_STATE_EXITING_PEN;
     this.vulnerableTimer = 0;
-    this.speed = GHOST_SPEED; // Use normal speed initially
+    this.speed = GHOST_SPEED;
   }
 
-  // Check if the ghost can move into the *center* of the next tile
   _canMove(dir) {
-      if (dir === DIR_STOP) return false; // Don't allow stopping unless stuck
+      if (dir === DIR_STOP) return false;
       const currentGridX = getGridCoord(this.x);
       const currentGridY = getGridCoord(this.y);
       const nextGridX = currentGridX + dir.x;
       const nextGridY = currentGridY + dir.y;
-      // Use Ghost specific wall check
       return !this.maze.isWallForGhost(nextGridX, nextGridY, this.state);
   }
 
   makeVulnerable() {
-      // Don't become vulnerable if eaten or still exiting pen
       if (this.state !== GHOST_STATE_EATEN && this.state !== GHOST_STATE_EXITING_PEN) {
          const prevState = this.state;
          this.state = GHOST_STATE_VULNERABLE;
          this.vulnerableTimer = GHOST_VULNERABLE_DURATION;
-         this.speed = GHOST_SPEED * 0.6; // Slow down
-         // Reverse direction if wasn't already vulnerable
+         this.speed = GHOST_SPEED * 0.6;
          if (prevState === GHOST_STATE_NORMAL) {
               const opposite = this._getOppositeDirection(this.direction);
               if (this._canMove(opposite)) {
@@ -542,171 +530,153 @@ class Ghost {
             this.speed = GHOST_SPEED;
         }
     }
-     // Check if exited the pen
      const currentGridX = getGridCoord(this.x);
      const currentGridY = getGridCoord(this.y);
-     if (this.state === GHOST_STATE_EXITING_PEN && currentGridY <= GHOST_PEN_EXIT_Y && isCentered(this.x, this.y)) {
-         // Once it reaches the exit tile center, switch to normal behavior
+     const centered = isCentered(this.x, this.y);
+
+     if (this.state === GHOST_STATE_EXITING_PEN && currentGridY <= GHOST_PEN_EXIT_Y && centered) {
          if(currentGridX === GHOST_PEN_EXIT_X && currentGridY === GHOST_PEN_EXIT_Y) {
               this.state = GHOST_STATE_NORMAL;
-              // Optionally give it a random initial direction outside pen
-              // this.direction = this.p.random([DIR_LEFT, DIR_RIGHT]);
-              console.log(`${this.colorName} ghost exited pen!`);
+              // console.log(`${this.colorName} ghost exited pen!`); // Debug
          }
      }
-     // Respawn logic
      if (this.state === GHOST_STATE_EATEN) {
-          // If back at the start (pen entrance), reset state
-          if (Math.abs(this.x - (GHOST_PEN_EXIT_X * TILE_SIZE + TILE_SIZE / 2)) < this.speed &&
-              Math.abs(this.y - (GHOST_PEN_EXIT_Y * TILE_SIZE + TILE_SIZE / 2)) < this.speed )
-          {
-               console.log(`${this.colorName} ghost reached pen entrance, re-entering.`);
-               // Aim for start Y coord inside pen
-               this.y = (GHOST_PEN_EXIT_Y + 1) * TILE_SIZE + TILE_SIZE / 2; // Move into pen
-               this.state = GHOST_STATE_EXITING_PEN; // Behave like starting again
+          const targetX = GHOST_PEN_EXIT_X * TILE_SIZE + TILE_SIZE / 2;
+          const targetY = GHOST_PEN_EXIT_Y * TILE_SIZE + TILE_SIZE / 2;
+          // Use distance check for respawn trigger
+          if (distSq(this.x, this.y, targetX, targetY) < (this.speed * this.speed) ) {
+               // console.log(`${this.colorName} ghost reached pen entrance, re-entering.`); // Debug
+               this.x = targetX; // Snap to exact position before changing state
+               this.y = targetY + TILE_SIZE; // Move down into pen
+               this.state = GHOST_STATE_EXITING_PEN;
                this.speed = GHOST_SPEED;
+               this.direction = DIR_DOWN; // Ensure it moves down initially
           }
       }
 
     // --- Movement Logic ---
-    if (isCentered(this.x, this.y)) {
+    if (centered) { // Decide direction only when centered
       const newDir = this._chooseNewDirection(pacman);
        if (newDir !== DIR_STOP) {
            this.direction = newDir;
        } else if (!this._canMove(this.direction)) {
-            // Failsafe: If stuck, try any valid direction except reversing if possible
+            // Failsafe if stuck
             const oppositeDir = this._getOppositeDirection(this.direction);
             const possibleDirs = DIRECTIONS.filter(dir => this._canMove(dir) && dir !== oppositeDir);
-             if (possibleDirs.length > 0) {
-                  this.direction = this.p.random(possibleDirs);
-             } else if (this._canMove(oppositeDir)) {
-                  this.direction = oppositeDir; // Last resort: reverse
-             } else {
-                  this.direction = DIR_STOP; // Truly stuck
-             }
+             if (possibleDirs.length > 0) this.direction = this.p.random(possibleDirs);
+             else if (this._canMove(oppositeDir)) this.direction = oppositeDir;
+             else this.direction = DIR_STOP;
        }
     }
 
     // --- Move Ghost ---
     if (this.direction !== DIR_STOP) {
-         // Simplified movement check - assumes _chooseNewDirection picked a valid path
-         this.x += this.direction.x * this.speed;
-         this.y += this.direction.y * this.speed;
+         // Check for walls like Pacman to prevent slight overlaps - important for tunnels
+         const nextPixelX = this.x + this.direction.x * this.speed;
+         const nextPixelY = this.y + this.direction.y * this.speed;
+         const targetGridX = currentGridX + this.direction.x;
+         const targetGridY = currentGridY + this.direction.y;
+
+         let collisionImminent = false;
+         if (this.direction.x > 0 && nextPixelX >= targetGridX * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForGhost(targetGridX, targetGridY, this.state)) collisionImminent = true;
+         else if (this.direction.x < 0 && nextPixelX <= targetGridX * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForGhost(targetGridX, targetGridY, this.state)) collisionImminent = true;
+         else if (this.direction.y > 0 && nextPixelY >= targetGridY * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForGhost(targetGridX, targetGridY, this.state)) collisionImminent = true;
+         else if (this.direction.y < 0 && nextPixelY <= targetGridY * TILE_SIZE + TILE_SIZE / 2 && this.maze.isWallForGhost(targetGridX, targetGridY, this.state)) collisionImminent = true;
+
+         if (collisionImminent && !centered) {
+             // Snap to current center and stop (or recalculate next frame)
+             this.x = currentGridX * TILE_SIZE + TILE_SIZE / 2;
+             this.y = currentGridY * TILE_SIZE + TILE_SIZE / 2;
+             // Don't set direction to stop, let the centered logic handle it next frame
+         } else {
+            // No collision, proceed
+            this.x = nextPixelX;
+            this.y = nextPixelY;
+         }
     }
 
 
-     // --- Wrap Around Tunnels (Teleport) ---
-     const checkGridY = getGridCoord(this.y);
-     if (this.x < -TILE_SIZE / 2 && this.direction === DIR_LEFT) {
-         if(this.maze.getTile(this.maze.width - 1, checkGridY) === TILE_EMPTY) {
+    // *** FIX 4b: Corrected Teleport Logic for Ghosts ***
+    const teleGridX = getGridCoord(this.x);
+    const teleGridY = getGridCoord(this.y);
+    const teleCentered = isCentered(this.x, this.y);
+
+    // Check if Ghost is *centered* in the leftmost column tile and moving left
+    if (teleGridX === 0 && this.direction === DIR_LEFT && teleCentered) {
+        if (this.maze.getTile(this.maze.width - 1, teleGridY) === TILE_EMPTY) {
+            // console.log(`${this.colorName} Teleporting L->R`); // Debug
             this.x = (this.maze.width - 1) * TILE_SIZE + TILE_SIZE / 2;
-         }
-     } else if (this.x > this.maze.width * TILE_SIZE - TILE_SIZE / 2 && this.direction === DIR_RIGHT) {
-         if(this.maze.getTile(0, checkGridY) === TILE_EMPTY) {
-            this.x = TILE_SIZE / 2;
-         }
-     }
+            this.y = teleGridY * TILE_SIZE + TILE_SIZE / 2;
+        }
+    }
+    // Check if Ghost is *centered* in the rightmost column tile and moving right
+    else if (teleGridX === this.maze.width - 1 && this.direction === DIR_RIGHT && teleCentered) {
+        if (this.maze.getTile(0, teleGridY) === TILE_EMPTY) {
+             // console.log(`${this.colorName} Teleporting R->L`); // Debug
+             this.x = 0 * TILE_SIZE + TILE_SIZE / 2;
+             this.y = teleGridY * TILE_SIZE + TILE_SIZE / 2;
+        }
+    }
+
   }
 
-  // The "AI" part - decides where to go next when at a grid center
+  // AI Logic
   _chooseNewDirection(pacman) {
     const possibleDirs = [];
     const oppositeDir = this._getOppositeDirection(this.direction);
-
-    // Find all valid directions for the ghost
-    DIRECTIONS.forEach(dir => {
-      if (this._canMove(dir)) {
-        possibleDirs.push(dir);
-      }
-    });
-
-    // Filter out reversing, unless it's the only option
+    DIRECTIONS.forEach(dir => { if (this._canMove(dir)) possibleDirs.push(dir); });
     let forwardDirs = possibleDirs.filter(dir => dir !== oppositeDir);
-    if (forwardDirs.length === 0 && possibleDirs.includes(oppositeDir)) {
-        forwardDirs = [oppositeDir]; // Only option is to reverse
-    } else if (forwardDirs.length === 0) {
-        return DIR_STOP; // Completely stuck
-    }
+    if (forwardDirs.length === 0 && possibleDirs.includes(oppositeDir)) forwardDirs = [oppositeDir];
+    else if (forwardDirs.length === 0) return DIR_STOP;
 
-
-    // --- AI Strategy based on State ---
     let targetX, targetY;
-    let chosenDir = this.p.random(forwardDirs); // Default: random forward direction
-
+    let chosenDir = this.p.random(forwardDirs);
     const currentGridX = getGridCoord(this.x);
     const currentGridY = getGridCoord(this.y);
 
-    // *** FIX 1b: Ghost Exit Pen Logic ***
     if (this.state === GHOST_STATE_EXITING_PEN) {
-        // Target: Tile just above the pen door
         targetX = GHOST_PEN_EXIT_X * TILE_SIZE + TILE_SIZE / 2;
         targetY = GHOST_PEN_EXIT_Y * TILE_SIZE + TILE_SIZE / 2;
-        this.speed = GHOST_SPEED * 0.8; // Move slightly slower when exiting? Or normal?
+        this.speed = GHOST_SPEED * 0.8;
     } else if (this.state === GHOST_STATE_EATEN) {
-        // Target: Respawn point (just outside the pen door)
         targetX = GHOST_PEN_EXIT_X * TILE_SIZE + TILE_SIZE/2;
-        targetY = GHOST_PEN_EXIT_Y * TILE_SIZE + TILE_SIZE/2; // Aim for just outside
-        this.speed = GHOST_SPEED * 2.5; // Go fast when returning
+        targetY = GHOST_PEN_EXIT_Y * TILE_SIZE + TILE_SIZE/2;
+        this.speed = GHOST_SPEED * 2.5;
     } else if (this.state === GHOST_STATE_VULNERABLE) {
-        // Target: Run away! Maximize distance from Pacman
         let maxDistSq = -1;
-        if (pacman) { // Only flee if pacman exists
+        if (pacman) {
              forwardDirs.forEach(dir => {
-                 const nextGridX = currentGridX + dir.x;
-                 const nextGridY = currentGridY + dir.y;
+                 const nextGridX = currentGridX + dir.x; const nextGridY = currentGridY + dir.y;
                  const dSq = distSq(nextGridX * TILE_SIZE, nextGridY * TILE_SIZE, pacman.x, pacman.y);
-                 if (dSq > maxDistSq) {
-                     maxDistSq = dSq;
-                     chosenDir = dir;
-                 }
+                 if (dSq > maxDistSq) { maxDistSq = dSq; chosenDir = dir; }
              });
         }
-        return chosenDir; // Return the direction that moves furthest away
-
-    } else { // GHOST_STATE_NORMAL - Chase Pac-Man (or scatter target - simple chase for now)
-        if (pacman) {
-            targetX = pacman.x;
-            targetY = pacman.y;
-        } else {
-             return chosenDir; // Move randomly if no pacman
-        }
+        return chosenDir;
+    } else { // NORMAL Chase
+        if (pacman) { targetX = pacman.x; targetY = pacman.y; }
+        else { return chosenDir; } // Random if no pacman
         this.speed = GHOST_SPEED;
     }
 
-
-    // --- Pathfinding: Choose direction that minimizes distance to target ---
     if(targetX !== undefined && targetY !== undefined) {
         let minDistSq = Infinity;
         forwardDirs.forEach(dir => {
-            const nextGridX = currentGridX + dir.x;
-            const nextGridY = currentGridY + dir.y;
+            const nextGridX = currentGridX + dir.x; const nextGridY = currentGridY + dir.y;
             const nextCenterX = nextGridX * TILE_SIZE + TILE_SIZE / 2;
             const nextCenterY = nextGridY * TILE_SIZE + TILE_SIZE / 2;
             const dSq = distSq(nextCenterX, nextCenterY, targetX, targetY);
-
-            if (dSq < minDistSq) {
-                minDistSq = dSq;
-                chosenDir = dir;
-            }
-            // Simple tie-breaking (e.g., prefer Up > Left > Down > Right) - can make AI less predictable
-             else if (dSq === minDistSq) {
+            if (dSq < minDistSq) { minDistSq = dSq; chosenDir = dir; }
+            else if (dSq === minDistSq) { // Tie-breaking
                  const priority = [DIR_UP, DIR_LEFT, DIR_DOWN, DIR_RIGHT];
-                 if (priority.indexOf(dir) < priority.indexOf(chosenDir)) {
-                     chosenDir = dir;
-                 }
+                 if (priority.indexOf(dir) < priority.indexOf(chosenDir)) chosenDir = dir;
              }
         });
-    } else {
-       // Default to random if no target defined (shouldn't happen often)
-       chosenDir = this.p.random(forwardDirs);
-    }
-
+    } else { chosenDir = this.p.random(forwardDirs); }
     return chosenDir;
   }
 
 
   getGridPos() {
-      // Return grid coords based on current pixel position
       return { x: getGridCoord(this.x) , y: getGridCoord(this.y) };
   }
 
@@ -714,18 +684,17 @@ class Ghost {
   gotEaten() {
      if (this.state === GHOST_STATE_VULNERABLE) {
          this.state = GHOST_STATE_EATEN;
-         console.log(`${this.colorName} ghost eaten! Heading home...`);
+         // console.log(`${this.colorName} ghost eaten! Heading home...`); // Debug
          return true;
      }
      return false;
   }
 
-  // Reset ghost to its starting position and state
   reset() {
       this.x = this.startX * TILE_SIZE + TILE_SIZE / 2;
       this.y = this.startY * TILE_SIZE + TILE_SIZE / 2;
-      this.state = GHOST_STATE_EXITING_PEN; // Start by trying to exit again
-      this.direction = DIR_UP; // Default direction inside pen
+      this.state = GHOST_STATE_EXITING_PEN;
+      this.direction = DIR_UP;
       this.vulnerableTimer = 0;
       this.speed = GHOST_SPEED;
   }
@@ -733,61 +702,38 @@ class Ghost {
   draw() {
     this.p.push();
     applyNoStroke(this.p);
-
     let bodyColor;
     let eyeColor = COLORS.WHITE;
     let pupilColor = COLORS.BLACK;
 
     if (this.state === GHOST_STATE_VULNERABLE) {
         bodyColor = (this.vulnerableTimer < 100 && this.p.frameCount % 20 < 10)
-                     ? COLORS.GHOST_VULNERABLE_BLINK
-                     : COLORS.GHOST_VULNERABLE;
-    } else if (this.state === GHOST_STATE_EATEN) {
-         bodyColor = null; // No body, just eyes
-    } else { // NORMAL or EXITING_PEN
-        bodyColor = COLORS[this.colorName];
-    }
+                     ? COLORS.GHOST_VULNERABLE_BLINK : COLORS.GHOST_VULNERABLE;
+    } else if (this.state === GHOST_STATE_EATEN) { bodyColor = null; }
+    else { bodyColor = COLORS[this.colorName]; }
 
-    // Draw Body (if not eaten)
     if (bodyColor) {
         this.p.fill(bodyColor);
-        const bodyHeight = this.size * 0.7;
-        const feetY = this.y + bodyHeight / 2 - this.size * 0.1;
-        this.p.ellipse(this.x, this.y - bodyHeight / 4, this.size, this.size * 0.8); // Top dome
-        this.p.rect(this.x - this.size / 2, this.y - bodyHeight / 4, this.size, bodyHeight * 0.8); // Main body rect
-
-         // Simple wavy bottom
-         const waveW = this.size / 3;
-         const waveH = this.size * 0.2;
+        const bodyHeight = this.size * 0.7; const feetY = this.y + bodyHeight / 2 - this.size * 0.1;
+        this.p.ellipse(this.x, this.y - bodyHeight / 4, this.size, this.size * 0.8);
+        this.p.rect(this.x - this.size / 2, this.y - bodyHeight / 4, this.size, bodyHeight * 0.8);
+         const waveW = this.size / 3; const waveH = this.size * 0.2;
          this.p.ellipse(this.x - waveW, feetY, waveW, waveH);
          this.p.ellipse(this.x, feetY, waveW, waveH);
          this.p.ellipse(this.x + waveW, feetY, waveW, waveH);
     }
 
-    // Draw Eyes
     this.p.fill(eyeColor);
     const eyeSize = this.size * 0.25;
     const eyeOffsetY = (this.state === GHOST_STATE_EATEN) ? 0 : -this.size * 0.1;
     const eyeOffsetX = this.size * 0.2;
+    const leftEyeX = this.x - eyeOffsetX; const rightEyeX = this.x + eyeOffsetX; const eyeY = this.y + eyeOffsetY;
+    this.p.ellipse(leftEyeX, eyeY, eyeSize, eyeSize); this.p.ellipse(rightEyeX, eyeY, eyeSize, eyeSize);
 
-    const leftEyeX = this.x - eyeOffsetX;
-    const rightEyeX = this.x + eyeOffsetX;
-    const eyeY = this.y + eyeOffsetY;
-
-    this.p.ellipse(leftEyeX, eyeY, eyeSize, eyeSize);
-    this.p.ellipse(rightEyeX, eyeY, eyeSize, eyeSize);
-
-    // Draw Pupils (indicate direction)
     this.p.fill(pupilColor);
     const pupilSize = eyeSize * 0.5;
-    let pupilOffsetX = 0;
-    let pupilOffsetY = 0;
-
-    if (this.direction !== DIR_STOP) {
-         pupilOffsetX = this.direction.x * eyeSize * 0.2;
-         pupilOffsetY = this.direction.y * eyeSize * 0.2;
-     }
-
+    let pupilOffsetX = 0; let pupilOffsetY = 0;
+    if (this.direction !== DIR_STOP) { pupilOffsetX = this.direction.x * eyeSize * 0.2; pupilOffsetY = this.direction.y * eyeSize * 0.2; }
     this.p.ellipse(leftEyeX + pupilOffsetX, eyeY + pupilOffsetY, pupilSize, pupilSize);
     this.p.ellipse(rightEyeX + pupilOffsetX, eyeY + pupilOffsetY, pupilSize, pupilSize);
 
@@ -800,97 +746,73 @@ class Ghost {
 // Manages the overall game flow 🚦
 class Game {
   constructor(p) {
-    this.p = p; // Store p5 instance
-    this.reset(); // Initialize or reset game state
+    this.p = p;
+    this.reset(true); // Start fresh
   }
 
   reset(isNewGame = true) {
       this.maze = new Maze(this.p, MAZE_WIDTH, MAZE_HEIGHT);
 
       const pacmanStartX = Math.floor(MAZE_WIDTH / 2);
-      // Start Pacman below the ghost pen and tunnel
-      const pacmanStartY = Math.floor(MAZE_HEIGHT / 2) + 3;
-      // Only create a new Pacman instance for a completely new game (not after losing life)
+      const pacmanStartY = Math.floor(MAZE_HEIGHT / 2) + 3; // Below tunnel
+
       if (isNewGame || !this.pacman) {
          this.pacman = new Pacman(this.p, pacmanStartX, pacmanStartY, this.maze);
-      } else {
-          // Reset existing Pacman state but keep score/lives
+      } else { // Reset existing Pacman after losing life
           this.pacman.x = pacmanStartX * TILE_SIZE + TILE_SIZE / 2;
           this.pacman.y = pacmanStartY * TILE_SIZE + TILE_SIZE / 2;
           this.pacman.direction = DIR_STOP;
           this.pacman.nextDirection = DIR_STOP;
-          this.pacman.maze = this.maze; // Ensure Pacman has the new maze instance
+          this.pacman.maze = this.maze;
       }
 
-
-      // Place ghosts in their starting pen
       const ghostStartY = GHOST_PEN_Y;
       const ghostStartXCenter = GHOST_PEN_EXIT_X;
-      // Only create new ghosts for a new game
       if (isNewGame || !this.ghosts) {
-           this.ghosts = [
+           this.ghosts = [ // Create new ghosts
                new Ghost(this.p, ghostStartXCenter, ghostStartY, this.maze, 'RED'),
                new Ghost(this.p, ghostStartXCenter - 1, ghostStartY, this.maze, 'PINK'),
                new Ghost(this.p, ghostStartXCenter + 1, ghostStartY, this.maze, 'CYAN'),
-               // Add Orange ghost if desired
-               // new Ghost(this.p, ghostStartXCenter + 0, ghostStartY + 1, this.maze, 'ORANGE') // Needs pen space
            ];
-      } else {
-          // Reset existing ghosts
+      } else { // Reset existing ghosts
           this.ghosts.forEach(ghost => {
-              ghost.maze = this.maze; // Give ghost the new maze
-              ghost.reset(); // Use ghost's internal reset method
+              ghost.maze = this.maze;
+              ghost.reset();
           });
       }
 
-
       if (isNewGame) {
          this.gameState = STATE_START;
-         this.pacman.score = 0; // Reset score only for new game
-         this.pacman.lives = 3; // Reset lives only for new game
+         this.pacman.score = 0;
+         this.pacman.lives = 3;
       } else {
-         // If just lost life, keep score/lives, ensure ghosts reset
-          this.gameState = STATE_PLAYING; // Or add a brief PAUSED/READY state
+         // If just lost life, keep playing state (or add READY state)
+         this.gameState = STATE_PLAYING;
       }
 
-      this.ghostEatenPoints = 200; // Reset points multiplier
-      window.game = this; // Ensure global reference is updated
+      this.ghostEatenPoints = 200;
+      window.game = this;
       console.log(`Game Reset (New Game: ${isNewGame})`);
   }
 
 
   handleInput(keyCode) {
     if (this.gameState === STATE_PLAYING) {
-      if (keyCode === this.p.UP_ARROW || keyCode === 87 /* W */) {
-        this.pacman.setDirection(DIR_UP);
-      } else if (keyCode === this.p.DOWN_ARROW || keyCode === 83 /* S */) {
-        this.pacman.setDirection(DIR_DOWN);
-      } else if (keyCode === this.p.LEFT_ARROW || keyCode === 65 /* A */) {
-        this.pacman.setDirection(DIR_LEFT);
-      } else if (keyCode === this.p.RIGHT_ARROW || keyCode === 68 /* D */) {
-        this.pacman.setDirection(DIR_RIGHT);
-      }
+      if (keyCode === this.p.UP_ARROW || keyCode === 87 /* W */) this.pacman.setDirection(DIR_UP);
+      else if (keyCode === this.p.DOWN_ARROW || keyCode === 83 /* S */) this.pacman.setDirection(DIR_DOWN);
+      else if (keyCode === this.p.LEFT_ARROW || keyCode === 65 /* A */) this.pacman.setDirection(DIR_LEFT);
+      else if (keyCode === this.p.RIGHT_ARROW || keyCode === 68 /* D */) this.pacman.setDirection(DIR_RIGHT);
     } else if (this.gameState === STATE_START || this.gameState === STATE_GAME_OVER || this.gameState === STATE_WIN) {
-        if (keyCode) {
-           this.startGame();
-        }
+        if (keyCode) this.startGame();
     }
   }
 
   handleTouch() {
      if (this.gameState === STATE_PLAYING) {
-        const touchX = this.p.mouseX;
-        const touchY = this.p.mouseY;
-
-        const deltaX = touchX - this.pacman.x;
-        const deltaY = touchY - this.pacman.y;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            this.pacman.setDirection(deltaX > 0 ? DIR_RIGHT : DIR_LEFT);
-        } else {
-             this.pacman.setDirection(deltaY > 0 ? DIR_DOWN : DIR_UP);
-        }
-
+        const touchX = this.p.mouseX; const touchY = this.p.mouseY;
+        const deltaX = touchX - this.pacman.x; const deltaY = touchY - this.pacman.y;
+        if (Math.abs(deltaX) > Math.abs(deltaY)) this.pacman.setDirection(deltaX > 0 ? DIR_RIGHT : DIR_LEFT);
+        else this.pacman.setDirection(deltaY > 0 ? DIR_DOWN : DIR_UP);
      } else if (this.gameState === STATE_START || this.gameState === STATE_GAME_OVER || this.gameState === STATE_WIN) {
          this.startGame();
      }
@@ -899,9 +821,8 @@ class Game {
   startGame() {
       if (this.gameState !== STATE_PLAYING) {
           console.log("Starting game...");
-          // If coming from Game Over or Win, reset fully
           if (this.gameState === STATE_GAME_OVER || this.gameState === STATE_WIN) {
-             this.reset(true); // Full reset for a new game
+             this.reset(true); // Full reset
           }
           this.gameState = STATE_PLAYING;
       }
@@ -909,20 +830,13 @@ class Game {
 
 
   update() {
-    if (this.gameState !== STATE_PLAYING) {
-      return; // Don't update if not playing
-    }
-
+    if (this.gameState !== STATE_PLAYING) return;
     this.pacman.update();
     this.ghosts.forEach(ghost => ghost.update(this.pacman));
-
     this.checkCollisions();
-
-    // Check Win Condition
     if (this.maze.dotsRemaining <= 0) {
         console.log("All dots eaten! Player wins!");
-        this.pacman.score += 1000; // Bonus
-        this.gameState = STATE_WIN;
+        this.pacman.score += 1000; this.gameState = STATE_WIN;
     }
   }
 
@@ -930,38 +844,25 @@ class Game {
       if (this.gameState !== STATE_PLAYING) return;
       console.log("Power Pellet Activated! 🔵👻");
       this.ghosts.forEach(ghost => ghost.makeVulnerable());
-      this.ghostEatenPoints = 200; // Reset points multiplier
-      // Maybe add a sound effect here?
+      this.ghostEatenPoints = 200;
   }
 
   checkCollisions() {
-      // Use a smaller collision radius for fairness
-      const collisionDistSq = (TILE_SIZE * 0.7) * (TILE_SIZE * 0.7); // Slightly larger than half a tile
-
+      const collisionDistSq = (TILE_SIZE * 0.7) * (TILE_SIZE * 0.7);
       this.ghosts.forEach(ghost => {
-          // Only check collision if ghost is not eaten or exiting pen (can't interact then)
           if (ghost.state === GHOST_STATE_NORMAL || ghost.state === GHOST_STATE_VULNERABLE) {
               if (distSq(this.pacman.x, this.pacman.y, ghost.x, ghost.y) < collisionDistSq) {
                      if (ghost.state === GHOST_STATE_VULNERABLE) {
-                         // Pac-Man eats ghost!
-                         if (ghost.gotEaten()) { // gotEaten handles state change and returns true
+                         if (ghost.gotEaten()) {
                              this.pacman.score += this.ghostEatenPoints;
-                             console.log(`Ate ghost for ${this.ghostEatenPoints} points!`);
-                             this.ghostEatenPoints *= 2; // Double points for next ghost in chain
+                             // console.log(`Ate ghost for ${this.ghostEatenPoints} points!`); // Debug
+                             this.ghostEatenPoints *= 2;
                          }
                      } else if (ghost.state === GHOST_STATE_NORMAL) {
-                         // Ghost eats Pac-Man!
                          this.pacman.loseLife();
-                         console.log("Pacman caught! Lives remaining: " + this.pacman.lives);
-                         if (this.pacman.lives <= 0) {
-                                this.gameState = STATE_GAME_OVER;
-                                console.log("GAME OVER!");
-                         } else {
-                              // Lost a life, reset positions but keep game state
-                              this.resetPositionsAfterDeath();
-                              // Maybe add a short pause or "Ready?" state here
-                              // this.gameState = STATE_READY; // Need to implement READY state
-                         }
+                         // console.log("Pacman caught! Lives remaining: " + this.pacman.lives); // Debug
+                         if (this.pacman.lives <= 0) { this.gameState = STATE_GAME_OVER; console.log("GAME OVER!"); }
+                         else { this.resetPositionsAfterDeath(); }
                      }
                 }
           }
@@ -969,129 +870,67 @@ class Game {
   }
 
   resetPositionsAfterDeath() {
-      // Move Pac-Man back to start
       this.pacman.x = this.pacman.startX * TILE_SIZE + TILE_SIZE / 2;
       this.pacman.y = this.pacman.startY * TILE_SIZE + TILE_SIZE / 2;
-      this.pacman.direction = DIR_STOP;
-      this.pacman.nextDirection = DIR_STOP;
-
-      // Reset Ghosts using their internal reset method
+      this.pacman.direction = DIR_STOP; this.pacman.nextDirection = DIR_STOP;
       this.ghosts.forEach(ghost => ghost.reset());
+      // Maybe add brief pause/ready state?
   }
 
   drawUI() {
     this.p.push();
-    const uiY = this.maze.height * TILE_SIZE + TILE_SIZE; // Position UI below maze
+    const uiY = this.maze.height * TILE_SIZE + TILE_SIZE;
     this.p.textFont('monospace', 16);
     applyTextColor(this.p, 'WHITE');
     this.p.textAlign(this.p.LEFT, this.p.CENTER);
     this.p.text(`Score: ${this.pacman.score}`, 10, uiY);
-
-    // Draw Lives (Pac-Man icons)
-    applyFillColor(this.p, 'YELLOW');
-    applyNoStroke(this.p);
+    applyFillColor(this.p, 'YELLOW'); applyNoStroke(this.p);
     const lifeSize = TILE_SIZE * 0.7;
-    for(let i = 0; i < this.pacman.lives; i++) {
-        this.p.ellipse(this.p.width - (i * lifeSize * 1.5) - lifeSize, uiY, lifeSize, lifeSize);
-    }
-
-    // Game State Overlays
+    for(let i = 0; i < this.pacman.lives; i++) { this.p.ellipse(this.p.width - (i * lifeSize * 1.5) - lifeSize, uiY, lifeSize, lifeSize); }
     if (this.gameState !== STATE_PLAYING) {
-        let title = "";
-        let subtitle = "Tap or Press Key to START";
-        if (this.gameState === STATE_START) {
-             title = "p5.js PAC-MAN";
-        } else if (this.gameState === STATE_GAME_OVER) {
-             title = "GAME OVER";
-             subtitle = "Tap or Press Key to RESTART";
-        } else if (this.gameState === STATE_WIN) {
-             title = "YOU WIN!";
-             subtitle = "Tap or Press Key to RESTART";
-        }
+        let title = ""; let subtitle = "Tap or Press Key to START";
+        if (this.gameState === STATE_START) title = "p5.js PAC-MAN";
+        else if (this.gameState === STATE_GAME_OVER) { title = "GAME OVER"; subtitle = "Tap or Press Key to RESTART"; }
+        else if (this.gameState === STATE_WIN) { title = "YOU WIN!"; subtitle = "Tap or Press Key to RESTART"; }
         this.drawOverlay(title, subtitle);
     }
-
     this.p.pop();
   }
 
   drawOverlay(title, subtitle) {
        this.p.push();
-       this.p.fill(0, 0, 0, 190); // Semi-transparent black background
-       this.p.rect(0, this.p.height / 4, this.p.width, this.p.height / 2); // Centered overlay box
-
+       this.p.fill(0, 0, 0, 190); this.p.rect(0, this.p.height / 4, this.p.width, this.p.height / 2);
        this.p.textAlign(this.p.CENTER, this.p.CENTER);
-
-       applyTextColor(this.p, 'YELLOW');
-       this.p.textSize(32);
-       this.p.text(title, this.p.width / 2, this.p.height / 2 - 20);
-
-       applyTextColor(this.p, 'WHITE');
-       this.p.textSize(16);
-       this.p.text(subtitle, this.p.width / 2, this.p.height / 2 + 30);
+       applyTextColor(this.p, 'YELLOW'); this.p.textSize(32); this.p.text(title, this.p.width / 2, this.p.height / 2 - 20);
+       applyTextColor(this.p, 'WHITE'); this.p.textSize(16); this.p.text(subtitle, this.p.width / 2, this.p.height / 2 + 30);
        this.p.pop();
   }
 
-
   draw() {
-    this.p.background(...COLORS.BLACK); // Use color library
-
+    this.p.background(...COLORS.BLACK);
     this.maze.draw();
     this.pacman.draw();
     this.ghosts.forEach(ghost => ghost.draw());
-
-    this.drawUI(); // Draw UI last, on top
+    this.drawUI();
   }
 }
-
 
 // === sketch.js (Main p5.js functions) ===
-// The main conductor of our p5.js orchestra 🎶
-
-let game; // The global game object instance
-
+let game;
 function setup() {
-  // Calculate canvas size based on maze and UI space
   const canvasWidth = MAZE_WIDTH * TILE_SIZE;
-  const canvasHeight = MAZE_HEIGHT * TILE_SIZE + TILE_SIZE * 2; // Extra space for UI at bottom
+  const canvasHeight = MAZE_HEIGHT * TILE_SIZE + TILE_SIZE * 2;
   createCanvas(canvasWidth, canvasHeight);
-  frameRate(30); // Adjust for desired game speed/smoothness
-  console.log("🚀 p5.js Pac-Man v2 Initialized! (With fixes!) 🚀");
-
+  frameRate(30);
+  console.log("🚀 p5.js Pac-Man v3 Initialized! (Teleport Fixed!) 🚀");
   game = new Game(this);
 }
-
-function draw() {
-  if (game) {
-      game.update();
-      game.draw();
-  }
-}
-
-function keyPressed() {
-  if (game) {
-    game.handleInput(keyCode);
-  }
-  // Prevent default browser actions (scrolling)
-  return false;
-}
-
-function touchStarted() {
-   if (game) {
-       game.handleTouch();
-   }
-   // Prevent default browser actions (zoom/scroll on mobile)
-   return false;
-}
-
-// Optional: Prevent context menu on long press/right click
-function mousePressed() {
-  if (mouseButton === RIGHT) {
-    return false;
-  }
-}
+function draw() { if (game) { game.update(); game.draw(); } }
+function keyPressed() { if (game) game.handleInput(keyCode); return false; }
+function touchStarted() { if (game) game.handleTouch(); return false; }
+function mousePressed() { if (mouseButton === RIGHT) return false; } // Prevent context menu
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-
 // ==========================================
-// End of Single-File p5.js Pac-Man Clone v2
+// End of Single-File p5.js Pac-Man Clone v3
 // ==========================================
