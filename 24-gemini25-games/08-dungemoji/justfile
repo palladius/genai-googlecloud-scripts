@@ -23,3 +23,5 @@ init:
 deploy:
     echo on derek: node_modules/.bin/firebase deploy
     firebase deploy
+
+push: deploy

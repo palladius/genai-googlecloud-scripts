@@ -63,3 +63,14 @@ fantastic, the game is working GREAT!
 ![alt text](image-2.png)
 
 2. resize: this is still not fixed.
+
+# prompt 5
+
+The game is coming along REALLY well, wow! Also resizing works great!
+
+1. kiellemall is actually killemall (was a typo)
+2. Level up is too slow. Lets say that money makes XP too. Let's decide a ratio, lets say 1$ = 0.5 XP round down (I'll tweak it so put a variable on top of the script).
+3. Add "ghost" monster: 👻, and zombie 🧟, and a scary "giant bat": 🦇.
+4. What does the sparkle potion do? If no power is associated to it yet, we could say it instantly kills all undead within 10 squares? (undeads would be skeleton ghost zombie)
+
+Please give me the new FULL js code.
