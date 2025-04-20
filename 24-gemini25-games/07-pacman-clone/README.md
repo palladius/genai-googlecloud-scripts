@@ -2,6 +2,8 @@
 App: https://p5-pacman.web.app/
 Prompt: https://gemini.google.com/corp/app/e9a08605117b0f28
 
+![PacMan Carlessian clone](image.png)
+
 ## Prompt
 
 Please create a p5js clone of Pacman game. It should be playable both with a computer and with a phone, hence with keyboard  and with tapping the phone.
