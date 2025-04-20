@@ -1,0 +1,48 @@
+# this justfile was created by $0 on $(data)
+#source .envrc  # Loads your environment variables
+#set shell := ["powershell.exe", "-c"]
+#set SPANNOMETRIC_VERSION := 3
+set export
+
+# Should get them from envrc...
+#PROJECT_ID := "justfile_pincopallo"
+#GCP_REGION := 'justfile-antarctica-east-1'
+
+A := "hello"
+foobar := 'foo' + 'bar'
+x := '''
+  Ciao
+  da me
+  che sono io.
+'''
+
+# Lists all targets
+[group('default')]
+list:
+    @yellow "[justfile] PROJECT_ID=$PROJECT_ID"
+    @yellow "[justfile] GCP_REGION=$GCP_REGION"
+    @yellow "[justfile] PROJECT_DESCRIPTION=$PROJECT_DESCRIPTION"
+    @yellow "[justfile] DOCKER_IMAGE=$DOCKER_IMAGE"
+    #    @yellow "[justfile] x=$x"
+    @just -l # | lolcat
+
+# Explains how this script was created.
+[group('default')]
+explain:
+	@green 'This was created by $0 on $(date)'
+
+# Builds image with local Dockerfile..
+[group('docker')]
+docker-build:
+	docker build -t $DOCKER_IMAGE:v$(cat VERSION) .
+	docker tag $DOCKER_IMAGE:v$(cat VERSION) $DOCKER_IMAGE:latest
+# Pushes to Artifact registry TODO.
+[group('docker')]
+docker-push:
+	docker push $DOCKER_IMAGE:v$(cat VERSION)
+# build + push
+[group('docker')]
+docker-build-and-push: docker-build docker-push
+#[group('docker')]
+#docker-tag:
+#	docker tag $DOCKER_IMAGE:v$(cat VERSION) $DOCKER_IMAGE:latest
