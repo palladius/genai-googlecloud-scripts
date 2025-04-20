@@ -1,24 +1,33 @@
-// sketch.js - Your Emoji Rogue-like Adventure!
+// sketch.js - Your Emoji Rogue-like Adventure! V2
 
 // --- Configurable Stuff ---
 let visibilityRadius = 2; // How far the player can see
 const minRoomSize = 2; // Min width/height of a room
 const maxRoomSize = 7; // Max width/height of a room (adjust as needed)
 const numRoomsTry = 100; // How many times we try to place a room
-const monsterTypes = [ // Define our lovely monsters
-    { char: '👾', name: 'Space Invader', hp: 5 },
-    { char: '👻', name: 'Spoopy Ghost', hp: 3 },
-    { char: '👽', name: 'Little Green Man', hp: 7 },
-    { char: '👹', name: 'Oni', hp: 10 },
-    { char: '🐙', name: 'Kraken Kid', hp: 8 }
+
+// --- NEW: Monster Definition ---
+const monsterTypes = [ // Define our lovely monsters (NOW WITH FANTASY!)
+    // name, char, hp, xpValue, damage, minLevel (dungeon level to start appearing)
+    { name: 'Giant Rat',   char: '🐀', hp: 3,  xpValue: 5,  damage: 1, minLevel: 1 },
+    { name: 'Goblin',      char: '👺', hp: 6,  xpValue: 10, damage: 1, minLevel: 1 },
+    { name: 'Giant Spider',char: '🕷️', hp: 5,  xpValue: 12, damage: 2, minLevel: 2 },
+    { name: 'Orc',         char: '👹', hp: 12, xpValue: 25, damage: 3, minLevel: 3 },
+    { name: 'Wolf',        char: '🐺', hp: 8,  xpValue: 18, damage: 2, minLevel: 3 },
+    { name: 'Slime',       char: '🦠', hp: 15, xpValue: 20, damage: 1, minLevel: 4 }, // Low damage, high hp
+    { name: 'Ogre',        char: '🦍', hp: 25, xpValue: 50, damage: 4, minLevel: 5 }, // Using Gorilla emoji for Ogre
+    { name: 'Skeleton',    char: '💀', hp: 10, xpValue: 30, damage: 2, minLevel: 6 },
+    { name: 'DRAGON',      char: '🐉', hp: 100, xpValue: 500, damage: 10, minLevel: 10 } // The big one!
 ];
+
+// --- Item Definitions (Unchanged, but could add more) ---
 const treasureTypes = [ // Shiny things!
     { char: '💰', name: 'Bag o\' Gold', value: 10 },
     { char: '💎', name: 'Shiny Diamond', value: 50 },
     { char: '👑', name: 'Lost Crown', value: 100 }
 ];
 const potionTypes = [ // Glug glug!
-    { char: '🧪', name: 'Healing Potion', effect: 'heal', power: 10 },
+    { char: '🧪', name: 'Healing Potion', effect: 'heal', power: 15 }, // Slightly stronger heal
     { char: '✨', name: 'Sparkle Potion', effect: 'teleport', power: 0 } // Maybe add teleport later?
 ];
 
@@ -31,7 +40,7 @@ let monsters = [];
 let items = [];
 let stairs = null; // { x, y }
 let rooms = []; // Store room data { x, y, w, h }
-let currentLevel = 1;
+let currentLevel = 1; // Dungeon Level
 let messageLog = ["Welcome, brave 🧑‍🚀!", "Press 'H' for help."];
 let maxMessages = 5;
 let gameOver = false;
@@ -45,12 +54,32 @@ function createPlayer(x, y) {
         x: x,
         y: y,
         char: '🧑‍🚀',
-        hp: 20,
-        maxHp: 20,
+        hp: 30,         // Start with a bit more HP
+        maxHp: 30,
         inventory: [],
-        gold: 0
+        gold: 0,
+        // --- NEW: XP and Leveling ---
+        level: 1,       // Player Level (starts at 1)
+        xp: 0,
+        xpToNextLevel: 200, // XP needed for Level 2 (Adjusted starting value)
+        baseDamage: 2      // Player's starting base damage
     };
 }
+
+// --- NEW: Calculate XP Needed for a Level ---
+function calculateXpForLevel(level) {
+    if (level <= 1) return 0;
+    if (level === 2) return 200; // Base XP for level 2
+    // Exponential formula: PrevLevelXP * 2 (simplified from 2000 * 2^(L-2))
+    return calculateXpForLevel(level - 1) * 2;
+}
+
+// --- NEW: Calculate Player Damage based on Level ---
+function calculatePlayerDamage(playerLevel) {
+    // Example: Increase damage every few levels
+    return player.baseDamage + floor(playerLevel / 3);
+}
+
 
 // --- p5.js Core Functions ---
 function setup() {
@@ -64,10 +93,6 @@ function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     calculateGridSize();
     // Optional: Could try to rescale drawing, but recalculating grid is easier for now
-    // We might need to regenerate the level or adjust tileSize dynamically if we want
-    // the *same* dungeon to fit perfectly after resize.
-    // For now, let's just ensure the canvas fills the screen.
-    // We might need to call `startGame()` again if resizing changes `cols`/`rows` drastically.
 }
 
 function draw() {
@@ -102,13 +127,14 @@ function keyPressed() {
     let moved = false;
     let playerTurnTaken = false; // Did the player do something that costs a turn?
 
+    // --- Movement and Actions (Mostly unchanged, check key bindings) ---
     if (keyCode === UP_ARROW || key === 'k' || key === 'K') {
         moved = movePlayer(0, -1);
         playerTurnTaken = true;
     } else if (keyCode === DOWN_ARROW || key === 'j' || key === 'J') {
         moved = movePlayer(0, 1);
         playerTurnTaken = true;
-    } else if (keyCode === LEFT_ARROW || key === 'h' || key === 'H') {
+    } else if (keyCode === LEFT_ARROW || key === 'h' || key === 'H' && !(key === 'H')) { // Ensure 'H' itself doesn't move
         moved = movePlayer(-1, 0);
         playerTurnTaken = true;
     } else if (keyCode === RIGHT_ARROW || key === 'l' || key === 'L') {
@@ -127,7 +153,7 @@ function keyPressed() {
         } else {
              addMessage("You aren't on the stairs ('>').");
         }
-    } else if (key === 'h' || key === 'H') { // Lowercase 'h' is move left
+    } else if (key === 'H') { // Help - Case sensitive H only
         displayHelp();
         // Viewing help doesn't take a turn
     } else if (key === '^') {
@@ -150,33 +176,35 @@ function keyPressed() {
 
 // --- Game Initialization ---
 function calculateGridSize() {
-    // Adjust tileSize to better fit? For now, keep it fixed.
-    // Maybe calculate tileSize based on screen size?
-    // let minDim = min(windowWidth, windowHeight);
-    // tileSize = floor(minDim / 30); // Example: aim for ~30 tiles across smallest dimension
-
     cols = floor(width / tileSize);
-    rows = floor(height / tileSize) - 4; // Reserve ~4 rows for UI at the bottom
+    rows = floor(height / tileSize) - 5; // Reserve ~5 rows for UI at the bottom
     if (cols < 10 || rows < 10) {
         console.error("Screen too small for a playable grid!");
-        // Handle this case - maybe display a message?
     }
-     // Center the grid rendering horizontally if needed
-     // offsetX = (width - cols * tileSize) / 2;
-     // offsetY = (height - (rows + 4) * tileSize) / 2; // Include UI height
 }
 
 function startGame() {
-    currentLevel = 1;
+    currentLevel = 1; // Dungeon Level
     gameOver = false;
     showAll = false;
     inputMode = 'game';
+    // Reset player stats if restarting (but keep track of player object)
+    if (player) {
+        player.level = 1;
+        player.xp = 0;
+        player.xpToNextLevel = calculateXpForLevel(2); // XP for level 2
+        player.maxHp = 30;
+        player.hp = player.maxHp;
+        player.baseDamage = 2;
+        player.gold = 0;
+        player.inventory = [];
+    }
     messageLog = ["Welcome, brave 🧑‍🚀!", "Level " + currentLevel + ". Press 'H' for help."];
-    generateLevel();
+    generateLevel(); // This will create/position the player if needed
 }
 
 function generateLevel() {
-    console.log("Generating Level", currentLevel);
+    console.log("Generating Dungeon Level", currentLevel);
     rooms = [];
     monsters = [];
     items = [];
@@ -197,15 +225,13 @@ function generateLevel() {
     }
      if (rooms.length === 0) {
         console.error("Failed to place any rooms! Retrying generation.");
-        // Fallback: maybe just create one big room? Or retry?
-        generateLevel(); // Be careful of infinite loops here
+        generateLevel();
         return;
     }
 
 
     // 3. Connect rooms with corridors
     for (let i = 1; i < rooms.length; i++) {
-        // Connect room 'i' to room 'i-1'
         let r1 = rooms[i];
         let r2 = rooms[i - 1];
         let x1 = floor(r1.x + r1.w / 2);
@@ -219,11 +245,13 @@ function generateLevel() {
     let startRoom = rooms[0];
     let playerStartX = floor(startRoom.x + startRoom.w / 2);
     let playerStartY = floor(startRoom.y + startRoom.h / 2);
-    if (!player) { // Create player only once
+    if (!player) { // Create player only once at game start
        player = createPlayer(playerStartX, playerStartY);
     } else { // Just reposition the existing player
         player.x = playerStartX;
         player.y = playerStartY;
+        // Ensure player HP is full on new level? Optional.
+        // player.hp = player.maxHp;
     }
 
 
@@ -233,57 +261,54 @@ function generateLevel() {
 
 
     // 6. Place monsters
-    placeEntities(monsters, monsterTypes, floor(rooms.length * 1.5)); // More monsters per room avg
+    // --- MODIFIED: Fewer monsters, considering level, skip start room ---
+    let maxMonsters = floor(rooms.length / 3); // Average 1 monster per 3 rooms
+    placeEntities(monsters, monsterTypes, maxMonsters, currentLevel, true); // Pass level, skip start room
 
-    // 7. Place items (treasures and potions)
-    placeEntities(items, treasureTypes, floor(rooms.length * 0.5)); // Fewer treasures
-    placeEntities(items, potionTypes, floor(rooms.length * 0.7)); // Some potions
+    // 7. Place items (treasures and potions) - can also skip start room if desired
+    placeEntities(items, treasureTypes, floor(rooms.length * 0.5), currentLevel, false);
+    placeEntities(items, potionTypes, floor(rooms.length * 0.7), currentLevel, false);
 
 
     // Initial visibility update
     updateVisibility();
-     console.log("Level generation complete. Player at:", player.x, player.y);
+    console.log("Level generation complete. Player at:", player.x, player.y);
 }
 
 
 // --- Dungeon Generation Helpers ---
 
 function createRoom() {
-    // Random dimensions
+    // (Function unchanged)
     let w = floor(random(minRoomSize, maxRoomSize + 1));
     let h = floor(random(minRoomSize, maxRoomSize + 1));
-    // Random position (ensure it's within grid bounds, leaving 1 wall border)
     let x = floor(random(1, cols - w - 1));
     let y = floor(random(1, rows - h - 1));
 
     let newRoom = { x: x, y: y, w: w, h: h };
 
-    // Check for overlap with existing rooms (add padding)
     let overlaps = false;
     for (let otherRoom of rooms) {
-        if (rectOverlap(newRoom, otherRoom, 1)) { // Check with padding of 1
+        if (rectOverlap(newRoom, otherRoom, 1)) {
             overlaps = true;
             break;
         }
     }
 
     if (!overlaps) {
-        // Carve the room
         for (let r = y; r < y + h; r++) {
             for (let c = x; c < x + w; c++) {
-                 // Check bounds just in case, though calculation should prevent this
                  if (r >= 0 && r < rows && c >= 0 && c < cols) {
                      grid[r][c] = { type: 'floor', char: '.', discovered: false, visible: false, blockMove: false, blockSight: false };
                  }
             }
         }
         rooms.push(newRoom);
-        // console.log(`Created room at (${x},${y}) size ${w}x${h}`);
     }
 }
 
-// Simple rectangle overlap check with padding
 function rectOverlap(r1, r2, padding = 0) {
+    // (Function unchanged)
     return (
         r1.x < r2.x + r2.w + padding &&
         r1.x + r1.w + padding > r2.x &&
@@ -294,56 +319,57 @@ function rectOverlap(r1, r2, padding = 0) {
 
 
 function createCorridor(x1, y1, x2, y2) {
-    // Simple L-shaped corridor: horizontal then vertical
-    // console.log(`Creating corridor from (${x1},${y1}) to (${x2},${y2})`);
+    // --- MODIFIED: Use '.' for corridor char ---
     let currentX = x1;
     let currentY = y1;
 
-    // Move horizontally
     while (currentX !== x2) {
-        // Ensure we don't carve outside bounds or into walls that *shouldn't* be carved
         if (currentX >= 0 && currentX < cols && currentY >= 0 && currentY < rows) {
-             if (grid[currentY][currentX].type === 'wall') { // Only carve walls
-                 grid[currentY][currentX] = { type: 'corridor', char: '#', discovered: false, visible: false, blockMove: false, blockSight: false };
+             if (grid[currentY][currentX].type === 'wall') {
+                 grid[currentY][currentX] = { type: 'corridor', char: '.', discovered: false, visible: false, blockMove: false, blockSight: false }; // CHANGED char to '.'
              }
         } else {
-             console.warn("Corridor went out of bounds (horizontal)");
-             break; // Stop carving if out of bounds
+             break;
         }
         currentX += (x2 > x1) ? 1 : -1;
     }
-     // Carve the corner/final horizontal step if needed
      if (currentX >= 0 && currentX < cols && currentY >= 0 && currentY < rows && grid[currentY][currentX].type === 'wall') {
-         grid[currentY][currentX] = { type: 'corridor', char: '#', discovered: false, visible: false, blockMove: false, blockSight: false };
+         grid[currentY][currentX] = { type: 'corridor', char: '.', discovered: false, visible: false, blockMove: false, blockSight: false }; // CHANGED char to '.'
      }
 
 
-    // Move vertically
     while (currentY !== y2) {
-         // Ensure we don't carve outside bounds
          if (currentX >= 0 && currentX < cols && currentY >= 0 && currentY < rows) {
-             if (grid[currentY][currentX].type === 'wall') { // Only carve walls
-                 grid[currentY][currentX] = { type: 'corridor', char: '#', discovered: false, visible: false, blockMove: false, blockSight: false };
+             if (grid[currentY][currentX].type === 'wall') {
+                 grid[currentY][currentX] = { type: 'corridor', char: '.', discovered: false, visible: false, blockMove: false, blockSight: false }; // CHANGED char to '.'
              }
          } else {
-             console.warn("Corridor went out of bounds (vertical)");
-             break; // Stop carving if out of bounds
+             break;
          }
         currentY += (y2 > y1) ? 1 : -1;
     }
-     // Carve the final vertical step if needed
       if (currentX >= 0 && currentX < cols && currentY >= 0 && currentY < rows && grid[currentY][currentX].type === 'wall') {
-          grid[currentY][currentX] = { type: 'corridor', char: '#', discovered: false, visible: false, blockMove: false, blockSight: false };
+          grid[currentY][currentX] = { type: 'corridor', char: '.', discovered: false, visible: false, blockMove: false, blockSight: false }; // CHANGED char to '.'
       }
 }
 
 function placeStairs(room) {
+    // (Function largely unchanged, maybe add check to ensure room is not null)
+    if (!room) {
+        console.error("Cannot place stairs in null room!");
+        // Fallback: try placing in a random room?
+        if (rooms.length > 0) {
+            room = random(rooms);
+        } else {
+            console.error("FATAL: No rooms exist to place stairs!");
+            return; // Game is likely broken if this happens
+        }
+    }
      let placed = false;
      let attempts = 0;
      while (!placed && attempts < 100) {
          let sx = floor(random(room.x, room.x + room.w));
          let sy = floor(random(room.y, room.y + room.h));
-         // Ensure it's within bounds and on a floor tile
          if (sy >= 0 && sy < rows && sx >= 0 && sx < cols && grid[sy][sx].type === 'floor') {
              grid[sy][sx] = { type: 'stairs', char: '🔽', discovered: false, visible: false, blockMove: false, blockSight: false };
              stairs = { x: sx, y: sy };
@@ -354,7 +380,7 @@ function placeStairs(room) {
      }
      if (!placed) {
          console.error("Failed to place stairs in room!", room);
-         // Fallback: place in the center?
+         // Fallback: place in the center? (As before)
          let sx = floor(room.x + room.w / 2);
          let sy = floor(room.y + room.h / 2);
          if (sy >= 0 && sy < rows && sx >= 0 && sx < cols && grid[sy][sx].type !== 'wall') {
@@ -363,35 +389,55 @@ function placeStairs(room) {
              console.warn("Fallback: Placed stairs at room center", sx, sy);
          } else {
              console.error("FATAL: Could not place stairs anywhere in the room.");
-             // Maybe pick another room? For now, game might be un-winnable.
          }
      }
 }
 
 
-function placeEntities(entityList, entityTypes, maxCount) {
+// --- MODIFIED: placeEntities now considers level and skipping start room ---
+function placeEntities(entityList, sourceTypes, maxCount, dungeonLevel, skipStartRoom = false) {
     let placedCount = 0;
     let attempts = 0;
-    while (placedCount < maxCount && attempts < maxCount * 10) { // Limit attempts
-        let room = random(rooms); // Pick a random room
+    let startRoom = rooms[0]; // Identify the start room
+
+    // --- Filter sourceTypes based on dungeonLevel (for monsters) ---
+    let availableTypes = sourceTypes;
+    if (sourceTypes === monsterTypes) { // Only filter if placing monsters
+        availableTypes = sourceTypes.filter(type => dungeonLevel >= type.minLevel);
+        if (availableTypes.length === 0) {
+             console.warn(`No suitable monsters found for level ${dungeonLevel}`);
+             return; // Don't place anything if no types are available
+        }
+    }
+
+
+    while (placedCount < maxCount && attempts < maxCount * 20) { // Increased attempts limit slightly
+        let roomIndex = floor(random(rooms.length));
+        let room = rooms[roomIndex];
+
+        // --- Check if we should skip this room ---
+        if (skipStartRoom && room === startRoom) {
+            attempts++; // Count as an attempt but don't place here
+            continue;
+        }
+
         let ex = floor(random(room.x, room.x + room.w));
         let ey = floor(random(room.y, room.y + room.h));
 
-        // Check bounds and if the spot is valid (floor, not occupied by player/stairs/other entity)
         if (ey >= 0 && ey < rows && ex >= 0 && ex < cols &&
             grid[ey][ex].type === 'floor' &&
             !(player && ex === player.x && ey === player.y) && // Avoid player start
              !(stairs && ex === stairs.x && ey === stairs.y) && // Avoid stairs
-            !isOccupied(ex, ey)) // Check monsters and items lists
+            !isOccupied(ex, ey))
         {
-            let type = random(entityTypes);
+            let type = random(availableTypes); // Pick from filtered types
             let newEntity = {
                 x: ex,
                 y: ey,
                 char: type.char,
                 name: type.name,
                 // Add specific properties based on type
-                ...(type.hp && { hp: type.hp, maxHp: type.hp }), // Monster props
+                 ...(type.hp && { hp: type.hp, maxHp: type.hp, damage: type.damage, xpValue: type.xpValue }), // Monster props
                 ...(type.value && { value: type.value, type: 'treasure' }), // Treasure props
                 ...(type.effect && { effect: type.effect, power: type.power, type: 'potion' }) // Potion props
             };
@@ -400,10 +446,10 @@ function placeEntities(entityList, entityTypes, maxCount) {
         }
         attempts++;
     }
-     // console.log(`Placed ${placedCount}/${maxCount} entities of type ${entityTypes[0].name || 'various'}`);
+     // console.log(`Placed ${placedCount}/${maxCount} entities of type ${availableTypes[0]?.name || 'various'}`);
 }
 
-// Check if a tile is occupied by any monster or item
+// (Function unchanged)
 function isOccupied(x, y) {
     for (let m of monsters) {
         if (m.x === x && m.y === y) return true;
@@ -419,7 +465,7 @@ function isOccupied(x, y) {
 
 function drawMap() {
     textAlign(CENTER, CENTER);
-    textSize(tileSize * 0.8); // Adjust emoji size relative to tile size
+    textSize(tileSize * 0.8);
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -427,38 +473,49 @@ function drawMap() {
             let x = c * tileSize + tileSize / 2;
             let y = r * tileSize + tileSize / 2;
 
+            let charToDraw = tile.char;
+            let tileColor = color(50); // Default dark grey for discovered
+
+            // Determine base color based on visibility
             if (showAll || tile.visible) {
-                // Visible: Bright colors
-                fill(tile.type === 'wall' || tile.type === 'corridor' ? 180 : 255); // Brighter wall/corridor?
-                if (tile.type === 'floor') fill(100, 100, 100); // Dim floor
-                if (tile.type === 'corridor') fill(150, 100, 50); // Brownish corridor
-                if (tile.type === 'stairs') fill(255, 255, 0); // Yellow stairs
-                 text(tile.char, x, y);
+                // Visible: Brighter colors
+                if (tile.type === 'wall') tileColor = color(150, 150, 150); // Grey wall
+                else if (tile.type === 'floor') tileColor = color(100, 100, 100); // Darker Floor
+                else if (tile.type === 'corridor') tileColor = color(130, 110, 90); // Slightly brownish corridor floor
+                else if (tile.type === 'stairs') { tileColor = color(255, 255, 0); charToDraw = '🔽'; } // Yellow stairs
+                else tileColor = color(200); // Default visible bright
             } else if (tile.discovered) {
-                // Discovered but not visible: Dim gray
-                fill(tile.type === 'wall' || tile.type === 'corridor' ? 80 : 50);
-                 if (tile.type === 'stairs') fill(100, 100, 0); // Dim Yellow stairs
-                text(tile.char, x, y);
+                 // Discovered but not visible: Dim colors
+                if (tile.type === 'wall') tileColor = color(80, 80, 80);
+                else if (tile.type === 'floor') tileColor = color(50, 50, 50);
+                else if (tile.type === 'corridor') tileColor = color(60, 50, 40);
+                else if (tile.type === 'stairs') { tileColor = color(100, 100, 0); charToDraw = '🔽'; }
+                 else tileColor = color(50);
             } else {
-                // Not discovered: Pitch black (already handled by background)
+                // Not discovered: Draw nothing (background is black)
+                continue; // Skip drawing this tile
             }
+
+             fill(tileColor);
+             text(charToDraw, x, y);
         }
     }
 }
 
+// (drawPlayer, drawMonsters, drawItems functions unchanged)
 function drawPlayer() {
-    fill(255); // Player is always visible and bright
+    fill(255);
     textAlign(CENTER, CENTER);
     textSize(tileSize * 0.8);
     text(player.char, player.x * tileSize + tileSize / 2, player.y * tileSize + tileSize / 2);
 }
 
 function drawMonsters() {
-     fill(255, 0, 0); // Red for monsters
+     fill(255, 100, 100); // Slightly less intense Red for monsters
      textAlign(CENTER, CENTER);
      textSize(tileSize * 0.8);
      for (let monster of monsters) {
-         if (grid[monster.y][monster.x].visible || showAll) { // Only draw if visible or showall
+         if (grid[monster.y][monster.x].visible || showAll) {
             text(monster.char, monster.x * tileSize + tileSize / 2, monster.y * tileSize + tileSize / 2);
          }
      }
@@ -468,13 +525,13 @@ function drawItems() {
      textAlign(CENTER, CENTER);
      textSize(tileSize * 0.8);
      for (let item of items) {
-         if (grid[item.y][item.x].visible || showAll) { // Only draw if visible or showall
+         if (grid[item.y][item.x].visible || showAll) {
             if (item.type === 'treasure') {
-                fill(255, 215, 0); // Gold for treasure
+                fill(255, 215, 0); // Gold
             } else if (item.type === 'potion') {
-                fill(0, 255, 255); // Cyan for potions
+                fill(0, 255, 255); // Cyan
             } else {
-                fill(200); // Default grey
+                fill(200);
             }
             text(item.char, item.x * tileSize + tileSize / 2, item.y * tileSize + tileSize / 2);
          }
@@ -483,33 +540,56 @@ function drawItems() {
 
 
 function drawUI() {
+    // --- MODIFIED: Add Player Level and XP Bar ---
     let uiY = rows * tileSize;
     let uiHeight = height - uiY;
-    let barHeight = 20;
-    let textY = uiY + barHeight + 15;
-    let hpBarY = uiY + 5;
-    let hpBarWidth = 200;
+    let line1Y = uiY + 5;
+    let line2Y = uiY + 25;
+    let msgY = uiY + 45; // Start messages below XP bar
 
     // Clear UI area
     fill(20, 20, 20);
     noStroke();
     rect(0, uiY, width, uiHeight);
 
-    // HP Bar
-    fill(100, 0, 0); // Dark red background
-    rect(10, hpBarY, hpBarWidth, barHeight);
-    fill(0, 200, 0); // Green foreground
+    // --- Line 1: HP Bar and Stats ---
+    let hpBarWidth = 150;
+    let barHeight = 15;
+    // HP Bar Background
+    fill(100, 0, 0);
+    rect(10, line1Y, hpBarWidth, barHeight);
+    // HP Bar Foreground
+    fill(0, 200, 0);
     let currentHpWidth = map(player.hp, 0, player.maxHp, 0, hpBarWidth);
-    rect(10, hpBarY, max(0, currentHpWidth), barHeight); // Use max(0, ...) to prevent negative width
-
-    // HP Text
+    rect(10, line1Y, max(0, currentHpWidth), barHeight);
+    // HP Text & other stats
     fill(255);
     textSize(14);
     textAlign(LEFT, TOP);
-    text(`HP: ${player.hp}/${player.maxHp}   Gold: ${player.gold}   Level: ${currentLevel}`, 15 + hpBarWidth, hpBarY + 2);
+    text(`HP: ${player.hp}/${player.maxHp} | Lvl: ${player.level} | D Lvl: ${currentLevel} | Gold: ${player.gold}`, 15 + hpBarWidth, line1Y);
+
+    // --- Line 2: XP Bar ---
+    let xpBarWidth = 150;
+     // XP Bar Background
+     fill(50, 50, 100); // Dark Blue/Purple
+     rect(10, line2Y, xpBarWidth, barHeight);
+     // XP Bar Foreground
+     fill(100, 100, 255); // Lighter Blue/Purple
+     let currentXpWidth = 0;
+     if (player.level < 36) { // Don't divide by zero if max level has 0 XP needed
+         currentXpWidth = map(player.xp, 0, player.xpToNextLevel, 0, xpBarWidth);
+     } else {
+         currentXpWidth = xpBarWidth; // Max level shows full bar
+     }
+     rect(10, line2Y, max(0, currentXpWidth), barHeight);
+     // XP Text
+     fill(255);
+     textAlign(LEFT, TOP);
+     let xpText = `XP: ${player.xp}/${player.xpToNextLevel}`;
+     if(player.level >= 36) xpText = "XP: MAX LEVEL";
+     text(xpText, 15 + xpBarWidth, line2Y);
 
     // Message Log
-    let msgY = uiY + barHeight + 10; // Start messages below HP bar
     textSize(12);
     textAlign(LEFT, TOP);
     for (let i = 0; i < messageLog.length; i++) {
@@ -518,22 +598,23 @@ function drawUI() {
     }
 }
 
+// (addMessage function unchanged)
 function addMessage(msg) {
-    console.log("Message:", msg); // Also log to console for debugging
-    messageLog.unshift(msg); // Add to the beginning
+    console.log("Message:", msg);
+    messageLog.unshift(msg);
     if (messageLog.length > maxMessages) {
-        messageLog.pop(); // Remove the oldest message
+        messageLog.pop();
     }
 }
 
-
+// (drawEasterEggInput function unchanged)
 function drawEasterEggInput() {
     let boxWidth = 300;
     let boxHeight = 40;
     let boxX = width / 2 - boxWidth / 2;
-    let boxY = height / 2 - boxHeight / 2; // Center vertically
+    let boxY = height / 2 - boxHeight / 2;
 
-    fill(50, 50, 150, 200); // Semi-transparent blue background
+    fill(50, 50, 150, 200);
     stroke(255);
     rect(boxX, boxY, boxWidth, boxHeight);
 
@@ -544,10 +625,10 @@ function drawEasterEggInput() {
     text(`> ${easterEggInput}_`, boxX + 10, boxY + boxHeight / 2);
 }
 
+// (displayHelp function unchanged, but good to keep updated)
 function displayHelp() {
-     // This could be an overlay, but for simplicity, just add messages
      addMessage("--- Help ---");
-     addMessage("Arrows/hjkl: Move");
+     addMessage("Arrows/hjkl: Move / Attack");
      addMessage("g: Get item");
      addMessage("q: Quaff potion");
      addMessage(">: Use stairs (when on them)");
@@ -556,41 +637,39 @@ function displayHelp() {
      addMessage("------------");
 }
 
+// (displayGameOver function unchanged)
 function displayGameOver() {
-    fill(150, 0, 0, 200); // Dark Red overlay
+    fill(150, 0, 0, 200);
     rect(0, 0, width, height);
 
     fill(255);
     textSize(48);
     textAlign(CENTER, CENTER);
-    text("GAME OVER", width / 2, height / 2 - 30);
+    text("GAME OVER", width / 2, height / 2 - 40);
     textSize(24);
-    text(`You reached level ${currentLevel} with ${player.gold} gold.`, width / 2, height / 2 + 20);
-    text("Press F5 or Refresh to play again!", width / 2, height / 2 + 60);
-    noLoop(); // Stop the draw loop
+    text(`You reached player level ${player.level} on dungeon level ${currentLevel}.`, width / 2, height / 2 + 10);
+     text(`Final Gold: ${player.gold}.`, width / 2, height / 2 + 40);
+    text("Press F5 or Refresh to play again!", width / 2, height / 2 + 80);
+    noLoop();
 }
 
 
 // --- Game Logic ---
 
+// (updateVisibility and hasLineOfSight functions unchanged)
 function updateVisibility() {
-    // Reset visibility for all tiles
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             grid[r][c].visible = false;
         }
     }
 
-    // Use a simple circular radius check
-    // More complex: Field of View algorithm (raycasting, etc.)
     let px = player.x;
     let py = player.y;
     for (let r = max(0, py - visibilityRadius); r <= min(rows - 1, py + visibilityRadius); r++) {
         for (let c = max(0, px - visibilityRadius); c <= min(cols - 1, px + visibilityRadius); c++) {
             let d = dist(px, py, c, r);
             if (d <= visibilityRadius) {
-                 // Basic line-of-sight check (stops at first wall)
-                 // This is a very basic version, true FOV is more complex
                  if (hasLineOfSight(px, py, c, r)) {
                      grid[r][c].visible = true;
                      grid[r][c].discovered = true;
@@ -598,14 +677,12 @@ function updateVisibility() {
             }
         }
     }
-    // Player's own tile is always visible & discovered
      if (py >= 0 && py < rows && px >= 0 && px < cols) {
         grid[py][px].visible = true;
         grid[py][px].discovered = true;
      }
 }
 
-// Basic Bresenham Line algorithm to check LoS
 function hasLineOfSight(x0, y0, x1, y1) {
     let dx = abs(x1 - x0);
     let dy = -abs(y1 - y0);
@@ -614,49 +691,45 @@ function hasLineOfSight(x0, y0, x1, y1) {
     let err = dx + dy;
 
     while (true) {
-        // Check if current cell blocks sight (before checking if it's the target)
          if (x0 >= 0 && x0 < cols && y0 >= 0 && y0 < rows) {
-            if (grid[y0][x0].blockSight && !(x0 === x1 && y0 === y1)) { // If it blocks sight and isn't the target cell itself
+            if (grid[y0][x0].blockSight && !(x0 === x1 && y0 === y1)) {
                 return false;
             }
          } else {
-             return false; // Out of bounds blocks sight
+             return false;
          }
 
-
-        if (x0 === x1 && y0 === y1) break; // Reached target
+        if (x0 === x1 && y0 === y1) break;
 
         let e2 = 2 * err;
-        if (e2 >= dy) { // Step horizontally
+        if (e2 >= dy) {
             err += dy;
             x0 += sx;
         }
-        if (e2 <= dx) { // Step vertically
+        if (e2 <= dx) {
             err += dx;
             y0 += sy;
         }
     }
-    return true; // No obstruction found
+    return true;
 }
 
 
 function movePlayer(dx, dy) {
+    // (Largely unchanged, just ensure it calls the updated attackMonster)
     let newX = player.x + dx;
     let newY = player.y + dy;
 
-    // Check boundaries
     if (newX < 0 || newX >= cols || newY < 0 || newY >= rows) {
         addMessage("Ouch! You bumped into the edge of the world.");
         return false;
     }
 
-    // Check wall collision
     if (grid[newY][newX].blockMove) {
         addMessage("Bonk! You hit a wall. 🧱");
         return false;
     }
 
-    // Check monster collision (Attack!)
     let targetMonster = null;
     for (let monster of monsters) {
         if (monster.x === newX && monster.y === newY) {
@@ -666,20 +739,17 @@ function movePlayer(dx, dy) {
     }
 
     if (targetMonster) {
-        attackMonster(player, targetMonster);
-        return true; // Attacking counts as successful move/action
+        attackMonster(player, targetMonster); // Calls the updated attack function
+        return true;
     }
 
-    // If no collision, move the player
     player.x = newX;
     player.y = newY;
 
-    // Check if landing on stairs
     if (stairs && newX === stairs.x && newY === stairs.y) {
         addMessage("You see stairs leading down... 🔽 (Press '>' or '.' to descend)");
     }
 
-    // Check if landing on an item
     let itemHere = null;
      for(let item of items) {
          if(item.x === newX && item.y === newY) {
@@ -691,28 +761,32 @@ function movePlayer(dx, dy) {
          addMessage(`You see a ${itemHere.name} (${itemHere.char}) here. (Press 'g' to get)`);
      }
 
-
-    return true; // Successful move
+    return true;
 }
 
 function attackMonster(attacker, target) {
-    // Simple combat: fixed damage for now
-    let damage = 1; // Player deals 1 damage
+    // --- MODIFIED: Use player damage, award XP ---
+    let damage = calculatePlayerDamage(attacker.level); // Use calculated damage
     addMessage(`You attack the ${target.name} (${target.char})!`);
     target.hp -= damage;
     addMessage(`The ${target.name} takes ${damage} damage.`);
 
     if (target.hp <= 0) {
         addMessage(`You defeated the ${target.name}! 🎉`);
+        // --- NEW: Award XP ---
+        let xpGained = target.xpValue || 0; // Get XP value from monster type
+        if (xpGained > 0) {
+            addMessage(`You gain ${xpGained} XP.`);
+            addXP(xpGained); // Add XP and check for level up
+        }
         // Remove monster from the list
         monsters = monsters.filter(m => m !== target);
-        // Maybe drop loot? For now, just remove.
     }
 }
 
 function attackPlayer(attacker, target) {
-     // Simple combat: fixed damage for now
-    let damage = 1; // Monster deals 1 damage
+     // --- MODIFIED: Use monster's damage value ---
+    let damage = attacker.damage || 1; // Get damage from monster type (fallback to 1)
     addMessage(`The ${attacker.name} (${attacker.char}) attacks you!`);
     target.hp -= damage;
     addMessage(`You take ${damage} damage.`);
@@ -724,77 +798,102 @@ function attackPlayer(attacker, target) {
     }
 }
 
-function handleMonsterTurns() {
-    // console.log("Handling monster turns...");
-    for (let i = monsters.length - 1; i >= 0; i--) { // Iterate backwards for safe removal
-        let monster = monsters[i];
-        if (!monster) continue; // Skip if monster was somehow removed during the loop
+// --- NEW: Function to add XP and check for Level Up ---
+function addXP(amount) {
+    if (player.level >= 36) return; // No more XP if max level
 
-        // Simple AI: Move randomly or towards player if close
+    player.xp += amount;
+    checkLevelUp();
+}
+
+// --- NEW: Function to handle Level Up ---
+function checkLevelUp() {
+    const maxLevel = 36;
+    if (player.level >= maxLevel) {
+        player.xp = 0; // Optional: Reset XP at max level? Or just cap it.
+        player.xpToNextLevel = 0; // Indicate no more levels
+        return;
+    }
+
+    while (player.xp >= player.xpToNextLevel) {
+        player.level++;
+        addMessage(`✨ Ding! You reached Level ${player.level}! ✨`);
+
+        // Increase stats
+        let hpGain = 10 + floor(player.level / 2); // More HP per level as you get higher
+        player.maxHp += hpGain;
+        player.hp = player.maxHp; // Full heal on level up!
+        player.baseDamage += (player.level % 3 === 0) ? 1 : 0; // Increase base damage every 3 levels
+
+        addMessage(`Max HP increased to ${player.maxHp}. Damage potential increased!`);
+
+        // Set XP needed for the *next* level
+        if (player.level >= maxLevel) {
+             addMessage("You have reached the maximum level!");
+             player.xp = 0;
+             player.xpToNextLevel = 0;
+             break; // Exit loop if max level hit
+        } else {
+            player.xpToNextLevel = calculateXpForLevel(player.level + 1);
+        }
+    }
+}
+
+
+function handleMonsterTurns() {
+    // (Largely unchanged, but uses monster damage now)
+    for (let i = monsters.length - 1; i >= 0; i--) {
+        let monster = monsters[i];
+        if (!monster) continue;
+
         let dx = 0;
         let dy = 0;
         let distanceToPlayer = dist(monster.x, monster.y, player.x, player.y);
 
-        if (distanceToPlayer < 6 && hasLineOfSight(monster.x, monster.y, player.x, player.y)) { // If player is nearby and visible
-            // Move towards player
+        if (distanceToPlayer < 8 && hasLineOfSight(monster.x, monster.y, player.x, player.y)) { // Increased sight range slightly
             if (player.x > monster.x) dx = 1;
             else if (player.x < monster.x) dx = -1;
             if (player.y > monster.y) dy = 1;
             else if (player.y < monster.y) dy = -1;
 
-            // Avoid diagonal moves if blocked, prioritize cardinal
             if (dx !== 0 && dy !== 0) {
-                // Try moving horizontally first, then vertically if blocked
                  if (isBlocked(monster.x + dx, monster.y) && !isBlocked(monster.x, monster.y + dy)) {
-                     dx = 0; // Can't move horizontal, try vertical
+                     dx = 0;
                  } else if (!isBlocked(monster.x + dx, monster.y) && isBlocked(monster.x, monster.y + dy)) {
-                     dy = 0; // Can't move vertical, try horizontal
+                     dy = 0;
                  } else if (isBlocked(monster.x + dx, monster.y) && isBlocked(monster.x, monster.y + dy)){
-                     // If both direct paths towards player are blocked, maybe pick one randomly?
-                     // Or just stick with the diagonal attempt below (might fail)
-                      // For now, let's try random if both prefered axis are blocked
-                     if (random() < 0.5) dx = 0; else dy = 0;
+                      if (random() < 0.5) dx = 0; else dy = 0;
                  }
-                  // If still diagonal after checks, randomly pick one axis for simplicity
-                  // if (dx !== 0 && dy !== 0 && random() < 0.5) {
-                  //      dx = 0; // Try vertical only
-                  // } else if (dx !== 0 && dy !== 0) {
-                  //      dy = 0; // Try horizontal only
-                  // }
             }
 
         } else {
-            // Move randomly
-            let r = floor(random(4));
+            let r = floor(random(5)); // 1 in 5 chance of staying put
             if (r === 0) dx = 1;
             else if (r === 1) dx = -1;
             else if (r === 2) dy = 1;
             else if (r === 3) dy = -1;
+            // else dx=0, dy=0
         }
 
         let newX = monster.x + dx;
         let newY = monster.y + dy;
 
-        // Check for collision
         if (newX >= 0 && newX < cols && newY >= 0 && newY < rows && !isBlocked(newX, newY)) {
              if (newX === player.x && newY === player.y) {
-                 // Attack player!
-                 attackPlayer(monster, player);
-             } else if (!isOccupiedByMonster(newX, newY)) { // Don't stack monsters
+                 attackPlayer(monster, player); // Uses monster's damage
+             } else if (!isOccupiedByMonster(newX, newY)) {
                 monster.x = newX;
                 monster.y = newY;
              }
         }
-         // else: Monster stays put or bumps into something
     }
 }
 
+// (isBlocked and isOccupiedByMonster functions unchanged)
 function isBlocked(x, y) {
-     // Check grid bounds first
      if (x < 0 || x >= cols || y < 0 || y >= rows) {
          return true;
      }
-     // Check grid tile type
      return grid[y][x].blockMove;
 }
 
@@ -806,6 +905,7 @@ function isOccupiedByMonster(x, y) {
 }
 
 
+// (pickUpItem and quaffPotion functions unchanged, check potion power)
 function pickUpItem() {
     let itemIndex = -1;
     for (let i = 0; i < items.length; i++) {
@@ -822,9 +922,8 @@ function pickUpItem() {
         if (item.type === 'treasure') {
             player.gold += item.value;
         } else if (item.type === 'potion') {
-            player.inventory.push(item); // Add to inventory
+            player.inventory.push(item);
         }
-        // Remove item from the ground
         items.splice(itemIndex, 1);
 
     } else {
@@ -836,7 +935,6 @@ function quaffPotion() {
     let potionToQuaff = null;
     let potionIndex = -1;
 
-    // Find the first potion in inventory
     for (let i = 0; i < player.inventory.length; i++) {
         if (player.inventory[i].type === 'potion') {
             potionToQuaff = player.inventory[i];
@@ -847,18 +945,16 @@ function quaffPotion() {
 
     if (potionToQuaff) {
         addMessage(`You quaff the ${potionToQuaff.name} (${potionToQuaff.char})...`);
-        // Apply effect
         if (potionToQuaff.effect === 'heal') {
-            player.hp = min(player.maxHp, player.hp + potionToQuaff.power);
-            addMessage(`You feel healthier! (+${potionToQuaff.power} HP)`);
+            let healedAmount = min(player.maxHp - player.hp, potionToQuaff.power); // Heal up to maxHP
+            player.hp += healedAmount;
+            addMessage(`You feel healthier! (+${healedAmount} HP)`);
         } else if (potionToQuaff.effect === 'teleport') {
-             addMessage("Woah! Everything spins!"); // Implement teleport later
-             // Find random empty floor tile and move player there
+             addMessage("Woah! Everything spins!"); // Still placeholder
         } else {
             addMessage("...but nothing interesting happens.");
         }
 
-        // Remove potion from inventory
         player.inventory.splice(potionIndex, 1);
 
     } else {
@@ -866,49 +962,59 @@ function quaffPotion() {
     }
 }
 
+
 function descendStairs() {
+     // (Function unchanged)
      addMessage("You descend deeper into the dungeon...");
      currentLevel++;
-     // Keep player stats, inventory, gold
-     generateLevel(); // Generate new layout, monsters, items
-     addMessage(`Welcome to Level ${currentLevel}.`);
+     generateLevel();
+     addMessage(`Welcome to Dungeon Level ${currentLevel}.`);
 }
 
 
 // --- Easter Egg Handling ---
-
+// (Unchanged, but could add more like 'levelup')
 function handleEasterEggInput(key, keyCode) {
     if (keyCode === ENTER) {
         processEasterEgg(easterEggInput);
-        inputMode = 'game'; // Exit input mode
-        easterEggInput = ''; // Clear input
+        inputMode = 'game';
+        easterEggInput = '';
     } else if (keyCode === BACKSPACE) {
-        easterEggInput = easterEggInput.slice(0, -1); // Remove last character
+        easterEggInput = easterEggInput.slice(0, -1);
     } else if (keyCode === ESCAPE) {
-        inputMode = 'game'; // Cancel
+        inputMode = 'game';
         easterEggInput = '';
         addMessage("Easter egg input cancelled.");
-    } else if (key.length === 1) { // Append printable characters
+    } else if (key.length === 1 && easterEggInput.length < 30) { // Limit input length
         easterEggInput += key;
     }
-    // Ignore other keys like Shift, Ctrl, etc.
 }
 
 function processEasterEgg(command) {
     command = command.toLowerCase().trim();
     addMessage(`Easter Egg attempt: "${command}"`);
     if (command === "showoff") {
-        showAll = !showAll; // Toggle visibility
+        showAll = !showAll;
         addMessage(showAll ? "Tada! The whole map is revealed!" : "Hiding the map again.");
     } else if (command === "kiellemall") {
         addMessage("Begone, foul beasts!");
-        monsters = []; // Remove all monsters
+        monsters = [];
     } else if (command === "healme") {
         player.hp = player.maxHp;
         addMessage("Feeling refreshed!");
     } else if (command === "goldpls") {
          player.gold += 1000;
          addMessage("💰💰💰 Bling! 💰💰💰");
+    } else if (command === "levelup") { // NEW Easter Egg
+         if (player.level < 36) {
+             addXP(player.xpToNextLevel - player.xp); // Give exactly enough XP to level up
+             addMessage("Level up via cheat!");
+         } else {
+             addMessage("Already max level!");
+         }
+    } else if (command === "godmode") { // NEW Easter Egg
+         player.hp = 9999; player.maxHp = 9999; player.baseDamage = 100;
+         addMessage("DEUS VULT!");
     } else {
         addMessage("Nothing happens... Maybe you typed it wrong? 😉");
     }

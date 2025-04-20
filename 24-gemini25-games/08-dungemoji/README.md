@@ -4,13 +4,15 @@
 ## images
 
 ![Generation sample - look at these interesting monsters and treasures](image.png)
+
+![sample game beginning](image-1.png)
 ## Prompt
 
 In the 80s there was a famous CLI game where you'd explore a dungeon with keyboard commands, you would use the keyboard for moving in the 4 direction, "Q" to quaff a potion, and so on.
 
 I'd like you to create a p5js clone of that game with these features:
 
-1. Adapt size to 100% of screen, wether its mobile or desktoip. I want to play on FULL screen offered by my browser.
+1. Adapt size to 100% of screen, wether its mobile or desktop. I want to play on FULL screen offered by my browser.
 2. When you start, generate a dungeon with rooms which can vary in size from 2x2 (minimum) to say 5x8 / 8x5 max. There are corridors unifying these rooms. No corridor or room touches any other corridor or room, except the 2+ terminations of a corridors ending in a room (a corridor can unite 2 or more rooms).
 3. You start in a random (empty) room. Visibility is radius of 2 or 3 (configurable on top as variable - lets start with 2). As you proceed, more parts become visible and they STAY visible (so every point of the dungeon must have a boolean which tells you if it was shown before).
 4. Every dungeon has exactly one stair to the next dungeon.
