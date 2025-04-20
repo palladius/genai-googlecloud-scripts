@@ -51,6 +51,9 @@ def magenta(text: str) -> str:
     """Makes text magenta"""
     return f"{_BRIGHT_MAGENTA}{text}{_RESET}"
 
+def purple(text: str) -> str:
+    return magenta(str)
+
 def cyan(text: str) -> str:
     """Makes text cyan"""
     return f"{_BRIGHT_CYAN}{text}{_RESET}"

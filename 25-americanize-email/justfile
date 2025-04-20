@@ -25,4 +25,4 @@ explain:
 # Takes sample email (sample.eml) and calls americanize
 [group('americanize')]
 americanize-sample-email:
-  cat sample.eml | ./llm-americanize.py
+  cat sample.eml | ./llm-americanize.py --stdin | glow

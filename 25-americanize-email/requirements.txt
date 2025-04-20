@@ -1,3 +1,4 @@
 google-genai>=0.7.0
-pyperclip>=1.8.2
 python-dotenv>=1.0.0
+# pyperclip removed - using system commands via lib/clipboard.py now
+dotenv
