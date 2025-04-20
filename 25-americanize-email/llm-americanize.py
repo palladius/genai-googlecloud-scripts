@@ -12,8 +12,16 @@ import argparse
 import sys
 import os
 import textwrap # For wrapping help text
+
 from google import genai
 from google.genai import types
+
+# Only run this block for Gemini Developer API
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if not GEMINI_API_KEY:
+    print("GEMINI_API_KEY non datur - exiting")
+    exit(42)
+client = genai.Client(api_key='GEMINI_API_KEY')
 
 # --- Add lib directory to Python path ---
 # This makes `from lib import ...` work reliably
