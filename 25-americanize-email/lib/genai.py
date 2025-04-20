@@ -1,27 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-GenAI Interaction Module - Let's talk to the big brain! 🧠
-Handles communication with the Vertex AI Gemini API.
+GenAI Interaction Module - Let's talk to the big brain using google-genai! 🧠
+Handles communication with the Gemini API via API Key.
 """
 
 import sys
+import os
 import time
 from typing import Optional
 
+# Attempt to import google-genai library
 try:
-    import vertexai
-    from vertexai.generative_models import GenerativeModel, GenerationConfig, Candidate, Part
-    from google.api_core import exceptions as google_exceptions
-    _VERTEXAI_AVAILABLE = True
+    from google import genai
+    from google.genai import types
+    from google.genai import safety_settings as safety
+    from google.genai import errors as google_genai_errors
+    _GENAI_AVAILABLE = True
 except ImportError:
-    _VERTEXAI_AVAILABLE = False
-    # print("Warning: google-cloud-aiplatform module not found. GenAI functionality will be disabled.", file=sys.stderr)
-    # print("Install it with: pip install google-cloud-aiplatform", file=sys.stderr)
+    _GENAI_AVAILABLE = False
+
+# Import dotenv to load environment variables like GOOGLE_API_KEY
+try:
+    from dotenv import load_dotenv
+    _DOTENV_AVAILABLE = True
+except ImportError:
+    _DOTENV_AVAILABLE = False
 
 try:
     from lib import colors
 except ImportError:
-    # Fallback if colors cannot be imported
     class MockColors:
         def __getattr__(self, name):
             return lambda x: x
@@ -29,95 +36,87 @@ except ImportError:
 
 
 # Default configuration values
-DEFAULT_MODEL_NAME = "gemini-1.5-flash-001"
+DEFAULT_MODEL_NAME = "gemini-1.5-flash-001" # Or "models/gemini-1.5-flash-001"
 DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_OUTPUT_TOKENS = 2048
-DEFAULT_TOP_P = 0.95 # Often used with temperature
-DEFAULT_TOP_K = 40   # Often used with temperature
-
-# The placeholder we expect in prompt files
-PROMPT_INPUT_PLACEHOLDER = "{EMAIL_BODY}"
+DEFAULT_TOP_P = 0.95
+DEFAULT_TOP_K = 40
+# Default safety settings (block medium+ for most categories)
+DEFAULT_SAFETY_SETTINGS = {
+    safety.HarmCategory.HARM_CATEGORY_HARASSMENT: safety.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    safety.HarmCategory.HARM_CATEGORY_HATE_SPEECH: safety.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    safety.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: safety.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    safety.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: safety.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+}
 
 class GeminiClient:
-    """Wraps the Vertex AI Gemini client."""
+    """Wraps the google-genai client for Gemini API calls."""
 
-    def __init__(self, project_id: str, location: str, debug: bool = False):
+    def __init__(self, debug: bool = False):
         """
-        Initializes the GeminiClient.
+        Initializes the GeminiClient using API Key authentication.
 
         Args:
-            project_id: Google Cloud Project ID.
-            location: Google Cloud Project Location (e.g., 'us-central1').
             debug: Enable debug printing.
 
         Raises:
-            ImportError: If the 'google-cloud-aiplatform' library is not installed.
-            RuntimeError: If Vertex AI initialization fails.
+            ImportError: If 'google-genai' or 'python-dotenv' library is not installed.
+            RuntimeError: If the GOOGLE_API_KEY environment variable is not set or client init fails.
         """
-        if not _VERTEXAI_AVAILABLE:
-            raise ImportError("The 'google-cloud-aiplatform' library is required for GenAI operations. Please install it (`pip install google-cloud-aiplatform`).")
+        if not _GENAI_AVAILABLE:
+            raise ImportError("The 'google-genai' library is required. Please install it (`pip install google-genai`).")
+        if not _DOTENV_AVAILABLE:
+             print(colors.yellow("⚠️ Warning: 'python-dotenv' not installed. Cannot automatically load '.env' file."), file=sys.stderr)
+             print(colors.yellow("   Ensure GOOGLE_API_KEY is set in your environment."), file=sys.stderr)
+             # Continue, maybe the key is set directly in the environment
+        else:
+            # Load .env file if it exists, this will not override existing env vars
+            env_path = '.env'
+            if os.path.exists(env_path):
+                 if debug:
+                    print(colors.grey(f"🔑 Loading environment variables from '{env_path}'..."), file=sys.stderr)
+                 load_dotenv(dotenv_path=env_path, override=False)
+            elif debug:
+                 print(colors.grey(f"🔑 '.env' file not found, relying on existing environment variables."), file=sys.stderr)
 
-        self.project_id = project_id
-        self.location = location
         self.debug = debug
-        self._model: Optional[GenerativeModel] = None # Lazy initialization
+        self._client: Optional[genai.Client] = None
+
+        # Check for API key after attempting to load .env
+        api_key = os.environ.get("GOOGLE_API_KEY")
+        if not api_key:
+            print(colors.red("\n❗ Critical Error: GOOGLE_API_KEY environment variable not set."), file=sys.stderr)
+            print(colors.yellow("   Please set the GOOGLE_API_KEY environment variable."), file=sys.stderr)
+            print(colors.yellow("   You can create one at https://aistudio.google.com/app/apikey"), file=sys.stderr)
+            print(colors.yellow("   You can set it directly or place it in a '.env' file in the script's directory:"), file=sys.stderr)
+            print(colors.yellow("   Example .env file content:"), file=sys.stderr)
+            print(colors.yellow("   GOOGLE_API_KEY=AIzaSy..."), file=sys.stderr)
+            raise RuntimeError("Missing GOOGLE_API_KEY environment variable.")
 
         try:
             if self.debug:
-                print(colors.grey(f"🔧 Initializing Vertex AI SDK for project '{project_id}' in location '{location}'..."), file=sys.stderr)
-            # Retry initialization softly, sometimes network blips happen
-            retries = 3
-            for i in range(retries):
-                try:
-                    vertexai.init(project=project_id, location=location)
-                    if self.debug:
-                        print(colors.grey(f"✅ Vertex AI SDK initialized successfully (attempt {i+1}/{retries})."), file=sys.stderr)
-                    break # Success
-                except Exception as e:
-                    if i < retries - 1:
-                        print(colors.yellow(f"⚠️ Vertex AI init failed (attempt {i+1}/{retries}): {e}. Retrying in 2 seconds..."), file=sys.stderr)
-                        time.sleep(2)
-                    else:
-                        print(colors.red(f"❗ Vertex AI init failed after {retries} attempts."), file=sys.stderr)
-                        raise RuntimeError(f"Failed to initialize Vertex AI SDK: {e}") from e
+                print(colors.grey("🔧 Initializing google-genai Client..."), file=sys.stderr)
+                # Optionally mask part of the key in debug logs if needed
+                masked_key = api_key[:5] + "..." + api_key[-4:] if len(api_key) > 9 else api_key
+                print(colors.grey(f"   (Using API Key starting with {masked_key})"), file=sys.stderr)
+
+            # Initialize client - it uses GOOGLE_API_KEY from env by default
+            self._client = genai.Client()
+
+            # Optional: Make a lightweight call to verify connectivity/key validity?
+            # E.g., list models, but that might be too slow for init.
+            # Let's rely on the first generate_content call to fail if key is bad.
+            if self.debug:
+                print(colors.grey("✅ google-genai Client initialized successfully."), file=sys.stderr)
+
         except Exception as e:
-             # Catch any unexpected error during the retry logic itself
-             print(colors.red(f"❗ Unexpected error during Vertex AI initialization: {e}"), file=sys.stderr)
-             raise RuntimeError(f"Unexpected error initializing Vertex AI SDK: {e}") from e
-
-
-    def _get_model(self, model_name: str) -> GenerativeModel:
-        """Initializes and returns the GenerativeModel instance."""
-        # Construct the full model resource name expected by the library
-        expected_model_name = f"projects/{self.project_id}/locations/{self.location}/publishers/google/models/{model_name}"
-
-        # Check if the current model instance matches the *full resource name*
-        # Note: Accessing _model_name might be fragile if library internals change, but it's common practice.
-        if self._model is None or self._model._model_name != expected_model_name:
-             if self.debug:
-                 print(colors.grey(f"🧠 Loading/switching to Generative Model: {model_name} ({expected_model_name})..."), file=sys.stderr)
-             try:
-                self._model = GenerativeModel(model_name)
-                if self.debug:
-                    # Verify the internal name matches expectation after loading
-                    loaded_name = getattr(self._model, '_model_name', 'Unknown')
-                    print(colors.grey(f"✅ Model '{model_name}' loaded. Internal resource name: {loaded_name}"), file=sys.stderr)
-             except Exception as e:
-                 print(colors.red(f"❗ Failed to load model '{model_name}': {e}"), file=sys.stderr)
-                 raise RuntimeError(f"Failed to load model '{model_name}'") from e
-        elif self.debug:
-            print(colors.grey(f"🧠 Reusing existing model instance for: {model_name}"), file=sys.stderr)
-
-        # Double-check model is not None after attempt
-        if self._model is None:
-            raise RuntimeError(f"Model object is unexpectedly None after trying to load '{model_name}'.")
-
-        return self._model
-
+            print(colors.red(f"❗ Failed to initialize google-genai Client: {e}"), file=sys.stderr)
+            # Provide specific hints if possible, e.g., check network, API key format?
+            raise RuntimeError(f"Failed to initialize google-genai Client") from e
 
     def process_text(
         self,
-        prompt_template: str,
+        system_prompt: str,
         input_text: str,
         model_name: str = DEFAULT_MODEL_NAME,
         temperature: float = DEFAULT_TEMPERATURE,
@@ -126,13 +125,13 @@ class GeminiClient:
         top_k: int = DEFAULT_TOP_K
     ) -> str:
         """
-        Sends the input text and prompt to the Gemini model for processing.
+        Sends the input text and system prompt to the Gemini model for processing.
 
         Args:
-            prompt_template: The prompt string, potentially containing {EMAIL_BODY}.
+            system_prompt: The system instructions for the model (from the prompt file).
             input_text: The text to be processed (e.g., the email body).
-            model_name: The name of the Gemini model to use.
-            temperature: Controls randomness (0.0-1.0). Lower is more deterministic.
+            model_name: The name or path of the Gemini model to use (e.g., 'gemini-1.5-flash-001').
+            temperature: Controls randomness (0.0-1.0).
             max_output_tokens: Maximum number of tokens in the response.
             top_p: Nucleus sampling parameter.
             top_k: Top-k sampling parameter.
@@ -141,114 +140,130 @@ class GeminiClient:
             The processed text returned by the model.
 
         Raises:
-            ValueError: If the prompt template doesn't contain the expected placeholder.
-            RuntimeError: If the API call fails or model loading fails.
+            RuntimeError: If the API call fails, is blocked, or returns no valid text.
         """
-        if PROMPT_INPUT_PLACEHOLDER not in prompt_template:
-             print(colors.yellow(f"⚠️ Warning: Prompt template does not contain the placeholder '{PROMPT_INPUT_PLACEHOLDER}'. Input text will be appended directly after the template."), file=sys.stderr)
-             # Ensure there's separation between template and raw input
-             full_prompt = f"{prompt_template.rstrip()}\n\n---\n\n{input_text}"
+        if self._client is None:
+             # This should not happen if __init__ succeeded, but safeguard anyway
+             raise RuntimeError("GenAI client is not initialized.")
+
+        # Ensure model name doesn't have the "models/" prefix if user provides it like that
+        if not model_name.startswith("models/"):
+            model_path = f"models/{model_name}"
         else:
-             full_prompt = prompt_template.replace(PROMPT_INPUT_PLACEHOLDER, input_text)
+            model_path = model_name # Assume user provided full path
 
         if self.debug:
-            print(colors.grey("\n--- Sending Prompt to LLM ---"), file=sys.stderr)
-            print(colors.grey(full_prompt[:500] + ("..." if len(full_prompt) > 500 else "")), file=sys.stderr) # Print truncated prompt
-            print(colors.grey("-----------------------------"), file=sys.stderr)
-            print(colors.grey(f"Model: {model_name}, Temp: {temperature}, Max Tokens: {max_output_tokens}, Top-P: {top_p}, Top-K: {top_k}"), file=sys.stderr)
+            print(colors.grey("\n--- Preparing Call to Gemini API ---"), file=sys.stderr)
+            print(colors.grey(f"Model: {model_path}"), file=sys.stderr)
+            print(colors.grey(f"System Prompt Snippet:\n'''\n{system_prompt[:300]}...\n'''"), file=sys.stderr)
+            print(colors.grey(f"Input Text Snippet:\n'''\n{input_text[:300]}...\n'''"), file=sys.stderr)
+            print(colors.grey(f"Config: Temp={temperature}, MaxTokens={max_output_tokens}, TopP={top_p}, TopK={top_k}"), file=sys.stderr)
+            print(colors.grey("------------------------------------"), file=sys.stderr)
 
-
-        try:
-            model = self._get_model(model_name)
-        except RuntimeError as e:
-             # Propagate model loading errors
-             raise e
-
-        generation_config = GenerationConfig(
+        # Prepare the generation configuration
+        generation_config = types.GenerationConfig(
             temperature=temperature,
             max_output_tokens=max_output_tokens,
             top_p=top_p,
-            top_k=top_k
+            top_k=top_k,
+            # candidate_count=1 # Default is 1
         )
 
-        try:
-            print(colors.cyan(f"✨ Calling Gemini ({model_name})... This might take a moment..."), file=sys.stderr)
-            start_time = time.time()
-            response = model.generate_content(
-                [full_prompt], # Content can be a list of strings or Parts
-                generation_config=generation_config,
-                # stream=False # We want the full response here
-                )
-            duration = time.time() - start_time
+        # Prepare the contents - use the input_text directly as the user's message
+        contents = [input_text] # Simple string content for user role
 
+        try:
+            print(colors.cyan(f"✨ Calling Gemini ({model_path})... Be patient, magic takes time... ✨"), file=sys.stderr)
+            start_time = time.time()
+
+            response = self._client.models.generate_content(
+                model=model_path,
+                contents=contents,
+                generation_config=generation_config,
+                safety_settings=DEFAULT_SAFETY_SETTINGS,
+                system_instruction=system_prompt if system_prompt.strip() else None # Pass system prompt here
+            )
+
+            duration = time.time() - start_time
             if self.debug:
-                print(colors.grey(f"✅ Raw API Response received ({type(response)}) in {duration:.2f}s."), file=sys.stderr)
-                # print(colors.grey(f"{response}"), file=sys.stderr) # Might be too verbose
+                print(colors.grey(f"✅ API Response received in {duration:.2f}s."), file=sys.stderr)
+                # print(colors.grey(f"Raw response type: {type(response)}"), file=sys.stderr) # Less useful now
 
             # --- Process Response ---
-            # More robust checking based on library documentation and common patterns
-            if not response.candidates:
-                 # Check usage metadata if available, might give clues
-                 usage_metadata = getattr(response, 'usage_metadata', None)
-                 if self.debug:
-                      print(colors.yellow(f"LLM response missing candidates. Usage metadata: {usage_metadata}"), file=sys.stderr)
-                 raise RuntimeError(f"LLM response contained no candidates. Usage: {usage_metadata}")
-
-            # Check the first candidate (usually the only one unless num_candidates > 1)
-            candidate = response.candidates[0]
-            finish_reason = getattr(candidate, 'finish_reason', Candidate.FinishReason.FINISH_REASON_UNSPECIFIED)
-            safety_ratings = getattr(candidate, 'safety_ratings', [])
-
-            # Case 1: Valid content exists
-            if candidate.content and candidate.content.parts:
-                # Assuming text model, the first part should contain the text
-                result_text = candidate.content.parts[0].text
+            # 1. Check for immediate errors indicated by lack of text and prompt feedback
+            try:
+                # Accessing response.text should be the primary method
+                result_text = response.text
                 if self.debug:
-                    print(colors.grey(f"✅ Extracted Text Length: {len(result_text)} chars. Finish reason: {finish_reason.name if finish_reason else 'N/A'}"), file=sys.stderr)
-                # If finish_reason indicates truncation (MAX_TOKENS), warn the user
-                if finish_reason == Candidate.FinishReason.MAX_TOKENS:
-                    print(colors.yellow(f"⚠️ Warning: LLM response may be truncated because the maximum output token limit ({max_output_tokens}) was reached."), file=sys.stderr)
+                    print(colors.grey(f"✅ Extracted Text Length: {len(result_text)} chars."), file=sys.stderr)
                 return result_text
 
-            # Case 2: No content, investigate why
-            if self.debug:
-                 print(colors.yellow(f"LLM response missing content parts. Finish reason: {finish_reason.name if finish_reason else 'N/A'}"), file=sys.stderr)
-                 if safety_ratings:
-                     print(colors.yellow(f"Safety Ratings: {safety_ratings}"), file=sys.stderr)
+            except ValueError as e:
+                # google-genai raises ValueError if response access fails (e.g., blocked)
+                print(colors.red(f"❗ Error accessing response text: {e}"), file=sys.stderr)
+                # Try to get more info from prompt_feedback or candidates
+                finish_reason = "Unknown"
+                safety_ratings = "Unknown"
+                block_reason = "Unknown"
+                try:
+                    if response.prompt_feedback:
+                        block_reason = response.prompt_feedback.block_reason
+                        safety_ratings = response.prompt_feedback.safety_ratings
+                        print(colors.yellow(f"   Prompt Feedback Block Reason: {block_reason}"), file=sys.stderr)
+                        print(colors.yellow(f"   Safety Ratings: {safety_ratings}"), file=sys.stderr)
+                    elif response.candidates and response.candidates[0].finish_reason:
+                        finish_reason = response.candidates[0].finish_reason.name
+                        safety_ratings = response.candidates[0].safety_ratings
+                        print(colors.yellow(f"   Candidate Finish Reason: {finish_reason}"), file=sys.stderr)
+                        print(colors.yellow(f"   Safety Ratings: {safety_ratings}"), file=sys.stderr)
 
-            # Specific error based on finish reason
-            if finish_reason == Candidate.FinishReason.SAFETY:
-                 raise RuntimeError(f"LLM response blocked due to safety concerns. Ratings: {safety_ratings}")
-            elif finish_reason == Candidate.FinishReason.RECITATION:
-                 raise RuntimeError("LLM response blocked due to potential recitation issues.")
-            elif finish_reason == Candidate.FinishReason.OTHER:
-                 raise RuntimeError("LLM response failed due to an unspecified 'other' reason.")
-            elif finish_reason == Candidate.FinishReason.FINISH_REASON_UNSPECIFIED:
-                 raise RuntimeError("LLM response finished with an unspecified reason and no content.")
-            else:
-                # Should not happen if MAX_TOKENS was handled above, but catch just in case
-                 raise RuntimeError(f"LLM response contained no content parts. Finish reason: {finish_reason.name if finish_reason else 'Unknown'}")
+                except Exception as inner_e:
+                     if self.debug:
+                         print(colors.grey(f"   Could not extract detailed feedback: {inner_e}"), file=sys.stderr)
+
+                # Raise a more informative error
+                if block_reason != "Unknown" and block_reason != "BLOCK_REASON_UNSPECIFIED":
+                     raise RuntimeError(f"Content generation blocked. Reason: {block_reason}. Ratings: {safety_ratings}")
+                elif finish_reason != "Unknown" and finish_reason != "FINISH_REASON_UNSPECIFIED" and finish_reason != "STOP":
+                     raise RuntimeError(f"Content generation failed or stopped unexpectedly. Reason: {finish_reason}. Ratings: {safety_ratings}")
+                else:
+                     raise RuntimeError(f"Content generation failed. Could not extract text from response. Original error: {e}")
+
+            except Exception as e:
+                 # Catch any other unexpected error during text extraction
+                 print(colors.red(f"❗ Unexpected error processing response: {e}"), file=sys.stderr)
+                 raise RuntimeError("Unexpected error processing LLM response.") from e
 
 
-        except google_exceptions.PermissionDenied as e:
-             print(colors.red("\n🚫 Permission Denied! Check your authentication and ensure the Vertex AI API is enabled."), file=sys.stderr)
-             print(colors.red(f"   Project: {self.project_id}, Location: {self.location}"), file=sys.stderr)
-             print(colors.red(f"   Attempted Model: {model_name}"), file=sys.stderr)
+        # --- Handle API Errors ---
+        except google_genai_errors.PermissionDenied as e:
+             print(colors.red("\n🚫 API Permission Denied!"), file=sys.stderr)
+             print(colors.red(f"   Check your GOOGLE_API_KEY. Is it valid and enabled?"), file=sys.stderr)
              print(colors.red(f"   Details: {e}"), file=sys.stderr)
-             raise RuntimeError("API Permission Denied") from e
-        except google_exceptions.ResourceExhausted as e:
-             print(colors.red("\nquota Exceeded! You might be sending requests too quickly or exceeded your quota."), file=sys.stderr)
+             raise RuntimeError("API Permission Denied (Check GOOGLE_API_KEY)") from e
+        except google_genai_errors.ResourceExhausted as e:
+             print(colors.red("\nquota Exceeded or Rate Limited!"), file=sys.stderr)
+             print(colors.red(f"   You might be sending requests too quickly or exceeded your quota (often 60 RPM for free tier)."), file=sys.stderr)
              print(colors.red(f"   Details: {e}"), file=sys.stderr)
-             raise RuntimeError("API Quota Exceeded") from e
-        except google_exceptions.InvalidArgument as e:
+             raise RuntimeError("API Quota Exceeded / Rate Limited") from e
+        except google_genai_errors.InvalidArgument as e:
              print(colors.red(f"\n❗ Invalid Argument Error: {e}"), file=sys.stderr)
-             print(colors.red(f"   Check model name ('{model_name}'), parameters (temp, tokens, etc.), or prompt format."), file=sys.stderr)
+             print(colors.red(f"   Check model name ('{model_path}'), parameters (temp, tokens, etc.), or prompt format."), file=sys.stderr)
              raise RuntimeError("API Invalid Argument") from e
-        except google_exceptions.GoogleAPICallError as e:
-             print(colors.red(f"\n❗ API Call Error: {e}"), file=sys.stderr)
-             raise RuntimeError("General API Call Error") from e
+        except google_genai_errors.NotFound as e:
+             print(colors.red(f"\n❗ Model Not Found Error: {e}"), file=sys.stderr)
+             print(colors.red(f"   Ensure the model name '{model_path}' is correct and available for your API key region/tier."), file=sys.stderr)
+             raise RuntimeError(f"Model '{model_path}' not found") from e
+        except google_genai_errors.InternalServerError as e:
+            print(colors.red(f"\n❗ Internal Server Error from API: {e}"), file=sys.stderr)
+            print(colors.yellow(f"   This might be a temporary issue with the Google API. Try again later."), file=sys.stderr)
+            raise RuntimeError("API Internal Server Error") from e
+        except google_genai_errors.APIError as e:
+             # Catch other specific API errors
+             print(colors.red(f"\n❗ Gemini API Error ({type(e).__name__}): {e}"), file=sys.stderr)
+             raise RuntimeError("Gemini API Error") from e
         except Exception as e:
-             print(colors.red(f"\n❗ An unexpected error occurred during the Gemini API call: {e}"), file=sys.stderr)
-             # Re-raise the original exception for better traceback if not handled above
+             # Catch unexpected errors during the call itself
+             print(colors.red(f"\n❗ An unexpected error occurred during the Gemini API call: {type(e).__name__} - {e}"), file=sys.stderr)
              raise RuntimeError("Unexpected GenAI Error") from e
 
