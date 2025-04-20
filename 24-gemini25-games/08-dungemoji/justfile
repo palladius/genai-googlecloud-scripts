@@ -2,8 +2,8 @@
 set export
 
 # Should get them from envrc...
-PROJECT_ID := "justfile_pincopallo"
-GCP_REGION := 'justfile-antarctica-east-1'
+export PROJECT_ID := 'dungemoji'
+GCP_REGION := 'fake-antarctica-east-1'
 
 # Lists all targets
 [group('default')]
@@ -11,3 +11,15 @@ list:
     @yellow "[justfile] PROJECT_ID=$PROJECT_ID"
     @yellow "[justfile] GCP_REGION=$GCP_REGION"
     @just -l
+
+
+# Creates '.firebase.rc' with proper project_id
+init:
+    if [ -f .firebaserc ] ; then echo inutile ; exit 2 ; fi
+    firebase init
+
+# .firebase.rc
+
+deploy:
+    echo on derek: node_modules/.bin/firebase deploy
+    firebase deploy
