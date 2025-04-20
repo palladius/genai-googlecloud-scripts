@@ -41,3 +41,25 @@ oh wow, this is AMAZING!
 4. Create a XP (experience points) system so I level up, say every 5-10 onsters. You can be level 1-36 (max 36) and the XP level is exponential, 2000XP for L2, 4000 for L3, 8000 for L4 and so on. When you level up you have more HP per level and you do more damage. Also monsters should be getting stronger/different.
 
 5. no space invaders., only things from the past please. Ogre, dragon, mouse, wolf, ... animals.
+
+
+# prompt 3
+
+fantastic, the game is working GREAT!
+
+1. the help, since the below part is not scrollable I only see the first three. i think it should be full screen and interrupts the game, then i press H again and it disappear from above the screen
+
+2. when I resize the screen, the view goes all black. I see from the logs something is happening but im basically blind.
+
+3. I dont really like your walls, its a simple emoji. I'd like to have something that express verticality like an ASCII symbol for || , one for hirizontality like  =, and four corner ASCII symbols. I know they existed in the 80s so Im sure they exist today. Please find them , they make the scene so much better!
+
+4. I love the rest , monsters and so. Make sure to add the troll: 🧌 .
+
+
+# prompt 4
+
+1. re walls: ok, so the vertical part is sorted but the horizontal is full of holes. see picture attached.:
+
+![alt text](image-2.png)
+
+2. resize: this is still not fixed.
