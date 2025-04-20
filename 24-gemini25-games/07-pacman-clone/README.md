@@ -27,3 +27,11 @@ Wow, it works GREAT! one last thing. the teleport. Now there's a hole in the gri
 ## prompt 5
 
 the teleport works, great! One thing I've always desired is to also have holes for teleport in VERTICAL. Can you also do holes in North and Sourth wall and have same teleport functionality in vertical sense? So i can fool thos ghosts better :)
+
+## prompt 6 on mouse controls
+
+so on the computer the game is PERFECT. on mobile, its unplayable:
+
+1. The rendering of the page is a small square on top left, leaving most of the screen white. I believe it should have 100% width and possibly be centered.
+
+2. the controls are really bad. i struggle to go letf or right, it seems to go down but struggles to the right. probably this is cause by the fact that the square is so small.
