@@ -74,3 +74,16 @@ The game is coming along REALLY well, wow! Also resizing works great!
 4. What does the sparkle potion do? If no power is associated to it yet, we could say it instantly kills all undead within 10 squares? (undeads would be skeleton ghost zombie)
 
 Please give me the new FULL js code.
+
+# prompt 6 - lets make phone work too.
+
+fantastic. Game is great on desktop, just perfect. On mobile though, since i see no keyboard on my phone , i cant do aNYTHING. Is there a way on the phone for the app to tell it to have the keyboard ALWAYS on? This would make the game playable.
+
+In alternative, would it be possible to create a physiical keyboard where every tap corresponds to a letter pressed? IN this case I'd like the four arrows bigger :)
+
+
+## error on P6
+
+Hmm, I'm afraid this is broken. While the keyboard is intercepted perfectly, I see a dark screen on top, not the random room where I start. Also the left button is half out of the window, look:
+
+![alt text](image-3.png)
