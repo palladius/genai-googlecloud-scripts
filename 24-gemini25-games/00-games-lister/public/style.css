@@ -1,0 +1,74 @@
+/* style.css - Simple styles for the Kids' Games page */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff; /* AliceBlue - sounds kid-friendly! */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto; /* Center the content */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #4a90e2; /* A nice friendly blue */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+ul {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0;
+}
+
+li {
+    margin-bottom: 25px; /* Space out the list items */
+    padding-left: 10px;
+    border-left: 4px solid #4a90e2; /* Add a little accent */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+li:hover {
+    background-color: #eaf4ff; /* Light blue on hover */
+}
+
+li span.emoji {
+    font-size: 1.5em; /* Make emojis slightly bigger */
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+li a {
+    font-weight: bold;
+    color: #d9534f; /* A contrasting red/coral for links */
+    text-decoration: none; /* No underlines by default */
+    transition: color 0.3s ease;
+}
+
+li a:hover,
+li a:focus {
+    color: #c9302c; /* Darker red on hover/focus */
+    text-decoration: underline; /* Add underline on hover/focus */
+}
+
+li p {
+    margin: 5px 0 0 35px; /* Indent description slightly */
+    font-size: 0.95em;
+    color: #555;
+}
+
+/* Optional: Fun footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8em;
+    color: #888;
+}
