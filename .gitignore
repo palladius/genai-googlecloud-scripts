@@ -16,3 +16,4 @@ __pycache__/
 t.*
 .hello*appname
 *.explain.txt
+firebase-debug.log
