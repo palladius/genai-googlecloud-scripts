@@ -13,7 +13,7 @@ Games represented here:
 | 2D Legoey Tetris              | [https://legoey-2d-carlessian-tetris.web.app/](https://legoey-2d-carlessian-tetris.web.app/)      | The 2D version, for those of us who find 3D *too* stimulating. |
 | Multilingual Anagrams         | [https://zurigram.web.app](https://zurigram.web.app)              | Anagram game in multiple languages! Kate *must* see this! |
 | (Paolo's game, mentioned)         | [https://teal-georgianne-19.tiiny.site/](https://teal-georgianne-19.tiiny.site/)              | App by Riccardo's friend, Paolo, with the addition of Dutch and Lithuanian |
-
+| Dungemoji  | |  https://dungemoji.web.app/ | Created for Alessandro as a reminiscence of an 80's game on my dad's 8086 Amstrad |
 
 ## Firebase Feedback Loop
 
