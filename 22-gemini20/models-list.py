@@ -32,13 +32,14 @@ models = client.models.list()
 def print_fancy(model):
     m = model
         #print(m.name, m.display_name)
-    if "legacy" in m.description:
+    description = (m.description or '[Riccardo] no description provided by API')
+    if "legacy" in description:
         return
     model_name_short = m.name.split('/')[-1]
-    if "Alias" in m.description:
+    if "Alias" in description:
         model_name_short = cyan(model_name_short) # symlink
     else:
-        if "table" in m.description: # stable
+        if "table" in description: # stable
             model_name_short = green(model_name_short)
         else:
             model_name_short = yellow(model_name_short)
@@ -46,8 +47,9 @@ def print_fancy(model):
     if m.labels:
         colored_labels = "# " + purple(", ".join(m.labels))
     else:
-        colored_labels = ""
-    fancy_line = f" ♊️ {model_name_short}: {m.description} {colored_labels}"
+        colored_labels = " (no labels)"
+    #description =
+    fancy_line = f" ♊️ {model_name_short}: {description} {colored_labels}"
     print(fancy_line)
 
 
