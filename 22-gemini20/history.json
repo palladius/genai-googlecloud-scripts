@@ -1,12 +1,32 @@
 [
   {
+    "prompt": "A middle-age Swiss village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_788ae238_1.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_e3bf3fb7_2.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_77083217_3.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_02ee49da_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with the Zurich Booogg rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_ec21e483_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_4e2658cf_2.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_968bed89_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_e90c35e4_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A smurf playing the piano in a jazz club in Zurich Niederdorf, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing alphorn in typical swiss clothes",
     "classification": "video_prompt",
     "image_files": [],
     "video_files": [
-      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-1.mp4",
       "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-2.mp4",
-      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-3.mp4",
       "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-4.mp4"
     ],
     "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/daa6342e-4fb3-4c25-894c-321749bd685d"
