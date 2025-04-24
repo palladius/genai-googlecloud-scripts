@@ -1,5 +1,38 @@
 [
   {
+    "prompt": "Shrek and Donkey are in Zurich city center, near Paradeplatz. The city looks like Duloc, and all kind of fairy tales creatures pop out of banks windows.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_a0c2a06a_1.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_b63ab31b_2.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_c1ec564b_3.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_d37864cb_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Guns and Roses with a Pirate Roberts.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_8bd7b3a5_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_699c087a_2.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_a0794d2a_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_1ddf42a7_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Kings of Leon with a flying giraffe .",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__4ab9bdda_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__7bf939bc_2.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__81359896_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__fa5d2d27_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "Shrek and donkey are in Turin, in Piazza San Carlo, reading a SRE book titled \"SRE gone wrong\".",
     "classification": "image_prompt",
     "image_files": [
@@ -7,11 +40,11 @@
       "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_d04d8b17_2.png",
       "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_3e0877d6_3.png",
       "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_6247ad24_4.png"
-      ],
+    ],
     "video_files": []
   },
   {
-  "prompt": "A middle-age Milan-inspired village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market in front of Milan Duomo cathedral. A dragon is flying very far away.",
+    "prompt": "A middle-age Milan-inspired village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market in front of Milan Duomo cathedral. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
       "streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_8d23698b_2.png",
@@ -30,7 +63,6 @@
     ]
   },
   {
-
     "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
