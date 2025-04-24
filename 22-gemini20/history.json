@@ -1,5 +1,17 @@
 [
   {
+    "prompt": "A smurf playing the piano in a jazz club in Zurich Niederdorf, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing alphorn in typical swiss clothes",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-1.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-2.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-3.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/daa6342e-4fb3-4c25-894c-321749bd685d"
+  },
+  {
     "prompt": "Shrek and Donkey are in Zurich city center, near Paradeplatz. The city looks like Duloc, and all kind of fairy tales creatures pop out of banks windows.",
     "classification": "image_prompt",
     "image_files": [
