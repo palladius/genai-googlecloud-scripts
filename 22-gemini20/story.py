@@ -36,6 +36,7 @@ APP_HISTORY = '''
 20250313 v1.0 INITIAL FUNCTION - clunky
 '''
 STORY_MODEL = "gemini-2.0-flash-exp"
+print(f"STORY_MODEL: {STORY_MODEL} # needed!")
 # DEFAULT_STORY_PROMPT =  \
 #     "Generate a story about a cute baby turtle in a 3d digital art style. " + \
 #     "For each scene, generate an image."
