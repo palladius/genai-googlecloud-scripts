@@ -1,5 +1,16 @@
 [
   {
+    "prompt": "A Dream Theater album in Zurich.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_027ac9b3_4.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_0aa6674b_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_0f08256c_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_5061eee9_2.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A middle-age Swiss village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
     "classification": "image_prompt",
     "image_files": [
@@ -7,17 +18,6 @@
       "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_e3bf3fb7_2.png",
       "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_77083217_3.png",
       "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_02ee49da_4.png"
-    ],
-    "video_files": []
-  },
-  {
-    "prompt": "A CD album cover by Dream Theater with the Zurich Booogg rising.",
-    "classification": "image_prompt",
-    "image_files": [
-      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_ec21e483_1.png",
-      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_4e2658cf_2.png",
-      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_968bed89_3.png",
-      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_with_the_Zurich_Booogg_rising_e90c35e4_4.png"
     ],
     "video_files": []
   },
