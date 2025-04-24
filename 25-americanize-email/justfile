@@ -23,6 +23,11 @@ explain:
 	@green 'This was created by $0 on $(date)'
 
 # Takes sample email (sample.eml) and calls americanize
-[group('americanize')]
+[group('sample')]
 americanize-sample-email:
-  cat sample.eml | ./llm-americanize.py --stdin | glow
+  cat etc/sample.eml | ./llm-americanize.py --stdin | glow
+
+# Takes sample rude words in Italian and checks if it can be translated via Gemini 2.0
+[group('sample')]
+sample-abusive-email:
+  echo Ma va a cagare, col cacchio che ci vengo a Parigi | python llm-americanize.py --stdin --model gemini-2.0-flash
