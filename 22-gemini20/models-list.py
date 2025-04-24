@@ -55,7 +55,7 @@ def fancy_in_out(num):
         return '2Mi'
     return num
 
-def print_fancy(model, debug=True):
+def print_fancy(model, debug=False):
     m = model
         #print(m.name, m.display_name)
     description = (m.description or '[Riccardo] no description provided by API')
