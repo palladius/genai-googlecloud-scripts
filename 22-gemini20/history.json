@@ -1,5 +1,16 @@
 [
   {
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away on top of zurich.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_35d0d8f5_1.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_e3767fd5_2.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_20667c53_3.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_27da5248_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A Dream Theater album in Zurich.",
     "classification": "image_prompt",
     "image_files": [
