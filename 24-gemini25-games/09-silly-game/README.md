@@ -14,7 +14,32 @@ This game was created as a demonstration for HSLU May24.
 
 **Phase 2: Run on Firebase**
 
-Notes:
+* On your local computer, make sure to have `npm` to work. If possible, install it via `nvm`. 
+    * Currently Firebase requires version `20.0` or moooooooooooore.
+* ONce its installed do this:
+
+```bash
+# install firebase CLI
+npm install firebase-tools
+# logs in as XXX@gmail.com
+firebase login
+# mkdir public
+touch public/index.html public/sketch.js public/style.css
+# initalize the repo
+firebase init
+```
+
+* in the `firebase init`, do this:
+    * Choose **hosting** (space + enter)
+    * Choose new project + ENTER. Give it a nice looking name, like 'riccardo-simple-game'.
+    * accept 'public/' directory.
+    * Do NOT accept it to write PWA app, or this will overwrite index.html. If you accidentally overwrite it, just re-copy the files.
+
+* NOTE you might need to go online and accept TOS for the first time.
+
+
+## Notes
+
 * Inspiration from five games ive crested: https://medium.com/@palladiusbonton/wip-code-3d-kid-games-with-gemini-2-5-d580d6b9802b 
 
  `npm [-g] install firebase`.
