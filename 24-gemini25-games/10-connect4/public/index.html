@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four Fun! 🎉</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; /* A light background */
+            font-family: sans-serif;
+        }
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #board-container {
+            margin-bottom: 20px;
+        }
+        #buttons-container {
+            display: flex;
+            gap: 5px; /* Space between buttons */
+            margin-bottom: 20px;
+        }
+        .drop-button, #back-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #eee;
+        }
+        .drop-button:hover, #back-button:hover {
+            background-color: #ddd;
+        }
+        #status {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .red-text { color: #FF6347; /* Tomato */ }
+        .yellow-text { color: #FFD700; /* Gold */ }
+        .blue-text { color: #4682B4; /* Steel Blue */ }
+        .green-text { color: #32CD32; /* Lime Green */ } /* For win/tie */
+    </style>
+</head>
+<body>
+    <h1>Connect Four! 🔴🟡</h1>
+    <div id="game-container">
+        <div id="board-container">
+            </div>
+        <div id="buttons-container">
+            </div>
+        <button id="back-button">BACK (Undo Last Move) ↩️</button>
+        <div id="status">It's Red's turn!</div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
