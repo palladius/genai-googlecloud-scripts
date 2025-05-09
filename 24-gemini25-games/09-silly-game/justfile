@@ -1,0 +1,14 @@
+
+list:
+    just -l
+
+install-firebase:
+#    npm -g install firebase
+    npm install -g firebase-tools
+# npm update npm -g
+    firebase login
+    firebase init
+
+# first time
+
+#    npm install firebase
