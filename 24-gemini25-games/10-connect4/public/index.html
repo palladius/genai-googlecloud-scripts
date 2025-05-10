@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Four Fun! 🎉</title>
+    <title>Connect Four Fun! 🤩 (Mobile Friendly!)</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Align to top for better mobile viewing */
             min-height: 100vh;
             margin: 0;
+            padding-top: 20px; /* Some padding from the top */
             background-color: #f0f0f0; /* A light background */
             font-family: sans-serif;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        h1 {
+            margin-bottom: 15px;
         }
         #game-container {
             display: flex;
@@ -22,41 +27,46 @@
             align-items: center;
         }
         #board-container {
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Space below canvas */
+            border: 2px solid #333; /* Add a border to the canvas container */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow */
         }
-        #buttons-container {
-            display: flex;
-            gap: 5px; /* Space between buttons */
-            margin-bottom: 20px;
-        }
-        .drop-button, #back-button {
-            padding: 10px 15px;
-            font-size: 16px;
+        #back-button, #play-again-button {
+            padding: 12px 20px;
+            font-size: 18px;
             cursor: pointer;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #eee;
+            border: none; /* Remove default border */
+            border-radius: 8px; /* More rounded corners */
+            background-color: #007bff; /* A nice blue */
+            color: white;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease;
         }
-        .drop-button:hover, #back-button:hover {
-            background-color: #ddd;
+        #back-button:hover, #play-again-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        #back-button:disabled, #play-again-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
         }
         #status {
-            margin-top: 10px;
-            font-size: 20px;
+            margin-top: 15px;
+            font-size: 22px; /* Larger text */
             font-weight: bold;
+            text-align: center;
         }
-        .red-text { color: #FF6347; /* Tomato */ }
-        .yellow-text { color: #FFD700; /* Gold */ }
-        .blue-text { color: #4682B4; /* Steel Blue */ }
-        .green-text { color: #32CD32; /* Lime Green */ } /* For win/tie */
+        .red-text { color: #FF6347; } /* Tomato */
+        .yellow-text { color: #FFD700; } /* Gold */
+        .blue-text { color: #4682B4; } /* Steel Blue */
+        .green-text { color: #32CD32; } /* Lime Green - for win/tie */
     </style>
 </head>
 <body>
     <h1>Connect Four! 🔴🟡</h1>
     <div id="game-container">
         <div id="board-container">
-            </div>
-        <div id="buttons-container">
             </div>
         <button id="back-button">BACK (Undo Last Move) ↩️</button>
         <div id="status">It's Red's turn!</div>
