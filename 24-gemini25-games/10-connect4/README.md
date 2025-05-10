@@ -1,7 +1,7 @@
 
 
-pr: p5-connect4
-
+* App: https://g25-games.web.app
+* Gemini: https://gemini.google.com/corp/app/d61bcce6f661e789
 
 ## Prompts
 
