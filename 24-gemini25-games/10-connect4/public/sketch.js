@@ -23,6 +23,7 @@ let winner;
 // Animation speed is now 60% faster! (15 * 1.6 = 24)
 let fallingDisc = { active: false, col: -1, player: EMPTY, y: 0, targetY: 0, speed: 24 };
 let moveHistory = []; // To store moves for the BACK button
+let winningCombination = []; // Stores the coordinates of the 4 winning discs! ✨
 
 // DOM elements (only status and back button now, as drop buttons are drawn on canvas)
 let statusDiv;
@@ -121,9 +122,33 @@ function draw() {
         for (let c = 0; c < COLS; c++) {
             if (board[r][c] !== EMPTY) {
                 let x = c * CELL_SIZE + CELL_SIZE / 2;
-                let y = (r + DROP_AREA_HEIGHT_FACTOR) * CELL_SIZE + CELL_SIZE / 2; // Offset
-                fill(board[r][c] === PLAYER_RED ? RED_COLOR : YELLOW_COLOR);
-                ellipse(x, y, CELL_SIZE * 0.8, CELL_SIZE * 0.8);
+                let y = (r + DROP_AREA_HEIGHT_FACTOR) * CELL_SIZE + CELL_SIZE / 2;
+
+                if (gameOver && winner !== EMPTY) { // Game won, apply special effects!
+                    if (isWinningDisc(r, c)) {
+                        // Highlight winning discs: bigger and a glowing outline
+                        let originalColor = board[r][c] === PLAYER_RED ? RED_COLOR : YELLOW_COLOR;
+                        fill(originalColor);
+                        ellipse(x, y, CELL_SIZE * 0.95, CELL_SIZE * 0.95); // Slightly bigger
+
+                        // Add a glowing effect
+                        noStroke();
+                        drawingContext.shadowBlur = 20; // Apply a blur to the drawing context
+                        drawingContext.shadowColor = originalColor;
+                        fill(originalColor);
+                        ellipse(x, y, CELL_SIZE * 0.95, CELL_SIZE * 0.95);
+                        drawingContext.shadowBlur = 0; // Reset shadow blur
+                        stroke(0); // Reset stroke
+                    } else {
+                        // Mute non-winning discs to gray
+                        fill(150, 150, 150, 180); // Gray color with some transparency
+                        ellipse(x, y, CELL_SIZE * 0.8, CELL_SIZE * 0.8);
+                    }
+                } else {
+                    // Normal drawing during gameplay or a tie
+                    fill(board[r][c] === PLAYER_RED ? RED_COLOR : YELLOW_COLOR);
+                    ellipse(x, y, CELL_SIZE * 0.8, CELL_SIZE * 0.8);
+                }
             }
         }
     }
@@ -147,7 +172,19 @@ function draw() {
     // If the game is over, stop drawing and display the game over message
     if (gameOver) {
         noLoop(); // Stop the draw loop to save resources
-        displayGameOver();
+        // No longer calling displayGameOver() as its logic is now integrated here!
+
+        if (winner !== EMPTY) { // If someone won, dim the background and show big text
+            // Draw a semi-transparent dark overlay on the board (excluding the drop area)
+            fill(0, 0, 0, 100); // Semi-transparent black
+            rect(0, DROP_AREA_HEIGHT_FACTOR * CELL_SIZE, BOARD_WIDTH, ROWS * CELL_SIZE);
+
+            // You could also add a congratulatory text directly on the canvas
+            fill(255); // White text
+            textSize(CELL_SIZE * 0.7); // Even bigger text!
+            textAlign(CENTER, CENTER);
+            text(winner === PLAYER_RED ? "RED WINS!" : "YELLOW WINS!", BOARD_WIDTH / 2, BOARD_HEIGHT / 2 + CELL_SIZE * 0.5);
+        }
     }
 }
 
@@ -166,6 +203,7 @@ function initializeGame() {
     winner = EMPTY;
     fallingDisc.active = false; // Ensure no disc is animating
     moveHistory = []; // Clear all past moves
+    winningCombination = []; // Reset the winning combination for a new game! ✨
 
     updateStatus(); // Update the status message
     enableInput(); // Ensure input is re-enabled for a new game
@@ -254,31 +292,51 @@ function finalizeMove(col, row, player) {
 
 // Checks for 4 in a row after a disc is placed
 function checkWin(row, col, player) {
-    // Check horizontally
-    if (checkLine(row, col, player, 0, 1) + checkLine(row, col, player, 0, -1) >= 3) return true;
-    // Check vertically (only downwards is needed from the last placed disc)
-    if (checkLine(row, col, player, 1, 0) >= 3) return true;
-    // Check diagonally (top-left to bottom-right)
-    if (checkLine(row, col, player, 1, 1) + checkLine(row, col, player, -1, -1) >= 3) return true;
-    // Check diagonally (top-right to bottom-left)
-    if (checkLine(row, col, player, 1, -1) + checkLine(row, col, player, -1, 1) >= 3) return true;
+    let lines = [];
 
-    return false; // No win found
+    // Check horizontally
+    let horiz = getWinningPositions(row, col, player, 0, 1).concat(getWinningPositions(row, col, player, 0, -1));
+    // Add the current disc to the line and remove duplicates
+    let horizontalLine = Array.from(new Set([...horiz, {row, col}].map(JSON.stringify)), JSON.parse);
+    if (horizontalLine.length >= 4) { winningCombination = horizontalLine; return true; }
+
+    // Check vertically (only downwards from last placed disc, as it's always lowest)
+    let vert = getWinningPositions(row, col, player, 1, 0);
+    let verticalLine = Array.from(new Set([...vert, {row, col}].map(JSON.stringify)), JSON.parse);
+    if (verticalLine.length >= 4) { winningCombination = verticalLine; return true; }
+
+    // Check diagonally (top-left to bottom-right)
+    let diag1 = getWinningPositions(row, col, player, 1, 1).concat(getWinningPositions(row, col, player, -1, -1));
+    let diag1Line = Array.from(new Set([...diag1, {row, col}].map(JSON.stringify)), JSON.parse);
+    if (diag1Line.length >= 4) { winningCombination = diag1Line; return true; }
+
+    // Check diagonally (top-right to bottom-left)
+    let diag2 = getWinningPositions(row, col, player, 1, -1).concat(getWinningPositions(row, col, player, -1, 1));
+    let diag2Line = Array.from(new Set([...diag2, {row, col}].map(JSON.stringify)), JSON.parse);
+    if (diag2Line.length >= 4) { winningCombination = diag2Line; return true; }
+
+    winningCombination = []; // Reset if no win found
+    return false;
 }
 
-// Helper function to count connected discs in a line
-function checkLine(row, col, player, deltaRow, deltaCol) {
-    let count = 0;
+// Helper function to get positions of connected discs in a given direction
+function getWinningPositions(row, col, player, deltaRow, deltaCol) {
+    let positions = [];
     let r = row + deltaRow;
     let c = col + deltaCol;
 
-    // Iterate in the given direction, counting matching discs
     while (r >= 0 && r < ROWS && c >= 0 && c < COLS && board[r][c] === player) {
-        count++;
+        positions.push({ row: r, col: c });
         r += deltaRow;
         c += deltaCol;
     }
-    return count;
+    return positions;
+}
+
+// Helper function to check if a disc is part of the winning combination
+function isWinningDisc(r, c) {
+    // Using .some() to efficiently check if any element in winningCombination matches (r, c)
+    return winningCombination.some(pos => pos.row === r && pos.col === c);
 }
 
 // Checks if the board is full (a tie)
@@ -303,6 +361,7 @@ function undoLastMove() {
     // If the game was over, bring it back to life!
     if (gameOver) {
         gameOver = false;
+        winningCombination = []; // Clear winning highlight
         loop(); // Resume the draw loop
     }
 
