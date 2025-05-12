@@ -1,0 +1,53 @@
+# Note: this is NOT needed for the codelab, but it can help you if you know what it does.
+
+# Change to your project id, once you have it.
+# Once set up firebase, you can get the project with this command:
+# $ cat .firebaserc | jq .projects.default -r
+PROJECT_ID := 'my-project'
+
+default: list
+
+
+# install on Linux debian. Feel free to adapt for your distro.
+install-linux:
+    sudo apt install npm
+    @echo 'Trying to install globslly. If it fails, installing in user space.'
+    npm install -g firebase-tools || npm install firebase-tools
+    @echo 'All good, it worked'
+
+list:
+    just -l
+    @if [ -f .firebaserc ] ; then \
+        echo ".firebaserc found. PROJECT_ID: " ; just extract-project-id ; \
+    else \
+        echo ".firebaserc NOT found. Run: just init" ; \
+    fi
+
+# install on Mac with brew
+install-mac:
+    brew install npm
+    npm install firebase-tools
+
+firebase-login:
+    firebase init
+    firebase login
+
+# Creates '.firebase.rc' with proper project_id
+init:
+    if [ -f .firebaserc ] ; then echo '.firebaserc already exists, exiting' ; exit 2 ; fi
+    firebase init
+
+
+deploy:
+    firebase deploy
+
+# Magically open app on browser. Only works after deployment.
+open:
+    open "https://$PROJECT_ID.web.app"
+
+push: deploy
+
+
+# extract-project-id from .firebaserc
+extract-project-id:
+    cat .firebaserc | jq .projects.default -r
