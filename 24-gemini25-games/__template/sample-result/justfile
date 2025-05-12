@@ -51,3 +51,6 @@ push: deploy
 # extract-project-id from .firebaserc
 extract-project-id:
     cat .firebaserc | jq .projects.default -r
+
+run-local:
+    firebase emulators:start
