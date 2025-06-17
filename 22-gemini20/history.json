@@ -1,5 +1,16 @@
 [
   {
+    "prompt": "A Dream Theater album in Lausanne.\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_6e0ebf42_1.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_e6d6b9c7_2.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_b254c051_3.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_0f5a4634_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away on top of zurich.",
     "classification": "image_prompt",
     "image_files": [
