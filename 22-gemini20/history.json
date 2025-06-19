@@ -1,5 +1,44 @@
 [
   {
+    "prompt": "https://www.google.com",
+    "classification": "url",
+    "image_files": [],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a outdoor jazz club in Lausanne, at sunset",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_0027816b_1.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_4cf68bc8_2.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_a8faabf0_3.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_d8940d76_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing a yellwo grand piano in Montreux square by the lake, together with Deep Purple on stage. ",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_adbfcd37_1.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_1b2a8d09_2.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_20767bae_3.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_dc4956d4_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a Lausanne square by the lake, cinematic lighting.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_298a4ca8_1.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_40cb45ed_2.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_d97b6a37_3.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_52ab815c_4.png"
+    ],
+    "video_files": []
+  },
+  {
     "prompt": "A Dream Theater album in Lausanne.\n",
     "classification": "image_prompt",
     "image_files": [
