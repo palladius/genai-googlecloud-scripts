@@ -22,7 +22,7 @@ class Models(Enum):
     GEMINI_1_5_FLASH = "Gemini 1.5 Flash"
     GEMINI_1_5_PRO = "Gemini 1.5 Pro"
     GEMINI_EXP_FLASH = "Gemini ?? Flash (experimental)" # gemini-flash-experimental
-    GEMINI_EXP_PRO = "Gemini ?? Pro (experimental)" # gemini-pro-experimetnal
+    GEMINI_EXP_PRO = "Gemini ?? Pro (experimental)" # gemini-pro-experimental
     CLAUDE_3_5_SONNET = "Claude 3.5 Sonnet"
     RICCARDO_S_WIFE =  "My wife knows everything"
 
