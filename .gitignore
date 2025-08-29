@@ -17,3 +17,4 @@ t.*
 .hello*appname
 *.explain.txt
 firebase-debug.log
+t
