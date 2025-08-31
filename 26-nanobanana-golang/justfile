@@ -1,0 +1,5 @@
+run-go-script:
+	@echo "Loading environment variables from ../.env..."
+	@set -a; . ../.env; set +a
+	@echo "Running Go script..."
+	@go run main.go
