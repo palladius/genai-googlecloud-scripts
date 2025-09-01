@@ -1,5 +1,18 @@
+
+list:
+	just -l
+
 run-go-script:
-	@echo "Loading environment variables from ../.env..."
-	@set -a; . ../.env; set +a
+	@echo "Loading environment variables from .env..."
+	@set -a; . .env; set +a
 	@echo "Running Go script..."
 	@go run main.go
+
+# To check this into git we need to add some sort of `uname -a` or arch to the suffix.
+build-and-run:
+	@echo "Loading environment variables from .env..."
+	@set -a; . .env; set +a
+	@echo "Building Go executable..."
+	@go build -o nanobanana-golang
+	@echo "Running compiled executable..."
+	@./nanobanana-golang
