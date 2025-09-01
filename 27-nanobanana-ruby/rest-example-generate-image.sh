@@ -39,7 +39,7 @@ cat << EOF > request.json
         "role": "user",
         "parts": [
           {
-            "text": "INSERT_INPUT_HERE"
+            "text": "Ok now please add Mickey mouse on top of the plane"
           },
         ]
       },
