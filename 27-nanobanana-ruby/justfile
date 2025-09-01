@@ -1,7 +1,5 @@
-
 list:
     just -l
-
 
 
 nanobanana-test-ruby-duffie:
@@ -10,7 +8,13 @@ nanobanana-test-ruby-duffie:
 nanobanana-test-ruby-matz:
     ruby nanobananize.rb screenshot-matz.png  "Add a yellow heart on bottom right of the picture, as a romantic signature"
 
+nanobanana-all:
+    #!/bin/bash
 
+    ls folder-to-transform/*.png | while read file ; do \
+        echo "Processing $file"; \
+        ruby nanobananize.rb "$file" "Add a yellow heart on bottom right of the picture, as a romantic signature"; \
+    done
 
 test-shell:
     bash rest-example-generate-image.sh

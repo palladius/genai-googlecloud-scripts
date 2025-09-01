@@ -5,6 +5,8 @@ require 'json'
 require 'net/http'
 require 'uri'
 require 'base64'
+require 'dotenv'
+Dotenv.load
 
 if ARGV.length != 2
   puts "Usage: #{$PROGRAM_NAME} <image_file> <prompt>"
@@ -13,12 +15,6 @@ end
 
 image_path = ARGV[0]
 prompt = ARGV[1]
-
-# Load environment variables from .env file
-File.foreach('.env') do |line|
-  key, value = line.chomp.split('=', 2)
-  ENV[key.gsub('export ', '')] = value.gsub("'", "'") if key && value
-end
 
 gemini_api_key = ENV['GEMINI_API_KEY']
 model_id = 'gemini-2.5-flash-image-preview'
@@ -62,6 +58,12 @@ puts "📝 JSON written to nanobanana.response.json"
 
 # Parse the JSON response
 response_data = JSON.parse(response.body)
+
+# Check for errors
+if response_data.first.key?('error')
+  puts "\n🛑 API Error: #{response_data.first['error']['message']}"
+  exit 1
+end
 
 # Check for prohibited content
 if response_data.last['candidates'].first['finishReason'] == 'PROHIBITED_CONTENT'
