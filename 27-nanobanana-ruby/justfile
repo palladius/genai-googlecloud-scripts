@@ -4,8 +4,13 @@ list:
 
 
 
-nanobanana-test-ruby:
+nanobanana-test-ruby-duffie:
     ruby nanobananize.rb duffie-duck-original.png "Add a yellow heart on bottom right of the picture, as a romantic signature"
+
+nanobanana-test-ruby-matz:
+    ruby nanobananize.rb screenshot-matz.png  "Add a yellow heart on bottom right of the picture, as a romantic signature"
+
+
 
 test-shell:
     bash rest-example-generate-image.sh
