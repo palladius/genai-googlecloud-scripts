@@ -39,7 +39,7 @@ cat << EOF > request.json
         "role": "user",
         "parts": [
           {
-            "text": "Ok now please add Mickey mouse on top of the plane"
+            "text": "Ok now please add Scrooge on top of the plane"
           },
         ]
       },
@@ -54,4 +54,4 @@ curl \
 -X POST \
 -H "Content-Type: application/json" \
 "https://generativelanguage.googleapis.com/v1beta/models/${MODEL_ID}:${GENERATE_CONTENT_API}?key=${GEMINI_API_KEY}" -d '@request.json' |
-    tee duffie-duck.response.json
+    tee duffie-duck.response.shell.json
