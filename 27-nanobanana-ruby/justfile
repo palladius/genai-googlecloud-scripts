@@ -2,23 +2,23 @@ list:
     just -l
 
 nanobanana-test-ruby-banana:
-    ruby nanobananize.rb duffie-duck-original.png "Insert a dwarf and a banana on the bottom right of the image, using 20% of the height, and 20% of the width each"
+    ruby nanobananize.rb src/duffy/duffie-duck-original.png "Insert a dwarf and a banana on the bottom right of the image, using 20% of the height, and 20% of the width each"
 
 
 nanobanana-test-ruby-duffie:
-    ruby nanobananize.rb duffie-duck-original.png "Add a yellow heart on bottom right of the picture, as a romantic signature"
+    ruby nanobananize.rb src/duffy/duffie-duck-original.png "Add a yellow heart on bottom right of the picture, as a romantic signature"
 
 nanobanana-test-ruby-logo:
-    #   ruby nanobananize.rb duffie-duck-original.png "Add a Ruby logo on top right, and add a 'Made with Ruby' text below it"
-    ruby nanobananize.rb duffie-duck-original.png "Insert a Ruby logo on top right. The logo should be the REAL official Ruby logo."
+    #   ruby nanobananize.rb src/duffy/duffie-duck-original.png "Add a Ruby logo on top right, and add a 'Made with Ruby' text below it"
+    ruby nanobananize.rb src/duffy/duffie-duck-original.png "Insert a Ruby logo on top right. The logo should be the REAL official Ruby logo."
 
 nanobanana-test-ruby-mickie:
-    ruby nanobananize.rb duffie-duck-and-mickie-mouse.png  "Make the whole picture black and white, but then add a yellow heart on bottom right of the picture, as the only colorful thing"
+    ruby nanobananize.rb src/duffy/duffie-duck-and-mickie-mouse.png  "Make the whole picture black and white, but then add a yellow heart on bottom right of the picture, as the only colorful thing"
 
 nanobanana-all:
     #!/bin/bash
 
-    ls folder-to-transform/*.png | while read file ; do \
+    ls src/*.png | while read file ; do \
         echo "Processing $file"; \
         ruby nanobananize.rb "$file" "Add a yellow heart on bottom right of the picture, as a romantic signature"; \
     done
