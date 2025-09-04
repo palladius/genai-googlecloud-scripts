@@ -1,0 +1,16 @@
+{
+  "allowedTools": [
+    "ShellTool(git status)",
+    "ShellTool(git commit)",
+    "ShellTool(git diff)",
+
+    "ShellTool(terraform plan)",
+    "ShellTool(terraform init)",
+
+    "ShellTool(ls)",
+    "ShellTool(find)",
+    "ShellTool(uname)",
+    "ShellTool(mkdir)",
+    "ShellTool(echo)"
+  ]
+}
