@@ -7,7 +7,7 @@ client = genai.Client()
 # Specify predefined functions to exclude (optional)
 excluded_functions = ["drag_and_drop"]
 
-generate_content_config = genai.types.GenerateContentConfig(
+generate_content_config = types.GenerateContentConfig(
     tools=[
         # 1. Computer Use tool with browser environment
         types.Tool(

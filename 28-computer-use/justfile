@@ -4,8 +4,8 @@
 set export
 
 # Should get them from envrc...
-#PROJECT_ID := "justfile_pincopallo"
-#GCP_REGION := 'justfile-antarctica-east-1'
+PROJECT_ID := "justfile_pincopallo"
+GCP_REGION := 'justfile-antarctica-east-1'
 
 
 # Lists all targets
@@ -15,18 +15,10 @@ list:
     @yellow "[justfile] GCP_REGION=$GCP_REGION"
     @just -l # | lolcat
 
-# Builds image with local Dockerfile..
-[group('docker')]
-docker-build:
-	docker build -t $DOCKER_IMAGE:v$(cat VERSION) .
-	docker tag $DOCKER_IMAGE:v$(cat VERSION) $DOCKER_IMAGE:latest
-# Pushes to Artifact registry TODO.
-[group('docker')]
-docker-push:
-	docker push $DOCKER_IMAGE:v$(cat VERSION)
-# build + push
-[group('docker')]
-docker-build-and-push: docker-build docker-push
-#[group('docker')]
-#docker-tag:
-#	docker tag $DOCKER_IMAGE:v$(cat VERSION) $DOCKER_IMAGE:latest
+# 1. Send a request to the model
+test1:
+    uv run python test1.py
+
+
+clone-repo:
+    git clone https://github.com/google/computer-use-preview
