@@ -1,4 +1,3 @@
-
 list:
     just -l
 
@@ -9,3 +8,7 @@ genai-apptemplates-googlecloud:
 
 gemini:
     gemini -c
+
+find-lfs-files PATH='.':
+    @echo "Searching for LFS files in '{{PATH}}'..."
+    @git lfs ls-files | awk '$3 ~ "^{{PATH}}" {print}'
