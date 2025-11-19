@@ -5,8 +5,13 @@ list:
 install:
     uv sync
 
+# Runs a simple question and answer exercise, in low thinking mode
 run-simple:
     uv run python gemini3-simple-task.py 
+
+# Runs a complex coding exercise
+run-complex:
+    uv run python gemini3-complex-task.py 
 
 auth:
     gcloud auth application-default login

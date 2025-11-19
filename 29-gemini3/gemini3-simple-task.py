@@ -17,5 +17,14 @@ response = client.models.generate_content(
        )
    ),
 )
+import os
+
+# Ensure output directory exists
+os.makedirs("out", exist_ok=True)
+
 print(response.text)
+
+with open("out/simple-answer.md", "w") as f:
+    f.write(response.text)
+    print(f"\nOutput written to out/simple-answer.md")
 
