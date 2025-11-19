@@ -1,0 +1,12 @@
+
+list:
+    just -l
+
+install:
+    uv sync
+
+run-simple:
+    uv run python gemini3-simple-task.py 
+
+auth:
+    gcloud auth application-default login
