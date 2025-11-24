@@ -19,6 +19,9 @@ list:
 test1:
     uv run python test1.py
 
+run-agent:
+    cd computer-use-preview/ && just test-computer-use
+
 
 clone-repo:
     git clone https://github.com/google/computer-use-preview
