@@ -1,0 +1,16 @@
+
+install-linux:
+    #NO - python suffices! sudo apt-get install node-playwright
+    sudo apt-get install libvpx-dev libvpx9
+    #pip install google-genai playwright
+
+    # Install system dependencies required by Playwright for Chrome
+    playwright install-deps chrome
+
+    # Install the Chrome browser for Playwright
+    playwright install chrome
+
+# copied from https://github.com/google/computer-use-preview
+test-computer-use:
+    # uv pip install -r requirements.txt
+    PLAYWRIGHT_HEADLESS=true uv run python main.py --query "Go to Google and type 'Hello World' into the search bar"

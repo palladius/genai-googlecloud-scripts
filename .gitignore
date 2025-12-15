@@ -24,3 +24,4 @@ t
 99-rails-jupyter/
 22-gemini20/imagen-with-reference-pics-new.py
 out
+*.deb
