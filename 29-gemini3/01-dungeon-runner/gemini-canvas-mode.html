@@ -1,0 +1,592 @@
+< !DOCTYPE html >
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+                    <title>Dungeon Run: Ale & Friends</title>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+                    <style>
+                        body {
+                            margin: 0;
+                        padding: 0;
+                        overflow: hidden;
+                        background-color: #222;
+                        touch-action: none; /* Prevent browser zooming/scrolling */
+                        font-family: sans-serif;
+        }
+                        canvas {
+                            display: block;
+        }
+                    </style>
+                </head>
+                <body>
+
+                    <script>
+/**
+                        * DUNGEON RUN: ALE & FRIENDS
+                        * A P5.js Endless Runner
+                        */
+
+                        // Game State
+                        let gameState = 'START'; // START, PLAYING, GAMEOVER
+                        let score = 0;
+                        let highScore = 0;
+                        let gameSpeed = 6;
+                        let floorY;
+
+                        // Assets & Objects
+                        let player;
+                        let obstacles = [];
+                        let fireballs = [];
+                        let particles = [];
+                        let stars = []; // For dungeon background details
+
+                        // Character Config
+                        const CHARACTERS = [
+                        {id: 'ale', name: 'Ale', color: [220, 50, 50], type: 'dragon' },
+                        {id: 'seby', name: 'Seby', color: [255, 204, 0], type: 'giraffe' },
+                        {id: 'papino', name: 'Papino', color: [50, 50, 50], type: 'puffin' }
+                        ];
+                        let selectedCharIndex = 0;
+
+                        // Mobile UI
+                        let fireButtonBounds;
+
+                        function setup() {
+                            createCanvas(windowWidth, windowHeight);
+                        floorY = height - 100;
+
+                        // Init stars/torches for background
+                        for(let i=0; i<20; i++) {
+                            stars.push({ x: random(width), y: random(height), size: random(2, 5) });
+    }
+
+                        // Initialize player with default
+                        resetGame();
+
+                        textAlign(CENTER, CENTER);
+                        textFont('Verdana');
+}
+
+                        function windowResized() {
+                            resizeCanvas(windowWidth, windowHeight);
+                        floorY = height - 100;
+                        if(player) player.y = floorY;
+}
+
+                        function draw() {
+                            background(30, 20, 30); // Dark dungeon purple-grey
+
+                        drawBackground();
+
+                        if (gameState === 'START') {
+                            drawStartScreen();
+    } else if (gameState === 'PLAYING') {
+                            updateGame();
+                        drawGame();
+                        drawHUD();
+                        drawMobileControls();
+    } else if (gameState === 'GAMEOVER') {
+                            drawGame(); // Draw frozen game behind
+                        drawGameOverScreen();
+    }
+}
+
+                        // --- LOGIC LOOP ---
+
+                        function updateGame() {
+    // Spawn Obstacles
+    if (frameCount % 90 === 0) {
+                            let type = random() > 0.5 ? 'ground' : 'flying';
+                        obstacles.push(new Obstacle(type));
+    }
+
+                        // Update Player
+                        player.update();
+
+    // Update Fireballs
+    for (let i = fireballs.length - 1; i >= 0; i--) {
+                            fireballs[i].update();
+                        if (fireballs[i].offscreen()) {
+                            fireballs.splice(i, 1);
+        }
+    }
+
+    // Update Particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+                            particles[i].update();
+                        if (particles[i].finished()) {
+                            particles.splice(i, 1);
+        }
+    }
+
+    // Update Obstacles & Collisions
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+                            let ob = obstacles[i];
+                        ob.update();
+
+        // Collision: Fireball vs Obstacle
+        for (let j = fireballs.length - 1; j >= 0; j--) {
+            if (ob.hits(fireballs[j])) {
+                            // Boom
+                            createExplosion(ob.x, ob.y);
+                        obstacles.splice(i, 1); // Remove obstacle
+                        fireballs.splice(j, 1); // Remove fireball
+                        score += 5; // Bonus points
+                        break; 
+            }
+        }
+
+                        // If obstacle was destroyed in loop above, skip player check
+                        if (!obstacles[i]) continue;
+
+                        // Collision: Player vs Obstacle
+                        if (player.hits(ob)) {
+                            gameState = 'GAMEOVER';
+            if(score > highScore) highScore = score;
+        }
+
+                        if (ob.offscreen()) {
+                            obstacles.splice(i, 1);
+                        score++;
+        }
+    }
+
+                        // Increase speed slightly
+                        gameSpeed = 6 + (score / 50);
+}
+
+                        // --- INPUT HANDLING ---
+
+                        function keyPressed() {
+    if (gameState === 'START') {
+        if (keyCode === RIGHT_ARROW) selectedCharIndex = (selectedCharIndex + 1) % CHARACTERS.length;
+                        if (keyCode === LEFT_ARROW) selectedCharIndex = (selectedCharIndex - 1 + CHARACTERS.length) % CHARACTERS.length;
+                        if (key === ' ' || keyCode === ENTER) startGame();
+    } else if (gameState === 'PLAYING') {
+        if (key === ' ') player.jump();
+                        if (key === 'f' || key === 'F') player.shoot();
+    } else if (gameState === 'GAMEOVER') {
+        if (key === ' ' || keyCode === ENTER) resetGame();
+    }
+}
+
+                        function touchStarted() {
+    // Check mobile button touches first
+    if (gameState === 'PLAYING') {
+                            // Fire Button check (Bottom Right)
+                            let btnSize = 80;
+                        let btnX = width - 100;
+                        let btnY = height - 100;
+                        let d = dist(mouseX, mouseY, btnX, btnY);
+
+                        if (d < btnSize /2 + 20) { // +20 for hit area tolerance
+                            player.shoot();
+                        return false;
+        }
+
+                        // Anywhere else is a jump
+                        player.jump();
+                        return false;
+    }
+
+                        if (gameState === 'START') {
+        // Simple tap zones for char select
+        if (mouseY > height/2 + 50) {
+                            startGame();
+        } else {
+             // Tap left or right side of screen to switch chars
+            if (mouseX > width/2) selectedCharIndex = (selectedCharIndex + 1) % CHARACTERS.length;
+                        else selectedCharIndex = (selectedCharIndex - 1 + CHARACTERS.length) % CHARACTERS.length;
+        }
+                        return false;
+    }
+
+                        if (gameState === 'GAMEOVER') {
+                            resetGame();
+                        return false;
+    }
+}
+
+                        // --- DRAWING FUNCTIONS ---
+
+                        function drawBackground() {
+                            // Dungeon Walls
+                            noStroke();
+
+                        // Repeating pillars
+                        fill(40, 30, 40);
+                        let wallSpacing = 200;
+                        let offset = (frameCount * (gameSpeed * 0.5)) % wallSpacing;
+                        for (let x = -offset; x < width; x += wallSpacing) {
+                            rect(x, 50, 40, height - 150);
+    }
+
+                        // Floor
+                        fill(20);
+                        rect(0, floorY, width, height - floorY);
+                        // Floor top highlight
+                        fill(100, 50, 50);
+                        rect(0, floorY, width, 10);
+
+                        // Background details
+                        for(let s of stars) {
+                            fill(60, 50, 60);
+                        ellipse(s.x, s.y, s.size);
+    }
+}
+
+                        function drawStartScreen() {
+                            background(0, 0, 0, 150);
+                        fill(255);
+                        textSize(40);
+                        text("DUNGEON RUN", width/2, height/4);
+                        textSize(20);
+                        text("Select Your Hero", width/2, height/4 + 40);
+
+                        // Draw Characters selection
+                        let char = CHARACTERS[selectedCharIndex];
+
+                        push();
+                        translate(width/2, height/2);
+                        scale(3); // Big preview
+                        drawCharacter(0, 0, char.type, char.color, 0);
+                        pop();
+
+                        fill(255, 204, 0);
+                        textSize(24);
+                        text("< " + char.name + " >", width/2, height/2 + 100);
+
+                        fill(200);
+                        textSize(14);
+                        text("Arrows or Tap Left/Right to Change", width/2, height/2 + 130);
+
+                        fill(255);
+                        textSize(18);
+                        text("Press SPACE to Start", width/2, height - 100);
+                        textSize(14);
+                        text("Controls: Space=Jump (x2) | F=Fire (+5pts)", width/2, height - 70);
+}
+
+                        function drawGameOverScreen() {
+                            background(0, 0, 0, 200);
+                        fill(255, 50, 50);
+                        textSize(50);
+                        text("GAME OVER", width/2, height/2 - 50);
+
+                        fill(255);
+                        textSize(30);
+                        text("Score: " + score, width/2, height/2 + 10);
+                        textSize(20);
+                        text("Best: " + highScore, width/2, height/2 + 50);
+
+                        textSize(16);
+                        fill(200);
+                        text("Press SPACE or Tap to Retry", width/2, height - 100);
+}
+
+                        function drawHUD() {
+                            fill(255);
+                        textSize(24);
+                        textAlign(RIGHT, TOP);
+                        text("Score: " + score, width - 20, 20);
+                        textAlign(CENTER, CENTER); // Reset
+}
+
+                        function drawMobileControls() {
+                            // Fire Button
+                            let btnSize = 80;
+                        let btnX = width - 100;
+                        let btnY = height - 100;
+
+                        fill(255, 50, 50, 150);
+                        stroke(255);
+                        strokeWeight(2);
+                        ellipse(btnX, btnY, btnSize);
+
+                        fill(255);
+                        noStroke();
+                        textSize(20);
+                        text("F", btnX, btnY);
+
+                        // Jump hint (subtle)
+                        fill(255, 50);
+                        textAlign(LEFT, BOTTOM);
+                        textSize(16);
+                        text("Tap to Jump", 20, height - 20);
+                        textAlign(CENTER, CENTER);
+}
+
+                        function drawGame() {
+                            player.draw();
+                        for (let o of obstacles) o.draw();
+                        for (let f of fireballs) f.draw();
+                        for (let p of particles) p.draw();
+}
+
+                        // --- GAME CLASSES ---
+
+                        class Player {
+                            constructor(charDef) {
+                            this.r = 40; // Size
+                        this.x = 100;
+                        this.y = floorY - this.r;
+                        this.vy = 0;
+                        this.gravity = 0.8;
+                        this.jumpForce = -15;
+                        this.grounded = true;
+                        this.jumps = 0;
+                        this.maxJumps = 2;
+                        this.charType = charDef.type;
+                        this.color = charDef.color;
+                        this.animFrame = 0;
+    }
+
+                        update() {
+                            this.vy += this.gravity;
+                        this.y += this.vy;
+        
+        if (this.y > floorY - this.r/2) {
+                            this.y = floorY - this.r / 2;
+                        this.vy = 0;
+                        this.grounded = true;
+                        this.jumps = 0;
+        } else {
+                            this.grounded = false;
+        }
+
+                        this.animFrame += 0.2;
+    }
+
+                        jump() {
+        if (this.jumps < this.maxJumps) {
+                            this.vy = this.jumpForce;
+                        this.jumps++;
+                        // Dust particle
+                        for(let i=0; i<5; i++) {
+                            particles.push(new Particle(this.x, this.y + this.r / 2, 100));
+            }
+        }
+    }
+
+                        shoot() {
+                            fireballs.push(new Fireball(this.x + 20, this.y));
+    }
+
+                        hits(obstacle) {
+                            // Simple circle collision
+                            let d = dist(this.x, this.y, obstacle.x, obstacle.y);
+                        return d < (this.r/2 + obstacle.r/2);
+    }
+
+                        draw() {
+                            drawCharacter(this.x, this.y, this.charType, this.color, this.animFrame);
+    }
+}
+
+                        class Obstacle {
+                            constructor(type) {
+                            this.r = 40;
+                        this.x = width;
+                        this.y = type === 'ground' ? floorY - this.r/2 : floorY - 120;
+                        this.type = type;
+                        this.speed = gameSpeed;
+    }
+
+                        update() {
+                            this.x -= this.speed;
+    }
+
+                        offscreen() {
+        return this.x < -this.r;
+    }
+
+                        draw() {
+                            fill(150);
+                        stroke(0);
+                        strokeWeight(2);
+
+                        if (this.type === 'ground') {
+                            // Spikes
+                            fill(180, 50, 50);
+                        triangle(this.x - 20, this.y + 20, this.x + 20, this.y + 20, this.x, this.y - 20);
+        } else {
+                            // Floating Bat/Rock
+                            fill(100);
+                        ellipse(this.x, this.y, this.r, this.r * 0.8);
+                        // Wings
+                        fill(50);
+                        let wingY = this.y - 10 + sin(frameCount * 0.5) * 10;
+                        triangle(this.x, this.y, this.x - 30, wingY, this.x + 30, wingY);
+        }
+    }
+
+                        hits(fireball) {
+                            let d = dist(this.x, this.y, fireball.x, fireball.y);
+                        return d < (this.r/2 + fireball.r/2);
+    }
+}
+
+                        class Fireball {
+                            constructor(x, y) {
+                            this.x = x;
+                        this.y = y;
+                        this.r = 20;
+                        this.speed = 10;
+    }
+
+                        update() {
+                            this.x += this.speed;
+    }
+
+                        offscreen() {
+        return this.x > width;
+    }
+
+                        draw() {
+                            noStroke();
+                        fill(255, 100, 0);
+                        ellipse(this.x, this.y, this.r);
+                        fill(255, 200, 0);
+                        ellipse(this.x, this.y, this.r/2);
+    }
+}
+
+                        class Particle {
+                            constructor(x, y, hue) {
+                            this.x = x;
+                        this.y = y;
+                        this.vx = random(-2, 2);
+                        this.vy = random(-2, 2);
+                        this.alpha = 255;
+                        this.hue = hue || 0; // 0 is default (red/orange)
+    }
+
+                        update() {
+                            this.x += this.vx;
+                        this.y += this.vy;
+                        this.alpha -= 10;
+    }
+
+                        finished() {
+        return this.alpha < 0;
+    }
+
+                        draw() {
+                            noStroke();
+                        if (this.hue === 100) fill(200, 200, 200, this.alpha); // Dust
+                        else fill(255, random(0, 150), 0, this.alpha); // Fire
+                        ellipse(this.x, this.y, 8);
+    }
+}
+
+                        // --- HELPER FUNCTIONS ---
+
+                        function resetGame() {
+                            score = 0;
+                        obstacles = [];
+                        fireballs = [];
+                        particles = [];
+                        gameSpeed = 6;
+                        player = new Player(CHARACTERS[selectedCharIndex]);
+                        gameState = 'START';
+}
+
+                        function startGame() {
+                            score = 0;
+                        obstacles = [];
+                        fireballs = [];
+                        particles = []; // Clear visual clutter
+                        gameSpeed = 6;
+                        player = new Player(CHARACTERS[selectedCharIndex]); // Ensure correct char
+                        gameState = 'PLAYING';
+}
+
+                        function createExplosion(x, y) {
+    for (let i = 0; i < 15; i++) {
+                            particles.push(new Particle(x, y));
+    }
+}
+
+                        // --- ART GENERATOR ---
+                        // Draws vector graphics centered at x,y
+                        function drawCharacter(x, y, type, c, frame) {
+                            push();
+                        translate(x, y);
+
+                        // Bobbing animation
+                        let bounce = sin(frame) * 5;
+                        translate(0, bounce);
+
+                        noStroke();
+
+                        if (type === 'dragon') {
+                            // Ale: Red Dragon
+                            // Tail
+                            fill(c[0] - 40, c[1], c[2]);
+                        triangle(-20, 10, -50, 0, -20, -10);
+                        // Body
+                        fill(c);
+                        rectMode(CENTER);
+                        rect(0, 0, 40, 30, 5);
+                        // Head
+                        rect(15, -15, 25, 25, 4);
+                        // Horns
+                        fill(255);
+                        triangle(15, -28, 20, -20, 25, -28);
+                        // Eye
+                        fill(0);
+                        ellipse(22, -18, 4);
+                        // Wing
+                        fill(c[0]-60, 0, 0);
+                        triangle(-5, -5, -25, -25, 5, -15);
+        
+    } else if (type === 'giraffe') {
+                            // Seby: Giraffe
+                            // Neck
+                            fill(c);
+                        rectMode(CENTER);
+                        rect(0, -10, 20, 50);
+                        // Body
+                        rect(-5, 10, 35, 25);
+                        // Head
+                        rect(5, -40, 25, 20);
+                        // Spots
+                        fill(139, 69, 19);
+                        ellipse(0, 0, 8, 6);
+                        ellipse(-5, 15, 6, 6);
+                        ellipse(5, -30, 5, 5);
+                        // Eye
+                        fill(0);
+                        ellipse(12, -42, 3);
+                        // Ossicones
+                        fill(c);
+                        rect(2, -50, 4, 10);
+                        rect(12, -50, 4, 10);
+
+    } else if (type === 'puffin') {
+                            // Papino: Puffin
+                            // Body
+                            fill(0); // Black
+                        ellipse(0, 0, 35, 45);
+                        // Belly
+                        fill(255);
+                        ellipse(-2, 2, 25, 35);
+                        // Beak (Colorful)
+                        fill(255, 100, 0);
+                        triangle(10, -15, 30, -10, 10, -5);
+                        fill(255, 0, 0);
+                        triangle(15, -15, 25, -10, 15, -5);
+                        // Eye
+                        fill(255);
+                        ellipse(5, -12, 8);
+                        fill(0);
+                        ellipse(5, -12, 3);
+    }
+
+                        pop();
+}
+
+                    </script>
+                </body>
+            </html>
