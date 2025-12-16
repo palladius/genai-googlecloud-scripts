@@ -1,13 +1,29 @@
-## Prompt 1
-Create a Connect "4 game" in p5.js. Game needs to be playable by 2 players on both web with keyboard (1-7) and mobile, so we need 7 buttons below the 7 directions. Also add a small BACK functionality because playing in 2 might be challenging and a player might press twice a button. Identify the winner. Base should be blue and balls should be red and yellow. Use a decent graphic rendering of the button going from top to bottom.
+# Prompt: Responsive Connect 4 (P5.js)
 
-## Prompt 2
-oh wow, works great! Two things:
+Create a 2-player **Connect 4** game using **p5.js** that works seamlessly on both Desktop and Mobile.
 
-1. Make the animation 60% faster.
-2. The game is very HARD to play in mobile. This is because the column 1 disappears and i cant see it. i can drop balls there but its invisible. Also my kid find it difficult to play this way as buttons are detached by the 7x6 keyboard. Make sure the buttons are attached to the 7 base (probably making it a 7x7 keyboard with the lower part having the 7b buttons), and that the whole keyboard is visible at all times.
+## Visuals & Animation
+*   **Board:** Classic Design - Blue base with 7 columns and 6 rows.
+*   **Pieces:** Red and Yellow balls.
+*   **Animation:** Use a smooth but **fast** animation (e.g., 60% faster than standard easing) for pieces dropping from the top.
+*   **Win State:** When a player wins:
+    *   Highlight the winning 4 visible pieces clearly.
+    *   Visually de-emphasize the rest of the board (e.g., turn loser/empty slots gray or blur the background) so the victory is obvious to children.
 
-Kudos if you're able to capture the touch on mobile - so say I press anything in column 5 -> that triggers that player ball in column 5. That would be the ideal behaviour if you can.
+## Controls & Platform Independence
 
-## Prompt 3
-this is amazing. My kids love it! One last nit. When the player wins, I'd like the page to change quite a bit. At the moment my kids dont even understand one won. Maybe recolor the white balls to gray, or blur down the chessboard, anything. Thanks
+### Desktop
+*   **Keyboard:** Keys `1` through `7` drop a piece in the respective column.
+*   **Undo:** A "Back" / "Undo" button (or `Backspace` key) to revert the last move (useful for accidental clicks).
+
+### Mobile (Touch)
+*   **Responsiveness:**
+    *   Ensure the entire grid (7 cols) stays visible and doesn't get cut off.
+    *   **Direct Touch Interaction:** Instead of separate buttons below the board, allow the player to **tap directly on any column** of the board to drop a piece there. This is much more intuitive for kids.
+*   **Layout:** Ensure the canvas fits 100% of the width and is centered.
+
+## Technical Implementation
+*   **Single File:** Provide the solution in a single `sketch.js` file suitable for the p5.js editor.
+*   **Winner Detection:** Implement standard Connect 4 logic (horizontal, vertical, diagonal).
+
+Please provide the complete, clean code implementing these unified requirements.

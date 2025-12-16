@@ -1,27 +1,27 @@
-## Prompt 1
-Please create a p5js clone of Pacman game. It should be playable both with a computer and with a phone, hence with keyboard and with tapping the phone.
+# Prompt: Resizable Pacman Clone (Mobile First)
 
-## Prompt 2
-no sbrodola.sh. Just a SINGLE script.js to paste in p5.js editor.
+Create a robust **p5.js** clone of the classic *Pacman* game within a single `sketch.js` file (compatible with the p5.js editor). The game must be bug-free and fully playable on both Desktop and Mobile.
 
-## Prompt 3
-wow, fantastic, thanks! The app works, however there are a couple of bugs:
+## Core Gameplay Mechanics
 
-1. the cage with 4 monsters is closed, there's no hole for them to get out.
+1.  **Map Logic & Fixes:**
+    *   **Ghost House:** Ensure the central cage (Ghost House) has a proper exit so ghosts can enter the maze.
+    *   **Collision:** Fix any off-by-one errors to ensure Pacman can navigate every valid square, including those adjacent to walls.
+    *   **Teleport Tunnels (4-way):**
+        *   **Standard Horizontal:** Create open "tunnels" on the left and right edges. Moving into one side instantly transports the character to the opposite side.
+        *   **Vertical Tunnels:** Add custom vertical tunnels on the top and bottom edges with the same teleportation logic (a feature request to fool ghosts!).
+2.  **Controls:**
+    *   **Desktop:** Use Arrow Keys (Up, Down, Left, Right).
+    *   **Mobile (Swipe/Touch):**
+        *   Implement a robust **Swipe Detection** system for mobile.
+        *   Avoid small, hard-to-hit buttons. Tapping or swiping anywhere on the screen should reliably translate to direction changes.
 
-2. I can't move in all places, by trying around there seems to be an off-by-one offset since i can go everywhere except the squares closest to a wall
+## Mobile Responsiveness & Rendering
 
-3. Also the lateral "teleport" places are not in the grid: while I see the code to support the teleport, there's no lateral wall. So basically we need to edit the blue board for this too.
+*   **Responsive Canvas:**
+    *   The game canvas should **NOT** be a fixed small square (e.g., 400x400).
+    *   It must dynamically adapt to the device width/height. On mobile, it should take up **100% of the available width** and be centered vertically/horizontally as appropriate.
+    *   Ensure the maze scales correctly without breaking grid alignment or gameplay speed.
+*   **Touch Interface:** Ensure touches do not scroll or zoom the page (`touch-action: none` equivalent in p5.js setup/CSS).
 
-## Prompt 4
-Wow, it works GREAT! one last thing. the teleport. Now there's a hole in the grid but then i get stuck in that square, it doesnt actually teleport on the other side. Try to fix that code please
-
-## Prompt 5
-the teleport works, great! One thing I've always desired is to also have holes for teleport in VERTICAL. Can you also do holes in North and Sourth wall and have same teleport functionality in vertical sense? So i can fool thos ghosts better :)
-
-## Prompt 6
-so on the computer the game is PERFECT. on mobile, its unplayable:
-
-1. The rendering of the page is a small square on top left, leaving most of the screen white. I believe it should have 100% width and possibly be centered.
-
-2. the controls are really bad. i struggle to go letf or right, it seems to go down but struggles to the right. probably this is cause by the fact that the square is so small.
+Please provide the complete `sketch.js` code that incorporates all these fixes (teleports, ghost house, collision) and the responsive mobile design.

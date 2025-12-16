@@ -1,44 +1,38 @@
-## Prompt 1
-I have two kids who are 5 and 7 and they're native in English, Italian and German; the big one is also leaarning French (!). I would like to build a fun game which they can play on a mobile. I was thinking of an anagram game where they need to position the words correctly when they start anagrammed. Since they're starting to read, I think giving them a visual feedback of what they're trying to build could help. You will have a list of words in the three languages, for each you'll have a structure like this:
+# Prompt: Multilanguage Anagram for Kids
 
-words = [
-    {emoji: '🍎', it: 'mela', en: 'apple', de: 'apfel', fr: 'pomme' },
-    {emoji: '👀', it: 'occhi', en: 'eyes', de: 'eigen', fr: 'yeux' },
-]
+I need a mobile-friendly Anagram/Spelling game for my kids (ages 5 and 7) who are learning English, Italian, German, and French.
 
-## Prompt 2
-I noticed the game does work perfectly on my computer but on mobile it doesnt. This is because a drag and drop on the letter on my android is consiedered me trying to resize the page. Please play with CSS or HTML so the page is STATIC and i cant increase or decrease it. This will hopefully fix the drag and drop problem on mobile.
+## Core Features
 
-## Prompt 3
-even with your fix, I get this error on https://editor.p5js.org/ console:
-TypeError: p.preventDefault is not a function
+*   **Goal:** Reassemble scrambled words in the chosen language.
+*   **Visual Aid:** Display an emoji corresponding to the word (e.g., Apple 🍎) to help them understand what they are building.
+*   **Data Structure:** Separate the word list into a dedicated file (e.g., `words.js` or `words.json`) for cleaner separation of concerns.
+    *   Format: `[{emoji: '🍎', it: 'mela', en: 'apple', de: 'apfel', fr: 'pomme' }, ...]`
+*   **Version Display:** Clearly show a version number (start at v1.5.0) on the screen to help verify cache updates.
 
-please paste the WHOLE new sketch.js - Im afraid I might do it wrong.
+## Technical Requirements
 
-## Prompt 4
-Interesting. The keyboard pressed works on p5js.org editor, but in the version I pushed. It seems the only difference is the viewport line on index.html which I have on my local comptuer (and pushed via firebase). I removed that and it works! Fixed. Just take note I had to remove the viewport.
+*   **Framework:** p5.js.
+*   **Mobile Considerations:**
+    *   **Viewport:** Ensure the page is static and cannot be zoomed/resized. Use appropriate CSS/HTML settings (careful with `<meta name="viewport">` if it causes conflicts in some p5.js views, but generally ensure `user-scalable=no`).
+    *   **Drag & Drop:** Prevent default behaviors that interpret drags as page scrolling/refreshing.
 
-Lets change the behaviour of the keyboard pressed. When you press the first -> yellow -> I like that. When you press the second, do not wait for ENTER. Just swap! So we can remove the enter binding and simplify the coding.
+## Interaction Design (Crucial)
 
-Lets explicitly add a version in JS we bump every time we improve the code. This gives me a good visual feedback loop and help me understand if I refreshed the version online (browsers are quite cache-greedy you know!). Let's start with 1.4.0.
+The game must handle input differently for Desktop and Mobile to ensure usability.
 
-## Prompt 5
-The drag and drop on mobile functionality is STILL broken. Actually, I click on letter "U" and I got a letter "U" chich follows my finger anywhere and I can't press anything else, even the reset game. This is clearly malfunctioning.
+### 1. Desktop (Mouse/Keyboard)
+*   **Selection:** Click a letter to select it (highlight Yellow).
+*   **Swap:** Click a second letter to **immediately** swap it with the first selected letter.
+*   **No "Enter" key:** Do not require pressing Enter to confirm actions. Auto-swap on the second click.
 
-## Prompt 6
-No, same problem. if it helps:
+### 2. Mobile (Touch)
+*Previous attempts at drag-and-drop were buggy. We will use a "Tap-to-Swap" model:*
+*   **Tap 1 (Source):** Tap a letter (e.g., 'A' in 'ABCDE').
+    *   Visual Feedback: The selected letter 'A' turns **Light Gray**.
+    *   Target Hints: All other valid target letters ('BCDE') turns **Pink**.
+*   **Tap 2 (Target):** Tap one of the pink target letters.
+    *   Action: Immediately swap the first letter ('A') with the touched target letter.
+    *   Cleanup: Uncolor all letters and wait for the next input.
 
-the first letter is correctly interecepted. I click on 'G' and now everywhere I tap over the screen, a yellow "G" appears there. I've tried tapping anywhere in the row where I took it, but it wont work. So it feels like the first action works, the second doesnt.
-
-If I may suggest a refcator, we could do something like this:
-
-1. if you click with mouse or use letters -> keep behaviour as it is, its GREAT
-
-2. If you tap with finger, say "A" in "ABCDE", make A light gray, and turn BCDE pink. Those are the only legal targets for me to land.
-
-3. If my finger touches any of those 4 letters, uncolor all letters and swap A with the touched letter.
-
-Maybe this different behaviour can have its own code and might be easier to test. Just an idea.
-
-## Prompt 7
-AND IT WORKS! YES! One last thing. I'd like to separate business logic from words. Can we move the `const words` somewhere else? You choose whatever it makes more sense! Could be another .js or a JSON file. Ideally we can take it locally (/words.js or /words.json). If this doesnt like, we can also pick it from Github as a public resource. Tell me which implementation you prefer and why so I learn something new. I'm not a great JS or clientside developer, I'm just used to ServerSide coding.
+Please provide the complete, robust code (HTML + Sketch.js + Words file) implementing this specific logic to ensure it works flawlessly on both devices.
