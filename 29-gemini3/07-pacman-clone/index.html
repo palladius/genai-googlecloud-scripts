@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Responsive Pacman Clone</title>
+    <!-- Load p5.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent scrolling */
+            touch-action: none;
+            /* Disable default touch actions (scroll/zoom) */
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        canvas {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: block;
+            /* Removes default inline spacing */
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: yellow;
+            pointer-events: none;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 2px 2px #000;
+            z-index: 10;
+        }
+
+        #mobile-hint {
+            display: none;
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            #mobile-hint {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ui-layer">
+        SCORE: <span id="score">0</span>
+        <div id="mobile-hint">SWIPE TO MOVE</div>
+    </div>
+
+    <script>
+        // --- Game Constants & Variables ---
+        let cols = 19;
+        let rows = 21; // Standard-ish ratio
+        let cellSize;
+        let grid = [];
+        let pacman;
+        let ghosts = [];
+        let score = 0;
+        let gameState = 'PLAY'; // PLAY, GAMEOVER, WIN
+
+        // Configuration
+        const FPS = 60;
+        const PACMAN_SPEED_MULT = 0.15; // Speed relative to cell size per frame
+        const GHOST_SPEED_MULT = 0.12;
+
+        // Directions
+        const UP = 0;
+        const DOWN = 1;
+        const LEFT = 2;
+        const RIGHT = 3;
+        const STOP = -1;
+
+        // Tile Types
+        const WALL = 0;
+        const DOT = 1;
+        const EMPTY = 2;
+        const POWER = 3; // Not fully implemented in this basic clone, acts as dot
+        const DOOR = 4;  // Ghost house door
+
+        // Map Design (19x21)
+        // 1 = Wall, 0 = Dot, 2 = Empty, 9 = Door, P = Pacman, G = Ghost
+        // Notice the gaps at edges for teleporters
+        const levelMap = [
+            "1111111121111111111",
+            "1000000001000000001",
+            "1011011101011101101",
+            "1011011101011101101",
+            "1000000000000000001",
+            "1011010111110101101",
+            "1000010001000100001",
+            "1111011121211101111",
+            "2221012229222101222", // Horizontal Tunnel (Left/Right 2s)
+            "1111012111112101111",
+            "2222022122212202222", // Ghost House Middle
+            "1111012111112101111",
+            "2221012222222101222", // Horizontal Tunnel
+            "1111012111112101111",
+            "1000000001000000001",
+            "1011011101011101101",
+            "100120000000021001", // Vertical Tunnel top/bottom handled by logic
+            "1101010111110101011",
+            "1000010001000100001",
+            "1111111121111111111",
+            "2222222222222222222"  // Extra padding row for vertical rendering safety
+        ];
+
+        // Touch handling variables
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        function setup() {
+            // Basic P5 Setup
+            frameRate(FPS);
+            calculateLayout();
+            let cnv = createCanvas(cols * cellSize, rows * cellSize);
+            cnv.parent(document.body);
+
+            resetGame();
+        }
+
+        function calculateLayout() {
+            // Responsive logic: Fit to whichever dimension is tighter
+            let availableW = windowWidth * 0.95;
+            let availableH = windowHeight * 0.95;
+
+            // Calculate cell size based on map dimensions
+            // We use rows-1 for visual height because of the padding row
+            let sizeW = availableW / cols;
+            let sizeH = availableH / (rows - 1);
+
+            cellSize = Math.floor(Math.min(sizeW, sizeH));
+        }
+
+        function windowResized() {
+            calculateLayout();
+            resizeCanvas(cols * cellSize, (rows - 1) * cellSize);
+            // Re-snap entities to new grid scale
+            if (pacman) pacman.snapToGrid();
+            ghosts.forEach(g => g.snapToGrid());
+        }
+
+        function resetGame() {
+            grid = [];
+            ghosts = [];
+            score = 0;
+            document.getElementById('score').innerText = score;
+            gameState = 'PLAY';
+
+            // Parse Map
+            for (let y = 0; y < rows; y++) {
+                let row = [];
+                let charRow = levelMap[y] || "";
+                for (let x = 0; x < cols; x++) {
+                    let char = charRow[x] || "2"; // Default empty
+                    let type = EMPTY;
+
+                    if (char === '1') type = WALL;
+                    else if (char === '0') type = DOT;
+                    else if (char === '9') type = DOOR;
+
+                    // Spawn logic
+                    if (y === 10 && x === 9) { // Specific Ghost Spawn
+                        ghosts.push(new Ghost(x, y, color(255, 0, 0))); // Blinky
+                        ghosts.push(new Ghost(x, y, color(255, 184, 255))); // Pinky
+                        ghosts.push(new Ghost(x, y, color(0, 255, 255))); // Inky
+                    }
+                    if (y === 15 && x === 9) { // Pacman Spawn
+                        pacman = new Pacman(x, y);
+                    }
+
+                    row.push(type);
+                }
+                grid.push(row);
+            }
+
+            // Fallback if map parsing failed to find spawns
+            if (!pacman) pacman = new Pacman(9, 15);
+            if (ghosts.length === 0) ghosts.push(new Ghost(9, 9, color(255, 0, 0)));
+        }
+
+        function draw() {
+            background(0);
+
+            if (gameState === 'PLAY') {
+                // Update Logic
+                pacman.update();
+                ghosts.forEach(g => g.update());
+                checkCollisions();
+            }
+
+            // Draw Map
+            drawMap();
+
+            // Draw Entities
+            pacman.show();
+            ghosts.forEach(g => g.show());
+
+            // Game Over Text
+            if (gameState !== 'PLAY') {
+                fill(0, 0, 0, 150);
+                rect(0, 0, width, height);
+                fill(255, 255, 0);
+                textAlign(CENTER, CENTER);
+                textSize(cellSize * 2);
+                text(gameState === 'WIN' ? "YOU WIN!" : "GAME OVER", width / 2, height / 2);
+                textSize(cellSize * 0.8);
+                text("Tap to Restart", width / 2, height / 2 + cellSize * 2);
+            }
+        }
+
+        function drawMap() {
+            noStroke();
+            for (let y = 0; y < rows - 1; y++) { // Don't draw padding row
+                for (let x = 0; x < cols; x++) {
+                    let xpos = x * cellSize;
+                    let ypos = y * cellSize;
+                    let tile = grid[y][x];
+
+                    if (tile === WALL) {
+                        fill(30, 30, 200); // Blue Walls
+                        // Aesthetic: Draw smaller rect to look like lines
+                        rect(xpos, ypos, cellSize, cellSize);
+                        fill(0); // Inner black
+                        rect(xpos + 2, ypos + 2, cellSize - 4, cellSize - 4);
+                    } else if (tile === DOT) {
+                        fill(255, 183, 174);
+                        rect(xpos + cellSize / 2 - 2, ypos + cellSize / 2 - 2, 4, 4);
+                    } else if (tile === DOOR) {
+                        fill(255, 255, 255, 100);
+                        rect(xpos, ypos + cellSize / 2 - 2, cellSize, 4);
+                    }
+                }
+            }
+        }
+
+        function checkCollisions() {
+            // Check Ghost Collision
+            for (let g of ghosts) {
+                let d = dist(pacman.pos.x, pacman.pos.y, g.pos.x, g.pos.y);
+                if (d < cellSize / 2) {
+                    gameState = 'GAMEOVER';
+                }
+            }
+
+            // Check Win Condition
+            let dotsRemaining = false;
+            for (let row of grid) {
+                if (row.includes(DOT)) {
+                    dotsRemaining = true;
+                    break;
+                }
+            }
+            if (!dotsRemaining) gameState = 'WIN';
+        }
+
+        // --- Input Handling ---
+
+        function keyPressed() {
+            if (gameState !== 'PLAY') {
+                resetGame();
+                return;
+            }
+            if (keyCode === UP_ARROW || key === 'w') pacman.setDir(UP);
+            else if (keyCode === DOWN_ARROW || key === 's') pacman.setDir(DOWN);
+            else if (keyCode === LEFT_ARROW || key === 'a') pacman.setDir(LEFT);
+            else if (keyCode === RIGHT_ARROW || key === 'd') pacman.setDir(RIGHT);
+        }
+
+        function touchStarted() {
+            if (gameState !== 'PLAY') {
+                resetGame();
+                return false;
+            }
+            touchStartX = mouseX;
+            touchStartY = mouseY;
+            return false; // Prevent default
+        }
+
+        function touchEnded() {
+            let dx = mouseX - touchStartX;
+            let dy = mouseY - touchStartY;
+
+            // Threshold to ignore accidental taps
+            if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return false;
+
+            if (Math.abs(dx) > Math.abs(dy)) {
+                // Horizontal
+                if (dx > 0) pacman.setDir(RIGHT);
+                else pacman.setDir(LEFT);
+            } else {
+                // Vertical
+                if (dy > 0) pacman.setDir(DOWN);
+                else pacman.setDir(UP);
+            }
+            return false;
+        }
+
+        // --- Classes ---
+
+        class Entity {
+            constructor(x, y) {
+                this.gridPos = createVector(x, y);
+                this.pos = createVector(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2);
+                this.vel = createVector(0, 0);
+                this.currentDir = STOP;
+                this.nextDir = STOP;
+                this.speed = 0;
+            }
+
+            snapToGrid() {
+                // Used on resize to realign pixels to grid
+                this.pos.x = this.gridPos.x * cellSize + cellSize / 2;
+                this.pos.y = this.gridPos.y * cellSize + cellSize / 2;
+            }
+
+            move() {
+                // Calculate speed based on cell size for responsiveness
+                let moveSpeed = this.speed * cellSize;
+
+                // Determine center of current tile
+                let centerX = this.gridPos.x * cellSize + cellSize / 2;
+                let centerY = this.gridPos.y * cellSize + cellSize / 2;
+
+                let distToCenter = dist(this.pos.x, this.pos.y, centerX, centerY);
+
+                // Check if we are close enough to center to turn
+                if (distToCenter < moveSpeed) {
+
+                    // 1. Try to turn to nextDir
+                    if (this.nextDir !== STOP && this.nextDir !== this.currentDir) {
+                        if (this.canMove(this.nextDir)) {
+                            this.pos.x = centerX;
+                            this.pos.y = centerY;
+                            this.currentDir = this.nextDir;
+                            this.nextDir = STOP;
+                            this.setVelocityFromDir();
+                        }
+                    }
+
+                    // 2. If blocked in current direction, stop
+                    if (!this.canMove(this.currentDir)) {
+                        this.pos.x = centerX;
+                        this.pos.y = centerY;
+                        this.vel.set(0, 0);
+                    }
+                }
+
+                this.pos.add(this.vel);
+
+                // Update Grid Pos
+                this.gridPos.x = Math.floor(this.pos.x / cellSize);
+                this.gridPos.y = Math.floor(this.pos.y / cellSize);
+
+                // Handle Teleportation (4-Way)
+                this.handleTeleport();
+            }
+
+            handleTeleport() {
+                // Horizontal
+                if (this.pos.x > width + cellSize / 2) {
+                    this.pos.x = -cellSize / 2;
+                } else if (this.pos.x < -cellSize / 2) {
+                    this.pos.x = width + cellSize / 2;
+                }
+
+                // Vertical (Top/Bottom Tunnels)
+                if (this.pos.y > height + cellSize / 2) {
+                    this.pos.y = -cellSize / 2;
+                } else if (this.pos.y < -cellSize / 2) {
+                    this.pos.y = height + cellSize / 2;
+                }
+
+                // Update grid pos after potential teleport
+                this.gridPos.x = Math.floor(this.pos.x / cellSize);
+                this.gridPos.y = Math.floor(this.pos.y / cellSize);
+
+                // Clamp grid pos for array access safety (though logic handles wraps)
+                // We use modular arithmetic for array lookups in canMove to be safe
+            }
+
+            setVelocityFromDir() {
+                let s = this.speed * cellSize;
+                if (this.currentDir === UP) this.vel.set(0, -s);
+                if (this.currentDir === DOWN) this.vel.set(0, s);
+                if (this.currentDir === LEFT) this.vel.set(-s, 0);
+                if (this.currentDir === RIGHT) this.vel.set(s, 0);
+            }
+
+            canMove(direction) {
+                let nextX = this.gridPos.x;
+                let nextY = this.gridPos.y;
+
+                if (direction === UP) nextY--;
+                if (direction === DOWN) nextY++;
+                if (direction === LEFT) nextX--;
+                if (direction === RIGHT) nextX++;
+
+                // Handle Map Bounds for "canMove" check (Wrap logic)
+                if (nextX < 0) nextX = cols - 1;
+                if (nextX >= cols) nextX = 0;
+                if (nextY < 0) nextY = rows - 1;
+                if (nextY >= rows) nextY = 0;
+
+                // Check wall
+                let tile = grid[nextY][nextX];
+
+                // Ghosts can pass doors, Pacman cannot
+                if (tile === WALL) return false;
+                if (tile === DOOR && this instanceof Pacman) return false;
+
+                return true;
+            }
+        }
+
+        class Pacman extends Entity {
+            constructor(x, y) {
+                super(x, y);
+                this.speed = PACMAN_SPEED_MULT;
+                this.mouthOpen = 0;
+                this.mouthSpeed = 0.2;
+            }
+
+            setDir(dir) {
+                // If reversing, do immediately
+                if ((dir === UP && this.currentDir === DOWN) ||
+                    (dir === DOWN && this.currentDir === UP) ||
+                    (dir === LEFT && this.currentDir === RIGHT) ||
+                    (dir === RIGHT && this.currentDir === LEFT)) {
+                    this.currentDir = dir;
+                    this.nextDir = STOP;
+                    this.setVelocityFromDir();
+                } else {
+                    this.nextDir = dir;
+                }
+            }
+
+            update() {
+                this.move();
+
+                // Eat Dots
+                // Ensure we are inside the grid bounds before checking array
+                if (this.gridPos.y >= 0 && this.gridPos.y < rows &&
+                    this.gridPos.x >= 0 && this.gridPos.x < cols) {
+
+                    if (grid[this.gridPos.y][this.gridPos.x] === DOT) {
+                        grid[this.gridPos.y][this.gridPos.x] = EMPTY;
+                        score += 10;
+                        document.getElementById('score').innerText = score;
+                    }
+                }
+            }
+
+            show() {
+                push();
+                translate(this.pos.x, this.pos.y);
+
+                // Rotation
+                let rotation = 0;
+                if (this.currentDir === UP) rotation = -HALF_PI;
+                if (this.currentDir === DOWN) rotation = HALF_PI;
+                if (this.currentDir === LEFT) rotation = PI;
+
+                rotate(rotation);
+
+                fill(255, 255, 0);
+                noStroke();
+
+                // Animation
+                this.mouthOpen += this.mouthSpeed;
+                if (this.mouthOpen > QUARTER_PI || this.mouthOpen < 0) {
+                    this.mouthSpeed *= -1;
+                }
+
+                // Draw Pacman
+                arc(0, 0, cellSize * 0.8, cellSize * 0.8, this.mouthOpen, TWO_PI - this.mouthOpen);
+                pop();
+            }
+        }
+
+        class Ghost extends Entity {
+            constructor(x, y, col) {
+                super(x, y);
+                this.c = col;
+                this.speed = GHOST_SPEED_MULT;
+                this.currentDir = UP; // Start moving
+                this.setVelocityFromDir();
+            }
+
+            update() {
+                // AI Logic:
+                // If centered on tile, decide next move
+                let centerX = this.gridPos.x * cellSize + cellSize / 2;
+                let centerY = this.gridPos.y * cellSize + cellSize / 2;
+                let moveSpeed = this.speed * cellSize;
+
+                if (dist(this.pos.x, this.pos.y, centerX, centerY) < moveSpeed) {
+                    // We are at an intersection/tile center
+                    // Get available directions
+                    let opts = [];
+                    if (this.canMove(UP) && this.currentDir !== DOWN) opts.push(UP);
+                    if (this.canMove(DOWN) && this.currentDir !== UP) opts.push(DOWN);
+                    if (this.canMove(LEFT) && this.currentDir !== RIGHT) opts.push(LEFT);
+                    if (this.canMove(RIGHT) && this.currentDir !== LEFT) opts.push(RIGHT);
+
+                    // If stuck (cul-de-sac), allow reverse
+                    if (opts.length === 0) {
+                        if (this.canMove(UP)) opts.push(UP);
+                        else if (this.canMove(DOWN)) opts.push(DOWN);
+                        else if (this.canMove(LEFT)) opts.push(LEFT);
+                        else if (this.canMove(RIGHT)) opts.push(RIGHT);
+                    }
+
+                    if (opts.length > 0) {
+                        // Simple AI: Pick direction that minimizes distance to Pacman
+                        // with some randomness so they don't stack perfectly
+                        if (random(1) < 0.7) {
+                            opts.sort((a, b) => {
+                                let posA = this.getFuturePos(a);
+                                let posB = this.getFuturePos(b);
+                                let distA = dist(posA.x, posA.y, pacman.gridPos.x, pacman.gridPos.y);
+                                let distB = dist(posB.x, posB.y, pacman.gridPos.x, pacman.gridPos.y);
+                                return distA - distB;
+                            });
+                            this.nextDir = opts[0];
+                        } else {
+                            this.nextDir = random(opts);
+                        }
+                    }
+                }
+
+                // Inherit move from Entity, which handles the actual turning
+                this.move();
+            }
+
+            getFuturePos(dir) {
+                let x = this.gridPos.x;
+                let y = this.gridPos.y;
+                if (dir === UP) y--;
+                if (dir === DOWN) y++;
+                if (dir === LEFT) x--;
+                if (dir === RIGHT) x++;
+                return createVector(x, y);
+            }
+
+            show() {
+                push();
+                translate(this.pos.x, this.pos.y);
+                fill(this.c);
+                noStroke();
+                // Body
+                ellipse(0, -2, cellSize * 0.8, cellSize * 0.8);
+                rect(-cellSize * 0.4, -2, cellSize * 0.8, cellSize * 0.4);
+                // Feet (simple)
+                ellipse(-cellSize * 0.2, cellSize * 0.35, cellSize * 0.25, cellSize * 0.25);
+                ellipse(cellSize * 0.2, cellSize * 0.35, cellSize * 0.25, cellSize * 0.25);
+
+                // Eyes
+                fill(255);
+                ellipse(-5, -5, cellSize * 0.25, cellSize * 0.25);
+                ellipse(5, -5, cellSize * 0.25, cellSize * 0.25);
+                fill(0);
+                ellipse(-5, -5, cellSize * 0.1, cellSize * 0.1);
+                ellipse(5, -5, cellSize * 0.1, cellSize * 0.1);
+
+                pop();
+            }
+        }
+    </script>
+</body>
+
+</html>
