@@ -26,3 +26,4 @@ t
 out
 *.deb
 nanobanana-output/
+**/out/
