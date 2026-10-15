@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:51297e19d8e5db2ff00a1b6cafacc5b049021874e2b6f310a4d62246c6ded84d
-size 168
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model_id: MyString
+  user: one
+
+two:
+  model_id: MyString
+  user: two

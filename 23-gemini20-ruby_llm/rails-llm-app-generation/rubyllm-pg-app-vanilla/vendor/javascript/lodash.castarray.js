@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:653faed095160be4507a2a07fbccc1c425ce94036b8f824ee59deb24b1f66e38
-size 254
+// lodash.castarray@4.4.0 downloaded from https://ga.jspm.io/npm:lodash.castarray@4.4.0/index.js
+
+var r={};function castArray(){if(!arguments.length)return[];var r=arguments[0];return a(r)?r:[r]}var a=Array.isArray;r=castArray;var t=r;export default t;
+

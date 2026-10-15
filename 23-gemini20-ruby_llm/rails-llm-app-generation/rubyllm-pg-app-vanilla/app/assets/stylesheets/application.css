@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:478b66b3effc220e394a0ba1a9065c367d723bd73b2036067ea87f91094b2cdf
-size 491
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */

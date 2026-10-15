@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:888d0a1ae4139678d506608154df29a3b4e21417023330806a37c777ed6a11ea
-size 150
+https://news.sky.com/story/rating-donald-trumps-second-term-so-far-hes-rattling-the-cage-and-so-many-here-in-pennsylvania-couldnt-be-happier-13324846

@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ebc954461a88ac54df6c41701d7d86de97f5f2f728b96c3eaa198058f6b8e0ba
-size 650
+// util-deprecate@1.0.2 downloaded from https://ga.jspm.io/npm:util-deprecate@1.0.2/browser.js
+
+var e="undefined"!==typeof globalThis?globalThis:"undefined"!==typeof self?self:global;var r={};r=deprecate;function deprecate(r,t){if(config("noDeprecation"))return r;var n=false;function deprecated(){if(!n){if(config("throwDeprecation"))throw new Error(t);config("traceDeprecation")?console.trace(t):console.warn(t);n=true}return r.apply(this||e,arguments)}return deprecated}function config(r){try{if(!e.localStorage)return false}catch(e){return false}var t=e.localStorage[r];return null!=t&&"true"===String(t).toLowerCase()}var t=r;export default t;
+

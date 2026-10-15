@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bd75a4f0f2285792bddd0c27f2abfa0cec19dd4a2ad69f48ddaaeec797022e18
-size 1103
+
+########################################################
+# This is a sample from gcloud_auto_import_config v1.3
+# Code: https://github.com/palladius/sakura/blob/master/bin/auto_import_config.py
+########################################################
+# Once done you can do: gcloud config configurations activate YOUR_VAVORITE_CONFIG
+#
+# Note: this is PUBLIC
+#
+#
+local_config:
+  auto: true
+configurations:
+  07-bash-gemini-multimodal-jam:
+    gcloud:
+      project: my-local-work-project
+      compute/region: us-central1
+      compute/zone: us-central1-b
+      account: your.work.email@my-job.example.com
+    env:
+      # No need! It's auto imported for you. You're welcome
+      #PROJECT_ID: this is autopopulated from above
+      #GCP_REGION: this is autopopulated from above
+      VERTEX_TRAINING_JOB_NAME: 'train-test-123'
+      REPO_NAME: 'my-awesome-app'
+      # These work! Just make sure you do it in ORDER. (God bless python dicts naivity)
+      BUCKET: "gs://my-unique-${PROJECT_ID}-bucket"
+      IMAGE_URI: "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/my_vertex_image:latest"
+
+

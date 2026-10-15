@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5b4e15c53679401a1311c94b4321741eb8f40113a1d820e2b90ff3d6f40854f0
-size 79
+{
+  "instances": [{
+    "prompt": "_MY_PROMPT_",
+    "max_tokens": 1000
+  }]
+}

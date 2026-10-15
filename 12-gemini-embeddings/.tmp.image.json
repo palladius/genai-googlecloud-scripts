@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:de88855f13b62117246fdef1f96fa9f63e9baed8a6995f7df6448ff343267d9e
-size 639
+{
+  "error": {
+    "code": 401,
+    "message": "Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "CREDENTIALS_MISSING",
+        "domain": "googleapis.com",
+        "metadata": {
+          "service": "aiplatform.googleapis.com",
+          "method": "google.cloud.aiplatform.v1.PredictionService.Predict"
+        }
+      }
+    ]
+  }
+}
