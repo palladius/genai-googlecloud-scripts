@@ -2,6 +2,35 @@
 
 All notable changes to the Smurfs and Dragons Math Shooter game.
 
+## [2.1.2] - 2026-10-17
+
+### Added
+- **Zombie Cutie (Nanobanana 2.1)**:
+  - Generato nuovo sprite 2D in stile sticker cartoon chibi ad altissima definizione con Nanobanana: baby zombie verde con occhi grandi e scintillanti, tutina viola a toppe, cornetti e ossicino carino.
+  - Scontornato con trasparenza alpha al 100% (zero artefatti o sfondi finti).
+  - Proporzioni corrette (aspect ratio 162x256) con animazione hop e oscillazione dinamica.
+  - Aggiunto anche allo showcase interattivo dei personaggi nella schermata del titolo.
+- **Supporto PWA per Tablet e iPad**:
+  - Web App Manifest (`manifest.json`) completo con supporto per display fullscreen, orientamento e tema.
+  - Icona dell'app ufficiale in stile AAA cartoon generata con Nanobanana (Re Puffin, Puffo e Drago volante) esportata a 192x192, 512x512, apple-touch-icon (180x180) e favicon.
+  - Service Worker (`sw.js`) per caching offline degli asset, aggiornamenti veloci e prompt di installazione su home screen di tablet e smartphone.
+- **Colonna Sonora Rock con Google Lyria 3 (`musicgen-lyria3`)**:
+  - Sostituito il liuto procedurale con una colonna sonora rock energica generata con il modello Google Lyria 3 (`bgm_rock_full.mp3`).
+  - Chitarre elettriche ritmiche, basso incalzante, batteria arcade e cori festosi ("Ale e Sebi combattono draghi e puffi...").
+  - Integrazione audio HTML5 loop con gestione pausa tattica e pulsante HUD `🎸 Rock: ON/OFF` (scorciatoia `B`).
+- **Scaling Dinamico della Velocità con la Difficoltà**:
+  - La velocità del gioco aumenta sensibilmente con la difficoltà scelta:
+    - *Tier 1 (9-10 anni)*: 1.0x (Normale) / 1.25x (Difficile).
+    - *Tier 2 (11-13 anni)*: 1.35x (Normale) / 1.65x (Difficile).
+    - *Tier 3 (Papa Mode / 14+ anni)*: 1.75x (Normale) / 2.20x (Difficile).
+  - Velocità applicata a: scorrimento strada, elementi dello sfondo/scenari, discesa dei cancelli matematici, avanzata dei nemici e moto orizzontale dei boss.
+
+### Changed
+- **Widget Party Solo Numero**:
+  - Rimosso qualsiasi testo o etichetta (`👥 SQUADRA`): il widget in basso a sinistra mostra esclusivamente il numero pulito, gigante (40px) e celestiale ad alto contrasto.
+- **Pausa Trasparente Hover**:
+  - La schermata di pausa tattica è ora un banner fluttuante in alto con oltre il 90% di trasparenza sullo schermo e senza blur, ideale per scattare screenshot della partita in corso.
+
 ## [2.1.1] - 2026-10-17
 
 ### Fixed
