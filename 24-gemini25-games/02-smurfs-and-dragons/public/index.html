@@ -579,7 +579,7 @@
       <div class="weapon-selector" role="group" aria-label="Truxton Weapons">
         <button class="weapon-btn active" data-wep="RED" title="Forte Verticale: laser perforante pesante">🔴 Vulcan</button>
         <button class="weapon-btn" data-wep="BLUE" title="Ventaglio Radiale: copre tutta la strada">🔵 Spread</button>
-        <button class="weapon-btn" data-wep="GREEN" title="Truxton Thunder: fulmini verdi a ricerca automatica!">🟢 Thunder</button>
+        <button class="weapon-btn" data-wep="GREEN" title="Truxton Thunder: fulmini verdi a ricerca automatica (danno bilanciato -50%)">🟢 Thunder</button>
       </div>
       <div id="power-badge" style="background: rgba(250, 204, 21, 0.18); border: 1px solid rgba(250, 204, 21, 0.45); border-radius: 10px; padding: 2px 7px; font-size: 11px; font-weight: 800; color: #FDE047; font-family: 'JetBrains Mono', monospace; pointer-events: auto;" title="Truxton Power: Raccogli 3 [P] per L2 (3x), poi altri 5 [P] per L3 (5x)!">
         ⚡ <span id="wep-lvl-badge">L1 (1x)</span> <span id="pow-progress" style="letter-spacing: 1px;">[□□□]</span>
@@ -1885,9 +1885,11 @@
 
       } else {
         // 🟢 TRUXTON THUNDER (Fulmine Galattico Guidato: fulmini verdi che curvano a ricerca automatica!)
+        // Depotenziato del 50% per bilanciare l'immenso vantaggio del puntamento automatico (auto-homing)!
         const count = lvl === 1 ? 2 : lvl === 2 ? 3 : 5;
         const speed = 600;
-        const damage = Math.round((3 + lvl * 1.8) * (1 + armyBonus * 0.16) * powerMult);
+        const rawDamage = (3 + lvl * 1.8) * (1 + armyBonus * 0.16) * powerMult;
+        const damage = Math.max(1, Math.round(rawDamage * 0.50));
 
         for (let i = 0; i < count; i++) {
           const frac = count === 1 ? 0 : (i / (count - 1)) - 0.5;
@@ -2488,7 +2490,7 @@
           } else {
             state.weaponType = pw.type;
             const col = pw.type === 'RED' ? '#EF4444' : pw.type === 'BLUE' ? '#38BDF8' : '#10B981';
-            const name = pw.type === 'RED' ? '🔴 Vulcan Forte' : pw.type === 'BLUE' ? '🔵 Spread Radiale' : '🟢 Thunder Fulmine';
+            const name = pw.type === 'RED' ? '🔴 Vulcan Forte' : pw.type === 'BLUE' ? '🔵 Spread Radiale' : '🟢 Thunder (Guidato, 50% Danno)';
             spawnParticles(pw.x, pw.y, col, 30, 220);
             addFloatingText(state.playerX, playerY - 50, `ARMY WEAPON: ${name}`, col, 20);
             showCoachToast('🎮', `Arma: ${name}!`, 'Nuovo stile di fuoco attivato!', 'good');

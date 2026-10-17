@@ -28,6 +28,9 @@ All notable changes to the Smurfs and Dragons Math Shooter game.
 ### Changed
 - **Widget Party Solo Numero**:
   - Rimosso qualsiasi testo o etichetta (`👥 SQUADRA`): il widget in basso a sinistra mostra esclusivamente il numero pulito, gigante (40px) e celestiale ad alto contrasto.
+- **Bilanciamento Arma Truxton Thunder (-50% Danno)**:
+  - Per equilibrare l'incredibile vantaggio strategico dei fulmini a curvatura e ricerca automatica (auto-homing), il danno inflitto dal Thunder Verde è stato ridotto del 50%.
+  - In questo modo, l'arma resta visivamente spettacolare e perfetta per eliminare nemici sfuggenti, ma premia l'abilità di mira del giocatore quando si usano il Vulcan pesante o lo Spread ad ampio raggio contro i boss.
 - **Pausa Trasparente Hover**:
   - La schermata di pausa tattica è ora un banner fluttuante in alto con oltre il 90% di trasparenza sullo schermo e senza blur, ideale per scattare screenshot della partita in corso.
 
