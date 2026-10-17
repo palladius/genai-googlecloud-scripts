@@ -2,6 +2,27 @@
 
 All notable changes to the Smurfs and Dragons Math Shooter game.
 
+## [2.1.1] - 2026-10-17
+
+### Fixed
+- **Risolto Bug Matematico (1 ÷ 2 vs 1 - 5)**:
+  - Implementata la funzione di confronto a precisione reale `getMathValue` per evitare che la divisione intera e il troncamento considerino erroneamente un cancello ottimale come un errore.
+  - Salvaguardia nella generazione cancelli: per eserciti con meno di 6 soldati vengono generati esclusivamente cancelli di crescita (`+` vs `×`), eliminando trappole numeriche insolubili.
+  - La divisione non azzera più l'esercito se il giocatore imbocca il cancello matematicamente migliore.
+
+### Changed
+- **Semplificato Widget Esercito in Basso a SX**:
+  - Eliminati tutti i numeri superflui e la scomposizione abaco dal widget e dal canvas sotto la squadra.
+  - Ora mostra unicamente il numero pulito, gigante e nitido (es. `22`) con etichetta `👥 SQUADRA`.
+- **Pausa Trasparente "Hover" (90%+ Schermo Visibile)**:
+  - Rimosso il blur a schermo intero e il fondo scuro opaco.
+  - La schermata di pausa è ora un banner compatto fluttuante in alto su sfondo trasparente al 90%, ideale per catturare screenshot puliti del gioco fermo.
+- **Danni e Difficoltà Ricalibrati**:
+  - **Facile (9-10y / Normal)**: ogni colpo subito erode esattamente **1 soldato** (`-1`).
+  - **Media (11-13y)**: ogni colpo subito erode il **10% dei soldati** (`Math.round(army * 0.10)`).
+  - **Difficile (Papa Mode / HARD)**: ogni colpo subito **uccide istantaneamente** la squadra (Game Over immediato).
+  - Applicato a collisioni coi nemici, alla Cuspide Scarlatta di Scorpio e alle Rose di Fish.
+
 ## [2.1.0] - 2026-10-16
 
 ### Added
