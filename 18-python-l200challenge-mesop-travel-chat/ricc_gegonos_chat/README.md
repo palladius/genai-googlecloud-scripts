@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a23a4565d603ae4f166de0141dafd1f0c85643688aa6ad3f92a86faac9df76aa
-size 342
+Since i didnt commit to Duo for v5 - i can do the cleanup of v4 in Duo -> Trio.
+And see what happens.
+1. 🟢 I remove Claude 🪦
+2. 🟢 I pre-add the key.
+
+And see what happens.
+
+## Data
+
+* From: `go/ricc-conferences` => `private/ricc-conferences.csv`
+* To work this program needs some priovate fiels (prompts and DBs). See cl/680550198.
+

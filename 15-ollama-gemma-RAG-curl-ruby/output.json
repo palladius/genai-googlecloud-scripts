@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5aee5c084ece624227a8cb5edb43fc9096163ff4634028f7d4efbf4b42e827da
-size 63
+{
+    "Seebad Enge": "20°C",
+    "Seebad Utoquai": "18°C"
+}
+

@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:eb5022c9dadcbc770d0f95d551fb1ce54beb1e710ed9738efff8492f5e073abb
-size 305
+
+
+# models-list.py
+
+Lists all the models, easy to sort and grep :)
+
+![Example of Gemini model listing](docs/image.png)
+
+![Example v2 with more info](docs/image2.png)
+
+# Streamlit super-mega app.
+
+This is an awesome mosaic app
+
+![streamlit app screenshot](docs/BaSHpNjkRRMpJN5.png)
+
+How to:
+
+* `make app`.

@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e8a03bf3a17f235e5972606a5b946bbabeff776725eac087a640346d0ab8bc82
-size 131
+Explain Embeddings in the context of Generative AI and recommendations in a simple way, like you need to explain to a 10 year old.

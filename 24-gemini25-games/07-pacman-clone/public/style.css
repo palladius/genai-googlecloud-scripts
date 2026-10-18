@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c00731b054a5f1520eb6e6c71e54cce70a0619b5dbe4d818b71d81426d3ae1c3
-size 1055
+body {
+  margin: 0;
+  overflow: hidden;          /* Prevent scrollbars */
+  background-color: black;
+  display: flex;
+  justify-content: center; /* Center canvas horizontally */
+  align-items: center;     /* Center canvas vertically */
+  min-height: 100vh;       /* Ensure body fills viewport height */
+  min-width: 100vw;        /* Ensure body fills viewport width */
+}
+
+canvas {
+  display: block;          /* Removes extra space below canvas */
+  max-width: 100vw;        /* Max width is viewport width */
+  max-height: 100vh;       /* Max height is viewport height */
+  width: auto;             /* Calculate width based on height to keep aspect ratio */
+  height: auto;            /* Calculate height based on width to keep aspect ratio */
+  object-fit: contain;     /* Scale down nicely, maintaining aspect ratio */
+
+  /* Keep pixels sharp when scaling up: */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: crisp-edges;      /* Other browsers */
+
+  border: 1px solid #333;  /* Optional border */
+}

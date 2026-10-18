@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a1a0a180ea3a4a0215edb38e6ff80d9452a5da2b677fd7f52ddb4a4b25df583f
-size 202
+
+## 2024-06-09
+
+* creating my own yaml with Gemini
+* on Mac i need to add rubypath to get binary in path
+```
+export PATH=/Users/ricc/.rbenv//versions/3.1.2/bin/:$PATH
+```
+* Actually moved to 3.3.1 now.

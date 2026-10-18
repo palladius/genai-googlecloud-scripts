@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a3b9535502d11d13620dbb5418b83d0b7b7d59b6fa9521cf584adad456f221fe
-size 1410
+# etc/prompts.yaml
+prompts:
+  - name: Video Prompt Smurfs
+    class: video_prompt
+    text: A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone
+  - name: Video Prompt Shrek
+    class: video_prompt
+    text: |
+      Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.
+      The camera fades out, then the view goes to above.
+      On a distance, donkey is taking pictures of the green couple, on top of his big red dragon.
+  - name: Image Past
+    class: image_prompt
+    text: A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.
+  - name: Image2
+    class: image_prompt
+    text: A CD album cover by Dream Theater with a Phoenix rising.
+  - name: Code Prompt
+    class: code
+    text: Write a Python function to calculate the factorial of a number.
+  - name: Chat Prompt
+    class: chat
+    text: Tell me a joke about a programmer.
+  - name: URL Prompt
+    class: url
+    text: https://www.google.com
+  - name: Summary Prompt
+    class: summary
+    text: |
+      Summarize the main points of the following text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

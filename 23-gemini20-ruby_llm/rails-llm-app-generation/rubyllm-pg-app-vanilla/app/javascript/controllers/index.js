@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:91b6b0da8a07c0da1b704664c54c854a980acfdad7a060110d3aae1379989cba
-size 818
+// Import and register all your controllers from the importmap via controllers/**/*_controller
+import { application } from "controllers/application"
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+eagerLoadControllersFrom("controllers", application)
+
+
+// app/javascript/controllers/index.js
+//import { application } from "./application"
+
+// Eager load all controllers defined in the import map under controllers/**/*_controller
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+eagerLoadControllersFrom("controllers", application)
+
+// Make sure chat_input_controller.js is found by the above line,
+// or explicitly import it if using a different setup:
+// import ChatInputController from "./chat_input_controller.js"
+// application.register("chat-input", ChatInputController)

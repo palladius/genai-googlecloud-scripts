@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:05ff7eb88083719a039c1f07e557b2d04c6e5e3ea9ca35810c2bef3876c79954
-size 117
+google-genai>=0.7.0
+python-dotenv>=1.0.0
+# pyperclip removed - using system commands via lib/clipboard.py now
+dotenv

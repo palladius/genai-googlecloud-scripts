@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f9e6468949dd6bb06dad88ddd52469d5fc427b2ef022db3961d65c746a98f980
-size 298
+v7: works with mouse! But keyboard stop working - no actually it works. Still unplayable with mouse but doable. Im gonna sleep now.
+v6: broken
+v5: new monsters, new potions, money gives now XP.
+v4: fix horizontal walls, and resize.
+v3 better walls, add troll.
+v2 no space invaders
+v1 first stesure

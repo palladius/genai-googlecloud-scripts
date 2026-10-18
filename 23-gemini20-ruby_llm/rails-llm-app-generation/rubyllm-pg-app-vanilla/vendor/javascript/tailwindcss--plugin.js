@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:aefc985e27f269359e68a6633dc2e9ab370ee3b76510a5282a75c64e1ecb4756
-size 315
+// tailwindcss/plugin@4.1.4 downloaded from https://ga.jspm.io/npm:tailwindcss@4.1.4/dist/plugin.js
+
+var n={};function g(n,r){return{handler:n,config:r}}g.withOptions=function(n,r=()=>({})){function t(i){return{handler:n(i),config:r(i)}}return t.__isOptionsFunction=!0,t};var r=g;n=r;var i=n;export{i as default};
+
