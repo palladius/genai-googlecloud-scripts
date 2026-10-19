@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Smurfs, Puffins & Dragons v2.1.2 (Edizione Ale & Sebi)</title>
+  <title>Smurfs, Puffins & Dragons v2.1.5 (Edizione Ale & Sebi)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -254,21 +254,21 @@
       color: #090D16;
     }
 
-    /* A2UI Pedagogical Math Coach Banner */
+    /* A2UI Pedagogical Math Coach Banner (Positioned at bottom below player so it never hides incoming monsters!) */
     #math-coach-toast {
       position: absolute;
-      top: 98px;
+      bottom: 12px;
       left: 50%;
-      transform: translateX(-50%) translateY(-18px) scale(0.92);
+      transform: translateX(-50%) translateY(18px) scale(0.92);
       z-index: 25;
-      width: calc(100% - 28px);
-      max-width: 440px;
-      padding: 10px 14px;
+      width: calc(100% - 140px);
+      max-width: 420px;
+      padding: 8px 12px;
       border-radius: 16px;
-      background: rgba(15, 23, 42, 0.93);
+      background: rgba(15, 23, 42, 0.92);
       backdrop-filter: blur(14px);
       border: 2px solid var(--gold);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -553,7 +553,7 @@
           <span id="hud-strikes" style="color: #FDA4AF; font-weight: 800; font-family: 'JetBrains Mono', monospace;">0/3</span>
         </div>
         <div class="stat-pill version" title="Versione del Gioco" style="font-size: 11px; padding: 3px 8px; color: #38BDF8; border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.14);">
-          v2.1.2
+          v2.1.5
         </div>
       </div>
       <div class="hud-group">
@@ -624,7 +624,7 @@
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
           <div class="badge-tag" style="margin-bottom: 0;">🐧✨ Puffins &amp; Dragons 2D</div>
           <div class="version-badge" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: rgba(56, 189, 248, 0.22); border: 1.5px solid rgba(56, 189, 248, 0.65); color: #38BDF8; font-size: 13px; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);">
-            🚀 v2.1.2
+            🚀 v2.1.5
           </div>
         </div>
         <h1 class="hero-title">Smurfs, Puffins &amp; Dragons</h1>
@@ -632,13 +632,13 @@
           Guida i tuoi <strong>Puffin 🐧</strong>, <strong>Baby Puffini 💙</strong> &amp; <strong>Cavalieri 🛡️</strong> lungo la Strada del Re! Scegli i cancelli matematici migliori, potenzia gli spari in stile Truxton e sconfiggi <strong>Zombie Cutie 🧟</strong>, <strong>Scorpio</strong>, <strong>Fish</strong> e il <strong>Drago Gigantesco di Ale 👑</strong>!
         </p>
         <div class="sprite-showcase" id="title-sprites"></div>
-        <button id="btn-start" class="cta-btn">⚔️ GIOCA ORA! • PLAY v2.1.2</button>
+        <button id="btn-start" class="cta-btn">⚔️ GIOCA ORA! • PLAY v2.1.5</button>
         <div class="controls-hint">
           <span>📱 <strong>Mobile:</strong> Trascina il dito sullo schermo</span>
           <span>💻 <strong>Desktop:</strong> Mouse oppure ◀ ▶ / A D</span>
         </div>
         <div style="margin-top: 14px; font-size: 11.5px; font-family: 'JetBrains Mono', monospace; color: #94A3B8; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
-          <span>Versione <strong style="color: #38BDF8;">v2.1.2</strong></span>
+          <span>Versione <strong style="color: #38BDF8;">v2.1.5</strong></span>
           <span>•</span>
           <span style="color: #FACC15; font-weight: 700;">👑 Edizione Ale &amp; Sebi</span>
           <span>•</span>
@@ -704,7 +704,7 @@
         </div>
         <button id="btn-play-again" class="cta-btn">🔄 GIOCA ANCORA • PLAY AGAIN</button>
         <div style="margin-top: 14px; font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #64748B; text-align: center;">
-          Smurfs, Puffins &amp; Dragons • <span style="color: #38BDF8; font-weight: 700;">v2.1.2</span>
+          Smurfs, Puffins &amp; Dragons • <span style="color: #38BDF8; font-weight: 700;">v2.1.5</span>
         </div>
       </div>
     </div>
@@ -1393,82 +1393,176 @@
     // =========================================================================
     // 4. MATH GATE GENERATOR (PEDAGOGICAL A vs B DECISIONS)
     // =========================================================================
-    function getMathValue(n, op, val) {
+    // Raw unclamped mathematical result (used to compare which gate is truly better,
+    // and to ensure no fractional results occur)
+    function rawOpResult(n, op, val) {
       if (op === '+') return n + val;
       if (op === '-') return n - val;
       if (op === '×') return n * val;
-      if (op === '÷') return n / val;
+      if (op === '÷') return Math.floor(n / val);
       return n;
+    }
+
+    function getMathValue(n, op, val) {
+      if (op === '÷') return n / val;
+      return rawOpResult(n, op, val);
     }
 
     function applyOp(n, op, val) {
-      if (op === '+') return n + val;
-      if (op === '-') return Math.max(1, n - val);
-      if (op === '×') return Math.max(1, n * val);
-      if (op === '÷') return Math.max(1, Math.round(n / val));
-      return n;
+      const isHard = state.difficulty === 'HARD';
+      const minVal = isHard ? 0 : 1; // On HARD, dropping to <= 0 ends the game!
+      const raw = rawOpResult(n, op, val);
+      if (op === '+' || op === '×') return raw;
+      return Math.max(minVal, raw);
     }
 
-        // STRICT MATH PAIRS (Per Riccardo Mandate):
+    // Dynamic probability of spawning a negative (- vs ÷) gate pair based on current army size:
+    // - Never spawn negative/division gates when army is tiny (<= 5)!
+    // - Rare when army is small/medium (6..99)
+    // - Frequent when army is huge (>= 100) to keep piece counts in check!
+    function getNegativeGateProbability(n) {
+      if (n <= 5) return 0.0;
+      if (n < 15) return 0.12;
+      if (n < 35) return 0.20;
+      if (n < 70) return 0.30;
+      if (n < 100) return 0.45;
+      if (n < 180) return 0.72;
+      return 0.85;
+    }
+
+    // STRICT MATH PAIRS (Per Riccardo Mandate):
     // 1. NEVER + vs - (too obvious)!
     // 2. ONLY + vs × (Growth: compare addition vs multiplication based on current army n!)
     // 3. ONLY - vs ÷ (Damage mitigation: which loss is smaller?)
-    // 4. Tier 1 = 9-10y (New easy baseline)
-    // 5. Tier 2 = 11-13y (Sneaky, tight margins)
-    // 6. Tier 3 = Papa Mode (Extremely tricky, impossible for kids!)
+    // 4. STRICT INTEGER ARITHMETIC FOR 8-YEAR-OLDS:
+    //    - NEVER offer ÷ when n === 1 or when n is NOT evenly divisible by the divisor!
+    //    - If n has no exact divisors in the allowed range, fall back to positive gates.
+    //    - Subtraction gates (-val) never exceed n - 1 when generating fair integer choices, or if compared against ÷, raw results are strictly compared.
+    // 5. Dynamic rarity: - / ÷ gates are rare at low army counts and frequent at >= 100!
     function generateGatePair() {
-      const n = Math.max(2, state.army);
+      const n = Math.max(1, Math.floor(state.army));
       const tier = state.ageTier;
       let leftGate, rightGate;
 
-      // Mathematical Safeguard: Never generate damage mitigation (- or ÷) if squad < 6!
-      const isPositive = state.army < 6 || Math.random() < 0.60;
+      const negProb = getNegativeGateProbability(n);
+      let wantNegative = Math.random() < negProb;
 
-      if (tier === 1) {
-        // TIER 1: 9-10 ANNI (Nuovo Base)
-        if (isPositive) {
-          const mul = (n < 12 && Math.random() < 0.35) ? 3 : 2;
-          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 6) + 2);
-          const addVal = Math.max(4, n * (mul - 1) + delta);
+      // Find exact integer divisors of n (strictly > 1 and < n so result is an integer >= 1)
+      const candidateDivisors = tier === 1 ? [2, 3] : tier === 2 ? [2, 3, 4] : [2, 3, 4, 5];
+      const exactDivisors = candidateDivisors.filter((d) => n >= d * 2 && n % d === 0);
+
+      // If we wanted a negative (- vs ÷) gate pair, we MUST have an exact divisor so n ÷ div is an exact integer!
+      if (wantNegative && exactDivisors.length === 0) {
+        wantNegative = false;
+      }
+
+      const isPositive = !wantNegative;
+
+      // Determine effective math difficulty level (1 = Easy/8-10y, 2 = Medium/11-13y, 3 = Hard/Papa Mode)
+      // Note: if player explicitly sets difficulty === 'NORMAL' on Tier 1, it's super kid-friendly;
+      // Tier 1 = Easy, Tier 2 = Medium, Tier 3 = Hard (or if Tier 3 / Papa Mode is selected).
+      const mathLevel = tier;
+
+      if (isPositive) {
+        if (mathLevel === 1) {
+          // EASY (8-10 ANNI): Generous spread (35%-65% difference) + friendly round numbers (multiples of 5 or 10 when n >= 10)
+          // Example at n=30, ×2 (gain=30): addVal is 10, 15, 20, or 45, 50 — never 33!
+          const mul = (n < 10 && Math.random() < 0.30) ? 3 : 2;
+          const multGain = n * (mul - 1);
+          const sign = Math.random() < 0.55 ? -1 : 1; // Slightly favor × being bigger or clearly smaller
+          const spreadRatio = 0.35 + Math.random() * 0.30; // 35% to 65% away from multGain!
+          const minSpread = Math.max(4, Math.round(multGain * 0.30));
+          let rawAdd = Math.round(multGain + sign * Math.max(minSpread, multGain * spreadRatio));
+
+          // Snap to friendly round numbers for kids mental math!
+          if (n >= 20 && rawAdd >= 10) {
+            rawAdd = Math.round(rawAdd / 5) * 5;
+          } else if (n >= 10 && rawAdd >= 6) {
+            rawAdd = Math.round(rawAdd / 2) * 2;
+          }
+          let addVal = Math.max(2, rawAdd);
+          if (Math.abs(addVal - multGain) < minSpread) {
+            addVal = sign < 0 ? Math.max(2, multGain - minSpread) : multGain + minSpread;
+          }
+          if (n + addVal === n * mul) addVal += 5;
+
+          leftGate = { op: '+', val: addVal, label: `+${addVal}` };
+          rightGate = { op: '×', val: mul, label: `×${mul}` };
+        } else if (mathLevel === 2) {
+          // MEDIUM (11-13 ANNI): Moderate spread (20%-38% difference) + clean numbers
+          // Example at n=30, ×2 (gain=30): addVal is around 20-24 or 36-42 (not 31-33!)
+          const mul = Math.random() < 0.60 ? 2 : 3;
+          const multGain = n * (mul - 1);
+          const sign = Math.random() < 0.5 ? -1 : 1;
+          const spreadRatio = 0.20 + Math.random() * 0.18; // 20% to 38% away from multGain
+          const minSpread = Math.max(3, Math.round(multGain * 0.18));
+          let rawAdd = Math.round(multGain + sign * Math.max(minSpread, multGain * spreadRatio));
+
+          if (n >= 30 && rawAdd >= 15) {
+            rawAdd = Math.round(rawAdd / 5) * 5;
+          }
+          let addVal = Math.max(3, rawAdd);
+          if (Math.abs(addVal - multGain) < minSpread) {
+            addVal = sign < 0 ? Math.max(3, multGain - minSpread) : multGain + minSpread;
+          }
+          if (n + addVal === n * mul) addVal += 3;
+
           leftGate = { op: '+', val: addVal, label: `+${addVal}` };
           rightGate = { op: '×', val: mul, label: `×${mul}` };
         } else {
-          const div = 2;
-          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 2);
-          const subVal = Math.max(2, Math.floor(n / div) + delta);
-          leftGate = { op: '-', val: subVal, label: `-${subVal}` };
-          rightGate = { op: '÷', val: div, label: `÷${div}` };
-        }
-      } else if (tier === 2) {
-        // TIER 2: 11-13 ANNI (Sneaky & Veloce)
-        if (isPositive) {
-          const mul = Math.random() < 0.55 ? 2 : 3;
-          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 4) + 1);
-          const addVal = Math.max(6, n * (mul - 1) + delta);
-          leftGate = { op: '+', val: addVal, label: `+${addVal}` };
-          rightGate = { op: '×', val: mul, label: `×${mul}` };
-        } else {
-          const div = Math.random() < 0.6 ? 2 : 3;
-          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 4) + 1);
-          const subVal = Math.max(3, Math.floor(n * (1 - 1 / div)) + delta);
-          leftGate = { op: '-', val: subVal, label: `-${subVal}` };
-          rightGate = { op: '÷', val: div, label: `÷${div}` };
-        }
-      } else {
-        // TIER 3: PAPA MODE (Impossibile per i bimbi!)
-        if (isPositive) {
+          // HARD / PAPA MODE: Tight sneaky margins (±1..3 or 5%-12%) like 30×2 vs 30+33!
           const mul = Math.random() < 0.4 ? 2 : Math.random() < 0.7 ? 3 : 4;
           const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 3) + 1);
-          const addVal = Math.max(12, n * (mul - 1) + delta);
+          let addVal = Math.max(4, n * (mul - 1) + delta);
+          if (n + addVal === n * mul) addVal += 1;
           leftGate = { op: '+', val: addVal, label: `+${addVal}` };
           rightGate = { op: '×', val: mul, label: `×${mul}` };
-        } else {
-          const div = Math.random() < 0.45 ? 3 : 4;
-          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 3) + 1);
-          const subVal = Math.max(5, Math.floor(n * (1 - 1 / div)) + delta);
-          leftGate = { op: '-', val: subVal, label: `-${subVal}` };
-          rightGate = { op: '÷', val: div, label: `÷${div}` };
         }
+      } else {
+        // NEGATIVE GATE PAIR (- vs ÷): Guaranteed exact integer division (n % div === 0) and n >= 6!
+        const div = exactDivisors[Math.floor(Math.random() * exactDivisors.length)];
+        const divResult = n / div; // Exact integer!
+        const exactLossFromDiv = n - divResult; // e.g., if n=30, div=2 -> divResult=15, loss=15
+
+        let subVal;
+        if (mathLevel === 1) {
+          // EASY: Clear difference between -subVal and ÷div (at least 30%-55% away from exactLossFromDiv)
+          const minDiff = Math.max(2, Math.round(exactLossFromDiv * 0.30));
+          const spread = Math.max(minDiff, Math.round(exactLossFromDiv * (0.35 + Math.random() * 0.25)));
+          const sign = Math.random() < 0.5 ? -1 : 1;
+          let candidate = exactLossFromDiv + sign * spread;
+          if (n >= 20 && candidate >= 10) {
+            candidate = Math.round(candidate / 5) * 5;
+          }
+          subVal = Math.max(1, Math.min(n - 1, candidate));
+          if (Math.abs(subVal - exactLossFromDiv) < minDiff) {
+            subVal = exactLossFromDiv - minDiff >= 1
+              ? exactLossFromDiv - minDiff
+              : Math.min(n - 1, exactLossFromDiv + minDiff);
+          }
+        } else if (mathLevel === 2) {
+          // MEDIUM: Moderate difference (18%-32% away from exactLossFromDiv)
+          const minDiff = Math.max(2, Math.round(exactLossFromDiv * 0.18));
+          const spread = Math.max(minDiff, Math.round(exactLossFromDiv * (0.20 + Math.random() * 0.15)));
+          const sign = Math.random() < 0.5 ? -1 : 1;
+          subVal = Math.max(1, Math.min(n - 1, exactLossFromDiv + sign * spread));
+          if (Math.abs(subVal - exactLossFromDiv) < minDiff) {
+            subVal = exactLossFromDiv - minDiff >= 1
+              ? exactLossFromDiv - minDiff
+              : Math.min(n - 1, exactLossFromDiv + minDiff);
+          }
+        } else {
+          // HARD / PAPA MODE: Tight margin (±1..2)
+          const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 2) + 1);
+          subVal = Math.max(1, Math.min(n - 1, exactLossFromDiv + delta));
+        }
+
+        if (subVal === exactLossFromDiv) {
+          subVal = subVal < n - 1 ? subVal + 1 : Math.max(1, subVal - 1);
+        }
+
+        leftGate = { op: '-', val: subVal, label: `-${subVal}` };
+        rightGate = { op: '÷', val: div, label: `÷${div}` };
       }
 
       if (Math.random() < 0.5) {
@@ -1480,25 +1574,50 @@
       const roadLeft = W * 0.11;
       const roadRight = W * 0.89;
       const roadSpan = roadRight - roadLeft;
-      const laneWidth = roadSpan * 0.40;
-      const neutralWidth = roadSpan * 0.20;
-      const gap = 5;
 
-      state.gatePairs.push({
-        y: -90,
-        height: 76,
-        resolved: false,
-        left: {
-          ...leftGate,
-          x: roadLeft + 4,
-          w: laneWidth - gap
-        },
-        right: {
-          ...rightGate,
-          x: roadLeft + laneWidth + neutralWidth + gap,
-          w: laneWidth - gap
-        }
-      });
+      // Positive gates (+ vs ×) leave a 20% middle corridor;
+      // Negative gates (- vs ÷) are 50/50 across the road so you CANNOT dodge them down the middle!
+      const isNegativePair = !isPositive;
+      const gap = 4;
+
+      if (isNegativePair) {
+        const halfWidth = roadSpan * 0.50;
+        state.gatePairs.push({
+          y: -90,
+          height: 76,
+          resolved: false,
+          isNegativePair: true,
+          left: {
+            ...leftGate,
+            x: roadLeft + 2,
+            w: halfWidth - gap
+          },
+          right: {
+            ...rightGate,
+            x: roadLeft + halfWidth + gap / 2,
+            w: halfWidth - gap
+          }
+        });
+      } else {
+        const laneWidth = roadSpan * 0.40;
+        const neutralWidth = roadSpan * 0.20;
+        state.gatePairs.push({
+          y: -90,
+          height: 76,
+          resolved: false,
+          isNegativePair: false,
+          left: {
+            ...leftGate,
+            x: roadLeft + 4,
+            w: laneWidth - gap
+          },
+          right: {
+            ...rightGate,
+            x: roadLeft + laneWidth + neutralWidth + gap,
+            w: laneWidth - gap
+          }
+        });
+      }
     }
 
     // =========================================================================
@@ -1513,7 +1632,7 @@
 
       // Wave 3: Orda di 15 Zombie (Richiesta di Ale!)
       if (waveNum === 3) {
-        showCoachToast('🧟', 'ATTENZIONE: ORDA DI 15 ZOMBIE!', 'Un\'ondata massiccia di zombie avanza veloce! Usa il fuoco radiale o concentrato!', 'oops');
+        showCoachToast('🧟', 'ATTENZIONE: ORDA DI 15 ZOMBIE!', 'Un\'ondata massiccia di zombie avanza veloce! Se passano ti mangiano soldati!', 'oops');
         sfx.playDragonRoar();
         const zombieCount = 15;
         const zRows = 3;
@@ -1522,7 +1641,7 @@
           for (let c = 0; c < zCols; c++) {
             const zx = roadLeft + (span / (zCols + 1)) * (c + 1) + (Math.random() - 0.5) * 20;
             const zy = -50 - r * 55 - Math.random() * 20;
-            const hp = isHard ? 6 : 4;
+            const hp = isHard ? 14 : 10;
             state.enemies.push({
               type: 'zombie',
               x: zx,
@@ -1544,7 +1663,7 @@
 
       // Wave 4: Gargamella Wizard Boss
       if (waveNum === 4) {
-        const gargHP = isHard ? 420 : 300;
+        const gargHP = isHard ? 900 : 650;
         state.enemies.push({
           type: 'gargamel',
           x: W * 0.45,
@@ -1566,7 +1685,7 @@
 
       // Wave 5: Easter Egg - Saga di Gemini (Saint Seiya)
       if (waveNum === 5) {
-        const sagaHP = isHard ? 550 : 400;
+        const sagaHP = isHard ? 1200 : 850;
         state.enemies.push({
           type: 'gemini_saga',
           x: W * 0.5,
@@ -1590,7 +1709,7 @@
 
       // Wave 6: Scorpio Milo (Richiesta Sebi)
       if (waveNum === 6) {
-        const scorpioHP = isHard ? 650 : 480;
+        const scorpioHP = isHard ? 1400 : 1000;
         state.enemies.push({
           type: 'scorpio',
           x: W * 0.5,
@@ -1614,9 +1733,9 @@
 
       // Wave 7: Draghi Elementali Rubino & Zaffiro
       if (waveNum === 7) {
-        showCoachToast('🐉', 'DRAGHI ELEMENTALI: RUBINO & ZAFFIRO! 🔥❄️', 'Due draghi elementali avanzano in coppia!', 'oops');
+        showCoachToast('🐉', 'DRAGHI ELEMENTALI: RUBINO & ZAFFIRO! 🔥❄️', 'Due corazzati draghi elementali avanzano in coppia!', 'oops');
         sfx.playDragonRoar();
-        const drgHP = isHard ? 350 : 250;
+        const drgHP = isHard ? 1500 : 1050;
         state.enemies.push({
           type: 'dragon_red',
           elementName: 'Rubino',
@@ -1625,7 +1744,7 @@
           r: 52,
           hp: drgHP,
           maxHp: drgHP,
-          vy: 42,
+          vy: 36,
           vx: 30,
           weaveAmp: 40,
           weaveFreq: 2.2,
@@ -1640,7 +1759,7 @@
           r: 52,
           hp: drgHP,
           maxHp: drgHP,
-          vy: 42,
+          vy: 36,
           vx: -30,
           weaveAmp: 40,
           weaveFreq: 2.2,
@@ -1652,7 +1771,7 @@
 
       // Wave 8: Fish / Aphrodite dei Pesci (Richiesta Sebi)
       if (waveNum === 8) {
-        const fishHP = isHard ? 720 : 520;
+        const fishHP = isHard ? 1650 : 1200;
         state.enemies.push({
           type: 'aphrodite',
           x: W * 0.5,
@@ -1674,9 +1793,9 @@
 
       // Wave 9: Draghi Elementali Ossidiana & Diamante
       if (waveNum === 9) {
-        showCoachToast('🐉', 'DRAGHI ELEMENTALI: OSSIDIANA & DIAMANTE! ⬛⚪', 'I draghi di luce e ombra uniscono le forze!', 'oops');
+        showCoachToast('🐉', 'DRAGHI ELEMENTALI: OSSIDIANA & DIAMANTE! ⬛⚪', 'I draghi corazzati di luce e ombra uniscono le forze!', 'oops');
         sfx.playDragonRoar();
-        const drgHP = isHard ? 420 : 300;
+        const drgHP = isHard ? 1900 : 1350;
         state.enemies.push({
           type: 'dragon_black',
           elementName: 'Ossidiana',
@@ -1685,7 +1804,7 @@
           r: 54,
           hp: drgHP,
           maxHp: drgHP,
-          vy: 44,
+          vy: 38,
           vx: 32,
           weaveAmp: 45,
           weaveFreq: 2.4,
@@ -1700,7 +1819,7 @@
           r: 54,
           hp: drgHP,
           maxHp: drgHP,
-          vy: 44,
+          vy: 38,
           vx: -32,
           weaveAmp: 45,
           weaveFreq: 2.4,
@@ -1712,7 +1831,7 @@
 
       // Wave 10+: IL DRAGO GIGANTESCO DI ALE (Richiesta di Ale!)
       if (waveNum >= state.totalWaves) {
-        const titanHP = isHard ? (isPapa ? 2000 : 1500) : 1000;
+        const titanHP = isHard ? (isPapa ? 5500 : 4200) : 3000;
         state.enemies.push({
           type: 'titan_dragon',
           x: W * 0.5,
@@ -1720,7 +1839,7 @@
           r: 95,
           hp: titanHP,
           maxHp: titanHP,
-          vy: 30,
+          vy: 26,
           vx: 40,
           weaveAmp: 60,
           weaveFreq: 1.6,
@@ -1854,19 +1973,26 @@
       });
     }
 
+    // Logarithmic army strength multiplier: 1 + 0.35 * log2(N)
+    // N=1 -> 1.00x | N=8 -> 2.05x | N=32 -> 2.75x | N=128 -> 3.45x | N=256 -> 3.80x
+    function getArmyLogStrength(n) {
+      const safeN = Math.max(1, n);
+      return 1 + Math.log2(safeN) * 0.35;
+    }
+
     function firePlayerVolley() {
       const n = state.army;
       const wep = state.weaponType || 'RED';
       const lvl = state.weaponLevel || 1;
       const playerY = H - 106;
-      const armyBonus = Math.floor(Math.sqrt(Math.max(1, n)));
-      const powerMult = lvl === 1 ? 1.0 : lvl === 2 ? 3.0 : 5.0;
+      const logStrength = getArmyLogStrength(n);
+      const powerMult = lvl === 1 ? 1.0 : lvl === 2 ? 1.8 : 2.6;
 
       if (wep === 'RED') {
-        // 🔴 VULCAN TITAN (Forte Verticale: 1x -> 3x -> 5x fasci super perforanti!)
+        // 🔴 VULCAN TITAN (Forte Verticale: 1x -> 2x -> 3x fasci perforanti con scala log2(N)!)
         const count = lvl === 1 ? 2 : lvl === 2 ? 4 : 6;
         const speed = 780;
-        const damage = Math.round((4 + lvl * 2) * (1 + armyBonus * 0.16) * powerMult);
+        const damage = Math.max(1, Math.round((3.5 + lvl * 1.5) * logStrength * powerMult));
         const spreadWidth = count * 12;
 
         for (let i = 0; i < count; i++) {
@@ -1891,7 +2017,7 @@
         // 🔵 TRUXTON SPREAD (Ventaglio Radiale: copre tutta la strada per sciami di nemici)
         const count = lvl === 1 ? 3 : lvl === 2 ? 5 : 7;
         const speed = 640;
-        const damage = Math.round((2.5 + lvl * 1.2) * (1 + armyBonus * 0.14) * powerMult);
+        const damage = Math.max(1, Math.round((2.2 + lvl * 1.0) * logStrength * powerMult));
         const maxAngle = lvl === 1 ? 0.28 : lvl === 2 ? 0.45 : 0.62;
 
         for (let i = 0; i < count; i++) {
@@ -1917,7 +2043,7 @@
         // Depotenziato del 50% per bilanciare l'immenso vantaggio del puntamento automatico (auto-homing)!
         const count = lvl === 1 ? 2 : lvl === 2 ? 3 : 5;
         const speed = 600;
-        const rawDamage = (3 + lvl * 1.8) * (1 + armyBonus * 0.16) * powerMult;
+        const rawDamage = (2.8 + lvl * 1.3) * logStrength * powerMult;
         const damage = Math.max(1, Math.round(rawDamage * 0.50));
 
         for (let i = 0; i < count; i++) {
@@ -2219,7 +2345,38 @@
       }
     }
 
+    function sanitizeActiveGatesForArmy(n) {
+      for (const pair of state.gatePairs) {
+        if (pair.resolved) continue;
+        [pair.left, pair.right].forEach((g) => {
+          if (g.op === '÷' && (n < g.val * 2 || n % g.val !== 0)) {
+            const validDivs = [2, 3, 4, 5].filter((d) => n >= d * 2 && n % d === 0);
+            if (validDivs.length > 0) {
+              g.val = validDivs[0];
+              g.label = `÷${g.val}`;
+            } else if (n <= 5) {
+              g.op = '+';
+              g.val = 4;
+              g.label = '+4';
+            } else {
+              g.op = '-';
+              g.val = Math.max(1, Math.min(n - 1, Math.floor(n / 2)));
+              g.label = `-${g.val}`;
+            }
+          } else if (g.op === '-' && n <= 5) {
+            g.op = '+';
+            g.val = 3;
+            g.label = '+3';
+          } else if (g.op === '-' && g.val >= n && n > 1) {
+            g.val = Math.max(1, n - 1);
+            g.label = `-${g.val}`;
+          }
+        });
+      }
+    }
+
     function updateHUD() {
+      sanitizeActiveGatesForArmy(state.army);
       updatePowerHUD();
       document.getElementById('hud-army').textContent = state.army;
       const bigCounter = document.getElementById('big-party-counter');
@@ -2242,7 +2399,7 @@
 
     function getDifficultySpeedMult() {
       const isHard = state.difficulty === 'HARD';
-      if (state.ageTier === 1) { // 9-10 anni (rilassato)
+      if (state.ageTier === 1) { // 8-10 anni (rilassato)
         return isHard ? 1.25 : 1.0;
       } else if (state.ageTier === 2) { // 11-13 anni (veloce)
         return isHard ? 1.65 : 1.35;
@@ -2326,33 +2483,48 @@
 
         if (!pair.resolved && pair.y + pair.height >= playerY - 22 && pair.y <= playerY + 20) {
           pair.resolved = true;
-          const roadLeft = W * 0.11;
-          const roadRight = W * 0.89;
-          const roadSpan = roadRight - roadLeft;
-          const neutralMin = roadLeft + roadSpan * 0.40;
-          const neutralMax = roadLeft + roadSpan * 0.60;
 
-          // Check if player is in the 20% Middle Sanctuary Corridor!
-          if (state.playerX >= neutralMin && state.playerX <= neutralMax) {
-            state.gatesEvaluated++;
-            state.score += 20;
-            sfx.playHit && sfx.playHit(false);
-            spawnParticles(state.playerX, playerY - 20, '#38BDF8', 14, 160);
-            addFloatingText(state.playerX, playerY - 45, `🛡️ Dodged Both Gates! (${state.army} kept)`, '#38BDF8', 18);
-            showCoachToast('🛡️', 'Middle Corridor: Dodged!', `You safely dodged both math gates! Squad stays at ${state.army}.`, 'good');
-            updateHUD();
-            continue;
-          }
+          // Evaluate which gate is closer to playerX by pixel distance to each gate's inner edge / center
+          // (if exact tie at the midpoint, break tie at random — NEVER allow dodging negative gates in the middle!)
+          const leftCenter = pair.left.x + pair.left.w / 2;
+          const rightCenter = pair.right.x + pair.right.w / 2;
+          const distLeft = Math.abs(state.playerX - leftCenter);
+          const distRight = Math.abs(state.playerX - rightCenter);
+          const pickedLeft = Math.abs(distLeft - distRight) < 1.0
+            ? Math.random() < 0.5
+            : distLeft < distRight;
+          const oldArmy = state.army;
 
-          const pickedLeft = state.playerX < neutralMin;
+          // Safety net: if army size changed while the gate was falling (e.g., due to enemy hits)
+          // and a division gate is no longer an exact integer division (or army===1), adjust the gate on the fly
+          // so the player NEVER encounters fractional math!
+          [pair.left, pair.right].forEach((g) => {
+            if (g.op === '÷' && (oldArmy < g.val || oldArmy % g.val !== 0)) {
+              const validDivs = [2, 3, 4, 5].filter((d) => oldArmy >= d && oldArmy % d === 0);
+              if (validDivs.length > 0) {
+                g.val = validDivs[0];
+                g.label = `÷${g.val}`;
+              } else {
+                g.op = '-';
+                g.val = Math.max(1, Math.floor(oldArmy / 2));
+                g.label = `-${g.val}`;
+              }
+            }
+          });
+
           const chosen = pickedLeft ? pair.left : pair.right;
           const other = pickedLeft ? pair.right : pair.left;
 
-          const oldArmy = state.army;
+          const chosenRaw = chosen.op === '÷' ? oldArmy / chosen.val : rawOpResult(oldArmy, chosen.op, chosen.val);
+          const otherRaw = other.op === '÷' ? oldArmy / other.val : rawOpResult(oldArmy, other.op, other.val);
+
           const chosenResult = Math.min(500, applyOp(oldArmy, chosen.op, chosen.val));
           const otherResult = Math.min(500, applyOp(oldArmy, other.op, other.val));
 
-          if (chosenResult <= 0) {
+          // Optimal gate comparison uses exact unclamped math (so e.g. 1 ÷ 2 = 0.5 beats 1 - 5 = -4 even before clamping!)
+          const isOptimal = chosenRaw >= otherRaw;
+
+          if (chosenResult <= 0 && !isOptimal) {
             state.army = 0;
             updateHUD();
             state.screenShake = 14;
@@ -2363,11 +2535,12 @@
             return;
           }
 
-          state.army = chosenResult;
+          // If the player picked the optimal gate among two harsh negative gates, keep at least 1 Puffin alive!
+          state.army = isOptimal ? Math.max(1, chosenResult) : chosenResult;
           state.peakArmy = Math.max(state.peakArmy, state.army);
           state.gatesEvaluated++;
 
-                    if (chosenResult >= otherResult) {
+          if (isOptimal) {
             state.optimalGatesPicked++;
             state.score += 50;
             sfx.playGoodGate();
@@ -2376,7 +2549,7 @@
             showCoachToast(
               '🌟',
               `Scelta Ottimale! (${chosen.label})`,
-              `${oldArmy} ${chosen.op} ${chosen.val} = ${chosenResult} (batte ${oldArmy} ${other.op} ${other.val} = ${otherResult})`,
+              `${oldArmy} ${chosen.op} ${chosen.val} = ${state.army} (batte ${oldArmy} ${other.op} ${other.val} = ${otherRaw})`,
               'good'
             );
           } else {
@@ -2928,41 +3101,47 @@
         if (killed) continue;
 
         if (e.y + e.r >= playerY - 18) {
+          const isBoss = e.type === 'dragon' || e.type.startsWith('dragon_') || e.type === 'titan_dragon' || e.type === 'gargamel' || e.type === 'gemini_saga' || e.type === 'scorpio' || e.type === 'aphrodite';
           const isHard = state.difficulty === 'HARD' || state.ageTier === 3;
           const isMedium = !isHard && state.ageTier === 2;
 
-          if (isHard) {
-            // Difficile: un colpo mi uccide! (Instant game over)
+          if (isBoss && isHard) {
+            // Un Boss / Drago che sfonda in modalità Difficile elimina la squadra
             state.army = 0;
             updateHUD();
             state.screenShake = 20;
             sfx.playHit(true);
             spawnParticles(e.x, playerY, '#EF4444', 35, 240);
-            addFloatingText(e.x, playerY - 30, '💀 COLPITO! SQUADRA ELIMINATA!', '#EF4444', 22);
+            addFloatingText(e.x, playerY - 30, '💀 BOSS SFONDA LA LINEA! GAME OVER!', '#EF4444', 22);
             triggerEndState(false);
             return;
-          } else if (isMedium) {
-            // Media: un colpo toglie il 10%
-            const loss = Math.max(1, Math.round(state.army * 0.10));
-            state.army = Math.max(0, state.army - loss);
-            state.screenShake = 8;
-            sfx.playHit(false);
-            spawnParticles(e.x, playerY, '#F59E0B', 16, 160);
-            addFloatingText(e.x, playerY - 25, `-${loss} Soldati (-10%)`, '#F59E0B', 18);
-            state.enemies.splice(i, 1);
-            updateHUD();
-            if (state.army <= 0) { triggerEndState(false); return; }
           } else {
-            // Facile: un colpo = 1 soldato
-            const loss = 1;
+            // Zombie, Puffi, Guardie (e Boss in Normal/Medium) tolgono pezzi invece di uccidere istantaneamente!
+            let loss = 1;
+            if (e.type === 'zombie') {
+              loss = isHard ? Math.max(2, Math.round(state.army * 0.12)) : isMedium ? Math.max(1, Math.round(state.army * 0.08)) : 1;
+            } else if (isBoss) {
+              loss = Math.max(3, Math.round(state.army * 0.25));
+            } else if (isHard) {
+              loss = Math.max(2, Math.round(state.army * 0.15));
+            } else if (isMedium) {
+              loss = Math.max(1, Math.round(state.army * 0.10));
+            } else {
+              loss = 1;
+            }
+
             state.army = Math.max(0, state.army - loss);
-            state.screenShake = 5;
+            state.screenShake = isHard ? 9 : 6;
             sfx.playHit(false);
-            spawnParticles(e.x, playerY, '#38BDF8', 12, 120);
-            addFloatingText(e.x, playerY - 25, `-1 Soldato`, '#38BDF8', 17);
+            const hitCol = e.type === 'zombie' ? '#84CC16' : isHard ? '#EF4444' : '#F59E0B';
+            spawnParticles(e.x, playerY, hitCol, 14, 150);
+            addFloatingText(e.x, playerY - 25, e.type === 'zombie' ? `🧟 GNAM! -${loss} Soldati!` : `-${loss} Soldati!`, hitCol, 18);
             state.enemies.splice(i, 1);
             updateHUD();
-            if (state.army <= 0) { triggerEndState(false); return; }
+            if (state.army <= 0) {
+              triggerEndState(false);
+              return;
+            }
           }
         }
       }
@@ -3010,23 +3189,15 @@
       ctx.fillRect(roadLeft - 5, 0, 5, H);
       ctx.fillRect(roadLeft + roadWidth, 0, 5, H);
 
-      // 40% - 20% - 40% Corridor Guides (Left Gate / Middle Neutral Sanctuary / Right Gate)
-      const neutralL = roadLeft + roadWidth * 0.40;
-      const neutralR = roadLeft + roadWidth * 0.60;
+      // Subtle center lane divider (50/50 split)
       ctx.save();
-      ctx.setLineDash([8, 8]);
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+      ctx.setLineDash([10, 10]);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(neutralL, 0);
-      ctx.lineTo(neutralL, H);
-      ctx.moveTo(neutralR, 0);
-      ctx.lineTo(neutralR, H);
+      ctx.moveTo(W * 0.5, 0);
+      ctx.lineTo(W * 0.5, H);
       ctx.stroke();
-
-      // Middle corridor subtle sanctuary glow
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.05)';
-      ctx.fillRect(neutralL, 0, neutralR - neutralL, H);
       ctx.restore();
 
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';

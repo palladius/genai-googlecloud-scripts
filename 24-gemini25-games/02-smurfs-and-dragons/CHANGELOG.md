@@ -2,6 +2,49 @@
 
 All notable changes to the Smurfs and Dragons Math Shooter game.
 
+## [2.1.5] - 2026-10-19
+
+### Fixed & Changed
+- **Notifiche (Toast) Spostate in Basso (`bottom: 12px`)**:
+  - Il banner `#math-coach-toast` ora compare **in basso sotto la squadra del giocatore**, lasciando sempre libera e visibile la parte alta della strada dove arrivano mostri, boss e cancelli!
+- **Forza Proporzionale a $\log_2(N)$ & Punti Ferita Draghi / Boss Triplicati**:
+  - Introdotta la funzione [`getArmyLogStrength(n)`](file:///Users/ricc/git/genai-googlecloud-scripts/24-gemini25-games/02-smurfs-and-dragons/public/index.html#L1978-L1981) ($1 + 0.35 \cdot \log_2(N)$), così la potenza cresce ad ogni raddoppio di soldati ($1 \to 2 \to 4 \to 8 \to 16 \to 32 \to 64 \to 128 \to 256+$) senza esplodere in modo spropositato.
+  - Aumentati sensibilmente gli HP di tutti i Draghi e Boss (Draghi Rubino/Zaffiro `1050–1500 HP`, Ossidiana/Diamante `1350–1900 HP`, Drago Gigantesco di Ale `3000–5500 HP`, Gargamella `650–900 HP`, Saga `850–1200 HP`, Scorpio `1000–1400 HP`, Aphrodite `1200–1650 HP`) così nessun drago muore mai con un colpo solo!
+- **Orda di 15 Zombie (e Minion) Tolgono Pezzi Invece di Uccidere Istantaneamente**:
+  - Se uno dei 15 zombie (o un puffo/guardia) arriva in fondo anche in modalità Difficile, **non** causa più Game Over immediato ma mangia dei soldati (`🧟 GNAM! -X Soldati!`). Muori solo se i tuoi soldati scendono a `0` (o se un Boss sfonda in modalità Difficile).
+- **Cancelli Negativi (`-` vs `÷`) a 50/50 Senza Corridoio Centrale (Scelta Obbligatoria sul Pixel Più Vicino)**:
+  - Rimosso lo "scudo centrale" che permetteva di schivare entrambi i cancelli passando in mezzo.
+  - I cancelli `-` / `÷` occupano ora **50/50** tutta la carreggiata, e per qualsiasi coppia di cancelli viene sempre applicato il cancello col **centro più vicino in pixel** al giocatore (con sorteggio random in caso di parimerito esatto al centro).
+
+## [2.1.4] - 2026-10-19
+
+### Changed
+- **Calcoli Matematici Più Facili e Tondi in Easy & Medium (Scarto Proporzionale per Età)**:
+  - **Easy (`🐣 8-10y`)**: scarto ampio (**35%–65%**) rispetto al guadagno/perdita dell'altro cancello e arrotondamento a multipli tondi di `5` o `10` (es. con `30` soldati, contro `×2` propone `+15`, `+20` o `+45`, `+50`, mai `30+33`!).
+  - **Medium (`🔥 11-13y`)**: scarto intermedio (**20%–38%**) con numeri puliti (es. con `30` soldati e `×2`, propone `+20` o `+40`).
+  - **Hard (`👑 Papa Mode`)**: mantiene lo scarto strettissimo (`±1..3`, tipo `30×2` vs `30+33`) per veri geni della matematica!
+
+## [2.1.3] - 2026-10-19
+
+### Fixed
+- **Strict Integer-Only Division for 8-Year-Olds (`n % div === 0`)**:
+  - Eliminated all fractional divisions (`1/2`, `1/3`, `7/2`, `10/3`, etc.). Division gates (`÷2`, `÷3`, `÷4`, `÷5`) are now strictly generated ONLY when the current army count is evenly divisible (`n % div === 0`) and `n >= div * 2`.
+  - Subtraction gates (`-val`) are strictly bounded to `[1, n - 1]` so standard gate pairs never drop the squad below `1`.
+- **Live Mid-Flight Gate Sanitizer (`sanitizeActiveGatesForArmy`)**:
+  - If enemy collisions reduce the player's army while a gate is already falling, any active division or subtraction gate automatically adjusts on the fly so the player never faces a fractional division or a division when at `1` soldier.
+- **Optimal Gate Evaluation (`1 ÷ 2` vs `1 - 5`)**:
+  - Gate comparison uses exact unclamped raw values (`rawOpResult` / `chosenRaw >= otherRaw`), so picking `÷2` (`0.5`) over `-5` (`-4`) when `army = 1` is always recognized as the optimal choice and never triggers a strike or Game Over.
+- **Dynamic Negative Gate Rarity (`getNegativeGateProbability`)**:
+  - `0%` negative/division gates when `army <= 5` (never get hit with a `÷` or `-` when you only have 1 piece!).
+  - Rare (`12%`–`30%`) at small/medium army counts (`6..70`) relative to `+` / `×`.
+  - Frequent (`72%`–`85%`) when `army >= 100` to keep piece counts in check.
+
+### Added
+- **Automated Unit Tests (`tests/math_gates.test.js`)**:
+  - Added Node.js unit test suite (`just test`) verifying optimal choice logic, zero fractional divisions across all tiers/army sizes, zero negative gates at `army <= 5`, dynamic rarity scaling, and mid-flight gate sanitization.
+- **Unified Deployment (`just deploy` / `deploy-both.sh`)**:
+  - Runs unit tests first, then deploys in sync to **Firebase Hosting** (`https://smurfs-and-dragons.web.app/`), **GitHub Pages** (`gh-pages`), and **Vetrina** (`https://palladius.github.io/vetrina/games/smurfs-and-dragons/`).
+
 ## [2.1.2] - 2026-10-17
 
 ### Added

@@ -1,26 +1,46 @@
 PROJECT_ID := 'smurfs-and-dragons'
+VETRINA_DIR := env_var_or_default('VETRINA_DIR', home_directory() / 'git/vetrina')
+VETRINA_GAME_DIR := VETRINA_DIR / 'games/smurfs-and-dragons'
+
 default: list
 
-# on derek
+# Lists all available tasks
+list:
+    @just -l
+
+# Run unit tests for math gates and integer arithmetic
+test:
+    node --test tests/math_gates.test.js
+
+# Install firebase-tools on Linux (derek)
 install-linux:
     sudo apt install npm
-    # togli g se non funge
     npm install -g firebase-tools
 
-list:
-    just -l
-
-#    npm install -g firebase-tools
+# Install firebase-tools on macOS
 install-mac:
     npm install firebase-tools
-# se no trova usa ./node_modules/.bin/firebase
 
+# Login and init Firebase
 login:
     echo 'se non va fai cosi: export PATH=$PATH:node_modules/.bin/firebase'
     firebase init
     firebase login
 
-deploy:
-    echo on derek: node_modules/.bin/firebase deploy
-    firebase deploy
+# Deploy to Firebase Hosting only (https://smurfs-and-dragons.web.app/)
+deploy-firebase: test
+    npx firebase-tools deploy --only hosting
 
+# Sync and push to Vetrina GitHub Pages (https://palladius.github.io/vetrina/games/smurfs-and-dragons/)
+deploy-vetrina: test
+    cp public/index.html "{{VETRINA_GAME_DIR}}/index.html"
+    for asset in bgm_rock_full.mp3 manifest.json sw.js favicon.png icon-180.png icon-192.png icon-512.png; do \
+        [ -f "public/$$asset" ] && cp "public/$$asset" "{{VETRINA_GAME_DIR}}/$$asset" || true; \
+    done
+    git -C "{{VETRINA_DIR}}" add games/smurfs-and-dragons/
+    git -C "{{VETRINA_DIR}}" diff --cached --quiet || git -C "{{VETRINA_DIR}}" commit -m "🚀 feat(smurfs-and-dragons): sync v$(cat VERSION) with Firebase (integer math gates & bugfixes)"
+    git -C "{{VETRINA_DIR}}" push
+
+# Deploy to BOTH Firebase Hosting AND GitHub Pages (Vetrina + gh-pages) in sync!
+deploy: test
+    ./deploy-both.sh

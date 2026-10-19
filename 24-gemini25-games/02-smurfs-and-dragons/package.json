@@ -1,7 +1,8 @@
 {
   "name": "smurfs-and-dragons",
-  "version": "2.1.2",
+  "version": "2.1.5",
   "scripts": {
+    "test": "node --test tests/math_gates.test.js",
     "deploy": "./deploy-both.sh",
     "deploy:both": "./deploy-both.sh",
     "deploy:firebase": "firebase deploy --only hosting"
