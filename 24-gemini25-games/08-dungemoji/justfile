@@ -29,12 +29,14 @@ push: deploy
 emulate:
   firebase emulators:start
 
-# Smoke test HTML, Mobility Unit Tests, L5 Epic Metal MP3 & embedded NanoBanana assets
+# Smoke test HTML, Mobility Unit Tests, L5 Epic Metal MP3, Veo 3.1 Death MP4s & embedded NanoBanana assets
 test:
-  @grep -q "DUNGEMOJI v8.2" public/index.html && echo "✅ public/index.html v8.2 verified!"
-  @grep -q "runMobilityUnitTests" public/index.html && echo "✅ Mobility & 3D Raycast Unit Test Suite embedded!"
+  @VER=$(cat VERSION | tr -d '[:space:]') && grep -q "DUNGEMOJI v$VER" public/index.html && echo "✅ public/index.html v$VER verified!"
+  @grep -q "runMobilityUnitTests" public/index.html && echo "✅ Mobility, Secret Room & 3D Raycast Unit Test Suite embedded!"
+  @grep -q "carveSecretRoomInNegativeSpace" public/index.html && echo "✅ Negative-Space Secret Rooms & Paladin Spells verified!"
   @grep -q "quit-modal" public/index.html && echo "✅ ESC Quit/Save Confirmation Modal verified!"
   @test -f public/audio/epic_metal_l5.mp3 && echo "✅ Level 5 Medieval Epic Metal MP3 verified!"
+  @test -f public/audio/death_default.mp4 && test -f public/audio/death_eyes.mp4 && test -f public/audio/death_zombie.mp4 && echo "✅ All 3 Veo 3.1 Death Cutscene MP4s (Dragon, Eyes, Zombie) verified!"
   @grep -q "pupurabbu" public/index.html && echo "✅ Il Mitico Pupurabbu (2x2 IF Bear) & 27 NanoBanana sprites embedded!"
 
 # Open local or deployed game

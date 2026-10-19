@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>DUNGEMOJI v8.0 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
+  <title>DUNGEMOJI v9.0.0 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@500;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -533,7 +533,6 @@
     }
 
     @media (max-width: 700px) {
-      .brand-title span.sub { display: none; }
       #top-hud { padding: 6px 8px; }
       .pill { font-size: 11px; padding: 3px 6px; }
     }
@@ -543,29 +542,31 @@
 <div id="app">
   <div id="crt-overlay"></div>
 
-    <!-- TOP D&D RED BOX TACTICAL HUD -->
+  <!-- TOP D&D RED BOX TACTICAL HUD -->
   <header id="top-hud">
     <div class="brand-title">
       <span>🐉 DUNGEMOJI</span>
-      <span class="sub" style="font-size:11px; color:#F87171;">v8.2 RED BOX</span>
+      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.0 RED BOX</span>
     </div>
 
     <div class="hud-stats">
-      <div class="pill hp" id="hud-hp">❤️ 30/30</div>
+      <div class="pill hp" id="hud-hp">❤️ 35/35</div>
       <div class="pill xp" id="hud-lvl">⭐ LV 1 (0/200 XP)</div>
       <div class="pill gold" id="hud-gold">💰 0</div>
       <div class="pill floor" id="hud-floor">🏰 B1F</div>
-      <div class="pill" id="hud-atk">⚔️ +2 | 🛡️ AC 14</div>
+      <div class="pill" id="hud-atk">⚔️ +5 | 🛡️ AC 14 | 🗝️ <span id="hud-keys">0</span></div>
     </div>
 
     <div class="hud-actions">
       <button class="hud-btn active" id="btn-view-mode" title="Toggle 2D+Zoom / 3D Crawler / Classic Rogue [V]">🗺️ 2D + ZOOM</button>
       <button class="hud-btn" id="btn-zoom-toggle" title="Toggle Room Zoom Magnifier [Z]">🔍 ROOM ZOOM: ON</button>
+      <button class="hud-btn" id="btn-spells" title="Paladin Divine Spells [C]" style="border-color:#38BDF8; color:#67E8F9;">✨ SPELLS [C]</button>
+      <button class="hud-btn" id="btn-shop" title="Dwarven Dungeon Merchant [B]" style="border-color:#F59E0B; color:#FDE047;">🛒 SHOP [B]</button>
       <button class="hud-btn" id="btn-roll-d20" title="Roll 3D D20 Dice! [R]">🎲 D20</button>
       <button class="hud-btn" id="btn-pupurabbu" title="Summon Il Mitico Pupurabbu! [P]">🧸 PUPURABBU</button>
       <button class="hud-btn" id="btn-music" title="Toggle Music (L1-4 Synth / L5+ Epic Metal MP3) [M]">🎹 SYNTH: ON</button>
       <button class="hud-btn" id="btn-cheat" title="Easter Egg Console [^]">^ CHEAT</button>
-      <button class="hud-btn" id="btn-help" title="D&D Rulebook & Controls [H]">❓ HELP</button>
+      <button class="hud-btn" id="btn-help" title="Guida per Alessandro & Regole D&D [H]" style="background:rgba(5,150,105,0.45); border-color:#34D399; color:#A7F3D0;">👦 GUIDA [H]</button>
       <button class="hud-btn" id="btn-quit" title="Save & Quit Confirmation [ESC]">🚪 ESC</button>
     </div>
   </header>
@@ -582,19 +583,20 @@
       <div class="console-title">⚡ 1980s DUNGEON MASTER CHEAT CONSOLE (Press ENTER or ESC)</div>
       <div class="console-input-row">
         <span style="color:#10B981; font-weight:800;">&gt;</span>
-        <input type="text" id="console-input" placeholder="showoff | killemall | pupurabbu | metal | dragon | test" autocomplete="off" />
+        <input type="text" id="console-input" placeholder="showoff | secret | shop | spells | killemall | pupurabbu | metal | dragon | test" autocomplete="off" />
         <button class="hud-btn" id="console-run">RUN</button>
         <button class="hud-btn" id="console-close">✕</button>
       </div>
       <div class="console-chips">
         <span class="cheat-chip" data-cmd="showoff">🗺️ showoff (Reveal Map)</span>
+        <span class="cheat-chip" data-cmd="secret">🕵️ secret (Reveal Secret Room!)</span>
+        <span class="cheat-chip" data-cmd="shop">🛒 shop (Open Merchant)</span>
         <span class="cheat-chip" data-cmd="killemall">💀 killemall (Smite Monsters)</span>
         <span class="cheat-chip" data-cmd="pupurabbu">🧸 pupurabbu (Giant Purple Friend!)</span>
         <span class="cheat-chip" data-cmd="metal">🎸 metal (L5 Epic Metal MP3!)</span>
-        <span class="cheat-chip" data-cmd="sparkle">✨ sparkle (Purge Undead)</span>
         <span class="cheat-chip" data-cmd="dragon">🐉 dragon (Boss Fight)</span>
         <span class="cheat-chip" data-cmd="levelup">⭐ levelup (+1 Level)</span>
-        <span class="cheat-chip" data-cmd="test">🧪 test (Mobility Unit Tests)</span>
+        <span class="cheat-chip" data-cmd="test">🧪 test (Unit Tests)</span>
       </div>
     </div>
   </main>
@@ -616,11 +618,94 @@
     <div id="inventory-bar">
       <button class="inv-slot" id="slot-heal" title="Quaff Healing Potion [Q]">🧪 Heal [Q]: <span id="cnt-heal">2</span></button>
       <button class="inv-slot" id="slot-sparkle" title="Quaff Sparkle Potion — Purges Undead within 10 tiles! [E]">✨ Purge [E]: <span id="cnt-sparkle">1</span></button>
+      <button class="inv-slot" id="slot-scroll" title="Read Scroll of Detect Secret Doors [F]">📜 Secret [F]: <span id="cnt-scroll">1</span></button>
+      <button class="inv-slot" id="touch-spells" title="Cast Paladin Divine Spells [C]">🙏 Spells [C]: <span id="cnt-mana">2/2</span></button>
+      <button class="inv-slot" id="touch-shop" title="Open Dwarven Merchant Shop [B]">🛒 Shop [B]</button>
       <button class="inv-slot" id="touch-view" title="Switch 2D / 3D / Classic [V]">👁️ 2D/3D [V]</button>
-      <button class="inv-slot" id="touch-d20" title="Roll 3D D20 [R]">🎲 Roll D20 [R]</button>
       <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Broad Sword +1</span></div>
+      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.0</div>
     </div>
   </footer>
+
+  <!-- ✨ PALADIN DIVINE SPELLBOOK MODAL [C] (GHI #4) -->
+  <div class="overlay-modal hidden" id="spells-modal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="redbox-banner" style="background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%); border-color: #38BDF8;">
+        <h1 style="font-size: 24px;">✨ LIBRO DEGLI INCANTESIMI DEL PALADINO ✨</h1>
+        <div class="redbox-sub">DIVINE SPELLBOOK • CARICHE FEDE: <span id="spells-mana-txt" style="color:#FDE047;">2/2</span> (SI RICARICANO AD OGNI PIANO!)</div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0;">
+        <div class="help-box" style="border-color:rgba(52,211,153,0.5);">
+          <h4 style="color:#34D399;">🙏 [1] Lay on Hands (LV 1+)</h4>
+          <p style="font-size:11px; color:#CBD5E1; margin:4px 0;">Imposizione delle Mani: cura istantaneamente <b>+25 HP</b> e rimuove ogni veleno.</p>
+          <button class="hud-btn" data-spell="lay" style="width:100%; margin-top:6px; border-color:#34D399; color:#6EE7B7;">✨ LANCIA [Tasto 1] (1 Fede)</button>
+        </div>
+        <div class="help-box" style="border-color:rgba(103,232,249,0.5);">
+          <h4 style="color:#67E8F9;">☀️ [2] Turn Undead D20 (LV 2+)</h4>
+          <p style="font-size:11px; color:#CBD5E1; margin:4px 0;">Scacciare i Non-Morti: lancia il D20 Sacro per polverizzare Scheletri, Zombie e Fantasmi!</p>
+          <button class="hud-btn" data-spell="turn" style="width:100%; margin-top:6px; border-color:#67E8F9; color:#A5F3FC;">☀️ LANCIA [Tasto 2] (1 Fede)</button>
+        </div>
+        <div class="help-box" style="border-color:rgba(253,224,71,0.5);">
+          <h4 style="color:#FDE047;">🛡️ [3] Protection &amp; Secrets (LV 3+)</h4>
+          <p style="font-size:11px; color:#CBD5E1; margin:4px 0;">Benedizione Red Box: <b>+3 AC</b> per tutto il piano E rivela porte segrete e trappole!</p>
+          <button class="hud-btn" data-spell="protect" style="width:100%; margin-top:6px; border-color:#FDE047; color:#FEF08A;">🛡️ LANCIA [Tasto 3] (1 Fede)</button>
+        </div>
+        <div class="help-box" style="border-color:rgba(248,113,113,0.5);">
+          <h4 style="color:#F87171;">⚡ [4] Holy Avenger Smite (LV 4+)</h4>
+          <p style="font-size:11px; color:#CBD5E1; margin:4px 0;">Folgore Divina: colpisce tutti i nemici visibili nella stanza con <b>30 danni sacri</b>!</p>
+          <button class="hud-btn" data-spell="smite" style="width:100%; margin-top:6px; border-color:#F87171; color:#FCA5A5;">⚡ LANCIA [Tasto 4] (1 Fede)</button>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" id="btn-spells-close" style="padding: 8px 20px; font-size: 14px;">✖ CHIUDI [C / ESC]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🛒 DWARVEN DUNGEON MERCHANT SHOP MODAL [B] -->
+  <div class="overlay-modal hidden" id="shop-modal">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="redbox-banner" style="background: linear-gradient(135deg, #78350F 0%, #451A03 100%); border-color: #F59E0B;">
+        <h1 style="font-size: 24px;">🛒 MERCANTE NANO DEL DUNGEON 🧔⛏️</h1>
+        <div class="redbox-sub">«HAI ORO, PALADINO? IO HO ACCIAIO E PERGAMENE!» • TUO ORO: <span id="shop-gold-txt" style="color:#FDE047;">0 💰</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0;">
+        <div class="help-box">
+          <h4>🧪 Pozione Rossa (+Heal)</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Cura le ferite in combattimento (Tasto Q).</p>
+          <button class="hud-btn" data-buy="heal" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (25 Gold)</button>
+        </div>
+        <div class="help-box">
+          <h4>📜 Pergamena Stanze Segrete</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Rivela subito la <b>Stanza Segreta nel Negativo</b> del piano (Tasto F)!</p>
+          <button class="hud-btn" data-buy="scroll" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (35 Gold)</button>
+        </div>
+        <div class="help-box">
+          <h4>🗝️ Chiave d'Oro del Dungeon</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Apre qualsiasi porta chiusa a chiave (🚪) senza rischiare trappole.</p>
+          <button class="hud-btn" data-buy="key" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (30 Gold)</button>
+        </div>
+        <div class="help-box">
+          <h4>✨ Pozione Sparkle (Purge)</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Incenerisce tutti i Non-Morti entro 10 caselle (Tasto E).</p>
+          <button class="hud-btn" data-buy="sparkle" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (45 Gold)</button>
+        </div>
+        <div class="help-box">
+          <h4>🛡️ Scudo Red Box +1 AC</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Rinforza l'armatura permanente (+1 AC e +5 Max HP).</p>
+          <button class="hud-btn" data-buy="armor" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (65 Gold)</button>
+        </div>
+        <div class="help-box">
+          <h4>⚔️ Affilatura Vorpal (+2 ATK)</h4>
+          <p style="font-size:11px; color:#CBD5E1;">Aumenta permanentemente il danno della tua spada di +2!</p>
+          <button class="hud-btn" data-buy="sword" style="width:100%; margin-top:6px; color:#FDE047;">💰 Compra (80 Gold)</button>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" id="btn-shop-close" style="padding: 8px 20px; font-size: 14px;">✖ TORNA AL DUNGEON [B / ESC]</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ESC QUIT / SAVE CONFIRMATION MODAL ("ARE YOU SURE?") -->
   <div class="overlay-modal hidden" id="quit-modal">
@@ -645,8 +730,29 @@
   <div class="overlay-modal" id="title-modal">
     <div class="modal-card">
       <div class="redbox-banner">
-        <h1>🐉 DUNGEMOJI v8.2 🏰</h1>
-        <div class="redbox-sub">1980s D&amp;D RED BOX EDITION • NANOBANANA 2D SPRITES • 3D CRAWLER • L5 EPIC METAL OST</div>
+        <h1>🐉 DUNGEMOJI v9.0.0 🏰</h1>
+        <div class="redbox-sub">1980s D&amp;D RED BOX EDITION • SECRET ROOMS • PALADIN SPELLS • VEO 3.1 DEATH CUTSCENES</div>
+      </div>
+
+      <!-- 👦⚔️ KID-FRIENDLY QUICK GUIDE FOR ALESSANDRO -->
+      <div style="background: linear-gradient(135deg, rgba(6, 78, 59, 0.85) 0%, rgba(15, 23, 42, 0.92) 100%); border: 2px solid #34D399; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px;">
+        <div style="font-family:'Cinzel',serif; font-weight:900; font-size:15px; color:#6EE7B7; margin-bottom:6px;">
+          👦⚔️ COME SI GIOCA? (GUIDA SUPER SEMPLICE IN 3 MOSSE PER ALESSANDRO!)
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap:8px; font-size:12px; color:#F8FAFC; line-height:1.45;">
+          <div style="background:rgba(0,0,0,0.35); padding:8px; border-radius:8px; border-left:3px solid #FDE047;">
+            <b>1️⃣ MUOVITI E ATTACCA (<kbd>Frecce</kbd> / <kbd>WASD</kbd>)</b><br/>
+            Basta <b>camminare addosso</b> ai mostri per colpirli con la spada! Cammina sull'oro (💰), sulle armi (⚔️), sul gigante buono viola <b>Pupurabbu (🧸)</b> per un abbraccio, e sulle <b>Scale (🪜)</b> per scendere al piano successivo!
+          </div>
+          <div style="background:rgba(0,0,0,0.35); padding:8px; border-radius:8px; border-left:3px solid #FB7185;">
+            <b>2️⃣ CURATI QUANDO PERDI VITA (<kbd>Q</kbd> e <kbd>E</kbd>)</b><br/>
+            Guarda i tuoi cuori ❤️ in alto a sinistra! Se scendono, premi <kbd>Q</kbd> per bere la <b>Pozione Rossa</b>. Se sei circondato da Scheletri o Zombie, premi <kbd>E</kbd> per la <b>Pozione Sparkle</b>!
+          </div>
+          <div style="background:rgba(0,0,0,0.35); padding:8px; border-radius:8px; border-left:3px solid #67E8F9;">
+            <b>3️⃣ SEGRETI, MAGIE E MERCANTE (<kbd>F</kbd>, <kbd>C</kbd>, <kbd>B</kbd>)</b><br/>
+            Ogni piano nasconde una <b>Stanza Segreta nel muro</b> (cammina vicino ai muri per scovarla al 10% o premi <kbd>F</kbd> con una Pergamena 📜)! Premi <kbd>C</kbd> per gli <b>Incantesimi del Paladino</b> e <kbd>B</kbd> per comprare dal <b>Mercante Nano</b>!
+          </div>
+        </div>
       </div>
 
       <div class="sprite-parade" id="sprite-showcase"></div>
@@ -668,19 +774,17 @@
 
       <div class="help-grid">
         <div class="help-box">
-          <h4>🎮 Controls (Desktop &amp; Mobile)</h4>
-          <div>• Move / Attack: <kbd>WASD</kbd> or <kbd>Arrows</kbd> (or Touch D-Pad)</div>
-          <div>• In 3D Mode: <kbd>W/↑</kbd> Forward, <kbd>S/↓</kbd> 180° U-Turn, <kbd>A/D</kbd> or <kbd>←/→</kbd> Turn 90°</div>
-          <div>• Quaff Healing Potion: <kbd>Q</kbd> | Sparkle Purge Undead: <kbd>E</kbd></div>
-          <div>• Toggle 2D / 3D / Classic View: <kbd>V</kbd> | Room Zoom: <kbd>Z</kbd> | Quit Menu: <kbd>ESC</kbd></div>
-          <div>• Roll 3D D20 Dice: <kbd>R</kbd> | Summon Pupurabbu: <kbd>P</kbd> | Cheat Console: <kbd>^</kbd></div>
+          <h4>🎮 Tutti i Comandi (Solo Frecce + Q sono obbligatori!)</h4>
+          <div>• <b>Obbligatori</b>: <kbd>Frecce</kbd> / <kbd>WASD</kbd> (Muovi, Attacca, Raccogli, Scendi Scale 🪜) + <kbd>Q</kbd> (Cura 🧪)</div>
+          <div>• <b>Pozioni &amp; Segreti</b>: <kbd>E</kbd> Sparkle Anti-Zombie | <kbd>F</kbd> Pergamena rivela Stanza Segreta 📜</div>
+          <div>• <b>Paladino &amp; Mercante</b>: <kbd>C</kbd> Incantesimi Sacro Paladino ✨ | <kbd>B</kbd> Mercante Nano 🛒</div>
+          <div>• <b>Visuale &amp; Extra</b>: <kbd>V</kbd> Cambia 2D/3D | <kbd>R</kbd> Tira Dado D20 | <kbd>P</kbd> Chiama Pupurabbu 🧸</div>
         </div>
         <div class="help-box">
-          <h4>🎲 Simil-3D D20 &amp; L5 Epic Metal OST</h4>
-          <div>• 🔥 <b>Save vs. Dragon Breath</b>: Halves Dragon/Demogorgon fire (NAT 20 dodges &amp; counters!)</div>
-          <div>• ☠️ <b>Save vs. Poison / Death</b>: Resists Spider venom, Zombie plague &amp; Beholder Death Ray</div>
-          <div>• 🧸 <b>Il Mitico Pupurabbu</b>: Giant gentle all-purple bear friend (IF style) with Vorpal gifts!</div>
-          <div>• 🎸 <b>Level 5 Epic Metal MP3</b>: Reach LV 5 (or Floor B5F) to unlock the Medieval Epic Metal MP3!</div>
+          <h4>🕵️‍♂️ Stanze Segrete, Trappole &amp; Video Morte Veo 3.1</h4>
+          <div>• 🧱 <b>Stanze Segrete nel Negativo</b>: Scavate nella roccia tra le stanze! Passando vicino alla porta segreta hai il <b>10%</b> di scoprirla (o <b>35%</b> bussando contro il muro, o <b>100%</b> con <kbd>F</kbd> 📜)!</div>
+          <div>• 🚪 <b>Porte Chiuse &amp; Trappole</b>: Usa le Chiavi <kbd>🗝️</kbd> sulle porte chiuse e supera i Tiri Salvezza D20 sulle trappole!</div>
+          <div>• 🎬 <b>3 Video di Morte Veo 3.1</b>: Occhi Rossi nel Buio, Orda Zombie/Scheletri e Incenerimento del Drago Rosso!</div>
         </div>
       </div>
 
@@ -1000,7 +1104,9 @@ const LOOT_TYPES = [
   { key: 'crown',          name: 'Lost Royal Crown',   char: '👑', kind: 'gold',    val: 180 },
   { key: 'potion_heal',    name: 'Healing Potion',     char: '🧪', kind: 'heal',    val: 20 },
   { key: 'potion_sparkle', name: 'Sparkle Potion',     char: '✨', kind: 'sparkle', val: 10 },
-  { key: 'vorpal_sword',   name: 'Vorpal Sword +1',    char: '⚔️', kind: 'weapon',  val: 3 }
+  { key: 'vorpal_sword',   name: 'Vorpal Sword +1',    char: '⚔️', kind: 'weapon',  val: 3 },
+  { key: 'key_gold',       name: 'Golden Dungeon Key', char: '🗝️', kind: 'key',     val: 1 },
+  { key: 'scroll_secret',  name: 'Scroll of Secrets',  char: '📜', kind: 'scroll',  val: 1 }
 ];
 
 // ============================================================================
@@ -1325,6 +1431,7 @@ let roomZoomEnabled = true;
 
 let grid = [];
 let rooms = [];
+let secretRoom = null; // Hidden vault carved in negative space!
 let monsters = [];
 let items = [];
 let stairs = { x: 0, y: 0 };
@@ -1350,8 +1457,13 @@ const player = {
   weaponBonus: 2,
   weaponName: 'Broad Sword +1',
   ac: 14,
+  tempAcBonus: 0,
   potionsHeal: 2,
-  potionsSparkle: 1
+  potionsSparkle: 1,
+  scrollsSecret: 1,
+  keys: 1,
+  mana: 2,
+  maxMana: 2
 };
 
 const DIR_VECS = [
@@ -1389,7 +1501,19 @@ deathVideoEl.src = 'audio/death_default.mp4';
 deathVideoEl.loop = true;
 deathVideoEl.playsInline = true;
 deathVideoEl.preload = 'auto';
-const SAVE_STORAGE_KEY = 'dungemoji_save_v82';
+
+function getDeathVideoForKiller(killer) {
+  if (!killer) return 'audio/death_eyes.mp4';
+  if (killer.key === 'dragon' || killer.key === 'demogorgon') {
+    return 'audio/death_default.mp4';
+  }
+  if (killer.undead || killer.key === 'zombie' || killer.key === 'skeleton' || killer.key === 'ghost') {
+    return 'audio/death_zombie.mp4';
+  }
+  return 'audio/death_eyes.mp4';
+}
+
+const SAVE_STORAGE_KEY = 'dungemoji_save_v90';
 
 function saveGameProgress() {
   if (gameState !== 'PLAY' || player.hp <= 0) return;
@@ -1460,20 +1584,25 @@ function initNewGame() {
   player.lvl = 1;
   player.xp = 0;
   player.nextXp = xpForLevel(2);
-  player.gold = 0;
+  player.gold = 25;
   player.baseDmg = 3;
   player.weaponBonus = 2;
   player.weaponName = 'Broad Sword +1';
   player.ac = 14;
+  player.tempAcBonus = 0;
   player.potionsHeal = 2;
   player.potionsSparkle = 1;
+  player.scrollsSecret = 1;
+  player.keys = 1;
+  player.maxMana = 2;
+  player.mana = 2;
   lastKillerMonster = null;
   deathAnimTimer = 0;
   audio.epicMetalAnnounced = false;
 
   document.getElementById('msg-log').innerHTML = '';
-  addLog('Welcome to DUNGEMOJI v8.2 (1980s D&D Red Box Edition)!', '#FDE047');
-  addLog('Press [V] for 2D/3D • [ESC] Quit/Save • Reach LV 5 for Epic Metal MP3!', '#67E8F9');
+  addLog('Welcome to DUNGEMOJI v9.0.0 (1980s D&D Red Box Edition)!', '#FDE047');
+  addLog('👦 Usa Frecce/WASD per muoverti e attaccare • [Q] Cura • [F] Stanza Segreta • [C] Magie • [B] Mercante!', '#67E8F9');
   generateDungeonFloor();
   gameState = 'PLAY';
   audio.syncMusicForLevel(player.lvl, dungeonLevel);
@@ -1481,14 +1610,157 @@ function initNewGame() {
   updateHUD();
 }
 
+function recomputeWallMasks() {
+  for (let y = 0; y < GRID_ROWS; y++) {
+    for (let x = 0; x < GRID_COLS; x++) {
+      const t = grid[y][x].type;
+      if (t !== 'wall' && t !== 'secret_door') continue;
+      if (!touchesOpenSpace(x, y)) {
+        grid[y][x].wallChar = ' ';
+        grid[y][x].wallMask = -1;
+        continue;
+      }
+      let mask = 0;
+      const isWallLike = (cx, cy) => {
+        if (cx < 0 || cx >= GRID_COLS || cy < 0 || cy >= GRID_ROWS) return false;
+        const ct = grid[cy][cx].type;
+        return (ct === 'wall' || ct === 'secret_door') && touchesOpenSpace(cx, cy);
+      };
+      if (isWallLike(x, y - 1)) mask |= 1;
+      if (isWallLike(x, y + 1)) mask |= 2;
+      if (isWallLike(x + 1, y)) mask |= 4;
+      if (isWallLike(x - 1, y)) mask |= 8;
+      grid[y][x].wallMask = mask;
+      grid[y][x].wallChar = WALL_CHARS[mask] || '╬';
+    }
+  }
+}
+
+// Carves a hidden Secret Room in the uncarved negative space ("fai la matematica dal negativo")!
+function carveSecretRoomInNegativeSpace() {
+  secretRoom = null;
+  const sw = 3, sh = 3;
+  const dirs = [
+    { dx: 0, dy: -1 },
+    { dx: 1, dy: 0 },
+    { dx: 0, dy: 1 },
+    { dx: -1, dy: 0 }
+  ];
+
+  // Search for a wall cell that has 1 open playable neighbor (room/corridor) and a 5x5 solid wall block behind it
+  const candidates = [];
+  for (let y = 4; y < GRID_ROWS - 5; y++) {
+    for (let x = 4; x < GRID_COLS - 5; x++) {
+      if (grid[y][x].type !== 'wall') continue;
+      for (const d of dirs) {
+        const openX = x - d.dx;
+        const openY = y - d.dy;
+        const openType = grid[openY][openX].type;
+        if (openType !== 'floor' && openType !== 'corridor') continue;
+
+        // Determine the 3x3 secret vault box extending in direction d from secret door (x, y)
+        let rx, ry;
+        if (d.dx === 1) { rx = x + 1; ry = y - 1; }
+        else if (d.dx === -1) { rx = x - sw; ry = y - 1; }
+        else if (d.dy === 1) { rx = x - 1; ry = y + 1; }
+        else { rx = x - 1; ry = y - sh; }
+
+        if (rx < 2 || rx + sw >= GRID_COLS - 2 || ry < 2 || ry + sh >= GRID_ROWS - 2) continue;
+
+        // Check that the 3x3 vault + 1-tile margin in negative space is 100% solid uncarved wall
+        let allSolid = true;
+        for (let yy = ry - 1; yy <= ry + sh && allSolid; yy++) {
+          for (let xx = rx - 1; xx <= rx + sw && allSolid; xx++) {
+            if (xx === x && yy === y) continue;
+            if (grid[yy][xx].type !== 'wall') allSolid = false;
+          }
+        }
+        if (allSolid) {
+          candidates.push({ doorX: x, doorY: y, rx, ry, w: sw, h: sh, triggerX: openX, triggerY: openY });
+        }
+      }
+    }
+  }
+
+  if (candidates.length === 0) return null;
+  const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+  const secretRoomId = rooms.length;
+  const sRoom = {
+    id: secretRoomId,
+    x: chosen.rx,
+    y: chosen.ry,
+    w: chosen.w,
+    h: chosen.h,
+    cx: Math.floor(chosen.rx + chosen.w / 2),
+    cy: Math.floor(chosen.ry + chosen.h / 2),
+    doorX: chosen.doorX,
+    doorY: chosen.doorY,
+    triggerX: chosen.triggerX,
+    triggerY: chosen.triggerY,
+    discovered: false,
+    isSecret: true,
+    name: `🕵️ SECRET VAULT OF GYGAX (B${dungeonLevel}F)`
+  };
+  rooms.push(sRoom);
+  secretRoom = sRoom;
+
+  // Mark secret door (looks and blocks sight like a wall until discovered!)
+  grid[sRoom.doorY][sRoom.doorX].type = 'secret_door';
+  grid[sRoom.doorY][sRoom.doorX].roomId = secretRoomId;
+
+  // Carve the hidden 3x3 floor inside negative space (kept hidden until discovered!)
+  for (let yy = sRoom.y; yy < sRoom.y + sRoom.h; yy++) {
+    for (let xx = sRoom.x; xx < sRoom.x + sRoom.w; xx++) {
+      grid[yy][xx].type = 'floor';
+      grid[yy][xx].roomId = secretRoomId;
+      grid[yy][xx].secretHidden = true;
+    }
+  }
+
+  // Fill Secret Room with high-tier D&D Red Box treasure!
+  items.push({ ...LOOT_TYPES[2], x: sRoom.cx, y: sRoom.cy }); // Lost Royal Crown (180g)
+  items.push({ ...LOOT_TYPES[5], x: sRoom.x, y: sRoom.y });   // Vorpal Sword +1
+  items.push({ ...LOOT_TYPES[4], x: sRoom.x + sRoom.w - 1, y: sRoom.y + sRoom.h - 1 }); // Sparkle Potion
+  return sRoom;
+}
+
+function discoverSecretRoom(reason = 'intuizione elfica') {
+  if (!secretRoom || secretRoom.discovered) return false;
+  secretRoom.discovered = true;
+  grid[secretRoom.doorY][secretRoom.doorX].type = 'corridor';
+  for (let yy = secretRoom.y - 1; yy <= secretRoom.y + secretRoom.h; yy++) {
+    for (let xx = secretRoom.x - 1; xx <= secretRoom.x + secretRoom.w; xx++) {
+      if (yy >= 0 && yy < GRID_ROWS && xx >= 0 && xx < GRID_COLS) {
+        grid[yy][xx].secretHidden = false;
+        grid[yy][xx].seen = true;
+        grid[yy][xx].visible = true;
+      }
+    }
+  }
+  grid[secretRoom.doorY][secretRoom.doorX].seen = true;
+  grid[secretRoom.doorY][secretRoom.doorX].visible = true;
+  recomputeWallMasks();
+  audio.sfxCrit20();
+  shockwaves.push({ x: secretRoom.doorX, y: secretRoom.doorY, r: 0, maxR: 6, color: '#FDE047' });
+  spawnFloatingText(secretRoom.doorX, secretRoom.doorY, '🕵️ SECRET ROOM!', '#FDE047');
+  addLog(`🕵️‍♂️✨ HAI SCOPERTO UNA STANZA SEGRETA NEL NEGATIVO (${reason})! Dentro brillano tesori leggendari!`, '#FDE047');
+  updateVisibility();
+  updateHUD();
+  return true;
+}
+
 function generateDungeonFloor() {
   grid = [];
   rooms = [];
+  secretRoom = null;
   monsters = [];
   items = [];
   floatingTexts = [];
   shockwaves = [];
   showAllMap = false;
+  player.tempAcBonus = 0;
+  player.maxMana = Math.min(5, 2 + Math.floor(player.lvl / 2));
+  player.mana = player.maxMana;
 
   for (let y = 0; y < GRID_ROWS; y++) {
     const row = [];
@@ -1500,6 +1772,8 @@ function generateDungeonFloor() {
         wallChar: '╬',
         wallMask: 0,
         roomId: -1,
+        secretHidden: false,
+        trap: null,
         torch: (x + y * 3) % 7 === 0
       });
     }
@@ -1508,7 +1782,7 @@ function generateDungeonFloor() {
 
   // Generate non-overlapping rooms (size 4x4 to 8x6 so 2x2 bosses fit comfortably)
   const attempts = 95;
-  for (let i = 0; i < attempts && rooms.length < 11; i++) {
+  for (let i = 0; i < attempts && rooms.length < 10; i++) {
     const w = 4 + Math.floor(Math.random() * 5);
     const h = 4 + Math.floor(Math.random() * 3);
     const rx = 2 + Math.floor(Math.random() * (GRID_COLS - w - 4));
@@ -1557,29 +1831,9 @@ function generateDungeonFloor() {
     }
   }
 
-  // Compute double-line Box Drawing bitmask & characters for walls adjacent to playable spaces
-  for (let y = 0; y < GRID_ROWS; y++) {
-    for (let x = 0; x < GRID_COLS; x++) {
-      if (grid[y][x].type !== 'wall') continue;
-      if (!touchesOpenSpace(x, y)) {
-        grid[y][x].wallChar = ' ';
-        grid[y][x].wallMask = -1;
-        continue;
-      }
-      let mask = 0;
-      if (y > 0 && grid[y - 1][x].type === 'wall' && touchesOpenSpace(x, y - 1)) mask |= 1;
-      if (y < GRID_ROWS - 1 && grid[y + 1][x].type === 'wall' && touchesOpenSpace(x, y + 1)) mask |= 2;
-      if (x < GRID_COLS - 1 && grid[y][x + 1].type === 'wall' && touchesOpenSpace(x + 1, y)) mask |= 4;
-      if (x > 0 && grid[y][x - 1].type === 'wall' && touchesOpenSpace(x - 1, y)) mask |= 8;
-      grid[y][x].wallMask = mask;
-      grid[y][x].wallChar = WALL_CHARS[mask] || '╬';
-    }
-  }
-
   // Place Player in Room 0
   player.x = rooms[0].cx;
   player.y = rooms[0].cy;
-  // Face toward Room 1
   if (rooms.length > 1) {
     const dx = rooms[1].cx - player.x;
     const dy = rooms[1].cy - player.y;
@@ -1587,21 +1841,59 @@ function generateDungeonFloor() {
     else player.dir = dy > 0 ? 2 : 0;
   }
 
-  // Place Stairs in Last Room
+  // Place Stairs in Last Regular Room
   const lastRoom = rooms[rooms.length - 1];
   stairs = { x: lastRoom.cx, y: lastRoom.cy };
   grid[stairs.y][stairs.x].type = 'stairs';
 
-  // Populate Monsters scaled strictly by Dungeon Floor (B1F = only small 1x1 minLvl 1 monsters; deeper floors = larger 2x2 monsters & Bosses!)
+  // Carve a hidden Secret Room in the negative space between rooms/corridors!
+  carveSecretRoomInNegativeSpace();
+  recomputeWallMasks();
+
+  // Place 1 Locked Door (🚪) on a corridor leading to a later room + 1 guaranteed Golden Key (🗝️) in an earlier room
+  if (rooms.length >= 4) {
+    const keyRoom = rooms[1 + Math.floor(Math.random() * 2)];
+    items.push({ ...LOOT_TYPES[6], x: keyRoom.cx, y: keyRoom.y }); // Golden Key 🗝️
+    // Place a locked door at the entrance corridor of the last room if possible
+    const dirs = [{dx:0,dy:-1},{dx:1,dy:0},{dx:0,dy:1},{dx:-1,dy:0}];
+    let doorPlaced = false;
+    for (let yy = lastRoom.y - 1; yy <= lastRoom.y + lastRoom.h && !doorPlaced; yy++) {
+      for (let xx = lastRoom.x - 1; xx <= lastRoom.x + lastRoom.w && !doorPlaced; xx++) {
+        if (xx >= 1 && xx < GRID_COLS - 1 && yy >= 1 && yy < GRID_ROWS - 1 && grid[yy][xx].type === 'corridor') {
+          grid[yy][xx].type = 'locked_door';
+          doorPlaced = true;
+        }
+      }
+    }
+  }
+
+  // Place 2 Dungeon Traps (⚠️ hidden until triggered or revealed by Protection spell)
+  const regularRooms = rooms.filter(r => !r.isSecret);
+  for (let tIdx = 1; tIdx < regularRooms.length - 1; tIdx += 2) {
+    const tr = regularRooms[tIdx];
+    const tx = tr.x + Math.floor(Math.random() * tr.w);
+    const ty = tr.y + Math.floor(Math.random() * tr.h);
+    if ((tx !== player.x || ty !== player.y) && grid[ty][tx].type === 'floor') {
+      grid[ty][tx].trap = {
+        triggered: false,
+        revealed: false,
+        name: dungeonLevel >= 3 ? 'Dardo Avvelenato D&D' : 'Botola a Scatto Red Box',
+        dc: 10 + Math.min(5, dungeonLevel),
+        dmg: 4 + dungeonLevel * 2
+      };
+    }
+  }
+
+  // Populate Monsters scaled strictly by Dungeon Floor
   const eligiblePool = getEligibleMonstersForFloor(dungeonLevel);
 
-  for (let i = 1; i < rooms.length; i++) {
-    const r = rooms[i];
+  for (let i = 1; i < regularRooms.length; i++) {
+    const r = regularRooms[i];
 
     // Spawn Monster (48% chance per room, guaranteed floor-appropriate guard/boss in last room)
-    if (Math.random() < 0.48 || (i === rooms.length - 1)) {
+    if (Math.random() < 0.48 || (i === regularRooms.length - 1)) {
       let template = eligiblePool[Math.floor(Math.random() * eligiblePool.length)];
-      if (i === rooms.length - 1) {
+      if (i === regularRooms.length - 1) {
         template = getStairsGuardForFloor(dungeonLevel);
       }
       const span = template.tileSpan || 1;
@@ -1629,18 +1921,19 @@ function generateDungeonFloor() {
       }
     }
 
-    // Spawn Treasure / Potions (58% chance per room)
-    if (Math.random() < 0.58) {
+    // Spawn Treasure / Potions / Scrolls (62% chance per room)
+    if (Math.random() < 0.62) {
       const ix = r.x + Math.floor(Math.random() * r.w);
       const iy = r.y + Math.floor(Math.random() * r.h);
       if ((ix !== stairs.x || iy !== stairs.y) && !getItemAt(ix, iy)) {
         const roll = Math.random();
         let loot = LOOT_TYPES[0]; // gold
-        if (roll > 0.90) loot = LOOT_TYPES[5];      // vorpal sword
-        else if (roll > 0.76) loot = LOOT_TYPES[4]; // sparkle potion
-        else if (roll > 0.56) loot = LOOT_TYPES[3]; // heal potion
-        else if (roll > 0.38) loot = LOOT_TYPES[1]; // diamond
-        else if (roll > 0.25) loot = LOOT_TYPES[2]; // crown
+        if (roll > 0.91) loot = LOOT_TYPES[5];      // vorpal sword
+        else if (roll > 0.80) loot = LOOT_TYPES[7]; // scroll of secret doors 📜
+        else if (roll > 0.68) loot = LOOT_TYPES[4]; // sparkle potion
+        else if (roll > 0.48) loot = LOOT_TYPES[3]; // heal potion
+        else if (roll > 0.32) loot = LOOT_TYPES[1]; // diamond
+        else if (roll > 0.20) loot = LOOT_TYPES[2]; // crown
         items.push({ ...loot, x: ix, y: iy });
       }
     }
@@ -1666,11 +1959,6 @@ function getRoomFlavorName(idx, floor) {
   return `Room #${idx + 1}: ${names[(idx + floor) % names.length]}`;
 }
 
-// Returns the floor-appropriate D&D monster pool:
-// - B1F (floor 1): ONLY small 1x1 vermin & goblins (minLvl === 1: Giant Rat, Vampire Bat, Goblin Cutter, Venom Spider)
-// - B2F-B3F: 1x1 Undead, Wolves, Orcs, Mimics, Slimes (minLvl floor-1 to floor, tileSpan === 1)
-// - B4F-B6F: Large 2x2 monsters emerge (Gelatinous Cube, Owlbear, Ogre Brute, Cave Troll) + Ghosts & Mind Flayers; weak B1F vermin phase out!
-// - B7F+: High-level 2x2 Bosses (Beholder, Red Dragon, Demogorgon) & elite Underdark monsters!
 function getEligibleMonstersForFloor(floor = dungeonLevel) {
   const f = Math.max(1, floor);
   if (f === 1) {
@@ -1685,14 +1973,6 @@ function getEligibleMonstersForFloor(floor = dungeonLevel) {
   return pool.length > 0 ? pool : MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl >= 6);
 }
 
-// Returns the guardian monster for the Stairs Room on a given floor:
-// - B1F-B3F: Strongest 1x1 monster of that tier (Goblin/Spider on B1F, Zombie on B2F, Orc/Mimic on B3F)
-// - B4F: Gelatinous Cube (first 2x2 Large monster!)
-// - B5F: Owlbear or Ogre Brute (2x2)
-// - B6F: Cave Troll (2x2)
-// - B7F: Beholder (2x2 Boss)
-// - B8F: Red Dragon (2x2 Boss)
-// - B9F+: Demogorgon / Red Dragon / Beholder (2x2 Boss)
 function getStairsGuardForFloor(floor = dungeonLevel) {
   const f = Math.max(1, floor);
   const byKey = k => MONSTER_MANUAL.find(m => m.key === k);
@@ -1726,7 +2006,8 @@ function touchesOpenSpace(x, y) {
     for (let dx = -1; dx <= 1; dx++) {
       const nx = x + dx, ny = y + dy;
       if (nx >= 0 && nx < GRID_COLS && ny >= 0 && ny < GRID_ROWS) {
-        if (grid[ny][nx].type !== 'wall') return true;
+        const cell = grid[ny][nx];
+        if (cell.type !== 'wall' && cell.type !== 'secret_door' && !cell.secretHidden) return true;
       }
     }
   }
@@ -1746,7 +2027,8 @@ function canPlaceMonster(x, y, span = 1, ignoreMonster = null) {
     for (let dx = 0; dx < span; dx++) {
       const tx = x + dx, ty = y + dy;
       if (tx < 0 || tx >= GRID_COLS || ty < 0 || ty >= GRID_ROWS) return false;
-      if (grid[ty][tx].type === 'wall') return false;
+      const t = grid[ty][tx].type;
+      if (t === 'wall' || t === 'secret_door' || t === 'locked_door' || grid[ty][tx].secretHidden) return false;
       if (tx === player.x && ty === player.y) return false;
       if (getMonsterAt(tx, ty, ignoreMonster)) return false;
     }
@@ -1791,21 +2073,21 @@ function getRoomAt(x, y) {
 }
 
 // ============================================================================
-// 6. FOG OF WAR, MOVEMENT, COMBAT & D20 SAVING THROWS
+// 6. FOG OF WAR, MOVEMENT, SECRET ROOMS, TRAPS, SPELLS & SHOP
 // ============================================================================
 function updateVisibility() {
   for (let y = 0; y < GRID_ROWS; y++) {
     for (let x = 0; x < GRID_COLS; x++) {
-      grid[y][x].visible = showAllMap;
+      grid[y][x].visible = showAllMap && !grid[y][x].secretHidden;
     }
   }
 
   // Reveal current room completely when standing inside a room!
   const currentRoom = getRoomAt(player.x, player.y);
-  if (currentRoom) {
+  if (currentRoom && (!currentRoom.isSecret || currentRoom.discovered)) {
     for (let y = currentRoom.y - 1; y <= currentRoom.y + currentRoom.h; y++) {
       for (let x = currentRoom.x - 1; x <= currentRoom.x + currentRoom.w; x++) {
-        if (y >= 0 && y < GRID_ROWS && x >= 0 && x < GRID_COLS) {
+        if (y >= 0 && y < GRID_ROWS && x >= 0 && x < GRID_COLS && !grid[y][x].secretHidden) {
           grid[y][x].visible = true;
           grid[y][x].seen = true;
         }
@@ -1813,13 +2095,13 @@ function updateVisibility() {
     }
   }
 
-  // Plus radius around player
+  // Plus radius around player (never leaks into undiscovered secret rooms!)
   const R = VISIBILITY_RADIUS + 1;
   for (let dy = -R; dy <= R; dy++) {
     for (let dx = -R; dx <= R; dx++) {
       if (dx * dx + dy * dy <= R * R + 1) {
         const tx = player.x + dx, ty = player.y + dy;
-        if (tx >= 0 && tx < GRID_COLS && ty >= 0 && ty < GRID_ROWS) {
+        if (tx >= 0 && tx < GRID_COLS && ty >= 0 && ty < GRID_ROWS && !grid[ty][tx].secretHidden) {
           grid[ty][tx].visible = true;
           grid[ty][tx].seen = true;
         }
@@ -1827,7 +2109,6 @@ function updateVisibility() {
     }
   }
 
-  // Check if any Boss is currently visible -> switch synth to Boss Mode!
   const bossVisible = monsters.some(m => m.boss && isMonsterVisible(m));
   audio.bossMode = bossVisible;
 }
@@ -1835,7 +2116,6 @@ function updateVisibility() {
 function tryPlayerStep(dx, dy) {
   if (gameState !== 'PLAY' || d20Roller.active) return;
 
-  // Update player facing direction
   if (dx === 0 && dy === -1) player.dir = 0;
   else if (dx === 1 && dy === 0) player.dir = 1;
   else if (dx === 0 && dy === 1) player.dir = 2;
@@ -1844,9 +2124,53 @@ function tryPlayerStep(dx, dy) {
   const nx = player.x + dx;
   const ny = player.y + dy;
   if (nx < 0 || nx >= GRID_COLS || ny < 0 || ny >= GRID_ROWS) return;
+
+  // Check if bumping into a Secret Door in the wall (35% chance to discover by knocking!)
+  if (grid[ny][nx].type === 'secret_door') {
+    if (Math.random() < 0.35) {
+      discoverSecretRoom('bussando sulla pietra cava');
+    } else {
+      addLog('🧱 Muro freddo... ma senti come un soffio d\'aria dietro i mattoni!', '#FDE047');
+    }
+    return;
+  }
+
   if (grid[ny][nx].type === 'wall') {
     addLog('Ouch! Cold dungeon stone wall.', '#64748B');
     return;
+  }
+
+  // Check Locked Door (🚪)
+  if (grid[ny][nx].type === 'locked_door') {
+    if (player.keys > 0) {
+      player.keys--;
+      grid[ny][nx].type = 'corridor';
+      audio.sfxLevelUp();
+      spawnFloatingText(nx, ny, '🗝️ UNLOCKED!', '#FDE047');
+      addLog('🗝️ Hai usato una Chiave d\'Oro per aprire la Porta Chiusa del Dungeon!', '#FDE047');
+      updateHUD();
+    } else {
+      // Allow D20 Strength / Lockbash check (DC 14)!
+      d20Roller.trigger({
+        title: '🚪 SFONDARE LA PORTA CHIUSA (FORZA)',
+        subtitle: 'Non hai Chiavi 🗝️! Tenta di sfondare la porta coi cardini arrugginiti!',
+        dc: 14,
+        bonus: Math.floor(player.lvl / 2),
+        onComplete: (roll, success) => {
+          if (success) {
+            grid[ny][nx].type = 'corridor';
+            spawnFloatingText(nx, ny, '💥 SFONDATA!', '#34D399');
+            addLog('💥 BAM! Hai sfondato la porta chiusa con una spallata da vero Paladino!', '#34D399');
+          } else {
+            player.hp = Math.max(1, player.hp - 3);
+            spawnFloatingText(player.x, player.y, '-3 HP', '#EF4444');
+            addLog('🚪 La porta rinforzata non cede (-3 HP)! Cerca una Chiave d\'Oro 🗝️ o riprova!', '#FCA5A5');
+          }
+          updateHUD();
+        }
+      });
+      return;
+    }
   }
 
   // Check Monster Interaction
@@ -1865,6 +2189,40 @@ function tryPlayerStep(dx, dy) {
   player.y = ny;
   audio.sfxStep();
 
+  // Check passive 10% chance to spot adjacent Secret Door when walking near it!
+  if (secretRoom && !secretRoom.discovered) {
+    const distToSecretDoor = Math.abs(player.x - secretRoom.doorX) + Math.abs(player.y - secretRoom.doorY);
+    if (distToSecretDoor <= 1 && Math.random() < 0.10) {
+      discoverSecretRoom('passando accanto alla fessura segreta (10%)');
+    }
+  }
+
+  // Check Dungeon Trap on tile (⚠️)
+  const trap = grid[ny][nx].trap;
+  if (trap && !trap.triggered) {
+    trap.triggered = true;
+    trap.revealed = true;
+    d20Roller.trigger({
+      title: `⚠️ TRAPPOLA: ${trap.name.toUpperCase()}!`,
+      subtitle: 'Tiro Salvezza su Riflessi per schivare la trappola del pavimento!',
+      dc: trap.dc,
+      bonus: Math.floor(player.lvl / 2) + 1,
+      onComplete: (roll, saved) => {
+        if (saved) {
+          spawnFloatingText(player.x, player.y, '🤸 SCHIVATA!', '#34D399');
+          addLog(`✅ Tiro Salvezza riuscito! Hai schivato la trappola (${trap.name})!`, '#34D399');
+        } else {
+          player.hp -= trap.dmg;
+          screenShake = 8;
+          spawnFloatingText(player.x, player.y, `⚠️ -${trap.dmg} HP`, '#EF4444');
+          addLog(`⚠️ TRAPPOLA SCATTATA (${trap.name})! Subisci ${trap.dmg} danni!`, '#EF4444');
+          checkPlayerDeath({ key: 'shadow', name: trap.name, char: '⚠️' });
+        }
+        updateHUD();
+      }
+    });
+  }
+
   // Check Item Pickup
   const item = getItemAt(nx, ny);
   if (item) {
@@ -1874,7 +2232,7 @@ function tryPlayerStep(dx, dy) {
   // Check Stairs
   if (grid[ny][nx].type === 'stairs') {
     dungeonLevel++;
-    addLog(`🪜 Descending deeper to Dungeon Floor B${dungeonLevel}F...`, '#38BDF8');
+    addLog(`🪜 Descending deeper to Dungeon Floor B${dungeonLevel}F... (Fede ricaricata!)`, '#38BDF8');
     audio.sfxLevelUp();
     generateDungeonFloor();
     audio.syncMusicForLevel(player.lvl, dungeonLevel);
@@ -1942,7 +2300,6 @@ function killMonster(m) {
   addLog(`💀 Defeated ${m.name} ${m.char}! +${m.xp} XP!`, '#34D399');
   spawnFloatingText(m.x, m.y, `+${m.xp} XP`, '#34D399');
   player.xp += m.xp;
-  // Drop gold chance
   if (Math.random() < 0.55 || m.boss) {
     items.push({ ...LOOT_TYPES[m.boss ? 2 : 0], x: m.x, y: m.y });
   }
@@ -1970,6 +2327,14 @@ function pickupItem(item) {
     addLog(`⚔️ Found legendary ${player.weaponName}! ATK increased!`, '#38BDF8');
     spawnFloatingText(player.x, player.y, `⚔️ +${item.val} ATK!`, '#38BDF8');
     audio.sfxLevelUp();
+  } else if (item.kind === 'key') {
+    player.keys++;
+    addLog(`🗝️ Raccolta Chiave d'Oro del Dungeon! Apre le porte chiuse (🚪).`, '#FDE047');
+    spawnFloatingText(player.x, player.y, `+1 🗝️`, '#FDE047');
+  } else if (item.kind === 'scroll') {
+    player.scrollsSecret++;
+    addLog(`📜 Raccolta Pergamena delle Stanze Segrete! Premi [F] per rivelare i muri segreti!`, '#67E8F9');
+    spawnFloatingText(player.x, player.y, `+1 📜`, '#67E8F9');
   }
   items = items.filter(i => i !== item);
 }
@@ -1990,10 +2355,12 @@ function checkLevelUp() {
     player.maxHp += 8;
     player.hp = player.maxHp;
     player.baseDmg += 2;
+    player.maxMana = Math.min(5, 2 + Math.floor(player.lvl / 2));
+    player.mana = player.maxMana;
     if (player.lvl % 3 === 0) player.ac++;
     audio.sfxLevelUp();
     spawnFloatingText(player.x, player.y, `⭐ LEVEL UP! LV ${player.lvl}`, '#FDE047');
-    addLog(`🎉 LEVEL UP! You are now Level ${player.lvl} (HP ${player.maxHp}, DMG +2)!`, '#FDE047');
+    addLog(`🎉 LEVEL UP! Ora sei Livello ${player.lvl} (HP ${player.maxHp}, DMG +2, Fede ${player.maxMana})!`, '#FDE047');
   }
   audio.syncMusicForLevel(player.lvl, dungeonLevel);
   saveGameProgress();
@@ -2047,13 +2414,142 @@ function quaffSparklePotion() {
   endPlayerTurn();
 }
 
+function readSecretScroll() {
+  if (gameState !== 'PLAY' || d20Roller.active) return;
+  if (player.scrollsSecret <= 0) {
+    addLog('📜 Non hai Pergamene delle Stanze Segrete! Comprale dal Mercante [B] o cercale nel dungeon.', '#94A3B8');
+    return;
+  }
+  player.scrollsSecret--;
+  // Reveal all traps on current floor too
+  for (let y = 0; y < GRID_ROWS; y++) {
+    for (let x = 0; x < GRID_COLS; x++) {
+      if (grid[y][x].trap) grid[y][x].trap.revealed = true;
+    }
+  }
+  if (!discoverSecretRoom('Pergamena delle Stanze Segrete 📜')) {
+    addLog('📜 La Pergamena illumina tutte le trappole del piano (la Stanza Segreta era già aperta)!', '#67E8F9');
+  }
+  updateHUD();
+}
+
+function castPaladinSpell(spellKey) {
+  if (gameState !== 'PLAY' || d20Roller.active) return;
+  document.getElementById('spells-modal').classList.add('hidden');
+  if (player.mana <= 0) {
+    addLog('🙏 Non hai più Cariche di Fede per questo piano! Scendi le scale (🪜) per ricaricarle.', '#94A3B8');
+    return;
+  }
+
+  if (spellKey === 'lay') {
+    player.mana--;
+    const heal = 25 + player.lvl * 3;
+    player.hp = Math.min(player.maxHp, player.hp + heal);
+    audio.sfxLevelUp();
+    spawnFloatingText(player.x, player.y, `🙏 +${heal} HP!`, '#34D399');
+    addLog(`🙏 [Lay on Hands]: Imposizione delle Mani! Guarito di +${heal} HP!`, '#34D399');
+    endPlayerTurn();
+  } else if (spellKey === 'turn') {
+    player.mana--;
+    audio.sfxPurgeUndead();
+    d20Roller.trigger({
+      title: '☀️ SCACCIARE I NON-MORTI (TURN UNDEAD)',
+      subtitle: 'Il Paladino alza il Simbolo Sacro contro Scheletri, Zombie e Spettri!',
+      dc: 9,
+      bonus: player.lvl + 2,
+      onComplete: (roll, success) => {
+        shockwaves.push({ x: player.x, y: player.y, r: 0, maxR: 12, color: '#FDE047' });
+        let turned = 0;
+        const keep = [];
+        for (const m of monsters) {
+          const dist = Math.hypot(m.x - player.x, m.y - player.y);
+          if (m.undead && dist <= 12 && (success || roll >= 10)) {
+            turned++;
+            player.xp += m.xp;
+            spawnFloatingText(m.x, m.y, '☀️ TURNED!', '#FDE047');
+          } else {
+            keep.push(m);
+          }
+        }
+        monsters = keep;
+        addLog(`☀️ TURN UNDEAD: Polverizzati ${turned} Non-Morti con la Luce Sacra!`, '#FDE047');
+        checkLevelUp();
+        updateHUD();
+      }
+    });
+  } else if (spellKey === 'protect') {
+    player.mana--;
+    player.tempAcBonus += 3;
+    for (let y = 0; y < GRID_ROWS; y++) {
+      for (let x = 0; x < GRID_COLS; x++) {
+        if (grid[y][x].trap) grid[y][x].trap.revealed = true;
+      }
+    }
+    discoverSecretRoom('Incantesimo Protection & Detect Secrets');
+    audio.sfxLevelUp();
+    spawnFloatingText(player.x, player.y, '🛡️ +3 AC & SECRETS!', '#FDE047');
+    addLog('🛡️ [Protection from Evil]: Armatura Sacra +3 AC attiva e tutti i segreti/trappole rivelati!', '#FDE047');
+    updateHUD();
+  } else if (spellKey === 'smite') {
+    player.mana--;
+    audio.sfxCrit20();
+    shockwaves.push({ x: player.x, y: player.y, r: 0, maxR: 8, color: '#F87171' });
+    const smiteDmg = 24 + player.lvl * 4;
+    let hitCount = 0;
+    for (const m of [...monsters]) {
+      if (!m.friendly && (isMonsterVisible(m) || getMonsterDistanceToPlayer(m) <= 6)) {
+        hitCount++;
+        m.hp -= smiteDmg;
+        spawnFloatingText(m.x, m.y, `⚡ -${smiteDmg}`, '#FDE047');
+        if (m.hp <= 0) killMonster(m);
+      }
+    }
+    addLog(`⚡ [Holy Avenger Smite]: Folgore Divina da ${smiteDmg} danni su ${hitCount} mostri!`, '#FDE047');
+    endPlayerTurn();
+  }
+}
+
+function buyShopItem(itemKey) {
+  const prices = { heal: 25, scroll: 35, key: 30, sparkle: 45, armor: 65, sword: 80 };
+  const cost = prices[itemKey] || 30;
+  if (player.gold < cost) {
+    addLog(`🛒 Oro insufficiente! Ti servono ${cost} 💰 (ne hai ${player.gold} 💰).`, '#FCA5A5');
+    return;
+  }
+  player.gold -= cost;
+  audio.sfxLevelUp();
+  if (itemKey === 'heal') {
+    player.potionsHeal++;
+    addLog('🛒 Comprata Pozione Rossa (+1 🧪 Heal)!', '#34D399');
+  } else if (itemKey === 'scroll') {
+    player.scrollsSecret++;
+    addLog('🛒 Comprata Pergamena delle Stanze Segrete (+1 📜)! Premi [F] per usarla!', '#67E8F9');
+  } else if (itemKey === 'key') {
+    player.keys++;
+    addLog('🛒 Comprata Chiave d\'Oro del Dungeon (+1 🗝️)!', '#FDE047');
+  } else if (itemKey === 'sparkle') {
+    player.potionsSparkle++;
+    addLog('🛒 Comprata Pozione Sparkle Anti-Non-Morti (+1 ✨)!', '#67E8F9');
+  } else if (itemKey === 'armor') {
+    player.ac += 1;
+    player.maxHp += 5;
+    player.hp += 5;
+    addLog('🛒 Rinforzo Nano completato: +1 AC permanente e +5 Max HP!', '#FDE047');
+  } else if (itemKey === 'sword') {
+    player.weaponBonus += 2;
+    player.weaponName = `Dwarven Vorpal +${player.weaponBonus}`;
+    addLog(`🛒 Spada affilata dal Maestro Nano: ${player.weaponName} (+2 ATK)!`, '#FDE047');
+  }
+  document.getElementById('shop-gold-txt').textContent = `${player.gold} 💰`;
+  saveGameProgress();
+  updateHUD();
+}
+
 function endPlayerTurn() {
   updateVisibility();
 
-  // Monsters AI turn
   for (const m of [...monsters]) {
     if (m.friendly) continue;
-    // Troll regeneration
     if (m.regen && m.hp < m.maxHp) {
       m.hp = Math.min(m.maxHp, m.hp + m.regen);
     }
@@ -2063,11 +2559,9 @@ function endPlayerTurn() {
     if (dist > 10) continue;
 
     if (dist <= 1) {
-      // Monster is adjacent to player (any tile of its 1x1 or 2x2 footprint) -> attacks!
       monsterAttackPlayer(m);
       if (player.hp <= 0 || d20Roller.active) break;
     } else {
-      // Step toward player
       const centerMx = m.x + (span - 1) * 0.5;
       const centerMy = m.y + (span - 1) * 0.5;
       const dx = Math.sign(player.x - centerMx);
@@ -2092,7 +2586,6 @@ function endPlayerTurn() {
 }
 
 function monsterAttackPlayer(m) {
-  // Check if Monster triggers a dramatic 1980s D&D Saving Throw (45% chance on special monsters, 75% on Bosses)
   const triggerSave = m.saveType && (m.boss ? Math.random() < 0.75 : Math.random() < 0.45);
 
   if (triggerSave && !d20Roller.active) {
@@ -2128,8 +2621,8 @@ function monsterAttackPlayer(m) {
     return;
   }
 
-  // Normal melee hit
-  const dmg = Math.max(1, m.dmg + Math.floor(Math.random() * 3) - Math.floor((player.ac - 12) / 2));
+  const totalAc = player.ac + (player.tempAcBonus || 0);
+  const dmg = Math.max(1, m.dmg + Math.floor(Math.random() * 3) - Math.floor((totalAc - 12) / 2));
   player.hp -= dmg;
   screenShake = 5;
   spawnFloatingText(player.x, player.y, `-${dmg}`, '#EF4444');
@@ -2145,8 +2638,12 @@ function checkPlayerDeath(killer = null) {
     gameState = 'GAMEOVER';
     audio.sfxFail1();
     try {
+      const targetVideoSrc = getDeathVideoForKiller(lastKillerMonster);
+      if (!deathVideoEl.src.endsWith(targetVideoSrc)) {
+        deathVideoEl.src = targetVideoSrc;
+      }
       deathVideoEl.currentTime = 0;
-      deathVideoEl.muted = audio.muted;
+      deathVideoEl.muted = !audio.enabled;
       const playPromise = deathVideoEl.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(() => {
@@ -2161,14 +2658,23 @@ function checkPlayerDeath(killer = null) {
 }
 
 function updateHUD() {
+  const totalAc = player.ac + (player.tempAcBonus || 0);
   document.getElementById('hud-hp').textContent = `❤️ ${player.hp}/${player.maxHp}`;
   document.getElementById('hud-lvl').textContent = `⭐ LV ${player.lvl} (${player.xp}/${player.nextXp} XP)`;
   document.getElementById('hud-gold').textContent = `💰 ${player.gold}`;
   document.getElementById('hud-floor').textContent = `🏰 B${dungeonLevel}F`;
-  document.getElementById('hud-atk').textContent = `⚔️ +${player.baseDmg + player.weaponBonus} | 🛡️ AC ${player.ac}`;
+  document.getElementById('hud-atk').innerHTML = `⚔️ +${player.baseDmg + player.weaponBonus} | 🛡️ AC ${totalAc} | 🗝️ <span id="hud-keys">${player.keys}</span>`;
 
   document.getElementById('cnt-heal').textContent = player.potionsHeal;
   document.getElementById('cnt-sparkle').textContent = player.potionsSparkle;
+  const cntScroll = document.getElementById('cnt-scroll');
+  if (cntScroll) cntScroll.textContent = player.scrollsSecret || 0;
+  const cntMana = document.getElementById('cnt-mana');
+  if (cntMana) cntMana.textContent = `${player.mana}/${player.maxMana}`;
+  const spellsManaTxt = document.getElementById('spells-mana-txt');
+  if (spellsManaTxt) spellsManaTxt.textContent = `${player.mana}/${player.maxMana}`;
+  const shopGoldTxt = document.getElementById('shop-gold-txt');
+  if (shopGoldTxt) shopGoldTxt.textContent = `${player.gold} 💰`;
   document.getElementById('txt-weapon').textContent = `${player.weaponName} (+${player.baseDmg + player.weaponBonus})`;
 
   const viewBtn = document.getElementById('btn-view-mode');
@@ -2327,7 +2833,7 @@ function draw2DDungeonMap() {
       const px = x * cellSize;
       const py = y * cellSize;
 
-      if (cell.type === 'floor' || cell.type === 'corridor' || cell.type === 'stairs') {
+      if (cell.type === 'floor' || cell.type === 'corridor' || cell.type === 'stairs' || cell.type === 'locked_door') {
         if (cell.visible) {
           // Earthy brown & warm stone grey dungeon floor (NO purple!)
           ctx.fillStyle = cell.type === 'corridor' ? '#1C1917' : '#26211D';
@@ -2344,11 +2850,21 @@ function draw2DDungeonMap() {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🪜', px + cellSize / 2, py + cellSize / 2);
+        } else if (cell.type === 'locked_door') {
+          ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('🚪', px + cellSize / 2, py + cellSize / 2);
+        } else if (cell.trap && cell.trap.revealed && cell.visible) {
+          ctx.font = `${Math.floor(cellSize * 0.80)}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('⚠️', px + cellSize / 2, py + cellSize / 2);
         } else if (cell.visible) {
           ctx.fillStyle = 'rgba(214, 211, 209, 0.20)';
           ctx.fillRect(px + cellSize / 2 - 1, py + cellSize / 2 - 1, 2, 2);
         }
-      } else if (cell.type === 'wall' && cell.wallChar !== ' ') {
+      } else if ((cell.type === 'wall' || cell.type === 'secret_door') && cell.wallChar !== ' ') {
         // Warm stone grey / earthy brown double-line walls (or emerald in 80s Rogue mode)
         const wallColor = cell.visible
           ? (currentViewMode === 'CLASSIC_EMOJI' ? '#10B981' : `rgba(180, 166, 148, ${0.95 * flicker})`)
@@ -2527,11 +3043,11 @@ function drawRoomZoomInspector() {
       const cx = gridOriginX + tx * zoomTile;
       const cy = gridOriginY + ty * zoomTile;
 
-      if (cell.type === 'wall') {
+      if (cell.type === 'wall' || cell.type === 'secret_door' || cell.secretHidden) {
         // Textured 1980s stone grey/brown brick block + seamless double-line wall in Zoom View
         ctx.fillStyle = '#2E2925';
         ctx.fillRect(cx, cy, zoomTile, zoomTile);
-        if (cell.wallMask >= 0) {
+        if (cell.wallMask >= 0 && !cell.secretHidden) {
           drawSeamlessDoubleBoxWall(ctx, cx, cy, zoomTile, cell.wallMask, '#A8A29E', '#2E2925');
         }
       } else {
@@ -2545,6 +3061,16 @@ function drawRoomZoomInspector() {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🪜', cx + zoomTile / 2, cy + zoomTile / 2);
+        } else if (cell.type === 'locked_door') {
+          ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('🚪', cx + zoomTile / 2, cy + zoomTile / 2);
+        } else if (cell.trap && cell.trap.revealed) {
+          ctx.font = `${Math.floor(zoomTile * 0.72)}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('⚠️', cx + zoomTile / 2, cy + zoomTile / 2);
         }
       }
     }
@@ -2553,11 +3079,17 @@ function drawRoomZoomInspector() {
   // Draw Items in Room Zoom
   for (const it of items) {
     if (it.x < rx || it.x >= rx + rw || it.y < ry || it.y >= ry + rh) continue;
+    if (grid[it.y][it.x].secretHidden) continue;
     const cx = gridOriginX + (it.x - rx + 0.5) * zoomTile;
     const cy = gridOriginY + (it.y - ry + 0.5) * zoomTile;
     if (SPRITES[it.key] && SPRITES[it.key].complete) {
       const sz = zoomTile * 0.92;
       ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
+    } else {
+      ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(it.char, cx, cy);
     }
   }
 
@@ -2659,7 +3191,8 @@ function drawRoomZoomInspector() {
 // C. 1980s PIXEL 3D FIRST-PERSON DUNGEON CRAWLER (EYE OF THE BEHOLDER / WIZARDRY)
 // ----------------------------------------------------------------------------
 function isWalkableTile(x, y) {
-  return x >= 0 && x < GRID_COLS && y >= 0 && y < GRID_ROWS && grid[y][x].type !== 'wall';
+  return x >= 0 && x < GRID_COLS && y >= 0 && y < GRID_ROWS &&
+    grid[y][x].type !== 'wall' && grid[y][x].type !== 'secret_door' && !grid[y][x].secretHidden;
 }
 
 // Returns exact tactical passage state around (px, py) facing pdir
@@ -2736,7 +3269,8 @@ function cast3DRay(camX, camY, rayDirX, rayDirY) {
       side = 1;
     }
     steps++;
-    if (mapX < 0 || mapX >= GRID_COLS || mapY < 0 || mapY >= GRID_ROWS || grid[mapY][mapX].type === 'wall') {
+    if (mapX < 0 || mapX >= GRID_COLS || mapY < 0 || mapY >= GRID_ROWS ||
+        grid[mapY][mapX].type === 'wall' || grid[mapY][mapX].type === 'secret_door') {
       hitWall = true;
     }
   }
@@ -3385,13 +3919,25 @@ function runCheatCommand(rawCmd) {
 
   if (cmd === 'showoff') {
     showAllMap = true;
+    if (secretRoom && !secretRoom.discovered) discoverSecretRoom('Cheat showoff');
     for (let y = 0; y < GRID_ROWS; y++) {
       for (let x = 0; x < GRID_COLS; x++) {
         grid[y][x].visible = true;
         grid[y][x].seen = true;
+        if (grid[y][x].trap) grid[y][x].trap.revealed = true;
       }
     }
-    addLog('⚡ Cheat [showoff]: Entire Dungeon Map Revealed!', '#34D399');
+    addLog('⚡ Cheat [showoff]: Entire Dungeon Map & Secret Room Revealed!', '#34D399');
+  } else if (cmd === 'secret') {
+    if (!discoverSecretRoom('Cheat secret')) {
+      addLog('🕵️ La Stanza Segreta di questo piano è già stata rivelata!', '#FDE047');
+    }
+  } else if (cmd === 'shop') {
+    document.getElementById('shop-gold-txt').textContent = `${player.gold} 💰`;
+    document.getElementById('shop-modal').classList.remove('hidden');
+  } else if (cmd === 'spells') {
+    document.getElementById('spells-mana-txt').textContent = `${player.mana}/${player.maxMana}`;
+    document.getElementById('spells-modal').classList.remove('hidden');
   } else if (cmd === 'killemall') {
     let count = 0;
     monsters.forEach(m => {
@@ -3470,7 +4016,7 @@ function runCheatCommand(rawCmd) {
     player.xp += player.nextXp;
     checkLevelUp();
   } else {
-    addLog(`Unknown cheat "${cmd}". Try: showoff, killemall, pupurabbu, metal, floor 5, die, dragon, test`, '#94A3B8');
+    addLog(`Unknown cheat "${cmd}". Try: showoff, secret, shop, spells, killemall, pupurabbu, metal, floor 5, die, dragon, test`, '#94A3B8');
   }
 }
 
@@ -3478,11 +4024,6 @@ function handleDirectionInput(dir) {
   if (gameState !== 'PLAY' || d20Roller.active) return;
 
   if (currentViewMode === '3D_CRAWLER') {
-    // 1980s First-Person Crawler Navigation:
-    // Up (W / ↑): Step 1 tile forward along player.dir
-    // Left (A / ←): Turn 90° Counter-Clockwise in place
-    // Right (D / →): Turn 90° Clockwise in place
-    // Down (S / ↓): Turn 180° Around (U-Turn / About-Face) in place!
     if (dir === 'up') {
       const dv = DIR_VECS[player.dir];
       tryPlayerStep(dv.dx, dv.dy);
@@ -3515,13 +4056,13 @@ function handleDirectionInput(dir) {
 // 9. AUTOMATED MOBILITY & 3D CAMERA ALIGNMENT UNIT TEST SUITE
 // ============================================================================
 function runMobilityUnitTests() {
-  // Snapshot current state to restore cleanly after tests
   const savedGrid = grid.map(row => row.map(c => ({ ...c })));
   const savedMonsters = monsters.map(m => ({ ...m }));
   const savedItems = items.map(i => ({ ...i }));
   const savedPlayer = { ...player };
   const savedMode = currentViewMode;
   const savedState = gameState;
+  const savedSecret = secretRoom ? { ...secretRoom } : null;
 
   const failures = [];
   let assertions = 0;
@@ -3544,16 +4085,13 @@ function runMobilityUnitTests() {
     monsters = [];
     items = [];
 
-    // Build a clean synthetic test dungeon on grid:
-    // Fill with walls first
     for (let y = 0; y < GRID_ROWS; y++) {
       for (let x = 0; x < GRID_COLS; x++) {
         grid[y][x].type = 'wall';
+        grid[y][x].secretHidden = false;
+        grid[y][x].trap = null;
       }
     }
-    // Carve an East-West corridor at (10,10) -> (11,10) -> (12,10)
-    // AND carve a North side-opening at (11,9) and (11,8) (so from (10,10) facing East,
-    // the left opening is 1 step AHEAD at (11,9), NOT at (10,9)!)
     grid[10][10].type = 'corridor';
     grid[10][11].type = 'corridor';
     grid[10][12].type = 'corridor';
@@ -3566,24 +4104,20 @@ function runMobilityUnitTests() {
     player.y = 10;
     player.dir = 0;
 
-    // Try moving North into wall (10,9) -> blocked, stays at (10,10)
     handleDirectionInput('up');
     assertEq(player.x, 10, '2D wall block X');
     assertEq(player.y, 10, '2D wall block Y');
 
-    // Move East into (11,10)
     handleDirectionInput('right');
     assertEq(player.x, 11, '2D step East X');
     assertEq(player.y, 10, '2D step East Y');
     assertEq(player.dir, 1, '2D step East dir');
 
-    // Move North into (11,9)
     handleDirectionInput('up');
     assertEq(player.x, 11, '2D step North X');
     assertEq(player.y, 9, '2D step North Y');
     assertEq(player.dir, 0, '2D step North dir');
 
-    // Move South back to (11,10) and West back to (10,10)
     handleDirectionInput('down');
     assertEq(player.y, 10, '2D step South Y');
     handleDirectionInput('left');
@@ -3594,63 +4128,51 @@ function runMobilityUnitTests() {
     currentViewMode = '3D_CRAWLER';
     player.x = 10;
     player.y = 10;
-    player.dir = 0; // Facing North (wall behind at South (10,11) and front at (10,9))
+    player.dir = 0;
 
-    // Turn Left 90° -> West (3), no position change
     handleDirectionInput('left');
     assertEq(player.dir, 3, '3D turn left from N -> W');
     assertEq(player.x, 10, '3D turn left keeps X');
     assertEq(player.y, 10, '3D turn left keeps Y');
 
-    // Turn Down (Back) -> 180° U-Turn from West (3) to East (1), no position change!
     handleDirectionInput('down');
     assertEq(player.dir, 1, '3D Back 180° from W(3) -> E(1)');
     assertEq(player.x, 10, '3D Back 180° keeps X=10');
     assertEq(player.y, 10, '3D Back 180° keeps Y=10');
 
-    // Turn Down (Back) again -> 180° U-Turn from East (1) to West (3)
     handleDirectionInput('down');
     assertEq(player.dir, 3, '3D Back 180° from E(1) -> W(3)');
 
-    // Turn Right 90° twice -> North (0) then East (1)
     handleDirectionInput('right');
     assertEq(player.dir, 0, '3D turn right from W(3) -> N(0)');
     handleDirectionInput('right');
     assertEq(player.dir, 1, '3D turn right from N(0) -> E(1)');
 
     // --- TEST 3: 3D "Avanti + Sinistra" Side-Opening Alignment & Raycast Verification ---
-    // Player is at (10,10) facing East (dir = 1).
-    // At (10,10), (10,9) is a WALL, while 1 step ahead at (11,9) is OPEN!
     const stateAt10 = get3DPassageState(player.x, player.y, player.dir);
     assertEq(stateAt10.leftOpen, false, 'At (10,10) facing E, immediate left (10,9) is WALL');
     assertEq(stateAt10.frontOpen, true, 'At (10,10) facing E, front (11,10) is OPEN');
     assertEq(stateAt10.nextLeftOpen, true, 'At (10,10) facing E, next left (11,9) is OPEN 1 step ahead');
 
-    // Verify leftmost 3D ray (cameraX = -1) at (10,10) hits the close wall (10,9) of the CURRENT cell!
     const cam10 = get3DCamera(10, 10, 1);
     const leftRay10 = cast3DRay(cam10.camX, cam10.camY, cam10.dirX - cam10.planeX, cam10.dirY - cam10.planeY);
     assertEq(leftRay10.mapX, 10, 'Leftmost ray at (10,10) hits current cell X=10');
     assertEq(leftRay10.mapY, 9, 'Leftmost ray at (10,10) hits current cell left wall Y=9');
     assertTrue(leftRay10.perpDist < 0.75, 'Leftmost ray at (10,10) has close wall distance < 0.75');
 
-    // Now step FORWARD ('up') in 3D mode -> moves to (11,10) still facing East (dir = 1)
     handleDirectionInput('up');
     assertEq(player.x, 11, '3D step forward moves X to 11');
     assertEq(player.y, 10, '3D step forward keeps Y at 10');
     assertEq(player.dir, 1, '3D step forward keeps dir at 1 (East)');
 
-    // At (11,10) facing East, immediate left (11,9) is NOW OPEN!
     const stateAt11 = get3DPassageState(player.x, player.y, player.dir);
     assertEq(stateAt11.leftOpen, true, 'At (11,10) facing E, immediate left (11,9) is OPEN');
 
-    // Verify leftmost 3D ray (cameraX = -1) at (11,10) passes through the open side doorway (11,9)
-    // instead of stopping at the y=10 boundary (perpDist ~0.52), hitting the inner corridor wall (12,9) at perpDist ~0.92!
     const cam11 = get3DCamera(11, 10, 1);
     const leftRay11 = cast3DRay(cam11.camX, cam11.camY, cam11.dirX - cam11.planeX, cam11.dirY - cam11.planeY);
     assertTrue(leftRay11.perpDist > leftRay10.perpDist + 0.3, 'Leftmost ray at (11,10) passes into open passage on left (perpDist > 0.85 vs 0.52)');
     assertEq(leftRay11.mapX, 12, 'Leftmost ray at (11,10) sees inside the side passage to inner wall X=12');
 
-    // Now turn LEFT 90° ('left') in 3D mode -> stays at (11,10), faces North (dir = 0) into the open passage (11,9)!
     handleDirectionInput('left');
     assertEq(player.x, 11, 'After Avanti+Sinistra, player X is 11');
     assertEq(player.y, 10, 'After Avanti+Sinistra, player Y is 10');
@@ -3659,17 +4181,15 @@ function runMobilityUnitTests() {
     const stateFacingPassage = get3DPassageState(player.x, player.y, player.dir);
     assertEq(stateFacingPassage.frontOpen, true, 'After Avanti+Sinistra at (11,10), front (11,9) is OPEN (no wall!)');
 
-    // Center 3D ray (cameraX = 0) at (11,10) facing North sees all the way down the passage (11,9)->(11,8)->wall(11,7)
     const camNorth = get3DCamera(11, 10, 0);
     const centerRayNorth = cast3DRay(camNorth.camX, camNorth.camY, camNorth.dirX, camNorth.dirY);
     assertTrue(centerRayNorth.perpDist > 2.5, 'Center ray after Avanti+Sinistra sees deep open passage (> 2.5 tiles)');
 
-    // Step forward ('up') into the side passage -> lands on (11,9)!
     handleDirectionInput('up');
     assertEq(player.x, 11, 'Step into side passage X=11');
     assertEq(player.y, 9, 'Step into side passage Y=9');
 
-    // --- TEST 4: Dungeon Floor Monster Difficulty & Size Scaling (B1F Small Only -> Deeper 2x2 & Bosses) ---
+    // --- TEST 4: Dungeon Floor Monster Difficulty & Size Scaling ---
     const f1Pool = getEligibleMonstersForFloor(1);
     const f1Guard = getStairsGuardForFloor(1);
     assertTrue(f1Pool.length === 4, 'Floor 1 pool has 4 small monsters (Rat, Bat, Goblin, Spider)');
@@ -3684,14 +4204,24 @@ function runMobilityUnitTests() {
     const f8Guard = getStairsGuardForFloor(8);
     assertEq(f8Guard.key, 'dragon', 'Floor 8 stairs guard is Red Dragon');
     assertEq(f8Guard.tileSpan, 2, 'Floor 8 Red Dragon has 2x2 footprint');
+
+    // --- TEST 5: Secret Room in Negative Space & Multi-Video Death Selector ---
+    const carvedSecret = carveSecretRoomInNegativeSpace();
+    assertTrue(carvedSecret !== null, 'Secret room carved in negative space');
+    assertEq(grid[carvedSecret.doorY][carvedSecret.doorX].type, 'secret_door', 'Secret door starts as secret_door wall tile');
+    assertEq(discoverSecretRoom('Unit Test'), true, 'discoverSecretRoom opens secret door');
+    assertEq(grid[carvedSecret.doorY][carvedSecret.doorX].type, 'corridor', 'Discovered secret door becomes walkable corridor');
+    assertEq(getDeathVideoForKiller({ key: 'dragon' }), 'audio/death_default.mp4', 'Dragon uses death_default.mp4');
+    assertEq(getDeathVideoForKiller({ key: 'zombie', undead: true }), 'audio/death_zombie.mp4', 'Zombie uses death_zombie.mp4');
+    assertEq(getDeathVideoForKiller({ key: 'goblin' }), 'audio/death_eyes.mp4', 'Goblin uses death_eyes.mp4');
   } finally {
-    // Restore original game state
     grid = savedGrid;
     monsters = savedMonsters;
     items = savedItems;
     Object.assign(player, savedPlayer);
     currentViewMode = savedMode;
     gameState = savedState;
+    secretRoom = savedSecret;
     updateHUD();
   }
 
@@ -3707,6 +4237,8 @@ window.addEventListener('keydown', (e) => {
   const consoleModal = document.getElementById('console-modal');
   const titleModal = document.getElementById('title-modal');
   const quitModal = document.getElementById('quit-modal');
+  const spellsModal = document.getElementById('spells-modal');
+  const shopModal = document.getElementById('shop-modal');
 
   if (consoleModal.classList.contains('open')) {
     if (e.key === 'Escape') {
@@ -3720,7 +4252,23 @@ window.addEventListener('keydown', (e) => {
     return;
   }
 
-  // Handle ESC Quit Confirmation Modal ("Are you sure?")
+  if (!spellsModal.classList.contains('hidden')) {
+    if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+      spellsModal.classList.add('hidden');
+    } else if (e.key === '1') castPaladinSpell('lay');
+    else if (e.key === '2') castPaladinSpell('turn');
+    else if (e.key === '3') castPaladinSpell('protect');
+    else if (e.key === '4') castPaladinSpell('smite');
+    return;
+  }
+
+  if (!shopModal.classList.contains('hidden')) {
+    if (e.key === 'Escape' || e.key === 'b' || e.key === 'B') {
+      shopModal.classList.add('hidden');
+    }
+    return;
+  }
+
   if (!quitModal.classList.contains('hidden')) {
     if (e.key === 'Escape' || e.key === 'n' || e.key === 'N') {
       closeQuitModal();
@@ -3752,7 +4300,6 @@ window.addEventListener('keydown', (e) => {
     return;
   }
 
-  // ESC during PLAY -> open "Are you sure you want to quit?" confirmation modal!
   if (e.key === 'Escape') {
     e.preventDefault();
     openQuitModal();
@@ -3769,6 +4316,20 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'h' || e.key === 'H') {
     updateResumeButtonVisibility();
     titleModal.classList.toggle('hidden');
+    return;
+  }
+  if (e.key === 'c' || e.key === 'C') {
+    document.getElementById('spells-mana-txt').textContent = `${player.mana}/${player.maxMana}`;
+    spellsModal.classList.toggle('hidden');
+    return;
+  }
+  if (e.key === 'b' || e.key === 'B') {
+    document.getElementById('shop-gold-txt').textContent = `${player.gold} 💰`;
+    shopModal.classList.toggle('hidden');
+    return;
+  }
+  if (e.key === 'f' || e.key === 'F') {
+    readSecretScroll();
     return;
   }
   if (e.key === 'v' || e.key === 'V') {
@@ -3864,6 +4425,28 @@ document.getElementById('btn-zoom-toggle').addEventListener('click', () => {
   roomZoomEnabled = !roomZoomEnabled;
   updateHUD();
 });
+document.getElementById('btn-spells').addEventListener('click', () => {
+  document.getElementById('spells-mana-txt').textContent = `${player.mana}/${player.maxMana}`;
+  document.getElementById('spells-modal').classList.toggle('hidden');
+});
+document.getElementById('btn-spells-close').addEventListener('click', () => {
+  document.getElementById('spells-modal').classList.add('hidden');
+});
+document.querySelectorAll('[data-spell]').forEach(btn => {
+  btn.addEventListener('click', () => castPaladinSpell(btn.dataset.spell));
+});
+
+document.getElementById('btn-shop').addEventListener('click', () => {
+  document.getElementById('shop-gold-txt').textContent = `${player.gold} 💰`;
+  document.getElementById('shop-modal').classList.toggle('hidden');
+});
+document.getElementById('btn-shop-close').addEventListener('click', () => {
+  document.getElementById('shop-modal').classList.add('hidden');
+});
+document.querySelectorAll('[data-buy]').forEach(btn => {
+  btn.addEventListener('click', () => buyShopItem(btn.dataset.buy));
+});
+
 document.getElementById('btn-roll-d20').addEventListener('click', () => {
   d20Roller.trigger({
     title: '🎲 TIRO LIBERO D20 (RED BOX)',
@@ -3904,6 +4487,15 @@ document.querySelectorAll('.cheat-chip').forEach(chip => {
 
 document.getElementById('slot-heal').addEventListener('click', quaffHealPotion);
 document.getElementById('slot-sparkle').addEventListener('click', quaffSparklePotion);
+document.getElementById('slot-scroll').addEventListener('click', readSecretScroll);
+document.getElementById('touch-spells').addEventListener('click', () => {
+  document.getElementById('spells-mana-txt').textContent = `${player.mana}/${player.maxMana}`;
+  document.getElementById('spells-modal').classList.toggle('hidden');
+});
+document.getElementById('touch-shop').addEventListener('click', () => {
+  document.getElementById('shop-gold-txt').textContent = `${player.gold} 💰`;
+  document.getElementById('shop-modal').classList.toggle('hidden');
+});
 
 document.querySelectorAll('.dpad-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
@@ -3912,14 +4504,6 @@ document.querySelectorAll('.dpad-btn').forEach(btn => {
   });
 });
 document.getElementById('touch-view').addEventListener('click', cycleViewMode);
-document.getElementById('touch-d20').addEventListener('click', () => {
-  d20Roller.trigger({
-    title: '🎲 TIRO LIBERO D20 (RED BOX)',
-    subtitle: 'Dungeon Master Fate Check!',
-    dc: 12,
-    bonus: Math.floor(player.lvl / 2)
-  });
-});
 
 canvas.addEventListener('click', () => {
   if (gameState === 'GAMEOVER') initNewGame();

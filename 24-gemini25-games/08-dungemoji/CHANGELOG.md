@@ -2,6 +2,28 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [9.0.0] - 2026-10-19
+
+### Added & Improved
+- **🏷️ Versione Dinamica Sempre Visibile (`v9.0.0 RED BOX`)**:
+  - Risolto il problema della versione hardcoded (`v8.2`): ora `build_game.py` legge direttamente il file `VERSION` (`9.0.0`) e mostra il badge luminoso **`v9.0.0 RED BOX`** nell'header in alto a sinistra (`#version-badge`), nel titolo principale (`#title-modal`), nel `<title>` della pagina e nella barra inferiore (`#bottom-hud`).
+- **👦⚔️ Guida Rapida in 3 Mosse per Alessandro (`[H]` / `👦 GUIDA [H]`)**:
+  - Aggiunto un pannello verde smeraldo chiaro e immediato nella schermata iniziale/Help che spiega a colpo d'occhio cosa è **davvero necessario** per giocare (**solo `Frecce/WASD` per muoversi, attaccare e scendere le scale + `Q` per curarsi**!) e cosa fanno i tasti extra opzionali (`E`, `F`, `C`, `B`, `V`).
+- **🕵️‍♂️ Stanze Segrete nel Negativo (`carveSecretRoomInNegativeSpace()` + `discoverSecretRoom()`)**:
+  - Ogni piano scava matematicamente una stanza segreta `3×3` nello **spazio negativo non scavato** tra le stanze/corridoi, chiusa da una porta segreta mimetizzata nel muro (`secret_door`) che blocca la visuale finché non viene scoperta.
+  - **Come scoprirla**: **10% di probabilità** camminando sulla casella adiacente alla porta segreta, **35% bussando** contro il muro segreto, oppure **100% istantaneo** leggendo una **Pergamena delle Stanze Segrete (`📜`, tasto `[F]`)** o lanciando l'incantesimo *Protection & Secrets* (`[C]` -> `[3]`)!
+- **✨ [GHI #4] Libro degli Incantesimi del Paladino (`[C]` / `✨ SPELLS [C]`)**:
+  - 4 incantesimi divini con Cariche di Fede (`mana`) che si ricaricano ad ogni piano: **[1] Lay on Hands** (`+25 HP`), **[2] Turn Undead D20** (Tiro Sacro D20 che polverizza Scheletri, Zombie e Fantasmi), **[3] Protection & Secrets** (`+3 AC` per tutto il piano + rivela trappole e Stanza Segreta), e **[4] Holy Avenger Smite** (Folgore Divina su tutti i nemici visibili).
+- **🛒 Mercante Nano del Dungeon (`[B]` / `🛒 SHOP [B]`)**:
+  - Permette di spendere l'Oro (`💰`) raccolto per acquistare Pozioni Rosse (`🧪`), Pergamene delle Stanze Segrete (`📜`), Chiavi d'Oro (`🗝️`), Pozioni Sparkle (`✨`), Scudo Red Box (`+1 AC` e `+5 Max HP` permanenti) e Affilatura Vorpal (`+2 ATK` permanente).
+- **🗝️ Porte Chiuse (`🚪`), Chiavi d'Oro (`🗝️`) & Trappole D&D (`⚠️`)**:
+  - Porte chiuse apribili con una Chiave d'Oro (`🗝️`) o sfondabili con una prova di Forza sul D20 (`DC 14`), e trappole nascoste con Tiro Salvezza D20 sui Riflessi.
+- **🎬 [GHI #3] 3 Video di Morte Cinematografici Veo 3.1 Non-Pixellosi (`getDeathVideoForKiller`)**:
+  - Seleziona automaticamente il video Veo 3.1 (`veo-3.1-generate-preview`, dipinto ad olio dark fantasy anni '80 senza pixellosità) in base al mostro che uccide il Paladino:
+    - `audio/death_default.mp4`: **Drago Rosso / Demogorgon** (incenerimento completo in cenere fumante — **9.9/10**).
+    - `audio/death_zombie.mp4`: **Non-Morti** (*Zombie*, *Skeleton*, *Ghost* — orda scheletrica/necrotica nella cripta).
+    - `audio/death_eyes.mp4`: **Due Occhi Rossi nel Buio** (balzo letale della bestia dagli occhi rossi per tutti gli altri mostri del dungeon).
+
 ## [8.3.2] - 2026-10-19
 
 ### Added & Improved
