@@ -29,10 +29,13 @@ push: deploy
 emulate:
   firebase emulators:start
 
-# Smoke test HTML & embedded NanoBanana assets
+# Smoke test HTML, Mobility Unit Tests, L5 Epic Metal MP3 & embedded NanoBanana assets
 test:
-  @grep -q "DUNGEMOJI v8.0" public/index.html && echo "✅ public/index.html v8.0 verified!"
-  @grep -q "pupurabbu" public/index.html && echo "✅ Pupurabbu & 27 NanoBanana sprites embedded!"
+  @grep -q "DUNGEMOJI v8.2" public/index.html && echo "✅ public/index.html v8.2 verified!"
+  @grep -q "runMobilityUnitTests" public/index.html && echo "✅ Mobility & 3D Raycast Unit Test Suite embedded!"
+  @grep -q "quit-modal" public/index.html && echo "✅ ESC Quit/Save Confirmation Modal verified!"
+  @test -f public/audio/epic_metal_l5.mp3 && echo "✅ Level 5 Medieval Epic Metal MP3 verified!"
+  @grep -q "pupurabbu" public/index.html && echo "✅ Il Mitico Pupurabbu (2x2 IF Bear) & 27 NanoBanana sprites embedded!"
 
 # Open local or deployed game
 open:
