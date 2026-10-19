@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:158684d58c1cb5b3c5e3fa4df8552a63878b4a337fd4b40e92d12f870234bee0
-size 236
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

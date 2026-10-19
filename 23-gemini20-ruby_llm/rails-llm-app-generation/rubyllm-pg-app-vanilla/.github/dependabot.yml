@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:08a0fa3aa3009b7f66044b2dba9ef2d1d7d84fd36b133e55d5fb0187252797e9
-size 245
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10

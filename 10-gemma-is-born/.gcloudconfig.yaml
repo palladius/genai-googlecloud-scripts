@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:aaef9d739a6680790ba767bbd86be63e8d9af0a63d172b049a9c9a4f6edba3ea
-size 438
+# This is a sample from version v1.0
+# Code: https://github.com/palladius/sakura/blob/master/bin/auto_import_config.py
+#
+#
+# Note: this is PUBLIC
+#
+local_config:
+  auto: true
+configurations:
+  # # Note: gcloud wont accept this config name if it starts with a number (#btdt)
+  gemma-is-born:
+    project: clouddeploy-vertexai-demovegas
+    compute/region: us-central1
+    compute/zone: us-central1-b
+    account: palladiusbonton@gmail.com

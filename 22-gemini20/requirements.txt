@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9b1d7e5286ea8b9b81029169a42ec7512302ea7e72616984aaac3bf8fbdd1014
-size 65
+google-cloud-aiplatform>=1.40.0
+pyperclip>=1.8.2
+colorama
+dotenv

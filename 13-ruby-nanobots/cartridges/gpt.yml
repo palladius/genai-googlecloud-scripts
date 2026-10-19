@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7288bfbadc86b29de819d91810a4b42fabe85a9d24634bfedb74c3a375493574
-size 499
+# copied from https://github.com/icebaker/ruby-nano-bots?tab=readme-ov-file#tldr-and-quick-start
+---
+meta:
+  symbol: 🤖
+  name: Nano Bot Name
+  author: Your Name
+  version: 1.0.0
+  license: CC0-1.0
+  description: A helpful assistant.
+
+behaviors:
+  interaction:
+    directive: You are a OpenAI helpful assistant.
+
+provider:
+  id: openai
+  credentials:
+    access-token: ENV/OPENAI_API_KEY
+  settings:
+    user: ENV/NANO_BOTS_END_USER
+    model: gpt-3.5-turbo  # cheaper i think
+    #model: gpt-4o
+

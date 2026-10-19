@@ -1,3 +1,54 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cb8d83a11664a304f2abdd0796342c0fb312b79a7d7fa26a171a00cbf7d42065
-size 2285
+########################################################
+# This is a sample from gaic v1.3
+# Code: https://github.com/palladius/sakura/blob/master/bin/auto_import_config.py
+########################################################
+# Once done you can do: gcloud config configurations activate YOUR_VAVORITE_CONFIG
+local_config:
+  auto: true
+configurations:
+  # You probably DONT WANT TO USE default unless you started on GCP yesterday
+  #default:
+  #  gcloud:
+  #    project: my-default-personal-project
+  #    compute/region: us-central1
+  #    compute/zone: us-central1-b
+  #    account: your.personal.email@gmail.com
+  # Note: gcloud wont accept this config name if it starts with a number (#btdt)
+  ricc-cloud-llm-preview4:
+    gcloud:
+      project: cloud-llm-preview4
+      compute/region: us-central1
+      compute/zone: us-central1-b
+      ai_platform/region: us-central1
+      ai/region: us-central1
+      account: ricc@google.com
+    env:
+      description: This is my Googler account with enabled project
+  langchainrb-playground:
+    gcloud:
+      project: ric-cccwiki
+      compute/region: us-central1
+      compute/zone: us-central1-b
+      ai_platform/region: us-central1
+      ai/region: us-central1
+      account: palladiusbonton@gmail.com
+    env:
+      DESCRIPTION: >-
+        This is my personal account - doing things like everyone else
+        to test no whitelisting.
+
+        I also have my geminisse SA just created and deployed for ricc.
+        Also added the expiry date.
+      # Key expiry date: 9 Jul 2024
+      KEY_EXPIRY_DATE: "2024-07-09" # https://pantheon.corp.google.com/iam-admin/serviceaccounts/details/113642904574590751541/keys?project=ricc-genai
+      STD_SA_LOCATION: "private/$PROJECT_ID.json"
+      # GOOGLE_APPLICATION_CREDENTIALS = "private/$PROJECT_ID.json"
+      # No need! It's auto imported for you. You're welcome
+      #PROJECT_ID: this is autopopulated from above
+      #GCP_REGION: this is autopopulated from above
+      # VERTEX_TRAINING_JOB_NAME: 'train-test-123'
+      # REPO_NAME: 'my-awesome-app'
+      # These work! Just make sure you do it in ORDER. (God bless python dicts naivity)
+      BUCKET: "gs://${PROJECT_ID}-bucket"
+      #IMAGE_URI: "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/my_vertex_image:latest"
+

@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:61425c040c722f9bc63e64797943ed9f880041f6bb89e03a60a5b5e515732272
-size 220
+
+Gemini permalink: https://gemini.google.com/app/abcdef1234567890 (change with your chat permalink)
+
+Here is the prompt history:
+
+## Prompt 1
+
+My first prompt
+
+## Prompt 2
+
+My second prompt
+
+## Prompt 3
+
+My third prompt

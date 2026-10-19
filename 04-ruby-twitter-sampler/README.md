@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5264abf77b396e145ca8c6042fc4102ab9852c023043b377bdda8607148d845e
-size 384
+# WORK IN PROGRESS
+
+The idea here is to use the Twitter APIs to demonstrate two things:
+
+* read the latest 10 tweets from user XXX and detect Sentiment and a digest of what they talk about.
+* read the latest/popular tweets for hashtag #YYYY and similarly detect topic and sentiment.
+
+
+## Prerequsites
+
+* You need a Google Cloud account
+* You need a Twitter dev account and an app key.

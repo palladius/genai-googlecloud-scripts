@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9e445bd91f153abbe365bc888185cd7fb6088f57738bb365bfa846e2c4346dee
-size 244
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: one
+  tool_call_id: MyString
+  name: MyString
+  arguments: 
+
+two:
+  message: two
+  tool_call_id: MyString
+  name: MyString
+  arguments: 

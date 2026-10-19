@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:57797cae58d1887e4a78773f5d9f38958d5192ff50b274cf9290a2e3b3a6f138
-size 772
+
+## Prompt 1
+
+Please create a p5js clone of Gyruss game. It should be playable both with keyboard (cursor and SPACE to shoot) and with tapping the phone.
+Our ship is white 'G', and all other ships should have one of the 4 Google colors (red blue green yellow).
+Shooting at other ships makes a small explosion and increases the score.
+1 ship in 5 is very fast, and it scores 3x to kill it.
+
+## p2
+
+Please create a p5js clone of Gyruss game. It should be playable both with keyboard (cursor and SPACE to shoot) and with tapping the phone.
+Our ship is white 'G', and all other ships should have one of the 4 Google colors (red blue green yellow).
+Shooting at other ships makes a small explosion and increases the score.
+1 ship in 5 is very fast, and it scores 3x to kill it.

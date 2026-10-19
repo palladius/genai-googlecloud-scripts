@@ -1,6 +1,11 @@
 {
   "name": "smurfs-and-dragons",
-  "version": "2.0.0",
+  "version": "2.1.2",
+  "scripts": {
+    "deploy": "./deploy-both.sh",
+    "deploy:both": "./deploy-both.sh",
+    "deploy:firebase": "firebase deploy --only hosting"
+  },
   "dependencies": {
     "firebase-tools": "^14.1.0"
   }

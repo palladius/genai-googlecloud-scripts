@@ -1,3 +1,582 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:93a7a2d710ff5af07a3ce0b6681c260d2c64b7f4463c91d70bcb2c60706486b7
-size 41407
+[
+  {
+    "prompt": "https://www.google.com",
+    "classification": "url",
+    "image_files": [],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a outdoor jazz club in Lausanne, at sunset",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_0027816b_1.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_4cf68bc8_2.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_a8faabf0_3.png",
+      "streamlit/generated_images/20250619_A_smurf_playing_the_piano_in_a_outdoor_jazz_club_in_Lausanne_at_sunset_d8940d76_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing a yellwo grand piano in Montreux square by the lake, together with Deep Purple on stage. ",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_adbfcd37_1.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_1b2a8d09_2.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_20767bae_3.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_a_yellwo_grand_piano_in_Montreux_square_by_the_lake_together_with_Deep_Purple_o_dc4956d4_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a Lausanne square by the lake, cinematic lighting.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_298a4ca8_1.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_40cb45ed_2.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_d97b6a37_3.png",
+      "streamlit/generated_images/20250618_A_smurf_playing_the_piano_in_a_Lausanne_square_by_the_lake_cinematic_lighting_52ab815c_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A Dream Theater album in Lausanne.\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_6e0ebf42_1.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_e6d6b9c7_2.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_b254c051_3.png",
+      "streamlit/generated_images/20250617_A_Dream_Theater_album_in_Lausanne_0f5a4634_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away on top of zurich.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_35d0d8f5_1.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_e3767fd5_2.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_20667c53_3.png",
+      "streamlit/generated_images/20250424_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_27da5248_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A Dream Theater album in Zurich.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_027ac9b3_4.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_0aa6674b_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_0f08256c_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Dream_Theater_set_up_in_Zurich_5061eee9_2.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A middle-age Swiss village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_788ae238_1.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_e3bf3fb7_2.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_77083217_3.png",
+      "streamlit/generated_images/20250424_A_middleage_Swiss_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buy_02ee49da_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club in Zurich Niederdorf, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing alphorn in typical swiss clothes",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-2.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_in_Zurich_Niederdorf_cinematic_lighting_then_camera_fad-daa6342e-4fb3-4c25-894c-321749bd685d-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/daa6342e-4fb3-4c25-894c-321749bd685d"
+  },
+  {
+    "prompt": "Shrek and Donkey are in Zurich city center, near Paradeplatz. The city looks like Duloc, and all kind of fairy tales creatures pop out of banks windows.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_a0c2a06a_1.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_b63ab31b_2.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_c1ec564b_3.png",
+      "streamlit/generated_images/20250424_Shrek_and_Donkey_are_in_Zurich_city_center_near_Paradeplatz_The_city_looks_like_Duloc_and_all_d37864cb_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Guns and Roses with a Pirate Roberts.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_8bd7b3a5_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_699c087a_2.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_a0794d2a_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Guns_and_Roses_with_a_Pirate_Roberts_1ddf42a7_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Kings of Leon with a flying giraffe .",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__4ab9bdda_1.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__7bf939bc_2.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__81359896_3.png",
+      "streamlit/generated_images/20250424_A_CD_album_cover_by_Kings_of_Leon_with_a_flying_giraffe__fa5d2d27_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek and donkey are in Turin, in Piazza San Carlo, reading a SRE book titled \"SRE gone wrong\".",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_815b0197_1.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_d04d8b17_2.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_3e0877d6_3.png",
+      "streamlit/generated_images/20250324_Shrek_and_donkey_are_in_Turin_in_Piazza_San_Carlo_reading_a_SRE_book_titled_SRE_gone_wrong_6247ad24_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A middle-age Milan-inspired village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market in front of Milan Duomo cathedral. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_8d23698b_2.png",
+      "streamlit/generated_images/20250320_A_middleage_Milaninspired_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarve_4e9f0e1d_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek is a  Platform Engineer.\nHe's trying to get fairy creatures inside his beautiful \"Platform Engineering\" fairy building, full of computers and fairy marvels.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_c5202f7b_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_932cee29_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_94de9196_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_a__Platform_EngineerHes_trying_to_get_fairy_creatures_inside_his_beautiful_Platform_b2259036_4.png"
+    ]
+  },
+  {
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_5bb7ea03_2.png",
+      "streamlit/generated_images/20250320_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_be835e9d_3.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek is an SRE and does Platform Engineering.\nHe's trying to get fairy creatures inside his beautiful \"Platform Engineering\" fairy building",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_7a9d4f52_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_b65a326f_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_c57350da_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_an_SRE_and_does_Platform_EngineeringHes_trying_to_get_fairy_creatures_inside_his_bea_73412526_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek is reading to Donkey a big \"SRE book\".\nIt's the last page, with written \"The END\".\nThey seem both satisfied and happy.\n\nA cute little colorful \"Google\" Logo on the bottom of the image.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_048fdaa7_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3805041f_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_07836357_3.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek is reading to Donkey a big \"SRE book\".\nIt's the last page, with written \"The END\".\nThey seem both satisfied and happy.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_37fef4ca_1.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_01170454_2.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_858bf008_3.png",
+      "streamlit/generated_images/20250324_Shrek_is_reading_to_Donkey_a_big_SRE_bookIts_the_last_page_with_written_The_ENDThey_se_3afdb4ee_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cute robotic Shrek is Actively Nurturing Success, and telling Fiona she's really good at the job.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_214cdb3a_1.png",
+      "streamlit/generated_images/20250324_A_cute_robotic_Shrek_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_the_j_11005893_2.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cute Shrek-faced robot is Actively Nurturing Success, and telling Fiona she's really good at the job.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_94a441bc_1.png",
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_dffbd707_2.png",
+      "streamlit/generated_images/20250324_A_cute_Shrekfaced_robot_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_good_at_t_8011263a_3.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cute Shrek-robot  with Shrek's face is Actively Nurturing Success, and telling Fiona she's really good.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_cute_Shrekrobot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_rea_c65749b7_1.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cute robot  with Shrek's face is Actively Nurturing Success, and telling Fiona she's really good.\nHis face is loving and friendly. They are both reading an \"SRE book\"\n",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_8e4822b7_1.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_6fddf0dc_2.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_Actively_Nurturing_Success_and_telling_Fiona_shes_really_go_f5d53b4d_3.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cute robot  with Shrek's face is playing with toys and tools.\nHe's very intent in the work he's doing.\nAn \"SRE\" book is half-open on the ground.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_2b6e78fe_1.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_501f41e0_2.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_fb20a429_3.png",
+      "streamlit/generated_images/20250324_A_cute_robot__with_Shreks_face_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_he_6412d67e_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A Shrek-shaped cute robot is playing with toys and tools.\nHe's very intent in the work he's doing.\nAn \"SRE\" book is half-open on the ground",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_0ded2440_1.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_819124d3_2.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_7b44c5b4_3.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_cute_robot_is_playing_with_toys_and_toolsHes_very_intent_in_the_work_hes_doin_bfb11048_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A Shrek-shaped android cute robot is reading an \"SRE\" book.\nHe's very intent in the reading.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250324_A_Shrekshaped_android_cute_robot_is_reading_an_SRE_bookHes_very_intent_in_the_reading_321822a3_1.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_android_cute_robot_is_reading_an_SRE_bookHes_very_intent_in_the_reading_d0ce2c5a_2.png",
+      "streamlit/generated_images/20250324_A_Shrekshaped_android_cute_robot_is_reading_an_SRE_bookHes_very_intent_in_the_reading_9f442abd_3.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek wakes up in Turin, the view from Shrek to the Mole Antonelliana out of the window. On the bedside table, a small jar of Nutella. Beside it, a big book with written \"SRE book\"; Shrek puts on his glasses and opens the SRE book. Camera zooms in into the book content",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-1.mp4",
+      "streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-2.mp4",
+      "streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-3.mp4",
+      "streamlit/generated_videos/video-Shrek_wakes_up_in_Turin_the_view_from_Shrek_to_the_Mole_Antonelliana_out_of_the_window_On_the_be-996c8765-b641-4fff-a30f-753279c294b0-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/996c8765-b641-4fff-a30f-753279c294b0"
+  },
+  {
+    "prompt": "Camera is black.\nTitle says \"/dev/cloud Day\".\nCamera fades in, revealing Istanbul vibrant City.\nGoogle Cloud logo flying from the sky everywhere.\nThe camera fades out, then the view goes to above Istiklal Caddesi to move then to Aya Sophia.\nOn a distance, an Android is taking pictures of the Google Cloud logos, with \"GDG\" on Android's chest.",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-1.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-2.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-3.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_Title_says_dev_cloud_Day_Camera_fades_in_revealing_Istanbul_vibrant_City_Google_-97c37f0c-4294-46d6-b3ea-c20abff592cb-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/97c37f0c-4294-46d6-b3ea-c20abff592cb"
+  },
+  {
+    "prompt": "Camera is black. \nTitle says \"/dev/cloud Day\".\nCamera fades in, revealing Amsterdam vibrant City.\nGoogle Cloud logo flying from the sky everywhere.\nThe camera fades out, then the view goes to above Istiklal Caddesi to move then to Aya Sophia.\nOn a distance, an Android is taking pictures of the Google Cloud logos, with \"GDG\" on Android's chest.",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-1.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-2.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-3.mp4",
+      "streamlit/generated_videos/video-Camera_is_black_\nTitle_says_devcloud_Day\nCamera_fades_in_revealing_Amsterdam_vibrant_City\nGoogle-333c9a93-f322-4992-8ccd-9fa253cbcb94-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/333c9a93-f322-4992-8ccd-9fa253cbcb94"
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-1.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-2.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-3.mp4",
+      "streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then_camera_fades_out_Camera_fades_i-8bb81ef9-3fb1-4adb-a101-0a30d90010f4-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/8bb81ef9-3fb1-4adb-a101-0a30d90010f4"
+  },
+  {
+    "prompt": "(Image) The two protagonists transform into a prince and a princess of England",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/images/ricc-kate.jpg"
+    ]
+  },
+  {
+    "prompt": "(Video) The two protagonists transform into a prince and a princess of England",
+    "classification": "video_prompt",
+    "video_files": [
+      "streamlit/generated_videos/video-The_two_protagonists_transform_into_a_prince_and_a_princess_of_England-88ac48bd-613c-4e0a-8a8d-22c6a7fd1f29-3.mp4"
+    ]
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_1.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_2.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_3.png",
+      "out/images/20250311_A_Pokemon_giraffe_plays_with_three_smurfs_4.png"
+    ]
+  },
+  {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-1.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-2.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-3.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-f81c6194-97d9-40f3-8460-682325a9d024-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/f81c6194-97d9-40f3-8460-682325a9d024"
+  },
+  {
+    "prompt": "A middle-age village at midday, D&D style, sunny day, humans and elves and dwarves are buying at local market. A dragon is flying very far away.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_fdacad3d_1.png",
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_ab1c67f0_3.png",
+      "streamlit/generated_images/20250311_A_middleage_village_at_midday_DD_style_sunny_day_humans_and_elves_and_dwarves_are_buying_at_bb064c64_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_ead0a861_1.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_123d4111_2.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3b0b2301_3.png",
+      "streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_c4efec94_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A futuristic city at night, neon lights, flying cars",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_2299039d_1.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_8355cd2d_2.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_80c23711_3.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_4b58e46c_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-1.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-2.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-3.mp4",
+      "streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-e85055c5-fbd6-4cff-995e-b99a5bdfe9f4-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/e85055c5-fbd6-4cff-995e-b99a5bdfe9f4"
+  },
+  {
+    "prompt": "A futuristic city at night, neon lights, flying cars",
+    "classification": "image_prompt",
+    "image_files": [
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c8fe5b8b_1.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_c467660d_2.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_754fccf1_3.png",
+      "streamlit/generated_images/20250311_A_futuristic_city_at_night_neon_lights_flying_cars_68f1ebbc_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "Summarize the main points of the following text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n",
+    "classification": "summary",
+    "image_files": [],
+    "video_files": []
+  },
+  {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-1.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-2.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-3.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-a795a00f-1a2f-4706-9e48-e350106c267a-4.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/a795a00f-1a2f-4706-9e48-e350106c267a"
+  },
+  {
+    "prompt": "Shrek and Fiona are doing an Ironman in Japan: Shrek is cycling in a trisuite while Fiona is getting out of the water right now.\nThe camera fades out, then the view goes to above.\nOn a distance, donkey is taking pictures of the green couple, on top of his big red dragon.\n",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-090ae55a-eefc-4790-93dc-ef6ed9874fd0-4.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-090ae55a-eefc-4790-93dc-ef6ed9874fd0-2.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-090ae55a-eefc-4790-93dc-ef6ed9874fd0-3.mp4",
+      "./streamlit/generated_videos/video-Shrek_and_Fiona_are_doing_an_Ironman_in_Japan_Shrek_is_cycling_in_a_trisuite_while_Fiona_is_gett-090ae55a-eefc-4790-93dc-ef6ed9874fd0-1.mp4"
+    ],
+    "operation_id": "projects/veo-testing/locations/us-central1/publishers/google/models/veo-2.0-generate-001/operations/090ae55a-eefc-4790-93dc-ef6ed9874fd0"
+  },
+  {
+    "prompt": "A pokemon playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "./streamlit/generated_videos/video-A_pokemon_playing_the_piano_in_a_jazz_club_cinematic_lighting_th-867269cf-72df-4df3-8197-b733f8c8dacd-1.mp4",
+      "./streamlit/generated_videos/video-A_pokemon_playing_the_piano_in_a_jazz_club_cinematic_lighting_th-867269cf-72df-4df3-8197-b733f8c8dacd-2.mp4",
+      "./streamlit/generated_videos/video-A_pokemon_playing_the_piano_in_a_jazz_club_cinematic_lighting_th-867269cf-72df-4df3-8197-b733f8c8dacd-4.mp4"
+    ]
+  },
+  {
+    "prompt": "Write a Python function to calculate the factorial of a number.",
+    "classification": "code",
+    "image_files": [],
+    "video_files": []
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting, then camera fades out. Camera fades in, then widens to reveal Gargamel playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "./streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-1.mp4",
+      "./streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-3.mp4",
+      "./streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-4.mp4",
+      "./streamlit/generated_videos/video-A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_then-eff5b344-e794-4bc4-9ee3-58a01cc4b597-2.mp4"
+    ]
+  },
+  {
+    "prompt": "A smurf playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_76749f28_1.png",
+      "./streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_8e780b82_2.png",
+      "./streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_2378c5e6_3.png",
+      "./streamlit/generated_images/20250311_A_smurf_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera_widens_to_reveal_a_fox_play_8f52fe50_4.png"
+    ],
+    "video_files": []
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "image_files": [],
+    "video_files": [
+      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-2.mp4",
+      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-3.mp4",
+      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-4.mp4",
+      "./streamlit/generated_videos/video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-b140acd9-e1a6-4f56-897e-e7add5cac9a4-1.mp4"
+    ],
+    "operation_id": "video-A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_Camera-71278717-3339-459d-8991-c7b7f1558df2-"
+  },
+  {
+    "prompt": "Kal-El_lands_in_Milan_duomo_square",
+    "classification": "video_prompt",
+    "video_files": [
+      "./streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-1.mp4",
+      "./streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-2.mp4",
+      "./streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-3.mp4",
+      "./streamlit/generated_videos/video-Kal-El_lands_in_Milan_duomo_square-ae5b7769-22e7-403c-9b86-043e76f48393-4.mp4"
+    ]
+  },
+  {
+    "prompt": "Paw Patrol playing a grand piano, in isometric view",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_34e31ea6_2.png",
+      "./streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_ba4f98d8_3.png",
+      "./streamlit/generated_images/20250311_Paw_Patrol_playing_a_grand_piano_in_isometric_view_0f574f76_4.png"
+    ]
+  },
+  {
+    "prompt": "A Genesis album cover with a smurf in it",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250311_A_Genesis_album_cover_with_a_smurf_in_it_bee12dfe_2.png",
+      "./streamlit/generated_images/20250311_A_Genesis_album_cover_with_a_smurf_in_it_0543b086_4.png"
+    ]
+  },
+  {
+    "prompt": "A medieval city at night, torch lights, flying carts and winged giraffes",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_1.png",
+      "./streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_2.png",
+      "./streamlit/generated_images/20250311_A_medieval_city_at_night_torch_lights_flying_carts_and_winged_giraffes_3.png"
+    ]
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_1.png",
+      "./streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_2.png",
+      "./streamlit/generated_images/20250311_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_4.png"
+    ]
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "video_files": []
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting. Camera widens to reveal a fox playing trombone",
+    "classification": "video_prompt",
+    "video_files": []
+  },
+  {
+    "prompt": "A cat playing the piano in a jazz club, cinematic lighting",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250310_A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_1.png",
+      "./streamlit/generated_images/20250310_A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_2.png",
+      "./streamlit/generated_images/20250310_A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_3.png",
+      "./streamlit/generated_images/20250310_A_cat_playing_the_piano_in_a_jazz_club_cinematic_lighting_4.png"
+    ]
+  },
+  {
+    "prompt": "A medieval city at night, wizards fighting a dragon, flying catapults",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250310_A_medieval_city_at_night_wizards_fighting_a_dragon_flying_catapults_1.png",
+      "./streamlit/generated_images/20250310_A_medieval_city_at_night_wizards_fighting_a_dragon_flying_catapults_2.png",
+      "./streamlit/generated_images/20250310_A_medieval_city_at_night_wizards_fighting_a_dragon_flying_catapults_3.png",
+      "./streamlit/generated_images/20250310_A_medieval_city_at_night_wizards_fighting_a_dragon_flying_catapults_4.png"
+    ]
+  },
+  {
+    "prompt": "A futuristic city at night, neon lights, flying cars",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250310_A_futuristic_city_at_night_neon_lights_flying_cars_1.png",
+      "./streamlit/generated_images/20250310_A_futuristic_city_at_night_neon_lights_flying_cars_2.png",
+      "./streamlit/generated_images/20250310_A_futuristic_city_at_night_neon_lights_flying_cars_3.png",
+      "./streamlit/generated_images/20250310_A_futuristic_city_at_night_neon_lights_flying_cars_4.png"
+    ]
+  },
+  {
+    "prompt": "A CD album cover by Dream Theater with a Phoenix rising.",
+    "classification": "image_prompt",
+    "image_files": [
+      "./streamlit/generated_images/20250310_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_1.png",
+      "./streamlit/generated_images/20250310_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_2.png",
+      "./streamlit/generated_images/20250310_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_3.png",
+      "./streamlit/generated_images/20250310_A_CD_album_cover_by_Dream_Theater_with_a_Phoenix_rising_4.png"
+    ]
+  }
+]

@@ -1,3 +1,100 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:65bdd94a8a0305562cec6e9bc3a9ed7f916e3ff501f829ce668bacfd8686892c
-size 7213
+ ```json
+{
+    "prompt_version": "1.10",
+    "llm_temperature": "0.9",
+    "author_name": "Riccardo Carlesso",
+    "author_nationality": "Italian",
+    "author_style": "Conversational, humorous, and often self-deprecating. Technical explanations are simplified without oversimplification.",
+    "author_favorite_languages": "Ruby",
+    "author_favorite_cloud": "Google Cloud Platform (GCP)",
+    "typos": [
+        {
+            "current": "cis-centralis /pendens, or trans-centralis/mur\u00e0lis",
+            "correct": "cis-centralis pendens, or trans-centralis muralis"
+        }
+    ],
+    "articles_feedback": [
+        {
+            "title": "What is toilet paper\u2019s right side?",
+            "summary": "In this humorous article, the author discusses the great debate over the \"correct\" way to hang toilet paper. He shares his own preference for the \"over\" position, but acknowledges that there are valid arguments for both sides. The article also includes a brief history of toilet paper and its inventor, Seth Wheeler.",
+            "url": "https://medium.com/@palladiusbonton/what-is-toilet-papers-right-side-8da0504d6d0b?source=rss-b5293b96912f------2",
+            "accuracy": 8,
+            "year_publication": 2023,
+            "is_gcp": false,
+            "is_technical": false
+        },
+        {
+            "title": "Spaghetti Bolognese don\u2019t exist!!1!",
+            "summary": "The author argues that the popular dish \"Spaghetti Bolognese\" is not actually an authentic Italian dish. He explains that spaghetti is typically served with a simple tomato sauce in Italy, while bolognese sauce is more commonly paired with tagliatelle or other \"pasta rigata.\" The author also provides a brief history of the dish and its origins.",
+            "url": "https://medium.com/@palladiusbonton/spaghetti-bolognese-dont-exist-1-2088d85909dd?source=rss-b5293b96912f------2",
+            "accuracy": 7,
+            "year_publication": 2023,
+            "is_gcp": false,
+            "is_technical": false
+        },
+        {
+            "title": "Migrate GCP projects across organizations, the gcloud way",
+            "summary": "In this technical article, the author provides a detailed guide on how to migrate Google Cloud Platform (GCP) projects across organizations using the gcloud command-line tool. He explains the process step-by-step, including how to prepare your environment, export IAM policies, and execute the migration. The article also includes tips for troubleshooting common issues.",
+            "url": "https://medium.com/google-cloud/how-to-migrate-projects-across-organizations-c7e254ab90af?source=rss-b5293b96912f------2",
+            "accuracy": 9,
+            "year_publication": 2023,
+            "is_gcp": true,
+            "is_technical": true
+        },
+        {
+            "title": "My favourite Toolchain",
+            "summary": "The author shares his personal favorite software tools and development environment, which includes Visual Studio Code, Ruby on Rails, GitHub, and various Google Cloud Platform tools. He explains why he prefers these tools and how they help him to be productive and efficient in his work.",
+            "url": "https://medium.com/@palladiusbonton/my-favourite-toolchain-831b56ba6fc5?source=rss-b5293b96912f------2",
+            "accuracy": 8,
+            "year_publication": 2023,
+            "is_gcp": true,
+            "is_technical": true
+        },
+        {
+            "title": "Ruby on Rails-like ORM and scaffolding in Golang anyone?",
+            "summary": "The author attempts to create a Ruby on Rails-like ORM and scaffolding in Go, exploring various options and frameworks such as Beego, Revel, and Buffalo. He shares his experiences and challenges in learning Go and building the application, highlighting the differences between Go and Ruby on Rails.",
+            "url": "https://medium.com/@palladiusbonton/ruby-on-rails-like-orm-in-golang-anyone-gopher-random-4558047da41?source=rss-b5293b96912f------2",
+            "accuracy": 8,
+            "year_publication": 2022,
+            "is_gcp": false,
+            "is_technical": true
+        },
+        {
+            "title": "My Mac\u2019s battery on Google Cloud Monitoring \u2013 with SMS if its low",
+            "summary": "In this creative and practical article, the author demonstrates how to monitor his Mac's battery level using Google Cloud Monitoring and set up SMS alerts for low battery. He provides step-by-step instructions on how to set up the monitoring and scripting using Ruby, and explains the benefits of using Google Cloud Monitoring for this purpose.",
+            "url": "https://medium.com/google-cloud/my-macs-battery-on-google-cloud-monitoring-with-sms-if-its-low-a1ccd70485fe?source=rss-b5293b96912f------2",
+            "accuracy": 9,
+            "year_publication": 2022,
+            "is_gcp": true,
+            "is_technical": true
+        },
+        {
+            "title": "Canary Deployment on GCP with Cloud Deploy",
+            "summary": "In this technical article, the author provides a detailed guide on how to set up a Canary deployment strategy for multiple applications on Google Cloud Platform (GCP) using Cloud Build and Cloud Deploy. He explains the concepts behind Canary deployment and how to implement it using Traffic Splitting with Gateway API and Envoy-based HTTP Load Balancer. The article also includes a video demonstration of the setup process.",
+            "url": "https://medium.com/google-cloud/draft-canarying-on-gcp-with-cloud-deploy-91b3e4d0ee9a?source=rss-b5293b96912f------2",
+            "accuracy": 9,
+            "year_publication": 2022,
+            "is_gcp": true,
+            "is_technical": true
+        },
+        {
+            "title": "Setting a \u2611 Cloud Build trigger with Pulumi in  Python",
+            "summary": "In this technical article, the author explains how to set up a Cloud Build trigger for Pulumi projects in Python. He provides code examples and step-by-step instructions on how to configure the trigger and integrate it with GitHub or Bitbucket. The article also includes tips for customizing the trigger and troubleshooting common issues.",
+            "url": "https://medium.com/google-cloud/setting-cloudbuild-with-pulumi-in-python-330e8b54b2cf?source=rss-b5293b96912f------2",
+            "accuracy": 9,
+            "year_publication": 2022,
+            "is_gcp": true,
+            "is_technical": true
+        },
+        {
+            "title": "Google Forms to Datastudio",
+            "summary": "In this data analysis tutorial, the author demonstrates how to convert data from Google Forms into a format that can be easily analyzed and visualized in Google Datastudio. He explains the concept of \"unpivoting\" heterogeneous data and provides step-by-step instructions on how to use Google Forms, Google Spreadsheets, AppsScript, and Datastudio to create interactive visualizations.",
+            "url": "https://medium.com/google-cloud/google-forms-to-datastudio-74bfdb6ddd71?source=rss-b5293b96912f------2",
+            "accuracy": 8,
+            "year_publication": 2020,
+            "is_gcp": true,
+            "is_technical": true
+        }
+    ]
+}
+```
