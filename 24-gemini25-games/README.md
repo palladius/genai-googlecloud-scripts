@@ -13,7 +13,7 @@ Games represented here:
 | 2D Legoey Tetris              | [https://legoey-2d-carlessian-tetris.web.app/](https://legoey-2d-carlessian-tetris.web.app/)      | The 2D version, for those of us who find 3D *too* stimulating. |
 | Multilingual Anagrams         | [https://zurigram.web.app](https://zurigram.web.app)              | Anagram game in multiple languages! Kate *must* see this! |
 | (Paolo's game, mentioned)         | [https://teal-georgianne-19.tiiny.site/](https://teal-georgianne-19.tiiny.site/)              | App by Riccardo's friend, Paolo, with the addition of Dutch and Lithuanian |
-| Dungemoji  | |  https://dungemoji.web.app/ | Created for Alessandro as a reminiscence of an 80's game on my dad's 8086 Amstrad |
+| Dungemoji v8.2 (1980s D&D Red Box) | [https://dungemoji.web.app/](https://dungemoji.web.app/) | Created for Alessandro as a reminiscence of an 80's game on my dad's 8086 Amstrad — now with 2D Room Zoom, 3D Eye of the Beholder Crawler, 27 NanoBanana sprites, 2x2 IF Pupurabbu & 3D D20 Saving Throws! |
 
 ## Firebase Feedback Loop
 
@@ -75,3 +75,13 @@ The 3D Tetris, but flattened! Now with a 20x80 board. Still with Googley Lego br
 ![alt text](image-4.png)
 
 An anagram game for multilingual kids! Supports English, Italian, German and French. The game shows an emoji and the jumbled letters of the word in different languages. Match "apple" in 4 languages for a win! 🍎🇩🇪🇬🇧🇮🇹🇫🇷 A 6:30 AM coding breakthrough! ☕️
+
+## 8: Dungemoji v8.2 — 1980s D&D Red Box Edition
+
+*   **Code:** [08-dungemoji](08-dungemoji/)
+*   **App:** [https://dungemoji.web.app/](https://dungemoji.web.app/)
+
+![Dungemoji v8.2 2D Tactical Map + Room Zoom](dungemoji-v82.png)
+
+Born for Alessandro as a tribute to classic 1980s ASCII Roguelikes on an 8086 Amstrad, now evolved into a **1980s D&D Red Box Edition** featuring real-time `[V]` switching between **2D Tactical Map + Room Zoom Inspector**, **First-Person 3D Eye of the Beholder Dungeon Crawler**, and **Classic ASCII Rogue**, plus **27 NanoBanana sprites** (including **2×2 Il Mitico Pupurabbu** 🐻💜 and **2×2 Red Dragon** 🐉), **3D D20 Saving Throws**, **Level 5 Epic Metal MP3**, and **1980s Pixel-Art / Veo Death Cutscenes**! 🎲⚔️
+

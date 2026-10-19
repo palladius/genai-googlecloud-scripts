@@ -1328,6 +1328,11 @@ function spawnFloatingText(x, y, text, color = '#FDE047') {
 
 let lastKillerMonster = null;
 let deathAnimTimer = 0;
+const deathVideoEl = document.createElement('video');
+deathVideoEl.src = 'audio/death_default.mp4';
+deathVideoEl.loop = true;
+deathVideoEl.playsInline = true;
+deathVideoEl.preload = 'auto';
 const SAVE_STORAGE_KEY = 'dungemoji_save_v82';
 
 function saveGameProgress() {
@@ -1375,6 +1380,7 @@ function loadGameProgress() {
     if (!raw) return false;
     const data = JSON.parse(raw);
     if (!data || !data.player) return false;
+    try { deathVideoEl.pause(); } catch (e) {}
     dungeonLevel = data.dungeonLevel || 1;
     Object.assign(player, data.player);
     if (data.currentViewMode) currentViewMode = data.currentViewMode;
@@ -1391,6 +1397,7 @@ function loadGameProgress() {
 }
 
 function initNewGame() {
+  try { deathVideoEl.pause(); } catch (e) {}
   dungeonLevel = 1;
   player.hp = 35;
   player.maxHp = 35;
@@ -2044,6 +2051,17 @@ function checkPlayerDeath(killer = null) {
     deathAnimTimer = 0;
     gameState = 'GAMEOVER';
     audio.sfxFail1();
+    try {
+      deathVideoEl.currentTime = 0;
+      deathVideoEl.muted = audio.muted;
+      const playPromise = deathVideoEl.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          deathVideoEl.muted = true;
+          deathVideoEl.play().catch(() => {});
+        });
+      }
+    } catch (e) {}
     try { localStorage.removeItem(SAVE_STORAGE_KEY); updateResumeButtonVisibility(); } catch (e) {}
     addLog(`💀 SLAIN BY ${lastKillerMonster.name.toUpperCase()} ON FLOOR B${dungeonLevel}F! Press [Enter] or click Restart.`, '#EF4444');
   }
@@ -2923,10 +2941,10 @@ function drawGameOverOverlay() {
   const isUndead = !!killer.undead || killer.key === 'zombie' || killer.key === 'skeleton' || killer.key === 'ghost';
   const isBeholder = killer.key === 'beholder';
 
-  const boxW = Math.min(460, W - 28);
-  const boxH = Math.min(220, Math.floor(H * 0.46));
+  const boxW = Math.min(512, W - 28);
+  const boxH = Math.min(288, Math.floor(H * 0.52));
   const bx = Math.floor((W - boxW) / 2);
-  const by = Math.max(14, Math.floor(H / 2 - boxH - 36));
+  const by = Math.max(12, Math.floor(H / 2 - boxH - 28));
 
   // Hit-stop screen shake during frames 56-64
   const isHitStop = deathAnimTimer >= 56 && deathAnimTimer <= 62;
@@ -2948,6 +2966,21 @@ function drawGameOverOverlay() {
   roundRect(ctx, 3, 3, boxW - 6, boxH - 6, 10);
   ctx.clip();
 
+  const videoReady = deathVideoEl && deathVideoEl.readyState >= 2 && !deathVideoEl.error;
+  if (videoReady) {
+    // Draw live Veo 3.1 1980s Pixel-Art Death Video MP4 (`audio/death_default.mp4`)!
+    ctx.drawImage(deathVideoEl, 0, 0, boxW, boxH);
+    // Optional killer badge in top-right if slain by a specific dungeon monster
+    if (killer.key && SPRITES[killer.key] && SPRITES[killer.key].complete) {
+      ctx.fillStyle = 'rgba(9, 8, 7, 0.78)';
+      ctx.strokeStyle = '#F59E0B';
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, boxW - 64, 10, 54, 54, 8);
+      ctx.fill();
+      ctx.stroke();
+      ctx.drawImage(SPRITES[killer.key], boxW - 60, 14, 46, 46);
+    }
+  } else {
   // 1. Stone Archway & Wet Grey/Brown Flagstone Floor (NO purple!)
   const floorY = Math.floor(boxH * 0.64);
   ctx.fillStyle = '#0B0908';
@@ -3183,6 +3216,7 @@ function drawGameOverOverlay() {
       ctx.stroke();
     });
   }
+  } // end fallback procedural pixel-art cutscene
 
   // Cutscene Caption Bar inside bottom of viewport
   ctx.fillStyle = 'rgba(0, 0, 0, 0.72)';

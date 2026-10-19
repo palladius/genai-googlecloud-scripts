@@ -2,6 +2,15 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [8.3.0] - 2026-10-19
+
+### Added & Improved
+- **🎬 Veo 3.1 1980s Pixel-Art Death Video MP4 (`audio/death_default.mp4`)**:
+  - Generated the official **Catch-All Death Video MP4** (`5.7 MB`, 8s 16-bit VGA pixel-art animation with dungeon SFX & monster roar) via `veo-3.1-fast-generate-preview` using the **9.4/10** prompt approved by the `dnd-grognard-critic` Adversarial Swarm ([GHI #3](https://github.com/palladius/genai-googlecloud-scripts/issues/3)).
+  - Embedded `deathVideoEl` (`audio/death_default.mp4`) directly into `drawGameOverOverlay()` and `checkPlayerDeath()` so the live Veo 3.1 video plays inside the Red Box Game Over viewport whenever the Paladin perishes (or via the `^die` cheat)!
+- **🖼️ Vetrina Showcase (`~/git/vetrina`) & Repo README Refresh**:
+  - Updated `~/git/vetrina` (`data/games.yaml`, `assets/screenshots/dungemoji.png`, `assets/screenshots/dungemoji_gameplay.gif`) and `24-gemini25-games/README.md` with new high-res 2D Tactical + Room Zoom & 3D Crawler screenshots.
+
 ## [8.2.0] - 2026-10-19
 
 ### Added, Fixed & Improved
