@@ -2,6 +2,16 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [8.3.1] - 2026-10-19
+
+### Fixed & Improved
+- **🔥 Nuovo Video di Morte Cinematografico Dark Fantasy Non-Pixelloso (`death_default.mp4` — Veo 3.1 Full v5)**:
+  - Sottoposto il primo video ai **frame reali** dell'agente avversariale `dnd-grognard-critic` (*Gygaxiano Allupato '83*), che lo ha bocciato con **2.2/10** per il dado cubico D6 coi pallini, l'elmo duplicato e la finta pixel-art.
+  - Rigenerato con **`veo-3.1-generate-preview`** in stile **dipinto ad olio dark fantasy cinematografico anni '80 (Larry Elmore D&D Red Box, zero pixellosità)** focalizzato su: **Due Occhi Rossi nel buio dell'arcata -> Drago Rosso Antico che emerge -> Soffio di Fuoco che travolge, frantuma e incenerisce il Paladino riducendolo a un cumulo di cenere fumante, braci e armatura carbonizzata** (valutato **9.8/10** sui frame reali!).
+  - Aggiunto in basso a sinistra nel riquadro Game Over (`drawMiniIcosahedron`) il vero **D20 Icosaedrico matematico a 20 facce triangolari** piantato su **`1` (`NAT 1`)**.
+- **🧹 Rimossa la scritta `(2x2)` dai nomi dei mostri**:
+  - I mostri grandi e Boss (`Il Mitico Pupurabbu`, `Red Dragon`, `Beholder`, `Demogorgon`, `Owlbear`, `Ogre Brute`, `Cave Troll`) mantengono l'ingombro tattico `tileSpan: 2` sulla griglia ma mostrano i loro nomi puliti senza `(2x2)` sia in 3D Crawler sia in Room Zoom.
+
 ## [8.3.0] - 2026-10-19
 
 ### Added & Improved

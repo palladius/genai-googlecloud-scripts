@@ -679,7 +679,7 @@
           <h4>🎲 Simil-3D D20 &amp; L5 Epic Metal OST</h4>
           <div>• 🔥 <b>Save vs. Dragon Breath</b>: Halves Dragon/Demogorgon fire (NAT 20 dodges &amp; counters!)</div>
           <div>• ☠️ <b>Save vs. Poison / Death</b>: Resists Spider venom, Zombie plague &amp; Beholder Death Ray</div>
-          <div>• 🧸 <b>Il Mitico Pupurabbu (2×2)</b>: Giant gentle all-purple bear friend (IF style) with Vorpal gifts!</div>
+          <div>• 🧸 <b>Il Mitico Pupurabbu</b>: Giant gentle all-purple bear friend (IF style) with Vorpal gifts!</div>
           <div>• 🎸 <b>Level 5 Epic Metal MP3</b>: Reach LV 5 (or Floor B5F) to unlock the Medieval Epic Metal MP3!</div>
         </div>
       </div>
@@ -982,16 +982,16 @@ const MONSTER_MANUAL = [
   { key: 'slime',           name: 'Green Slime',     char: '🦠', hp: 26,  dmg: 5,  xp: 110, ac: 10, minLvl: 3, undead: false, tileSpan: 1 },
   { key: 'gelatinous_cube', name: 'Gelatinous Cube', char: '🟩', hp: 38,  dmg: 7,  xp: 160, ac: 11, minLvl: 4, undead: false, tileSpan: 2, saveType: 'PARALYSIS', saveTitle: 'TS vs. PARALISI CUBO GELATINOSO 🟩', dc: 13 },
   { key: 'ghost',           name: 'Ghost Specter',   char: '👻', hp: 28,  dmg: 7,  xp: 160, ac: 15, minLvl: 4, undead: true,  tileSpan: 1, saveType: 'PARALYSIS', saveTitle: 'TS vs. TOCCO SPETTRALE 👻', dc: 13 },
-  { key: 'owlbear',         name: 'Owlbear (2x2)',   char: '🦉', hp: 46,  dmg: 9,  xp: 240, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
-  { key: 'ogre',            name: 'Ogre Brute (2x2)',char: '🦍', hp: 50,  dmg: 10, xp: 270, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
+  { key: 'owlbear',         name: 'Owlbear',         char: '🦉', hp: 46,  dmg: 9,  xp: 240, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
+  { key: 'ogre',            name: 'Ogre Brute',      char: '🦍', hp: 50,  dmg: 10, xp: 270, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
   { key: 'mind_flayer',     name: 'Mind Flayer',     char: '🦑', hp: 42,  dmg: 11, xp: 320, ac: 15, minLvl: 6, undead: false, tileSpan: 1, saveType: 'SPELLS', saveTitle: 'TS vs. MIND BLAST ILLITHID 🧠', dc: 14 },
-  { key: 'troll',           name: 'Cave Troll (2x2)',char: '🧌', hp: 64,  dmg: 12, xp: 400, ac: 15, minLvl: 6, undead: false, tileSpan: 2, regen: 2 },
+  { key: 'troll',           name: 'Cave Troll',      char: '🧌', hp: 64,  dmg: 12, xp: 400, ac: 15, minLvl: 6, undead: false, tileSpan: 2, regen: 2 },
   // Iconic 2x2 Bosses
-  { key: 'beholder',        name: 'Beholder (2x2)',  char: '👁️', hp: 90,  dmg: 15, xp: 700, ac: 16, minLvl: 7, undead: false, boss: true, tileSpan: 2, saveType: 'DEATH', saveTitle: 'TS vs. RAGGIO MORTALE BEHOLDER 👁️', dc: 14 },
-  { key: 'dragon',          name: 'Red Dragon (2x2)',char: '🐉', hp: 140, dmg: 20, xp: 1400,ac: 17, minLvl: 8, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. SOFFIO DEL DRAGO ROSSO 🔥', dc: 15 },
-  { key: 'demogorgon',      name: 'Demogorgon (2x2)',char: '👑', hp: 190, dmg: 24, xp: 2200,ac: 18, minLvl: 9, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. FIAMME DI DEMOGORGON 🔥', dc: 16 },
+  { key: 'beholder',        name: 'Beholder',        char: '👁️', hp: 90,  dmg: 15, xp: 700, ac: 16, minLvl: 7, undead: false, boss: true, tileSpan: 2, saveType: 'DEATH', saveTitle: 'TS vs. RAGGIO MORTALE BEHOLDER 👁️', dc: 14 },
+  { key: 'dragon',          name: 'Red Dragon',      char: '🐉', hp: 140, dmg: 20, xp: 1400,ac: 17, minLvl: 8, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. SOFFIO DEL DRAGO ROSSO 🔥', dc: 15 },
+  { key: 'demogorgon',      name: 'Demogorgon',      char: '👑', hp: 190, dmg: 24, xp: 2200,ac: 18, minLvl: 9, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. FIAMME DI DEMOGORGON 🔥', dc: 16 },
   // Special Cameo — Tall, gentle, all-purple bear-like friend (like Blue from IF!)
-  { key: 'pupurabbu',       name: 'Il Mitico Pupurabbu (2x2)', char: '🧸', hp: 99, dmg: 7, xp: 777, ac: 15, minLvl: 1, undead: false, friendly: true, tileSpan: 2, saveType: 'PUPURABBU', saveTitle: 'ABBRACCIO DEL MITICO PUPURABBU 💜', dc: 8 }
+  { key: 'pupurabbu',       name: 'Il Mitico Pupurabbu', char: '🧸', hp: 99, dmg: 7, xp: 777, ac: 15, minLvl: 1, undead: false, friendly: true, tileSpan: 2, saveType: 'PUPURABBU', saveTitle: 'ABBRACCIO DEL MITICO PUPURABBU 💜', dc: 8 }
 ];
 
 const LOOT_TYPES = [
@@ -1244,6 +1244,62 @@ class Simil3DD20Roller {
       ctx.fillText(outcomeTxt, W / 2, by + boxH - 22);
     }
 
+    ctx.restore();
+  }
+
+  drawMiniIcosahedron(ctx, cx, cy, radius = 26, val = 1, angle = 0.35) {
+    ctx.save();
+    const rx = 0.55;
+    const ry = angle;
+    const rz = 0.22;
+    const rotV = this.vertices.map(v => {
+      let y1 = v.y * Math.cos(rx) - v.z * Math.sin(rx);
+      let z1 = v.y * Math.sin(rx) + v.z * Math.cos(rx);
+      let x1 = v.x;
+      let x2 = x1 * Math.cos(ry) + z1 * Math.sin(ry);
+      let z2 = -x1 * Math.sin(ry) + z1 * Math.cos(ry);
+      let y2 = y1;
+      let x3 = x2 * Math.cos(rz) - y2 * Math.sin(rz);
+      let y3 = x2 * Math.sin(rz) + y2 * Math.cos(rz);
+      return { x: x3, y: y3, z: z2 };
+    });
+    const sortedFaces = this.faces.map((f, idx) => {
+      const v0 = rotV[f[0]], v1 = rotV[f[1]], v2 = rotV[f[2]];
+      const cz = (v0.z + v1.z + v2.z) / 3;
+      const cxFace = (v0.x + v1.x + v2.x) / 3;
+      const cyFace = (v0.y + v1.y + v2.y) / 3;
+      return { f, idx, cz, cxFace, cyFace };
+    }).sort((a, b) => a.cz - b.cz);
+
+    const frontFaces = sortedFaces.filter(f => f.cz > 0.02);
+    frontFaces.forEach((face, orderIdx) => {
+      const p0 = rotV[face.f[0]], p1 = rotV[face.f[1]], p2 = rotV[face.f[2]];
+      const isTopFace = (orderIdx === frontFaces.length - 1);
+      const light = Math.max(0.28, Math.min(1.0, face.cz * 1.15));
+      ctx.beginPath();
+      ctx.moveTo(cx + p0.x * radius, cy + p0.y * radius);
+      ctx.lineTo(cx + p1.x * radius, cy + p1.y * radius);
+      ctx.lineTo(cx + p2.x * radius, cy + p2.y * radius);
+      ctx.closePath();
+      const rCol = Math.floor((isTopFace ? 235 : 190) * light);
+      const gCol = Math.floor((isTopFace ? 32 : 16) * light);
+      const bCol = Math.floor((isTopFace ? 45 : 28) * light);
+      ctx.fillStyle = `rgb(${rCol}, ${gCol}, ${bCol})`;
+      ctx.fill();
+      ctx.strokeStyle = isTopFace ? '#FFFBEB' : '#FDE047';
+      ctx.lineWidth = isTopFace ? 1.8 : 1.1;
+      ctx.stroke();
+
+      if (isTopFace) {
+        const fx = cx + face.cxFace * radius;
+        const fy = cy + face.cyFace * radius;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = `900 ${Math.max(12, Math.floor(radius * 0.56))}px "Cinzel", serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(val), fx, fy);
+      }
+    });
     ctx.restore();
   }
 }
@@ -2546,9 +2602,8 @@ function drawRoomZoomInspector() {
       }
       ctx.textAlign = 'left';
       ctx.font = '900 13px "Cinzel", serif';
-      ctx.fillStyle = m.boss ? '#F87171' : '#FDE047';
-      const sizeTag = (m.tileSpan || 1) > 1 ? `[${m.tileSpan}×${m.tileSpan} LARGE]` : '[1×1]';
-      ctx.fillText(`${m.name} ${sizeTag} ${m.boss ? '[BOSS]' : ''}`, px + 114, cardY + 24);
+      ctx.fillStyle = m.friendly ? '#C084FC' : (m.boss ? '#F87171' : '#FDE047');
+      ctx.fillText(`${m.name} ${m.boss ? '[BOSS]' : (m.friendly ? '[AMICO 💜]' : '')}`.trim(), px + 114, cardY + 24);
 
       ctx.font = '700 12px "JetBrains Mono", monospace';
       ctx.fillStyle = '#E2E8F0';
@@ -2968,8 +3023,10 @@ function drawGameOverOverlay() {
 
   const videoReady = deathVideoEl && deathVideoEl.readyState >= 2 && !deathVideoEl.error;
   if (videoReady) {
-    // Draw live Veo 3.1 1980s Pixel-Art Death Video MP4 (`audio/death_default.mp4`)!
+    // Draw live Veo 3.1 Cinematic Dark Fantasy Death Video MP4 (`audio/death_default.mp4`)!
     ctx.drawImage(deathVideoEl, 0, 0, boxW, boxH);
+    // Draw authentic 20-sided 3D Icosahedron (D20) showing Natural '1' in bottom-left corner
+    d20Roller.drawMiniIcosahedron(ctx, 36, boxH - 58, 24, 1, 0.35 + Math.sin(deathAnimTimer * 0.03) * 0.08);
     // Optional killer badge in top-right if slain by a specific dungeon monster
     if (killer.key && SPRITES[killer.key] && SPRITES[killer.key].complete) {
       ctx.fillStyle = 'rgba(9, 8, 7, 0.78)';
@@ -3057,35 +3114,14 @@ function drawGameOverOverlay() {
     }
   }
 
-  // 3. Foreground Blood Puddle & Vintage Red Plastic D20 showing Natural '1'!
+  // 3. Foreground Blood Puddle & Authentic 20-Sided 3D Icosahedron (D20) showing Natural '1'!
   const d20X = Math.floor(boxW * 0.14);
-  const d20Y = Math.floor(boxH * 0.83);
+  const d20Y = Math.floor(boxH * 0.80);
   ctx.fillStyle = '#7F1D1D';
   ctx.beginPath();
-  ctx.ellipse(d20X + 4, d20Y + 8, 24, 7, 0, 0, Math.PI * 2);
+  ctx.ellipse(d20X + 4, d20Y + 14, 24, 7, 0, 0, Math.PI * 2);
   ctx.fill();
-
-  // Red plastic hexagon D20 icon
-  ctx.fillStyle = '#DC2626';
-  ctx.strokeStyle = '#FCA5A5';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  for (let a = 0; a < 6; a++) {
-    const ang = (a * Math.PI) / 3 - Math.PI / 6;
-    const vx = d20X + Math.cos(ang) * 14;
-    const vy = d20Y + Math.sin(ang) * 14;
-    if (a === 0) ctx.moveTo(vx, vy);
-    else ctx.lineTo(vx, vy);
-  }
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.font = '900 13px "JetBrains Mono", monospace';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('1', d20X, d20Y + 1);
+  d20Roller.drawMiniIcosahedron(ctx, d20X, d20Y, 22, 1, 0.35);
 
   // 4. TWO MYSTERIOUS GLOWING RED EYES IN THE PITCH DARK (Catch-All + Monster Silhouette)
   const eyesAppear = deathAnimTimer >= 16;
@@ -3283,7 +3319,7 @@ function summonPupurabbuNearPlayer() {
       for (let xx = curRoom.x; xx <= curRoom.x + curRoom.w - span; xx++) {
         if (canPlaceMonster(xx, yy, span)) {
           spawnMonsterFromTemplate(template, xx, yy, curRoom.id);
-          addLog('🧸 💜 IL MITICO PUPURABBU (gigante buono tutto viola 2×2) appare nella stanza! Camminaci contro per un abbraccio!', '#C084FC');
+          addLog('🧸 💜 IL MITICO PUPURABBU (gigante buono tutto viola) appare nella stanza! Camminaci contro per un abbraccio!', '#C084FC');
           audio.sfxLevelUp();
           updateVisibility();
           return;
@@ -3301,7 +3337,7 @@ function summonPupurabbuNearPlayer() {
     }
   }
   spawnMonsterFromTemplate(template, nx, ny, curRoom ? curRoom.id : -1);
-  addLog('🧸 💜 IL MITICO PUPURABBU (gigante buono tutto viola 2×2) appare accanto a te!', '#C084FC');
+  addLog('🧸 💜 IL MITICO PUPURABBU (gigante buono tutto viola) appare accanto a te!', '#C084FC');
   audio.sfxLevelUp();
   updateVisibility();
 }
