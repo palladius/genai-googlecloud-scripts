@@ -2,6 +2,16 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [8.1.0] - 2026-10-19
+
+### Added & Improved
+- **Seamless CP437 Double-Line Box-Drawing Walls (`drawSeamlessDoubleBoxWall`)**:
+  - Replaced spaced font characters with a 2-pass geometric double-rail Canvas renderer (`╔═══╦═══╗` / `║`) so horizontal and vertical walls connect edge-to-edge with **zero gaps** in both the 2D Tactical Map and the Room Zoom Inspector.
+- **2×2 Multi-Tile Monster Footprints (`tileSpan: 2`)**:
+  - Large monsters and Bosses (**Red Dragon** 🐉, **Demogorgon** 👑, **Beholder** 👁️, **Gelatinous Cube** 🟩, **Owlbear** 🦉, **Cave Troll** 🧌, **Ogre Brute** 🦍) now occupy a full **2×2 square footprint** (`4 tiles`) on the dungeon grid, complete with 2×2 tactical base highlights, multi-tile melee collision (`getMonsterAt`), and multi-tile AI adjacency (`getMonsterDistanceToPlayer`).
+- **Dedicated Non-Overlapping Control Deck (`#bottom-hud`)**:
+  - Moved the yellow navigation D-Pad (`◀ ▲ ▼ ▶ ⏳`) and quick-action buttons (`🧪 Heal [Q]`, `✨ Purge [E]`, `👁️ 2D/3D [V]`, `🎲 Roll D20 [R]`) into a dedicated footer bar outside `#viewport` so they never overlap the dungeon canvas.
+
 ## [8.0.0] - 2026-10-17
 
 ### Added

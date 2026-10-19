@@ -182,22 +182,73 @@
       display: block;
     }
 
-    /* MESSAGE LOG & BOTTOM BAR */
+    /* MESSAGE LOG & DEDICATED BOTTOM CONTROL DECK (NEVER OVERLAPS DUNGEON!) */
     #bottom-hud {
       position: relative;
       z-index: 30;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       padding: 6px 14px;
-      background: rgba(10, 8, 18, 0.95);
-      border-top: 1px solid rgba(245, 158, 11, 0.35);
-      min-height: 54px;
+      background: linear-gradient(180deg, rgba(16, 12, 28, 0.98) 0%, rgba(8, 6, 15, 0.99) 100%);
+      border-top: 2px solid rgba(245, 158, 11, 0.55);
+      min-height: 68px;
+      flex-wrap: wrap;
+    }
+
+    #deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dpad-inline {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .dpad-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(24, 18, 42, 0.95);
+      border: 1.5px solid rgba(245, 158, 11, 0.75);
+      color: var(--dnd-gold-bright);
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.12s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .dpad-btn:hover {
+      background: rgba(185, 28, 28, 0.45);
+      border-color: #FFF;
+    }
+
+    .dpad-btn:active {
+      background: var(--dnd-red);
+      transform: scale(0.93);
+    }
+
+    .dpad-wait {
+      font-size: 13px;
+      color: #67E8F9;
+      border-color: rgba(6, 182, 212, 0.55);
     }
 
     #msg-log {
       flex: 1;
+      min-width: 220px;
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -209,13 +260,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      line-height: 1.3;
+      line-height: 1.32;
     }
 
     #inventory-bar {
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     .inv-slot {
@@ -223,104 +275,19 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 4px 10px;
+      padding: 6px 10px;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.18);
       font-size: 12px;
       font-weight: 700;
       transition: 0.15s;
+      color: #F8FAFC;
     }
 
     .inv-slot:hover {
       border-color: var(--dnd-gold-bright);
       background: rgba(245, 158, 11, 0.18);
-    }
-
-    /* ON-SCREEN TOUCH CONTROLS FOR MOBILE / TABLET */
-    #touch-controls {
-      position: absolute;
-      bottom: 66px;
-      left: 14px;
-      z-index: 35;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-end;
-      gap: 16px;
-      pointer-events: none;
-    }
-    @media (max-width: 760px) {
-      #touch-controls {
-        right: 12px;
-        justify-content: space-between;
-      }
-    }
-
-    .dpad-cluster {
-      position: relative;
-      width: 156px;
-      height: 156px;
-      pointer-events: auto;
-      opacity: 0.82;
-    }
-
-    .dpad-btn {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      background: rgba(20, 16, 36, 0.85);
-      border: 2px solid rgba(245, 158, 11, 0.55);
-      color: var(--dnd-gold-bright);
-      font-size: 20px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    }
-
-    .dpad-btn:active {
-      background: var(--dnd-red);
-      transform: scale(0.94);
-    }
-
-    .dpad-up    { top: 0; left: 53px; }
-    .dpad-down  { bottom: 0; left: 53px; }
-    .dpad-left  { top: 53px; left: 0; }
-    .dpad-right { top: 53px; right: 0; }
-    .dpad-wait  { top: 53px; left: 53px; font-size: 12px; border-radius: 50%; }
-
-    .action-cluster {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      pointer-events: auto;
-      opacity: 0.88;
-    }
-
-    .act-btn {
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(24, 18, 42, 0.88);
-      border: 2px solid rgba(6, 182, 212, 0.55);
-      color: #FFF;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    }
-
-    .act-btn:active {
-      background: var(--synth-cyan);
-      color: #000;
-      transform: scale(0.95);
     }
 
     /* CONSOLE INPUT OVERLAY (^ EASTER EGGS) */
@@ -602,26 +569,9 @@
     </div>
   </header>
 
-  <!-- MAIN CANVAS VIEWPORT -->
+  <!-- MAIN CANVAS VIEWPORT (100% UNOBSTRUCTED!) -->
   <main id="viewport">
     <canvas id="game-canvas"></canvas>
-
-    <!-- ON-SCREEN TOUCH & TABLET CONTROLS -->
-    <div id="touch-controls">
-      <div class="dpad-cluster">
-        <button class="dpad-btn dpad-up" data-dir="up">▲</button>
-        <button class="dpad-btn dpad-down" data-dir="down">▼</button>
-        <button class="dpad-btn dpad-left" data-dir="left">◀</button>
-        <button class="dpad-btn dpad-right" data-dir="right">▶</button>
-        <button class="dpad-btn dpad-wait" data-dir="wait">⏳</button>
-      </div>
-      <div class="action-cluster">
-        <button class="act-btn" id="touch-heal">🧪 Heal [Q]</button>
-        <button class="act-btn" id="touch-sparkle">✨ Purge [E]</button>
-        <button class="act-btn" id="touch-view">👁️ 2D/3D [V]</button>
-        <button class="act-btn" id="touch-d20">🎲 Roll D20 [R]</button>
-      </div>
-    </div>
 
     <!-- ^ EASTER EGG CONSOLE MODAL -->
     <div id="console-modal">
@@ -644,13 +594,26 @@
     </div>
   </main>
 
-  <!-- BOTTOM MESSAGE LOG & QUICK INVENTORY -->
+  <!-- DEDICATED BOTTOM CONTROL DECK & MESSAGE LOG (NEVER OVERLAPS DUNGEON!) -->
   <footer id="bottom-hud">
+    <div id="deck-controls">
+      <div class="dpad-inline" title="Dungeon Navigation D-Pad">
+        <button class="dpad-btn" data-dir="left" title="Left [A / ←]">◀</button>
+        <button class="dpad-btn" data-dir="up" title="Up [W / ↑]">▲</button>
+        <button class="dpad-btn" data-dir="down" title="Down [S / ↓]">▼</button>
+        <button class="dpad-btn" data-dir="right" title="Right [D / →]">▶</button>
+        <button class="dpad-btn dpad-wait" data-dir="wait" title="Wait 1 Turn [Space]">⏳</button>
+      </div>
+    </div>
+
     <div id="msg-log"></div>
+
     <div id="inventory-bar">
-      <div class="inv-slot" id="slot-heal" title="Quaff Healing Potion [Q]">🧪 Heal: <span id="cnt-heal">2</span></div>
-      <div class="inv-slot" id="slot-sparkle" title="Quaff Sparkle Potion — Purges Undead within 10 tiles! [E]">✨ Sparkle: <span id="cnt-sparkle">1</span></div>
-      <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Rusty Sword (+2)</span></div>
+      <button class="inv-slot" id="slot-heal" title="Quaff Healing Potion [Q]">🧪 Heal [Q]: <span id="cnt-heal">2</span></button>
+      <button class="inv-slot" id="slot-sparkle" title="Quaff Sparkle Potion — Purges Undead within 10 tiles! [E]">✨ Purge [E]: <span id="cnt-sparkle">1</span></button>
+      <button class="inv-slot" id="touch-view" title="Switch 2D / 3D / Classic [V]">👁️ 2D/3D [V]</button>
+      <button class="inv-slot" id="touch-d20" title="Roll 3D D20 [R]">🎲 Roll D20 [R]</button>
+      <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Broad Sword +1</span></div>
     </div>
   </footer>
 
@@ -919,31 +882,31 @@ const WALL_CHARS = {
   12: '═', 13: '╩', 14: '╦', 15: '╬'
 };
 
-// Complete 20-Monster D&D 1980s Roster + Saving Throw Triggers
+// Complete 20-Monster D&D 1980s Roster + Saving Throw Triggers + 2x2 Multi-Tile Footprint (tileSpan: 2)
 const MONSTER_MANUAL = [
-  // Classic 13
-  { key: 'rat',             name: 'Giant Rat',       char: '🐀', hp: 5,   dmg: 2,  xp: 15,  ac: 11, minLvl: 1, undead: false },
-  { key: 'bat',             name: 'Vampire Bat',     char: '🦇', hp: 6,   dmg: 2,  xp: 20,  ac: 12, minLvl: 1, undead: false },
-  { key: 'goblin',          name: 'Goblin Cutter',   char: '👺', hp: 9,   dmg: 3,  xp: 30,  ac: 12, minLvl: 1, undead: false },
-  { key: 'spider',          name: 'Venom Spider',    char: '🕷️', hp: 12,  dmg: 4,  xp: 45,  ac: 13, minLvl: 1, undead: false, saveType: 'POISON', saveTitle: 'TS vs. VELENO DI RAGNO 🕷️', dc: 11 },
-  { key: 'skeleton',        name: 'Skeleton',        char: '💀', hp: 14,  dmg: 4,  xp: 55,  ac: 13, minLvl: 2, undead: true },
-  { key: 'wolf',            name: 'Dire Wolf',       char: '🐺', hp: 16,  dmg: 5,  xp: 65,  ac: 13, minLvl: 2, undead: false },
-  { key: 'zombie',          name: 'Plague Zombie',   char: '🧟', hp: 22,  dmg: 5,  xp: 80,  ac: 11, minLvl: 2, undead: true,  saveType: 'POISON', saveTitle: 'TS vs. PESTE ZOMBIE 🧟', dc: 12 },
-  { key: 'mimic',           name: 'Chest Mimic',     char: '📦', hp: 25,  dmg: 7,  xp: 110, ac: 14, minLvl: 3, undead: false, saveType: 'PARALYSIS', saveTitle: 'TS vs. COLLA DEL MIMIC 📦', dc: 12 },
-  { key: 'orc',             name: 'Orc Berserker',   char: '👹', hp: 24,  dmg: 6,  xp: 100, ac: 13, minLvl: 3, undead: false },
-  { key: 'slime',           name: 'Green Slime',     char: '🦠', hp: 26,  dmg: 5,  xp: 110, ac: 10, minLvl: 3, undead: false },
-  { key: 'gelatinous_cube', name: 'Gelatinous Cube', char: '🟩', hp: 34,  dmg: 7,  xp: 150, ac: 11, minLvl: 4, undead: false, saveType: 'PARALYSIS', saveTitle: 'TS vs. PARALISI CUBO GELATINOSO 🟩', dc: 13 },
-  { key: 'ghost',           name: 'Ghost Specter',   char: '👻', hp: 28,  dmg: 7,  xp: 160, ac: 15, minLvl: 4, undead: true,  saveType: 'PARALYSIS', saveTitle: 'TS vs. TOCCO SPETTRALE 👻', dc: 13 },
-  { key: 'owlbear',         name: 'Owlbear',         char: '🦉', hp: 40,  dmg: 9,  xp: 220, ac: 14, minLvl: 5, undead: false },
-  { key: 'ogre',            name: 'Ogre Brute',      char: '🦍', hp: 45,  dmg: 10, xp: 250, ac: 14, minLvl: 5, undead: false },
-  { key: 'mind_flayer',     name: 'Mind Flayer',     char: '🦑', hp: 42,  dmg: 11, xp: 320, ac: 15, minLvl: 6, undead: false, saveType: 'SPELLS', saveTitle: 'TS vs. MIND BLAST ILLITHID 🧠', dc: 14 },
-  { key: 'troll',           name: 'Cave Troll',      char: '🧌', hp: 58,  dmg: 12, xp: 380, ac: 15, minLvl: 6, undead: false, regen: 2 },
-  // Iconic Bosses
-  { key: 'beholder',        name: 'Beholder',        char: '👁️', hp: 85,  dmg: 15, xp: 650, ac: 16, minLvl: 7, undead: false, boss: true, saveType: 'DEATH', saveTitle: 'TS vs. RAGGIO MORTALE BEHOLDER 👁️', dc: 14 },
-  { key: 'dragon',          name: 'Red Dragon',      char: '🐉', hp: 130, dmg: 20, xp: 1200,ac: 17, minLvl: 8, undead: false, boss: true, saveType: 'BREATH', saveTitle: 'TS vs. SOFFIO DEL DRAGO ROSSO 🔥', dc: 15 },
-  { key: 'demogorgon',      name: 'Demogorgon',      char: '👑', hp: 180, dmg: 24, xp: 2000,ac: 18, minLvl: 9, undead: false, boss: true, saveType: 'BREATH', saveTitle: 'TS vs. FIAMME DI DEMOGORGON 🔥', dc: 16 },
+  // Classic 13 (1x1 Small/Medium & 2x2 Large/Huge)
+  { key: 'rat',             name: 'Giant Rat',       char: '🐀', hp: 5,   dmg: 2,  xp: 15,  ac: 11, minLvl: 1, undead: false, tileSpan: 1 },
+  { key: 'bat',             name: 'Vampire Bat',     char: '🦇', hp: 6,   dmg: 2,  xp: 20,  ac: 12, minLvl: 1, undead: false, tileSpan: 1 },
+  { key: 'goblin',          name: 'Goblin Cutter',   char: '👺', hp: 9,   dmg: 3,  xp: 30,  ac: 12, minLvl: 1, undead: false, tileSpan: 1 },
+  { key: 'spider',          name: 'Venom Spider',    char: '🕷️', hp: 12,  dmg: 4,  xp: 45,  ac: 13, minLvl: 1, undead: false, tileSpan: 1, saveType: 'POISON', saveTitle: 'TS vs. VELENO DI RAGNO 🕷️', dc: 11 },
+  { key: 'skeleton',        name: 'Skeleton',        char: '💀', hp: 14,  dmg: 4,  xp: 55,  ac: 13, minLvl: 2, undead: true,  tileSpan: 1 },
+  { key: 'wolf',            name: 'Dire Wolf',       char: '🐺', hp: 16,  dmg: 5,  xp: 65,  ac: 13, minLvl: 2, undead: false, tileSpan: 1 },
+  { key: 'zombie',          name: 'Plague Zombie',   char: '🧟', hp: 22,  dmg: 5,  xp: 80,  ac: 11, minLvl: 2, undead: true,  tileSpan: 1, saveType: 'POISON', saveTitle: 'TS vs. PESTE ZOMBIE 🧟', dc: 12 },
+  { key: 'mimic',           name: 'Chest Mimic',     char: '📦', hp: 25,  dmg: 7,  xp: 110, ac: 14, minLvl: 3, undead: false, tileSpan: 1, saveType: 'PARALYSIS', saveTitle: 'TS vs. COLLA DEL MIMIC 📦', dc: 12 },
+  { key: 'orc',             name: 'Orc Berserker',   char: '👹', hp: 24,  dmg: 6,  xp: 100, ac: 13, minLvl: 3, undead: false, tileSpan: 1 },
+  { key: 'slime',           name: 'Green Slime',     char: '🦠', hp: 26,  dmg: 5,  xp: 110, ac: 10, minLvl: 3, undead: false, tileSpan: 1 },
+  { key: 'gelatinous_cube', name: 'Gelatinous Cube', char: '🟩', hp: 38,  dmg: 7,  xp: 160, ac: 11, minLvl: 4, undead: false, tileSpan: 2, saveType: 'PARALYSIS', saveTitle: 'TS vs. PARALISI CUBO GELATINOSO 🟩', dc: 13 },
+  { key: 'ghost',           name: 'Ghost Specter',   char: '👻', hp: 28,  dmg: 7,  xp: 160, ac: 15, minLvl: 4, undead: true,  tileSpan: 1, saveType: 'PARALYSIS', saveTitle: 'TS vs. TOCCO SPETTRALE 👻', dc: 13 },
+  { key: 'owlbear',         name: 'Owlbear (2x2)',   char: '🦉', hp: 46,  dmg: 9,  xp: 240, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
+  { key: 'ogre',            name: 'Ogre Brute (2x2)',char: '🦍', hp: 50,  dmg: 10, xp: 270, ac: 14, minLvl: 5, undead: false, tileSpan: 2 },
+  { key: 'mind_flayer',     name: 'Mind Flayer',     char: '🦑', hp: 42,  dmg: 11, xp: 320, ac: 15, minLvl: 6, undead: false, tileSpan: 1, saveType: 'SPELLS', saveTitle: 'TS vs. MIND BLAST ILLITHID 🧠', dc: 14 },
+  { key: 'troll',           name: 'Cave Troll (2x2)',char: '🧌', hp: 64,  dmg: 12, xp: 400, ac: 15, minLvl: 6, undead: false, tileSpan: 2, regen: 2 },
+  // Iconic 2x2 Bosses
+  { key: 'beholder',        name: 'Beholder (2x2)',  char: '👁️', hp: 90,  dmg: 15, xp: 700, ac: 16, minLvl: 7, undead: false, boss: true, tileSpan: 2, saveType: 'DEATH', saveTitle: 'TS vs. RAGGIO MORTALE BEHOLDER 👁️', dc: 14 },
+  { key: 'dragon',          name: 'Red Dragon (2x2)',char: '🐉', hp: 140, dmg: 20, xp: 1400,ac: 17, minLvl: 8, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. SOFFIO DEL DRAGO ROSSO 🔥', dc: 15 },
+  { key: 'demogorgon',      name: 'Demogorgon (2x2)',char: '👑', hp: 190, dmg: 24, xp: 2200,ac: 18, minLvl: 9, undead: false, boss: true, tileSpan: 2, saveType: 'BREATH', saveTitle: 'TS vs. FIAMME DI DEMOGORGON 🔥', dc: 16 },
   // Special Cameo
-  { key: 'pupurabbu',       name: 'Il Mitico Pupurabbu', char: '🌟', hp: 99, dmg: 7, xp: 777, ac: 15, minLvl: 1, undead: false, friendly: true, saveType: 'PUPURABBU', saveTitle: 'TIRO DEL DESTINO DEL PUPURABBU 🌟', dc: 10 }
+  { key: 'pupurabbu',       name: 'Il Mitico Pupurabbu', char: '🌟', hp: 99, dmg: 7, xp: 777, ac: 15, minLvl: 1, undead: false, friendly: true, tileSpan: 1, saveType: 'PUPURABBU', saveTitle: 'TIRO DEL DESTINO DEL PUPURABBU 🌟', dc: 10 }
 ];
 
 const LOOT_TYPES = [
@@ -1318,6 +1281,7 @@ function generateDungeonFloor() {
         seen: false,
         visible: false,
         wallChar: '╬',
+        wallMask: 0,
         roomId: -1,
         torch: (x + y * 3) % 7 === 0
       });
@@ -1325,11 +1289,11 @@ function generateDungeonFloor() {
     grid.push(row);
   }
 
-  // Generate non-overlapping rooms (size 3x3 to 8x6)
-  const attempts = 90;
+  // Generate non-overlapping rooms (size 4x4 to 8x6 so 2x2 bosses fit comfortably)
+  const attempts = 95;
   for (let i = 0; i < attempts && rooms.length < 11; i++) {
-    const w = 3 + Math.floor(Math.random() * 6);
-    const h = 3 + Math.floor(Math.random() * 4);
+    const w = 4 + Math.floor(Math.random() * 5);
+    const h = 4 + Math.floor(Math.random() * 3);
     const rx = 2 + Math.floor(Math.random() * (GRID_COLS - w - 4));
     const ry = 2 + Math.floor(Math.random() * (GRID_ROWS - h - 4));
 
@@ -1376,12 +1340,13 @@ function generateDungeonFloor() {
     }
   }
 
-  // Compute double-line Box Drawing characters for walls adjacent to playable spaces
+  // Compute double-line Box Drawing bitmask & characters for walls adjacent to playable spaces
   for (let y = 0; y < GRID_ROWS; y++) {
     for (let x = 0; x < GRID_COLS; x++) {
       if (grid[y][x].type !== 'wall') continue;
       if (!touchesOpenSpace(x, y)) {
         grid[y][x].wallChar = ' ';
+        grid[y][x].wallMask = -1;
         continue;
       }
       let mask = 0;
@@ -1389,6 +1354,7 @@ function generateDungeonFloor() {
       if (y < GRID_ROWS - 1 && grid[y + 1][x].type === 'wall' && touchesOpenSpace(x, y + 1)) mask |= 2;
       if (x < GRID_COLS - 1 && grid[y][x + 1].type === 'wall' && touchesOpenSpace(x + 1, y)) mask |= 4;
       if (x > 0 && grid[y][x - 1].type === 'wall' && touchesOpenSpace(x - 1, y)) mask |= 8;
+      grid[y][x].wallMask = mask;
       grid[y][x].wallChar = WALL_CHARS[mask] || '╬';
     }
   }
@@ -1415,32 +1381,38 @@ function generateDungeonFloor() {
   for (let i = 1; i < rooms.length; i++) {
     const r = rooms[i];
 
-    // Spawn Monster (45% chance per room, guaranteed guard in last room on floor 2+)
-    if (Math.random() < 0.48 || (i === rooms.length - 1 && dungeonLevel >= 2)) {
+    // Spawn Monster (48% chance per room, guaranteed guard/boss in last room)
+    if (Math.random() < 0.48 || (i === rooms.length - 1)) {
       let template = eligiblePool[Math.floor(Math.random() * eligiblePool.length)];
-      if (i === rooms.length - 1 && dungeonLevel >= 3) {
-        // Boss room!
-        const bosses = MONSTER_MANUAL.filter(m => m.boss);
-        template = bosses[(dungeonLevel - 3) % bosses.length];
+      if (i === rooms.length - 1) {
+        // Guaranteed iconic 2x2 Large/Boss monster guarding the stairs room!
+        const bigGuards = MONSTER_MANUAL.filter(m => (m.tileSpan || 1) >= 2 && m.minLvl <= dungeonLevel + 4);
+        if (bigGuards.length > 0) {
+          template = bigGuards[(dungeonLevel - 1) % bigGuards.length];
+        }
       }
-      const mx = r.x + Math.floor(Math.random() * r.w);
-      const my = r.y + Math.floor(Math.random() * r.h);
-      if ((mx !== stairs.x || my !== stairs.y) && !getMonsterAt(mx, my)) {
-        spawnMonsterFromTemplate(template, mx, my, r.id);
+      const span = template.tileSpan || 1;
+      for (let tryPos = 0; tryPos < 12; tryPos++) {
+        const mx = r.x + Math.floor(Math.random() * Math.max(1, r.w - span + 1));
+        const my = r.y + Math.floor(Math.random() * Math.max(1, r.h - span + 1));
+        if (canPlaceMonster(mx, my, span) && !(stairs.x >= mx && stairs.x < mx + span && stairs.y >= my && stairs.y < my + span)) {
+          spawnMonsterFromTemplate(template, mx, my, r.id);
+          break;
+        }
       }
     }
 
-    // Rare Pupurabbu Cameo (18% chance on any floor in room 2)
+    // Rare Pupurabbu Cameo (25% chance on any floor in room 2)
     if (i === 2 && Math.random() < 0.25) {
       const pupu = MONSTER_MANUAL.find(m => m.key === 'pupurabbu');
       const px = r.x + Math.floor(Math.random() * r.w);
       const py = r.y + Math.floor(Math.random() * r.h);
-      if (!getMonsterAt(px, py)) {
+      if (canPlaceMonster(px, py, 1)) {
         spawnMonsterFromTemplate(pupu, px, py, r.id);
       }
     }
 
-    // Spawn Treasure / Potions (55% chance per room)
+    // Spawn Treasure / Potions (58% chance per room)
     if (Math.random() < 0.58) {
       const ix = r.x + Math.floor(Math.random() * r.w);
       const iy = r.y + Math.floor(Math.random() * r.h);
@@ -1482,6 +1454,7 @@ function spawnMonsterFromTemplate(t, x, y, roomId = -1) {
   const hp = Math.round(t.hp * scale);
   monsters.push({
     ...t,
+    tileSpan: t.tileSpan || 1,
     x, y,
     hp,
     maxHp: hp,
@@ -1502,8 +1475,50 @@ function touchesOpenSpace(x, y) {
   return false;
 }
 
-function getMonsterAt(x, y) {
-  return monsters.find(m => m.x === x && m.y === y);
+function getMonsterAt(x, y, ignoreMonster = null) {
+  return monsters.find(m => {
+    if (m === ignoreMonster) return false;
+    const span = m.tileSpan || 1;
+    return x >= m.x && x < m.x + span && y >= m.y && y < m.y + span;
+  });
+}
+
+function canPlaceMonster(x, y, span = 1, ignoreMonster = null) {
+  for (let dy = 0; dy < span; dy++) {
+    for (let dx = 0; dx < span; dx++) {
+      const tx = x + dx, ty = y + dy;
+      if (tx < 0 || tx >= GRID_COLS || ty < 0 || ty >= GRID_ROWS) return false;
+      if (grid[ty][tx].type === 'wall') return false;
+      if (tx === player.x && ty === player.y) return false;
+      if (getMonsterAt(tx, ty, ignoreMonster)) return false;
+    }
+  }
+  return true;
+}
+
+function getMonsterDistanceToPlayer(m) {
+  const span = m.tileSpan || 1;
+  let minDist = 999;
+  for (let dy = 0; dy < span; dy++) {
+    for (let dx = 0; dx < span; dx++) {
+      const d = Math.abs((m.x + dx) - player.x) + Math.abs((m.y + dy) - player.y);
+      if (d < minDist) minDist = d;
+    }
+  }
+  return minDist;
+}
+
+function isMonsterVisible(m) {
+  const span = m.tileSpan || 1;
+  for (let dy = 0; dy < span; dy++) {
+    for (let dx = 0; dx < span; dx++) {
+      const tx = m.x + dx, ty = m.y + dy;
+      if (ty >= 0 && ty < GRID_ROWS && tx >= 0 && tx < GRID_COLS && grid[ty][tx].visible) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function getItemAt(x, y) {
@@ -1555,7 +1570,7 @@ function updateVisibility() {
   }
 
   // Check if any Boss is currently visible -> switch synth to Boss Mode!
-  const bossVisible = monsters.some(m => m.boss && grid[m.y] && grid[m.y][m.x] && grid[m.y][m.x].visible);
+  const bossVisible = monsters.some(m => m.boss && isMonsterVisible(m));
   audio.bossMode = bossVisible;
 }
 
@@ -1780,28 +1795,26 @@ function endPlayerTurn() {
       m.hp = Math.min(m.maxHp, m.hp + m.regen);
     }
 
-    const dist = Math.abs(m.x - player.x) + Math.abs(m.y - player.y);
+    const span = m.tileSpan || 1;
+    const dist = getMonsterDistanceToPlayer(m);
     if (dist > 10) continue;
 
-    if (dist === 1) {
-      // Monster attacks player!
+    if (dist <= 1) {
+      // Monster is adjacent to player (any tile of its 1x1 or 2x2 footprint) -> attacks!
       monsterAttackPlayer(m);
       if (player.hp <= 0 || d20Roller.active) break;
     } else {
       // Step toward player
-      const dx = Math.sign(player.x - m.x);
-      const dy = Math.sign(player.y - m.y);
-      const candidates = [
-        { x: m.x + dx, y: m.y },
-        { x: m.x, y: m.y + dy }
-      ];
+      const centerMx = m.x + (span - 1) * 0.5;
+      const centerMy = m.y + (span - 1) * 0.5;
+      const dx = Math.sign(player.x - centerMx);
+      const dy = Math.sign(player.y - centerMy);
+      const candidates = [];
+      if (dx !== 0) candidates.push({ x: m.x + dx, y: m.y });
+      if (dy !== 0) candidates.push({ x: m.x, y: m.y + dy });
+
       for (const c of candidates) {
-        if (c.x === player.x && c.y === player.y) {
-          monsterAttackPlayer(m);
-          break;
-        }
-        if (c.x >= 0 && c.x < GRID_COLS && c.y >= 0 && c.y < GRID_ROWS &&
-            grid[c.y][c.x].type !== 'wall' && !getMonsterAt(c.x, c.y)) {
+        if (canPlaceMonster(c.x, c.y, span, m)) {
           m.x = c.x;
           m.y = c.y;
           break;
@@ -1909,6 +1922,38 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
+// Seamless 1980s CP437 Double-Line Box-Drawing Wall Renderer (╔═══╦═══╗ / ║)
+// Eliminates all horizontal/vertical character spacing gaps at any zoom scale!
+function drawSeamlessDoubleBoxWall(ctx, px, py, size, mask, strokeColor, innerColor = '#07060B') {
+  if (mask < 0) return;
+  const cx = px + size * 0.5;
+  const cy = py + size * 0.5;
+  const outerHalf = Math.max(2.2, size * 0.21);
+  const lineThick = Math.max(1.3, size * 0.095);
+  const innerHalf = Math.max(0.8, outerHalf - lineThick);
+
+  const hasN = (mask & 1) !== 0;
+  const hasS = (mask & 2) !== 0;
+  const hasE = (mask & 4) !== 0;
+  const hasW = (mask & 8) !== 0;
+
+  // Pass 1: Outer double-rail solid silhouette extending to exact cell boundaries (size + 0.6 overlap)
+  ctx.fillStyle = strokeColor;
+  ctx.fillRect(cx - outerHalf, cy - outerHalf, outerHalf * 2, outerHalf * 2);
+  if (hasN) ctx.fillRect(cx - outerHalf, py - 0.4, outerHalf * 2, (cy - py) + 0.5);
+  if (hasS) ctx.fillRect(cx - outerHalf, cy, outerHalf * 2, (py + size - cy) + 0.4);
+  if (hasE) ctx.fillRect(cx, cy - outerHalf, (px + size - cx) + 0.4, outerHalf * 2);
+  if (hasW) ctx.fillRect(px - 0.4, cy - outerHalf, (cx - px) + 0.5, outerHalf * 2);
+
+  // Pass 2: Carve inner channel to produce crisp parallel double lines (╔═══╗ / ║)
+  ctx.fillStyle = innerColor;
+  ctx.fillRect(cx - innerHalf, cy - innerHalf, innerHalf * 2, innerHalf * 2);
+  if (hasN) ctx.fillRect(cx - innerHalf, py - 0.5, innerHalf * 2, (cy - py) + 0.6);
+  if (hasS) ctx.fillRect(cx - innerHalf, cy, innerHalf * 2, (py + size - cy) + 0.5);
+  if (hasE) ctx.fillRect(cx, cy - innerHalf, (px + size - cx) + 0.5, innerHalf * 2);
+  if (hasW) ctx.fillRect(px - 0.5, cy - innerHalf, (cx - px) + 0.6, innerHalf * 2);
+}
+
 function renderLoop() {
   requestAnimationFrame(renderLoop);
 
@@ -1954,7 +1999,7 @@ function renderLoop() {
 function draw2DDungeonMap() {
   const isSplitZoom = (currentViewMode === '2D_ZOOM' && roomZoomEnabled && W > 760);
   const mapAreaW = isSplitZoom ? Math.floor(W * 0.58) : W;
-  const mapAreaH = H - 20;
+  const mapAreaH = H - 12;
 
   const cellW = Math.floor(mapAreaW / GRID_COLS);
   const cellH = Math.floor(mapAreaH / GRID_ROWS);
@@ -1998,15 +2043,10 @@ function draw2DDungeonMap() {
           ctx.fillRect(px + cellSize / 2 - 1, py + cellSize / 2 - 1, 2, 2);
         }
       } else if (cell.type === 'wall' && cell.wallChar !== ' ') {
-        ctx.font = `700 ${Math.floor(cellSize * 0.95)}px "JetBrains Mono", monospace`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        if (cell.visible) {
-          ctx.fillStyle = currentViewMode === 'CLASSIC_EMOJI' ? '#10B981' : `rgba(245, 158, 11, ${0.85 * flicker})`;
-        } else {
-          ctx.fillStyle = '#332940';
-        }
-        ctx.fillText(cell.wallChar, px + cellSize / 2, py + cellSize / 2);
+        const wallColor = cell.visible
+          ? (currentViewMode === 'CLASSIC_EMOJI' ? '#10B981' : `rgba(245, 158, 11, ${0.9 * flicker})`)
+          : '#332940';
+        drawSeamlessDoubleBoxWall(ctx, px, py, cellSize, cell.wallMask, wallColor, '#07060B');
       }
     }
   }
@@ -2039,32 +2079,42 @@ function draw2DDungeonMap() {
     }
   }
 
-  // 4. Draw Monsters
+  // 4. Draw Monsters (Supports 1x1 and 2x2 Large/Boss Footprints!)
   const bob = Math.sin(performance.now() * 0.006) * 2;
   for (const m of monsters) {
-    if (!grid[m.y][m.x].visible) continue;
-    const cx = (m.x + 0.5) * cellSize;
-    const cy = (m.y + 0.5) * cellSize;
+    if (!isMonsterVisible(m)) continue;
+    const span = m.tileSpan || 1;
+    const cx = (m.x + span * 0.5) * cellSize;
+    const cy = (m.y + span * 0.5) * cellSize;
+
+    // If 2x2 Monster, draw tactical 2x2 red/gold base plate across all 4 tiles
+    if (span > 1) {
+      ctx.fillStyle = m.boss ? 'rgba(239, 68, 68, 0.16)' : 'rgba(245, 158, 11, 0.14)';
+      ctx.strokeStyle = m.boss ? 'rgba(239, 68, 68, 0.65)' : 'rgba(245, 158, 11, 0.55)';
+      ctx.lineWidth = 1.5;
+      ctx.fillRect(m.x * cellSize + 1, m.y * cellSize + 1, span * cellSize - 2, span * cellSize - 2);
+      ctx.strokeRect(m.x * cellSize + 1, m.y * cellSize + 1, span * cellSize - 2, span * cellSize - 2);
+    }
 
     if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES[m.key] && SPRITES[m.key].complete) {
-      const scale = m.boss ? 1.55 : 1.28;
-      const sz = cellSize * scale;
+      const sz = cellSize * (span > 1 ? span * 1.08 : 1.28);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + bob * 0.5, sz, sz);
     } else {
-      ctx.font = `${Math.floor(cellSize * (m.boss ? 1.2 : 0.9))}px sans-serif`;
+      ctx.font = `${Math.floor(cellSize * (span > 1 ? span * 0.92 : 0.9))}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(m.char, cx, cy);
     }
 
-    // Mini HP bar above damaged monsters
-    if (m.hp < m.maxHp) {
-      const bw = cellSize * 0.9;
-      const bh = 3;
+    // Mini HP bar above damaged or boss monsters
+    if (m.hp < m.maxHp || span > 1) {
+      const bw = cellSize * span * 0.85;
+      const bh = span > 1 ? 4 : 3;
+      const barY = m.y * cellSize - 4;
       ctx.fillStyle = '#000';
-      ctx.fillRect(cx - bw / 2, cy - cellSize * 0.65, bw, bh);
-      ctx.fillStyle = '#EF4444';
-      ctx.fillRect(cx - bw / 2, cy - cellSize * 0.65, bw * (m.hp / m.maxHp), bh);
+      ctx.fillRect(cx - bw / 2, barY, bw, bh);
+      ctx.fillStyle = m.boss ? '#EF4444' : '#10B981';
+      ctx.fillRect(cx - bw / 2, barY, bw * (m.hp / m.maxHp), bh);
     }
   }
 
@@ -2118,9 +2168,9 @@ function draw2DDungeonMap() {
 function drawRoomZoomInspector() {
   const isWide = W > 760;
   const panelW = isWide ? Math.floor(W * 0.39) : Math.min(350, W - 20);
-  const panelH = isWide ? Math.floor(H - 36) : 230;
+  const panelH = isWide ? Math.floor(H - 24) : 230;
   const px = isWide ? W - panelW - 14 : W - panelW - 10;
-  const py = isWide ? 14 : 10;
+  const py = isWide ? 12 : 10;
 
   ctx.save();
   // Frame Background
@@ -2171,16 +2221,12 @@ function drawRoomZoomInspector() {
       const cy = gridOriginY + ty * zoomTile;
 
       if (cell.type === 'wall') {
-        // Textured 1980s stone brick block in Zoom View
-        ctx.fillStyle = '#2A203B';
+        // Textured 1980s stone brick block + seamless double-line wall in Zoom View
+        ctx.fillStyle = '#241B35';
         ctx.fillRect(cx, cy, zoomTile, zoomTile);
-        ctx.strokeStyle = '#4C3B6B';
-        ctx.strokeRect(cx + 1, cy + 1, zoomTile - 2, zoomTile - 2);
-        ctx.font = `700 ${Math.floor(zoomTile * 0.65)}px "JetBrains Mono", monospace`;
-        ctx.fillStyle = '#F59E0B';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(cell.wallChar, cx + zoomTile / 2, cy + zoomTile / 2);
+        if (cell.wallMask >= 0) {
+          drawSeamlessDoubleBoxWall(ctx, cx, cy, zoomTile, cell.wallMask, '#F59E0B', '#241B35');
+        }
       } else {
         ctx.fillStyle = (gx + gy) % 2 === 0 ? '#1B1528' : '#211A30';
         ctx.fillRect(cx, cy, zoomTile, zoomTile);
@@ -2208,32 +2254,44 @@ function drawRoomZoomInspector() {
     }
   }
 
-  // Collect monsters in zoomed area for bottom Monster Cards
+  // Collect monsters in zoomed area (supporting 1x1 and 2x2 footprints!)
   const roomMonsters = [];
   for (const m of monsters) {
-    if (m.x < rx || m.x >= rx + rw || m.y < ry || m.y >= ry + rh) continue;
+    const span = m.tileSpan || 1;
+    if (m.x + span <= rx || m.x >= rx + rw || m.y + span <= ry || m.y >= ry + rh) continue;
     roomMonsters.push(m);
-    const cx = gridOriginX + (m.x - rx + 0.5) * zoomTile;
-    const cy = gridOriginY + (m.y - ry + 0.5) * zoomTile;
+    const cx = gridOriginX + (m.x - rx + span * 0.5) * zoomTile;
+    const cy = gridOriginY + (m.y - ry + span * 0.5) * zoomTile;
 
-    // Glowing threat ring
-    ctx.strokeStyle = m.friendly ? '#FDE047' : (m.boss ? '#EF4444' : 'rgba(244, 63, 94, 0.55)');
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(cx, cy, zoomTile * 0.45, 0, Math.PI * 2);
-    ctx.stroke();
+    // 2x2 Tactical Grid Highlight or 1x1 Threat Ring
+    if (span > 1) {
+      const bx = gridOriginX + (m.x - rx) * zoomTile;
+      const by = gridOriginY + (m.y - ry) * zoomTile;
+      ctx.fillStyle = m.boss ? 'rgba(239, 68, 68, 0.18)' : 'rgba(245, 158, 11, 0.15)';
+      ctx.strokeStyle = m.boss ? '#EF4444' : '#F59E0B';
+      ctx.lineWidth = 2.5;
+      ctx.fillRect(bx + 2, by + 2, span * zoomTile - 4, span * zoomTile - 4);
+      ctx.strokeRect(bx + 2, by + 2, span * zoomTile - 4, span * zoomTile - 4);
+    } else {
+      ctx.strokeStyle = m.friendly ? '#FDE047' : (m.boss ? '#EF4444' : 'rgba(244, 63, 94, 0.55)');
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, zoomTile * 0.45, 0, Math.PI * 2);
+      ctx.stroke();
+    }
 
     if (SPRITES[m.key] && SPRITES[m.key].complete) {
-      const sz = zoomTile * (m.boss ? 1.25 : 1.05);
+      const sz = zoomTile * (span > 1 ? span * 1.02 : 1.05);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + pulse * 0.6, sz, sz);
     }
 
     // Nameplate & HP bar
-    const bw = Math.max(36, zoomTile * 0.9);
-    ctx.fillStyle = 'rgba(0,0,0,0.8)';
-    ctx.fillRect(cx - bw / 2, cy + zoomTile * 0.36, bw, 5);
+    const bw = Math.max(40, zoomTile * span * 0.85);
+    const barY = cy + zoomTile * span * 0.42;
+    ctx.fillStyle = 'rgba(0,0,0,0.85)';
+    ctx.fillRect(cx - bw / 2, barY, bw, 6);
     ctx.fillStyle = m.friendly ? '#FDE047' : '#10B981';
-    ctx.fillRect(cx - bw / 2, cy + zoomTile * 0.36, bw * (m.hp / m.maxHp), 5);
+    ctx.fillRect(cx - bw / 2, barY, bw * (m.hp / m.maxHp), 6);
   }
 
   // Draw Hero in Room Zoom
@@ -2266,14 +2324,17 @@ function drawRoomZoomInspector() {
       ctx.textAlign = 'center';
       ctx.fillText('✨ Room Clear — No Monsters in Sight', px + panelW / 2, cardY + (rosterHeight - 14) / 2);
     } else {
-      const m = roomMonsters[0];
+      // Prioritize displaying Boss or 2x2 monster on the Stat Card
+      const sortedRoom = [...roomMonsters].sort((a, b) => ((b.tileSpan || 1) * 10 + (b.boss ? 5 : 0)) - ((a.tileSpan || 1) * 10 + (a.boss ? 5 : 0)));
+      const m = sortedRoom[0];
       if (SPRITES[m.key] && SPRITES[m.key].complete) {
         ctx.drawImage(SPRITES[m.key], px + 20, cardY + 8, 82, 82);
       }
       ctx.textAlign = 'left';
-      ctx.font = '900 14px "Cinzel", serif';
+      ctx.font = '900 13px "Cinzel", serif';
       ctx.fillStyle = m.boss ? '#F87171' : '#FDE047';
-      ctx.fillText(`${m.name} ${m.undead ? '[UNDEAD]' : ''} ${m.boss ? '[BOSS]' : ''}`, px + 114, cardY + 24);
+      const sizeTag = (m.tileSpan || 1) > 1 ? `[${m.tileSpan}×${m.tileSpan} LARGE]` : '[1×1]';
+      ctx.fillText(`${m.name} ${sizeTag} ${m.boss ? '[BOSS]' : ''}`, px + 114, cardY + 24);
 
       ctx.font = '700 12px "JetBrains Mono", monospace';
       ctx.fillStyle = '#E2E8F0';
@@ -2592,13 +2653,31 @@ function runCheatCommand(rawCmd) {
   } else if (cmd === 'dragon' || cmd === 'beholder' || cmd === 'demogorgon') {
     const t = MONSTER_MANUAL.find(m => m.key === cmd);
     if (t) {
-      const dv = DIR_VECS[player.dir];
-      const tx = Math.max(1, Math.min(GRID_COLS - 2, player.x + dv.dx * 2));
-      const ty = Math.max(1, Math.min(GRID_ROWS - 2, player.y + dv.dy * 2));
-      grid[ty][tx].type = 'floor';
-      spawnMonsterFromTemplate(t, tx, ty);
+      const span = t.tileSpan || 1;
+      const curRoom = getRoomAt(player.x, player.y);
+      let tx = Math.max(1, Math.min(GRID_COLS - span - 1, player.x + 2));
+      let ty = Math.max(1, Math.min(GRID_ROWS - span - 1, player.y));
+      let placed = false;
+      if (curRoom && curRoom.w >= span && curRoom.h >= span) {
+        for (let yy = curRoom.y; yy <= curRoom.y + curRoom.h - span && !placed; yy++) {
+          for (let xx = curRoom.x; xx <= curRoom.x + curRoom.w - span && !placed; xx++) {
+            if (canPlaceMonster(xx, yy, span)) {
+              tx = xx;
+              ty = yy;
+              placed = true;
+            }
+          }
+        }
+      }
+      for (let dy = 0; dy < span; dy++) {
+        for (let dx = 0; dx < span; dx++) {
+          grid[ty + dy][tx + dx].type = 'floor';
+          if (curRoom) grid[ty + dy][tx + dx].roomId = curRoom.id;
+        }
+      }
+      spawnMonsterFromTemplate(t, tx, ty, curRoom ? curRoom.id : -1);
       updateVisibility();
-      addLog(`🐉 Summoned Boss ${t.name} in front of you!`, '#EF4444');
+      addLog(`🐉 Summoned ${span}×${span} Boss ${t.name} in the chamber!`, '#EF4444');
     }
   } else if (cmd === '3d') {
     currentViewMode = '3D_CRAWLER';
@@ -2808,8 +2887,6 @@ document.querySelectorAll('.dpad-btn').forEach(btn => {
     handleDirectionInput(btn.dataset.dir);
   });
 });
-document.getElementById('touch-heal').addEventListener('click', quaffHealPotion);
-document.getElementById('touch-sparkle').addEventListener('click', quaffSparklePotion);
 document.getElementById('touch-view').addEventListener('click', cycleViewMode);
 document.getElementById('touch-d20').addEventListener('click', () => {
   d20Roller.trigger({
