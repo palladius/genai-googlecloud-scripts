@@ -1592,21 +1592,17 @@ function generateDungeonFloor() {
   stairs = { x: lastRoom.cx, y: lastRoom.cy };
   grid[stairs.y][stairs.x].type = 'stairs';
 
-  // Populate Monsters (~1 monster every 2-3 rooms, never in Room 0, plus Boss on deeper floors)
-  const eligiblePool = MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl <= dungeonLevel + 2);
+  // Populate Monsters scaled strictly by Dungeon Floor (B1F = only small 1x1 minLvl 1 monsters; deeper floors = larger 2x2 monsters & Bosses!)
+  const eligiblePool = getEligibleMonstersForFloor(dungeonLevel);
 
   for (let i = 1; i < rooms.length; i++) {
     const r = rooms[i];
 
-    // Spawn Monster (48% chance per room, guaranteed guard/boss in last room)
+    // Spawn Monster (48% chance per room, guaranteed floor-appropriate guard/boss in last room)
     if (Math.random() < 0.48 || (i === rooms.length - 1)) {
       let template = eligiblePool[Math.floor(Math.random() * eligiblePool.length)];
       if (i === rooms.length - 1) {
-        // Guaranteed iconic 2x2 Large/Boss monster guarding the stairs room!
-        const bigGuards = MONSTER_MANUAL.filter(m => (m.tileSpan || 1) >= 2 && m.minLvl <= dungeonLevel + 4);
-        if (bigGuards.length > 0) {
-          template = bigGuards[(dungeonLevel - 1) % bigGuards.length];
-        }
+        template = getStairsGuardForFloor(dungeonLevel);
       }
       const span = template.tileSpan || 1;
       for (let tryPos = 0; tryPos < 12; tryPos++) {
@@ -1668,6 +1664,47 @@ function getRoomFlavorName(idx, floor) {
     'Stairway to the Abyss'
   ];
   return `Room #${idx + 1}: ${names[(idx + floor) % names.length]}`;
+}
+
+// Returns the floor-appropriate D&D monster pool:
+// - B1F (floor 1): ONLY small 1x1 vermin & goblins (minLvl === 1: Giant Rat, Vampire Bat, Goblin Cutter, Venom Spider)
+// - B2F-B3F: 1x1 Undead, Wolves, Orcs, Mimics, Slimes (minLvl floor-1 to floor, tileSpan === 1)
+// - B4F-B6F: Large 2x2 monsters emerge (Gelatinous Cube, Owlbear, Ogre Brute, Cave Troll) + Ghosts & Mind Flayers; weak B1F vermin phase out!
+// - B7F+: High-level 2x2 Bosses (Beholder, Red Dragon, Demogorgon) & elite Underdark monsters!
+function getEligibleMonstersForFloor(floor = dungeonLevel) {
+  const f = Math.max(1, floor);
+  if (f === 1) {
+    return MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl === 1 && (m.tileSpan || 1) === 1);
+  }
+  if (f <= 3) {
+    return MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl >= f - 1 && m.minLvl <= f && (m.tileSpan || 1) === 1);
+  }
+  const minTier = Math.max(3, Math.min(6, f - 1));
+  const maxTier = f;
+  const pool = MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl >= minTier && m.minLvl <= maxTier);
+  return pool.length > 0 ? pool : MONSTER_MANUAL.filter(m => !m.friendly && m.minLvl >= 6);
+}
+
+// Returns the guardian monster for the Stairs Room on a given floor:
+// - B1F-B3F: Strongest 1x1 monster of that tier (Goblin/Spider on B1F, Zombie on B2F, Orc/Mimic on B3F)
+// - B4F: Gelatinous Cube (first 2x2 Large monster!)
+// - B5F: Owlbear or Ogre Brute (2x2)
+// - B6F: Cave Troll (2x2)
+// - B7F: Beholder (2x2 Boss)
+// - B8F: Red Dragon (2x2 Boss)
+// - B9F+: Demogorgon / Red Dragon / Beholder (2x2 Boss)
+function getStairsGuardForFloor(floor = dungeonLevel) {
+  const f = Math.max(1, floor);
+  const byKey = k => MONSTER_MANUAL.find(m => m.key === k);
+  if (f === 1) return Math.random() < 0.5 ? byKey('goblin') : byKey('spider');
+  if (f === 2) return Math.random() < 0.5 ? byKey('zombie') : byKey('wolf');
+  if (f === 3) return Math.random() < 0.5 ? byKey('orc') : byKey('mimic');
+  if (f === 4) return byKey('gelatinous_cube');
+  if (f === 5) return Math.random() < 0.5 ? byKey('owlbear') : byKey('ogre');
+  if (f === 6) return byKey('troll');
+  if (f === 7) return byKey('beholder');
+  if (f === 8) return byKey('dragon');
+  return byKey('demogorgon');
 }
 
 function spawnMonsterFromTemplate(t, x, y, roomId = -1) {
@@ -3420,11 +3457,20 @@ function runCheatCommand(rawCmd) {
   } else if (cmd === 'test') {
     const res = runMobilityUnitTests();
     addLog(`🧪 Mobility Unit Tests: ${res.passed ? 'PASSED' : 'FAILED'} (${res.assertions} assertions)`, res.passed ? '#34D399' : '#EF4444');
+  } else if (cmd.startsWith('floor')) {
+    const parts = cmd.split(/\s+/);
+    const targetFloor = Math.max(1, Math.min(20, parseInt(parts[1], 10) || (dungeonLevel + 1)));
+    dungeonLevel = targetFloor;
+    generateDungeonFloor();
+    audio.syncMusicForLevel(player.lvl, dungeonLevel);
+    saveGameProgress();
+    updateHUD();
+    addLog(`🏰 Cheat [floor]: Teleported to Dungeon Floor B${dungeonLevel}F!`, '#67E8F9');
   } else if (cmd === 'levelup') {
     player.xp += player.nextXp;
     checkLevelUp();
   } else {
-    addLog(`Unknown cheat "${cmd}". Try: showoff, killemall, pupurabbu, metal, die, dragon, test`, '#94A3B8');
+    addLog(`Unknown cheat "${cmd}". Try: showoff, killemall, pupurabbu, metal, floor 5, die, dragon, test`, '#94A3B8');
   }
 }
 
@@ -3622,6 +3668,22 @@ function runMobilityUnitTests() {
     handleDirectionInput('up');
     assertEq(player.x, 11, 'Step into side passage X=11');
     assertEq(player.y, 9, 'Step into side passage Y=9');
+
+    // --- TEST 4: Dungeon Floor Monster Difficulty & Size Scaling (B1F Small Only -> Deeper 2x2 & Bosses) ---
+    const f1Pool = getEligibleMonstersForFloor(1);
+    const f1Guard = getStairsGuardForFloor(1);
+    assertTrue(f1Pool.length === 4, 'Floor 1 pool has 4 small monsters (Rat, Bat, Goblin, Spider)');
+    assertTrue(f1Pool.every(m => m.minLvl === 1 && (m.tileSpan || 1) === 1), 'Floor 1 only spawns minLvl 1 small (1x1) monsters');
+    assertEq(f1Guard.tileSpan || 1, 1, 'Floor 1 stairs guard is 1x1 small monster (Goblin/Spider)');
+
+    const f5Pool = getEligibleMonstersForFloor(5);
+    const f5Guard = getStairsGuardForFloor(5);
+    assertTrue(f5Pool.every(m => m.minLvl >= 4 && m.minLvl <= 5), 'Floor 5 pool only spawns mid-tier minLvl 4-5 monsters (no Rats/Bats)');
+    assertEq(f5Guard.tileSpan, 2, 'Floor 5 stairs guard is a 2x2 large monster (Owlbear/Ogre)');
+
+    const f8Guard = getStairsGuardForFloor(8);
+    assertEq(f8Guard.key, 'dragon', 'Floor 8 stairs guard is Red Dragon');
+    assertEq(f8Guard.tileSpan, 2, 'Floor 8 Red Dragon has 2x2 footprint');
   } finally {
     // Restore original game state
     grid = savedGrid;

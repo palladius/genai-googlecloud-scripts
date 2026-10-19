@@ -2,6 +2,15 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [8.3.2] - 2026-10-19
+
+### Added & Improved
+- **📈 Progressione Mostri per Piano del Dungeon (`getEligibleMonstersForFloor` & `getStairsGuardForFloor`)**:
+  - **Piano `B1F` (Solo Roba Piccola `1×1`, `minLvl === 1`)**: Al primo piano compaiono esclusivamente mostri piccoli `1×1` (*Giant Rat* 🐀, *Vampire Bat* 🦇, *Goblin Cutter* 👺, *Venom Spider* 🕷️), incluso il guardiano delle scale (*Goblin* o *Spider*), senza mai generare mostri grandi `2×2` (eccetto l'eventuale cameo amichevole del *Mitico Pupurabbu* 💜).
+  - **Piani `B2F–B3F` (Non-Morti & Bruti `1×1`)**: Compaiono *Skeleton* 💀, *Dire Wolf* 🐺, *Plague Zombie* 🧟, *Orc Berserker* 👹, *Chest Mimic* 📦 e *Green Slime* 🦠, mentre ratti e pipistrelli del `B1F` spariscono gradualmente.
+  - **Piani `B4F–B6F` (Grandi Mostri `2×2` & Underdark)**: Esordiscono i mostri grandi `2×2` (*Gelatinous Cube* 🟩 al `B4F`, *Owlbear* 🦉 e *Ogre Brute* 🦍 al `B5F` insieme all'Epic Metal, *Cave Troll* 🧌 e *Mind Flayer* 🦑 al `B6F`).
+  - **Piani `B7F+` (Boss Leggendari `2×2`)**: Guardiani delle scale *Beholder* 👁️ (`B7F`), *Red Dragon* 🐉 (`B8F`) e *Demogorgon* 👑 (`B9F+`), più cheat comando `^floor <N>` e 7 nuove asserzioni nella suite di unit test (`46/46` asserzioni totali).
+
 ## [8.3.1] - 2026-10-19
 
 ### Fixed & Improved
