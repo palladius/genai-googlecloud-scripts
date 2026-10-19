@@ -2,6 +2,15 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [9.0.1] - 2026-10-19
+
+### Added & Improved
+- **🎬😂 Nuovi Video di Morte Tragicomici Stile *Dragon's Lair* ("Corridoio Scuro -> Porta -> Stanza 3×3 col Mostro al Centro")**:
+  - Sostituito il vecchio template con l'arcata aperta con 3 nuovi video generati tramite **`veo-3.1-generate-preview`** ambientati interamente sottoterra in un corridoio scuro di pietra che si apre con una porta in legno su una stanza chiusa `3×3`, dove il Paladino entra **di spalle** e muore in modo **tragicomico**:
+    - 🐉 **`death_default.mp4` (Drago Rosso)**: il Paladino apre la porta e si ritrova davanti il Drago Rosso sul mucchio d'oro; una vampata di fuoco lo trasforma in una sagoma nera di fuliggine con due occhioni bianchi stile *Dragon's Lair* che si sgretola in un mucchietto di cenere con l'elmo sopra!
+    - 👁️ **`death_eyes.mp4` (Occhi Rossi nel Buio / Bestia del Dungeon)**: il Paladino apre la porta nel buio, due occhi rossi si accendono al centro della stanza `3×3` e un mostro corazzato gli molla una zampata titanica che fa schizzare via i pezzi d'armatura lasciandolo spiaccicato a faccia in giù sul pavimento!
+    - 🧟 **`death_zombie.mp4` (Zombie & Scheletro)**: il Paladino entra nella cripta `3×3`, uno Scheletro gli dà una clavata sull'elmo mentre lo Zombie gli tira il tappeto di muschio da sotto i piedi, facendolo stramazzare in un volo tragicomico mentre **Zombie e Scheletro si battono il cinque (High-Five)** sopra di lui!
+
 ## [9.0.0] - 2026-10-19
 
 ### Added & Improved
