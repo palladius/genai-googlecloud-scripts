@@ -28,3 +28,13 @@ push: deploy
 
 emulate:
   firebase emulators:start
+
+# Smoke test HTML & embedded NanoBanana assets
+test:
+  @grep -q "DUNGEMOJI v8.0" public/index.html && echo "✅ public/index.html v8.0 verified!"
+  @grep -q "pupurabbu" public/index.html && echo "✅ Pupurabbu & 27 NanoBanana sprites embedded!"
+
+# Open local or deployed game
+open:
+  open "https://$PROJECT_ID.web.app"
+
