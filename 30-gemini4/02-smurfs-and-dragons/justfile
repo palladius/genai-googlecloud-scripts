@@ -1,0 +1,12 @@
+# 🐉 Justfile for Smurfs and Dragons (Gemini 4)
+
+list:
+    @just -l
+
+# Run unit tests for math gates logic
+test:
+    node --test ../../24-gemini25-games/02-smurfs-and-dragons/tests/math_gates.test.js
+
+# Deploy to Firebase Hosting and GitHub Pages
+deploy:
+    cd ../../24-gemini25-games/02-smurfs-and-dragons && just deploy
