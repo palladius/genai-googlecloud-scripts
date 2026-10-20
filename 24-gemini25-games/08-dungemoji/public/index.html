@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>DUNGEMOJI v9.0.1 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
+  <title>DUNGEMOJI v9.0.2 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@500;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -546,7 +546,7 @@
   <header id="top-hud">
     <div class="brand-title">
       <span>🐉 DUNGEMOJI</span>
-      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.1 RED BOX</span>
+      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.2 RED BOX</span>
     </div>
 
     <div class="hud-stats">
@@ -623,7 +623,7 @@
       <button class="inv-slot" id="touch-shop" title="Open Dwarven Merchant Shop [B]">🛒 Shop [B]</button>
       <button class="inv-slot" id="touch-view" title="Switch 2D / 3D / Classic [V]">👁️ 2D/3D [V]</button>
       <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Broad Sword +1</span></div>
-      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.1</div>
+      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.2</div>
     </div>
   </footer>
 
@@ -730,8 +730,13 @@
   <div class="overlay-modal" id="title-modal">
     <div class="modal-card">
       <div class="redbox-banner">
-        <h1>🐉 DUNGEMOJI v9.0.1 🏰</h1>
+        <h1>🐉 DUNGEMOJI v9.0.2 🏰</h1>
         <div class="redbox-sub">1980s D&amp;D RED BOX EDITION • SECRET ROOMS • PALADIN SPELLS • VEO 3.1 DEATH CUTSCENES</div>
+      </div>
+
+      <!-- 🎨 HERO COVER ART BANNER (CUTIE MONSTERS & EMOJIS PANDEMONIUM!) -->
+      <div style="text-align:center; margin-bottom: 12px;">
+        <img src="dungemoji-cover.jpg" alt="Dungemoji Cover Art — Pandemonium of Cutie Monsters and Emojis" style="width:100%; max-height:220px; object-fit:cover; object-position:center 28%; border-radius:12px; border:2px solid #F59E0B; box-shadow: 0 6px 20px rgba(0,0,0,0.65);" />
       </div>
 
       <!-- 👦⚔️ KID-FRIENDLY QUICK GUIDE FOR ALESSANDRO -->
@@ -1601,7 +1606,7 @@ function initNewGame() {
   audio.epicMetalAnnounced = false;
 
   document.getElementById('msg-log').innerHTML = '';
-  addLog('Welcome to DUNGEMOJI v9.0.1 (1980s D&D Red Box Edition)!', '#FDE047');
+  addLog('Welcome to DUNGEMOJI v9.0.2 (1980s D&D Red Box Edition)!', '#FDE047');
   addLog('👦 Usa Frecce/WASD per muoverti e attaccare • [Q] Cura • [F] Stanza Segreta • [C] Magie • [B] Mercante!', '#67E8F9');
   generateDungeonFloor();
   gameState = 'PLAY';

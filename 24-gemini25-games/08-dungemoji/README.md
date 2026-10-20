@@ -1,10 +1,12 @@
-# 🐉 Dungemoji v8.3 — 1980s D&D Red Box Edition (NanoBanana 2D + Room Zoom + 3D Crawler)
+# 🐉 Dungemoji v9.0.2 — 1980s D&D Red Box Edition (NanoBanana 2D + Room Zoom + 3D Crawler)
 
 Play live: **https://dungemoji.web.app/**
 
-![Dungemoji v8.3 2D Tactical Map + Room Zoom](dungemoji-2d-zoom.png)
+![Dungemoji Official Cover Art — Pandemonium of Cutie Monsters & Emojis](dungemoji-cover.jpg)
 
-![Dungemoji v8.3 3D Dungeon Crawler](dungemoji-3d.png)
+![Dungemoji v9.0 2D Tactical Map + Room Zoom](dungemoji-2d-zoom.png)
+
+![Dungemoji v9.0 3D Dungeon Crawler](dungemoji-3d.png)
 
 ## ✨ Features in v8.3.0
 - **3-Way Real-Time View Switcher (`[V]` key or HUD button)**:

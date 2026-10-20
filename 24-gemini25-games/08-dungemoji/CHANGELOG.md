@@ -2,6 +2,13 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [9.0.2] - 2026-10-20
+
+### Added & Improved
+- **🎨 Nuova Copertina Hero "Pandemonio di Mostri Cutie & Emojis" (`dungemoji-cover.jpg`)**:
+  - Generata l'illustrazione ufficiale ad alta definizione (non-pixellata) con il pandemonio nel dungeon tra mostri D&D *cutie* (Drago Rosso, Beholder, Cubo Gelatinoso con emoji `😭` intrappolata, Mimic, Goblin, Scheletro, Zombie, Owlbear, Paladino e *Il Mitico Pupurabbu* 💜 col D20 dorato) ed emoji viventi (`😂`, `😱`, `💀`, `🔥`, `👑`) attorno al D20 rosso sul `20` naturale.
+  - Integrata nel modal iniziale/Help (`#title-modal`) e nel `README.md`.
+
 ## [9.0.1] - 2026-10-19
 
 ### Added & Improved
