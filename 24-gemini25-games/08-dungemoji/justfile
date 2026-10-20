@@ -29,10 +29,11 @@ push: deploy
 emulate:
   firebase emulators:start
 
-# Smoke test HTML, Mobility Unit Tests, L5 Epic Metal MP3, Veo 3.1 Death MP4s & embedded NanoBanana assets
+# Smoke test HTML, Mobility & Mode 3 Brightness Unit Tests, L5 Epic Metal MP3, Veo 3.1 Death MP4s & embedded NanoBanana assets
 test:
   @VER=$(cat VERSION | tr -d '[:space:]') && grep -q "DUNGEMOJI v$VER" public/index.html && echo "✅ public/index.html v$VER verified!"
   @grep -q "runMobilityUnitTests" public/index.html && echo "✅ Mobility, Secret Room & 3D Raycast Unit Test Suite embedded!"
+  @grep -q "Mode 3 Hero fillStyle is #ffffff when floor is last visible tile" public/index.html && echo "✅ Mode 3 (CLASSIC_EMOJI) Hero Always-Bright TDD Unit Test verified!"
   @grep -q "carveSecretRoomInNegativeSpace" public/index.html && echo "✅ Negative-Space Secret Rooms & Paladin Spells verified!"
   @grep -q "quit-modal" public/index.html && echo "✅ ESC Quit/Save Confirmation Modal verified!"
   @test -f public/audio/epic_metal_l5.mp3 && echo "✅ Level 5 Medieval Epic Metal MP3 verified!"

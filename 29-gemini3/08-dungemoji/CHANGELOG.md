@@ -2,6 +2,52 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [9.0.3] - 2026-10-20
+
+### Fixed & Tested (TDD)
+- **💡🧙‍♂️ Risolto Bug "Personaggio a Volte Chiaro a Volte Scuro" in Modalità 3 (`CLASSIC_EMOJI` 80s Rogue)**:
+  - **Root Cause**: In `draw2DDungeonMap()`, i puntini centrali delle caselle pavimento visibili venivano disegnati con `ctx.fillStyle = 'rgba(214, 211, 209, 0.20)'` (opacità **20%**), e le basi tattiche `2×2` con `rgba(..., 0.14)` (opacità **14%**). Quando l'ultima casella visibile in basso nella mappa era un pavimento/corridoio (senza un muro visibile sotto di essa che resettasse `fillStyle` a `#0C0A09` opaco) e nessun mostro aveva una barra HP attiva, `ctx.fillText('🧙‍♂️', pcx, pcy)` (così come i mostri `🦇` e gli oggetti) ereditava l'alpha `0.20` di `ctx.fillStyle`, risultando scuro/semitrasparente all'80%!
+  - **Fix**: Reset esplicito di `ctx.globalAlpha = 1.0` e `ctx.fillStyle = '#FFFFFF'` prima di ogni chiamata `ctx.fillText` / `ctx.drawImage` per Eroe (`🧙‍♂️`), mostri, oggetti, scale (`🪜`), porte (`🚪`) e trappole (`⚠️`), più alone luminoso dorato sotto il personaggio in Modalità 3 e rimozione della vignettatura scura ai bordi di `#crt-overlay`.
+  - **Unit Test TDD (`TEST 6` in `runMobilityUnitTests()` + Verifica Pixel Canvas in Playwright)**: Aggiunto test TDD (58 asserzioni in-game + verifica `ctx.getImageData` dei pixel reali su Canvas) che riproduce esattamente il caso del corridoio a sud senza muro sottostante e verifica matematicamente che `fillStyle === '#ffffff'`, `globalAlpha === 1.0` e la luminanza pixel del personaggio siano **100% identici e chiari** (`maxLum = 560`, `exactMatch = True`) in ogni situazione.
+
+## [9.0.2] - 2026-10-20
+
+### Added & Improved
+- **🎨 Nuova Copertina Hero "Pandemonio di Mostri Cutie & Emojis" (`dungemoji-cover.jpg`)**:
+  - Generata l'illustrazione ufficiale ad alta definizione (non-pixellata) con il pandemonio nel dungeon tra mostri D&D *cutie* (Drago Rosso, Beholder, Cubo Gelatinoso con emoji `😭` intrappolata, Mimic, Goblin, Scheletro, Zombie, Owlbear, Paladino e *Il Mitico Pupurabbu* 💜 col D20 dorato) ed emoji viventi (`😂`, `😱`, `💀`, `🔥`, `👑`) attorno al D20 rosso sul `20` naturale.
+  - Integrata nel modal iniziale/Help (`#title-modal`) e nel `README.md`.
+
+## [9.0.1] - 2026-10-19
+
+### Added & Improved
+- **🎬😂 Nuovi Video di Morte Tragicomici Stile *Dragon's Lair* ("Corridoio Scuro -> Porta -> Stanza 3×3 col Mostro al Centro")**:
+  - Sostituito il vecchio template con l'arcata aperta con 3 nuovi video generati tramite **`veo-3.1-generate-preview`** ambientati interamente sottoterra in un corridoio scuro di pietra che si apre con una porta in legno su una stanza chiusa `3×3`, dove il Paladino entra **di spalle** e muore in modo **tragicomico**:
+    - 🐉 **`death_default.mp4` (Drago Rosso)**: il Paladino apre la porta e si ritrova davanti il Drago Rosso sul mucchio d'oro; una vampata di fuoco lo trasforma in una sagoma nera di fuliggine con due occhioni bianchi stile *Dragon's Lair* che si sgretola in un mucchietto di cenere con l'elmo sopra!
+    - 👁️ **`death_eyes.mp4` (Occhi Rossi nel Buio / Bestia del Dungeon)**: il Paladino apre la porta nel buio, due occhi rossi si accendono al centro della stanza `3×3` e un mostro corazzato gli molla una zampata titanica che fa schizzare via i pezzi d'armatura lasciandolo spiaccicato a faccia in giù sul pavimento!
+    - 🧟 **`death_zombie.mp4` (Zombie & Scheletro)**: il Paladino entra nella cripta `3×3`, uno Scheletro gli dà una clavata sull'elmo mentre lo Zombie gli tira il tappeto di muschio da sotto i piedi, facendolo stramazzare in un volo tragicomico mentre **Zombie e Scheletro si battono il cinque (High-Five)** sopra di lui!
+
+## [9.0.0] - 2026-10-19
+
+### Added & Improved
+- **🏷️ Versione Dinamica Sempre Visibile (`v9.0.0 RED BOX`)**:
+  - Risolto il problema della versione hardcoded (`v8.2`): ora `build_game.py` legge direttamente il file `VERSION` (`9.0.0`) e mostra il badge luminoso **`v9.0.0 RED BOX`** nell'header in alto a sinistra (`#version-badge`), nel titolo principale (`#title-modal`), nel `<title>` della pagina e nella barra inferiore (`#bottom-hud`).
+- **👦⚔️ Guida Rapida in 3 Mosse per Alessandro (`[H]` / `👦 GUIDA [H]`)**:
+  - Aggiunto un pannello verde smeraldo chiaro e immediato nella schermata iniziale/Help che spiega a colpo d'occhio cosa è **davvero necessario** per giocare (**solo `Frecce/WASD` per muoversi, attaccare e scendere le scale + `Q` per curarsi**!) e cosa fanno i tasti extra opzionali (`E`, `F`, `C`, `B`, `V`).
+- **🕵️‍♂️ Stanze Segrete nel Negativo (`carveSecretRoomInNegativeSpace()` + `discoverSecretRoom()`)**:
+  - Ogni piano scava matematicamente una stanza segreta `3×3` nello **spazio negativo non scavato** tra le stanze/corridoi, chiusa da una porta segreta mimetizzata nel muro (`secret_door`) che blocca la visuale finché non viene scoperta.
+  - **Come scoprirla**: **10% di probabilità** camminando sulla casella adiacente alla porta segreta, **35% bussando** contro il muro segreto, oppure **100% istantaneo** leggendo una **Pergamena delle Stanze Segrete (`📜`, tasto `[F]`)** o lanciando l'incantesimo *Protection & Secrets* (`[C]` -> `[3]`)!
+- **✨ [GHI #4] Libro degli Incantesimi del Paladino (`[C]` / `✨ SPELLS [C]`)**:
+  - 4 incantesimi divini con Cariche di Fede (`mana`) che si ricaricano ad ogni piano: **[1] Lay on Hands** (`+25 HP`), **[2] Turn Undead D20** (Tiro Sacro D20 che polverizza Scheletri, Zombie e Fantasmi), **[3] Protection & Secrets** (`+3 AC` per tutto il piano + rivela trappole e Stanza Segreta), e **[4] Holy Avenger Smite** (Folgore Divina su tutti i nemici visibili).
+- **🛒 Mercante Nano del Dungeon (`[B]` / `🛒 SHOP [B]`)**:
+  - Permette di spendere l'Oro (`💰`) raccolto per acquistare Pozioni Rosse (`🧪`), Pergamene delle Stanze Segrete (`📜`), Chiavi d'Oro (`🗝️`), Pozioni Sparkle (`✨`), Scudo Red Box (`+1 AC` e `+5 Max HP` permanenti) e Affilatura Vorpal (`+2 ATK` permanente).
+- **🗝️ Porte Chiuse (`🚪`), Chiavi d'Oro (`🗝️`) & Trappole D&D (`⚠️`)**:
+  - Porte chiuse apribili con una Chiave d'Oro (`🗝️`) o sfondabili con una prova di Forza sul D20 (`DC 14`), e trappole nascoste con Tiro Salvezza D20 sui Riflessi.
+- **🎬 [GHI #3] 3 Video di Morte Cinematografici Veo 3.1 Non-Pixellosi (`getDeathVideoForKiller`)**:
+  - Seleziona automaticamente il video Veo 3.1 (`veo-3.1-generate-preview`, dipinto ad olio dark fantasy anni '80 senza pixellosità) in base al mostro che uccide il Paladino:
+    - `audio/death_default.mp4`: **Drago Rosso / Demogorgon** (incenerimento completo in cenere fumante — **9.9/10**).
+    - `audio/death_zombie.mp4`: **Non-Morti** (*Zombie*, *Skeleton*, *Ghost* — orda scheletrica/necrotica nella cripta).
+    - `audio/death_eyes.mp4`: **Due Occhi Rossi nel Buio** (balzo letale della bestia dagli occhi rossi per tutti gli altri mostri del dungeon).
+
 ## [8.3.2] - 2026-10-19
 
 ### Added & Improved

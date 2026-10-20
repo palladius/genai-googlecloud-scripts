@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>DUNGEMOJI v9.0.2 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
+  <title>DUNGEMOJI v9.0.3 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@500;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@
       overflow: hidden;
     }
 
-    /* CRT Scanline Subtle Overlay */
+    /* CRT Scanline Subtle Overlay (NO edge darkening vignette so player is always bright!) */
     #crt-overlay {
       position: absolute;
       inset: 0;
@@ -59,10 +59,10 @@
       z-index: 45;
       background: linear-gradient(
         rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.22) 50%
-      ), radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.55) 100%);
-      background-size: 100% 4px, 100% 100%;
-      opacity: 0.75;
+        rgba(0, 0, 0, 0.10) 50%
+      );
+      background-size: 100% 4px;
+      opacity: 0.45;
     }
 
     /* TOP D&D RED-BOX HUD */
@@ -546,7 +546,7 @@
   <header id="top-hud">
     <div class="brand-title">
       <span>🐉 DUNGEMOJI</span>
-      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.2 RED BOX</span>
+      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.3 RED BOX</span>
     </div>
 
     <div class="hud-stats">
@@ -623,7 +623,7 @@
       <button class="inv-slot" id="touch-shop" title="Open Dwarven Merchant Shop [B]">🛒 Shop [B]</button>
       <button class="inv-slot" id="touch-view" title="Switch 2D / 3D / Classic [V]">👁️ 2D/3D [V]</button>
       <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Broad Sword +1</span></div>
-      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.2</div>
+      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.3</div>
     </div>
   </footer>
 
@@ -730,7 +730,7 @@
   <div class="overlay-modal" id="title-modal">
     <div class="modal-card">
       <div class="redbox-banner">
-        <h1>🐉 DUNGEMOJI v9.0.2 🏰</h1>
+        <h1>🐉 DUNGEMOJI v9.0.3 🏰</h1>
         <div class="redbox-sub">1980s D&amp;D RED BOX EDITION • SECRET ROOMS • PALADIN SPELLS • VEO 3.1 DEATH CUTSCENES</div>
       </div>
 
@@ -1606,7 +1606,7 @@ function initNewGame() {
   audio.epicMetalAnnounced = false;
 
   document.getElementById('msg-log').innerHTML = '';
-  addLog('Welcome to DUNGEMOJI v9.0.2 (1980s D&D Red Box Edition)!', '#FDE047');
+  addLog('Welcome to DUNGEMOJI v9.0.3 (1980s D&D Red Box Edition)!', '#FDE047');
   addLog('👦 Usa Frecce/WASD per muoverti e attaccare • [Q] Cura • [F] Stanza Segreta • [C] Magie • [B] Mercante!', '#67E8F9');
   generateDungeonFloor();
   gameState = 'PLAY';
@@ -2851,16 +2851,22 @@ function draw2DDungeonMap() {
         }
 
         if (cell.type === 'stairs') {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🪜', px + cellSize / 2, py + cellSize / 2);
         } else if (cell.type === 'locked_door') {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🚪', px + cellSize / 2, py + cellSize / 2);
         } else if (cell.trap && cell.trap.revealed && cell.visible) {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(cellSize * 0.80)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -2868,6 +2874,7 @@ function draw2DDungeonMap() {
         } else if (cell.visible) {
           ctx.fillStyle = 'rgba(214, 211, 209, 0.20)';
           ctx.fillRect(px + cellSize / 2 - 1, py + cellSize / 2 - 1, 2, 2);
+          ctx.fillStyle = '#FFFFFF';
         }
       } else if ((cell.type === 'wall' || cell.type === 'secret_door') && cell.wallChar !== ' ') {
         // Warm stone grey / earthy brown double-line walls (or emerald in 80s Rogue mode)
@@ -2875,9 +2882,14 @@ function draw2DDungeonMap() {
           ? (currentViewMode === 'CLASSIC_EMOJI' ? '#10B981' : `rgba(180, 166, 148, ${0.95 * flicker})`)
           : '#44403C';
         drawSeamlessDoubleBoxWall(ctx, px, py, cellSize, cell.wallMask, wallColor, '#0C0A09');
+        ctx.fillStyle = '#FFFFFF';
       }
     }
   }
+
+  // Always reset fillStyle & globalAlpha after tile pass so emojis never inherit 0.20 floor-dot alpha!
+  ctx.globalAlpha = 1.0;
+  ctx.fillStyle = '#FFFFFF';
 
   // 2. Draw Shockwaves (Sparkle Potion Undead Purge)
   for (let i = shockwaves.length - 1; i >= 0; i--) {
@@ -2896,6 +2908,8 @@ function draw2DDungeonMap() {
     if (!grid[it.y][it.x].visible) continue;
     const cx = (it.x + 0.5) * cellSize;
     const cy = (it.y + 0.5) * cellSize;
+    ctx.globalAlpha = 1.0;
+    ctx.fillStyle = '#FFFFFF';
     if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES[it.key] && SPRITES[it.key].complete) {
       const sz = cellSize * 1.15;
       ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
@@ -2924,6 +2938,9 @@ function draw2DDungeonMap() {
       ctx.strokeRect(m.x * cellSize + 1, m.y * cellSize + 1, span * cellSize - 2, span * cellSize - 2);
     }
 
+    // Reset to 100% opaque #FFFFFF before drawing monster sprite or emoji!
+    ctx.globalAlpha = 1.0;
+    ctx.fillStyle = '#FFFFFF';
     if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES[m.key] && SPRITES[m.key].complete) {
       const sz = cellSize * (span > 1 ? span * 1.08 : 1.28);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + bob * 0.5, sz, sz);
@@ -2946,18 +2963,33 @@ function draw2DDungeonMap() {
     }
   }
 
-  // 5. Draw Player
+  // 5. Draw Player (ALWAYS 100% BRIGHT & OPAQUE IN ALL MODES, ESPECIALLY MODE 3 CLASSIC_EMOJI!)
   const pcx = (player.x + 0.5) * cellSize;
   const pcy = (player.y + 0.5) * cellSize;
-  if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES.hero && SPRITES.hero.complete) {
+  ctx.save();
+  ctx.globalAlpha = 1.0;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.filter = 'none';
+  if (currentViewMode === 'CLASSIC_EMOJI') {
+    // Subtle warm golden torchlight floor highlight under the player so the hero always pops!
+    ctx.fillStyle = 'rgba(253, 224, 71, 0.16)';
+    ctx.fillRect(player.x * cellSize + 1, player.y * cellSize + 1, cellSize - 2, cellSize - 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `${Math.floor(cellSize * 0.95)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🧙‍♂️', pcx, pcy);
+  } else if (SPRITES.hero && SPRITES.hero.complete) {
     const sz = cellSize * 1.42;
     ctx.drawImage(SPRITES.hero, pcx - sz / 2, pcy - sz / 2, sz, sz);
   } else {
+    ctx.fillStyle = '#FFFFFF';
     ctx.font = `${Math.floor(cellSize * 0.95)}px sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('🧙‍♂️', pcx, pcy);
   }
+  ctx.restore();
 
   // Highlight Current Room Border when Room Zoom is active
   const curRoom = getRoomAt(player.x, player.y);
@@ -3062,16 +3094,22 @@ function drawRoomZoomInspector() {
         ctx.strokeRect(cx, cy, zoomTile, zoomTile);
 
         if (cell.type === 'stairs') {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🪜', cx + zoomTile / 2, cy + zoomTile / 2);
         } else if (cell.type === 'locked_door') {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('🚪', cx + zoomTile / 2, cy + zoomTile / 2);
         } else if (cell.trap && cell.trap.revealed) {
+          ctx.globalAlpha = 1.0;
+          ctx.fillStyle = '#FFFFFF';
           ctx.font = `${Math.floor(zoomTile * 0.72)}px sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -3087,6 +3125,8 @@ function drawRoomZoomInspector() {
     if (grid[it.y][it.x].secretHidden) continue;
     const cx = gridOriginX + (it.x - rx + 0.5) * zoomTile;
     const cy = gridOriginY + (it.y - ry + 0.5) * zoomTile;
+    ctx.globalAlpha = 1.0;
+    ctx.fillStyle = '#FFFFFF';
     if (SPRITES[it.key] && SPRITES[it.key].complete) {
       const sz = zoomTile * 0.92;
       ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
@@ -3124,6 +3164,8 @@ function drawRoomZoomInspector() {
       ctx.stroke();
     }
 
+    ctx.globalAlpha = 1.0;
+    ctx.fillStyle = '#FFFFFF';
     if (SPRITES[m.key] && SPRITES[m.key].complete) {
       const sz = zoomTile * (span > 1 ? span * 1.02 : 1.05);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + pulse * 0.6, sz, sz);
@@ -3431,6 +3473,8 @@ function draw3DCrawlerView() {
     ctx.ellipse(screenX, screenY + projSize * 0.92, projSize * 0.38, projSize * 0.1, 0, 0, Math.PI * 2);
     ctx.fill();
 
+    ctx.globalAlpha = 1.0;
+    ctx.fillStyle = '#FFFFFF';
     if (b.key && SPRITES[b.key] && SPRITES[b.key].complete) {
       ctx.drawImage(SPRITES[b.key], screenX - projSize / 2, screenY, projSize, projSize);
     } else {
@@ -4064,6 +4108,8 @@ function runMobilityUnitTests() {
   const savedGrid = grid.map(row => row.map(c => ({ ...c })));
   const savedMonsters = monsters.map(m => ({ ...m }));
   const savedItems = items.map(i => ({ ...i }));
+  const savedFloating = [...floatingTexts];
+  const savedShockwaves = [...shockwaves];
   const savedPlayer = { ...player };
   const savedMode = currentViewMode;
   const savedState = gameState;
@@ -4219,10 +4265,84 @@ function runMobilityUnitTests() {
     assertEq(getDeathVideoForKiller({ key: 'dragon' }), 'audio/death_default.mp4', 'Dragon uses death_default.mp4');
     assertEq(getDeathVideoForKiller({ key: 'zombie', undead: true }), 'audio/death_zombie.mp4', 'Zombie uses death_zombie.mp4');
     assertEq(getDeathVideoForKiller({ key: 'goblin' }), 'audio/death_eyes.mp4', 'Goblin uses death_eyes.mp4');
+
+    // --- TEST 6: Mode 3 (CLASSIC_EMOJI) Player & Entity Brightness TDD Invariant ---
+    // Verifies that the player emoji (🧙‍♂️) and monsters/items NEVER inherit 0.20 floor-dot alpha
+    // or 0.14 2x2 base-plate alpha when the bottom-most visible tile is a floor/corridor!
+    currentViewMode = 'CLASSIC_EMOJI';
+    monsters = [];
+    items = [];
+    for (let y = 0; y < GRID_ROWS; y++) {
+      for (let x = 0; x < GRID_COLS; x++) {
+        grid[y][x].visible = false;
+        grid[y][x].seen = false;
+        grid[y][x].type = 'wall';
+        grid[y][x].wallChar = '═';
+        grid[y][x].wallMask = 12;
+      }
+    }
+    player.x = 10;
+    player.y = 10;
+    grid[10][10].type = 'corridor';
+    grid[10][10].visible = true;
+    grid[10][10].seen = true;
+    // Scenario 6A: Bottom-most visible tile is a corridor floor tile (y=12) with NO visible wall below it
+    grid[11][10].type = 'corridor';
+    grid[11][10].visible = true;
+    grid[11][10].seen = true;
+    grid[12][10].type = 'corridor';
+    grid[12][10].visible = true;
+    grid[12][10].seen = true;
+
+    let heroStyleFloorLast = null;
+    let heroAlphaFloorLast = null;
+    const origFillText = ctx.fillText.bind(ctx);
+    ctx.fillText = function(txt, x, y, ...rest) {
+      if (String(txt).includes('🧙')) {
+        heroStyleFloorLast = String(ctx.fillStyle).toLowerCase();
+        heroAlphaFloorLast = ctx.globalAlpha;
+      }
+      return origFillText(txt, x, y, ...rest);
+    };
+    draw2DDungeonMap();
+    ctx.fillText = origFillText;
+
+    assertEq(heroStyleFloorLast, '#ffffff', 'Mode 3 Hero fillStyle is #ffffff when floor is last visible tile');
+    assertEq(heroAlphaFloorLast, 1, 'Mode 3 Hero globalAlpha is 1.0 when floor is last visible tile');
+
+    // Scenario 6B: Add a visible wall below (y=13) and a 2x2 monster + 1x1 monster, verify identical #ffffff brightness
+    grid[13][10].type = 'wall';
+    grid[13][10].visible = true;
+    grid[13][10].seen = true;
+    grid[9][8].type = 'floor'; grid[9][8].visible = true;
+    grid[9][9].type = 'floor'; grid[9][9].visible = true;
+    grid[10][8].type = 'floor'; grid[10][8].visible = true;
+    grid[10][9].type = 'floor'; grid[10][9].visible = true;
+    monsters.push({ key: 'owlbear', name: 'Owlbear', char: '🦉', x: 8, y: 9, hp: 30, maxHp: 30, tileSpan: 2 });
+    monsters.push({ key: 'bat', name: 'Bat', char: '🦇', x: 10, y: 11, hp: 6, maxHp: 6, tileSpan: 1 });
+
+    let heroStyleWithMonsters = null;
+    let batStyle = null;
+    let owlbearStyle = null;
+    ctx.fillText = function(txt, x, y, ...rest) {
+      const s = String(txt);
+      if (s.includes('🧙')) heroStyleWithMonsters = String(ctx.fillStyle).toLowerCase();
+      if (s.includes('🦇')) batStyle = String(ctx.fillStyle).toLowerCase();
+      if (s.includes('🦉')) owlbearStyle = String(ctx.fillStyle).toLowerCase();
+      return origFillText(txt, x, y, ...rest);
+    };
+    draw2DDungeonMap();
+    ctx.fillText = origFillText;
+
+    assertEq(owlbearStyle, '#ffffff', 'Mode 3 2x2 monster emoji fillStyle is #ffffff (never 0.14 base-plate alpha)');
+    assertEq(batStyle, '#ffffff', 'Mode 3 1x1 monster emoji fillStyle is #ffffff (never 0.20 floor-dot alpha)');
+    assertEq(heroStyleWithMonsters, '#ffffff', 'Mode 3 Hero fillStyle is ALWAYS #ffffff with monsters & walls');
   } finally {
     grid = savedGrid;
     monsters = savedMonsters;
     items = savedItems;
+    floatingTexts = savedFloating;
+    shockwaves = savedShockwaves;
     Object.assign(player, savedPlayer);
     currentViewMode = savedMode;
     gameState = savedState;

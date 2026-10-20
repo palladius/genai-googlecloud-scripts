@@ -2,6 +2,14 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
+## [9.0.3] - 2026-10-20
+
+### Fixed & Tested (TDD)
+- **💡🧙‍♂️ Risolto Bug "Personaggio a Volte Chiaro a Volte Scuro" in Modalità 3 (`CLASSIC_EMOJI` 80s Rogue)**:
+  - **Root Cause**: In `draw2DDungeonMap()`, i puntini centrali delle caselle pavimento visibili venivano disegnati con `ctx.fillStyle = 'rgba(214, 211, 209, 0.20)'` (opacità **20%**), e le basi tattiche `2×2` con `rgba(..., 0.14)` (opacità **14%**). Quando l'ultima casella visibile in basso nella mappa era un pavimento/corridoio (senza un muro visibile sotto di essa che resettasse `fillStyle` a `#0C0A09` opaco) e nessun mostro aveva una barra HP attiva, `ctx.fillText('🧙‍♂️', pcx, pcy)` (così come i mostri `🦇` e gli oggetti) ereditava l'alpha `0.20` di `ctx.fillStyle`, risultando scuro/semitrasparente all'80%!
+  - **Fix**: Reset esplicito di `ctx.globalAlpha = 1.0` e `ctx.fillStyle = '#FFFFFF'` prima di ogni chiamata `ctx.fillText` / `ctx.drawImage` per Eroe (`🧙‍♂️`), mostri, oggetti, scale (`🪜`), porte (`🚪`) e trappole (`⚠️`), più alone luminoso dorato sotto il personaggio in Modalità 3 e rimozione della vignettatura scura ai bordi di `#crt-overlay`.
+  - **Unit Test TDD (`TEST 6` in `runMobilityUnitTests()` + Verifica Pixel Canvas in Playwright)**: Aggiunto test TDD (58 asserzioni in-game + verifica `ctx.getImageData` dei pixel reali su Canvas) che riproduce esattamente il caso del corridoio a sud senza muro sottostante e verifica matematicamente che `fillStyle === '#ffffff'`, `globalAlpha === 1.0` e la luminanza pixel del personaggio siano **100% identici e chiari** (`maxLum = 560`, `exactMatch = True`) in ogni situazione.
+
 ## [9.0.2] - 2026-10-20
 
 ### Added & Improved
