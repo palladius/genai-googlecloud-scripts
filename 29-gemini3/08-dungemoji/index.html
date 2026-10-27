@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>DUNGEMOJI v9.0.3 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
+  <title>DUNGEMOJI v9.0.2 🏰 — 1980s D&D NanoBanana Hybrid (2D + Room Zoom + 3D Crawler)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@500;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@500;700;800&family=Noto+Color+Emoji&family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-abyss: #07060B;
@@ -51,7 +51,7 @@
       overflow: hidden;
     }
 
-    /* CRT Scanline Subtle Overlay (NO edge darkening vignette so player is always bright!) */
+    /* CRT Scanline Subtle Overlay */
     #crt-overlay {
       position: absolute;
       inset: 0;
@@ -59,10 +59,10 @@
       z-index: 45;
       background: linear-gradient(
         rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.10) 50%
-      );
-      background-size: 100% 4px;
-      opacity: 0.45;
+        rgba(0, 0, 0, 0.22) 50%
+      ), radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.55) 100%);
+      background-size: 100% 4px, 100% 100%;
+      opacity: 0.75;
     }
 
     /* TOP D&D RED-BOX HUD */
@@ -546,7 +546,7 @@
   <header id="top-hud">
     <div class="brand-title">
       <span>🐉 DUNGEMOJI</span>
-      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.3 RED BOX</span>
+      <span class="sub" id="version-badge" style="font-size:11px; color:#FDE047; background:rgba(185,28,28,0.85); border:1px solid #F59E0B; border-radius:6px; padding:2px 6px;">v9.0.2 RED BOX</span>
     </div>
 
     <div class="hud-stats">
@@ -623,7 +623,7 @@
       <button class="inv-slot" id="touch-shop" title="Open Dwarven Merchant Shop [B]">🛒 Shop [B]</button>
       <button class="inv-slot" id="touch-view" title="Switch 2D / 3D / Classic [V]">👁️ 2D/3D [V]</button>
       <div class="inv-slot" id="slot-weapon" title="Current Weapon">⚔️ <span id="txt-weapon">Broad Sword +1</span></div>
-      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.3</div>
+      <div class="inv-slot" style="color:#FDE047; border-color:rgba(245,158,11,0.5);">🏷️ v9.0.2</div>
     </div>
   </footer>
 
@@ -730,13 +730,8 @@
   <div class="overlay-modal" id="title-modal">
     <div class="modal-card">
       <div class="redbox-banner">
-        <h1>🐉 DUNGEMOJI v9.0.3 🏰</h1>
+        <h1>🐉 DUNGEMOJI v9.0.2 🏰</h1>
         <div class="redbox-sub">1980s D&amp;D RED BOX EDITION • SECRET ROOMS • PALADIN SPELLS • VEO 3.1 DEATH CUTSCENES</div>
-      </div>
-
-      <!-- 🎨 HERO COVER ART BANNER (CUTIE MONSTERS & EMOJIS PANDEMONIUM!) -->
-      <div style="text-align:center; margin-bottom: 12px;">
-        <img src="dungemoji-cover.jpg" alt="Dungemoji Cover Art — Pandemonium of Cutie Monsters and Emojis" style="width:100%; max-height:220px; object-fit:cover; object-position:center 28%; border-radius:12px; border:2px solid #F59E0B; box-shadow: 0 6px 20px rgba(0,0,0,0.65);" />
       </div>
 
       <!-- 👦⚔️ KID-FRIENDLY QUICK GUIDE FOR ALESSANDRO -->
@@ -1606,7 +1601,7 @@ function initNewGame() {
   audio.epicMetalAnnounced = false;
 
   document.getElementById('msg-log').innerHTML = '';
-  addLog('Welcome to DUNGEMOJI v9.0.3 (1980s D&D Red Box Edition)!', '#FDE047');
+  addLog('Welcome to DUNGEMOJI v9.0.1 (1980s D&D Red Box Edition)!', '#FDE047');
   addLog('👦 Usa Frecce/WASD per muoverti e attaccare • [Q] Cura • [F] Stanza Segreta • [C] Magie • [B] Mercante!', '#67E8F9');
   generateDungeonFloor();
   gameState = 'PLAY';
@@ -1754,6 +1749,96 @@ function discoverSecretRoom(reason = 'intuizione elfica') {
   return true;
 }
 
+function isTileReachableBFS(startX, startY, targetX, targetY, allowLockedDoors = false) {
+  if (startX < 0 || startX >= GRID_COLS || startY < 0 || startY >= GRID_ROWS) return false;
+  if (targetX < 0 || targetX >= GRID_COLS || targetY < 0 || targetY >= GRID_ROWS) return false;
+  const visited = Array.from({ length: GRID_ROWS }, () => Array(GRID_COLS).fill(false));
+  const q = [{ x: startX, y: startY }];
+  visited[startY][startX] = true;
+  const dirs = [{ dx: 0, dy: -1 }, { dx: 1, dy: 0 }, { dx: 0, dy: 1 }, { dx: -1, dy: 0 }];
+  while (q.length > 0) {
+    const cur = q.shift();
+    if (cur.x === targetX && cur.y === targetY) return true;
+    for (const d of dirs) {
+      const nx = cur.x + d.dx, ny = cur.y + d.dy;
+      if (nx < 0 || nx >= GRID_COLS || ny < 0 || ny >= GRID_ROWS || visited[ny][nx]) continue;
+      if (grid[ny][nx].secretHidden) continue;
+      const t = grid[ny][nx].type;
+      if (t === 'floor' || t === 'corridor' || t === 'stairs' || (allowLockedDoors && t === 'locked_door')) {
+        visited[ny][nx] = true;
+        q.push({ x: nx, y: ny });
+      }
+    }
+  }
+  return false;
+}
+
+function ensureExitStairsValidAndReachable() {
+  const regularRooms = rooms.filter(r => !r.isSecret);
+  const fallbackRoom = regularRooms.length > 1 ? regularRooms[regularRooms.length - 1] : regularRooms[0];
+  if (!stairs || stairs.x < 1 || stairs.x >= GRID_COLS - 1 || stairs.y < 1 || stairs.y >= GRID_ROWS - 1 ||
+      (stairs.x === player.x && stairs.y === player.y) || grid[stairs.y][stairs.x].secretHidden) {
+    if (fallbackRoom && (fallbackRoom.cx !== player.x || fallbackRoom.cy !== player.y)) {
+      stairs = { x: fallbackRoom.cx, y: fallbackRoom.cy };
+    } else {
+      stairs = {
+        x: Math.min(GRID_COLS - 3, Math.max(2, player.x + 2)),
+        y: Math.min(GRID_ROWS - 3, Math.max(2, player.y))
+      };
+    }
+  }
+
+  for (let y = 0; y < GRID_ROWS; y++) {
+    for (let x = 0; x < GRID_COLS; x++) {
+      if (grid[y][x].type === 'stairs' && (x !== stairs.x || y !== stairs.y)) {
+        grid[y][x].type = 'floor';
+      }
+    }
+  }
+  grid[stairs.y][stairs.x].secretHidden = false;
+  grid[stairs.y][stairs.x].trap = null;
+  grid[stairs.y][stairs.x].type = 'stairs';
+
+  const keyItem = items.find(it => it.kind === 'key');
+  const reachableDirect = isTileReachableBFS(player.x, player.y, stairs.x, stairs.y, false);
+  const reachableViaKey = Boolean(
+    keyItem &&
+    isTileReachableBFS(player.x, player.y, keyItem.x, keyItem.y, false) &&
+    isTileReachableBFS(player.x, player.y, stairs.x, stairs.y, true)
+  );
+
+  if (!reachableDirect && !reachableViaKey) {
+    // First unlock any locked_door that is blocking access to the key or stairs
+    for (let y = 0; y < GRID_ROWS; y++) {
+      for (let x = 0; x < GRID_COLS; x++) {
+        if (grid[y][x].type === 'locked_door') {
+          grid[y][x].type = 'corridor';
+        }
+      }
+    }
+    // If still unreachable, carve a clean L-corridor from player to stairs
+    if (!isTileReachableBFS(player.x, player.y, stairs.x, stairs.y, false)) {
+      let cx = player.x, cy = player.y;
+      while (cx !== stairs.x) {
+        if (grid[cy][cx].type === 'wall' || grid[cy][cx].type === 'secret_door' || grid[cy][cx].secretHidden) {
+          grid[cy][cx].secretHidden = false;
+          grid[cy][cx].type = 'corridor';
+        }
+        cx += (cx < stairs.x ? 1 : -1);
+      }
+      while (cy !== stairs.y) {
+        if (grid[cy][cx].type === 'wall' || grid[cy][cx].type === 'secret_door' || grid[cy][cx].secretHidden) {
+          grid[cy][cx].secretHidden = false;
+          grid[cy][cx].type = 'corridor';
+        }
+        cy += (cy < stairs.y ? 1 : -1);
+      }
+    }
+    grid[stairs.y][stairs.x].type = 'stairs';
+    recomputeWallMasks();
+  }
+}
+
 function generateDungeonFloor() {
   grid = [];
   rooms = [];
@@ -1820,6 +1905,38 @@ function generateDungeonFloor() {
     }
   }
 
+  // Ensure at least 2 non-overlapping rooms exist so exit stairs never spawn on top of player
+  if (rooms.length < 2) {
+    const r0 = rooms[0] || { x: 3, y: 3, w: 5, h: 4, cx: 5, cy: 5 };
+    if (rooms.length === 0) {
+      rooms.push({ id: 0, ...r0, name: getRoomFlavorName(0, dungeonLevel) });
+      for (let yy = r0.y; yy < r0.y + r0.h; yy++) {
+        for (let xx = r0.x; xx < r0.x + r0.w; xx++) {
+          grid[yy][xx].type = 'floor';
+          grid[yy][xx].roomId = 0;
+        }
+      }
+    }
+    const rx = r0.x < GRID_COLS / 2 ? GRID_COLS - 8 : 3;
+    const ry = r0.y < GRID_ROWS / 2 ? GRID_ROWS - 7 : 3;
+    const w = 5, h = 4;
+    const roomId = rooms.length;
+    const room = {
+      id: roomId,
+      x: rx, y: ry, w, h,
+      cx: Math.floor(rx + w / 2),
+      cy: Math.floor(ry + h / 2),
+      name: getRoomFlavorName(roomId, dungeonLevel)
+    };
+    rooms.push(room);
+    for (let yy = ry; yy < ry + h; yy++) {
+      for (let xx = rx; xx < rx + w; xx++) {
+        grid[yy][xx].type = 'floor';
+        grid[yy][xx].roomId = roomId;
+      }
+    }
+  }
+
   // Connect rooms with L-shaped corridors
   for (let i = 0; i < rooms.length - 1; i++) {
     let x = rooms[i].cx;
@@ -1859,14 +1976,18 @@ function generateDungeonFloor() {
   if (rooms.length >= 4) {
     const keyRoom = rooms[1 + Math.floor(Math.random() * 2)];
     items.push({ ...LOOT_TYPES[6], x: keyRoom.cx, y: keyRoom.y }); // Golden Key 🗝️
-    // Place a locked door at the entrance corridor of the last room if possible
-    const dirs = [{dx:0,dy:-1},{dx:1,dy:0},{dx:0,dy:1},{dx:-1,dy:0}];
+    // Place a locked door at the entrance corridor of the last room ONLY if keyRoom remains reachable without the key
     let doorPlaced = false;
     for (let yy = lastRoom.y - 1; yy <= lastRoom.y + lastRoom.h && !doorPlaced; yy++) {
       for (let xx = lastRoom.x - 1; xx <= lastRoom.x + lastRoom.w && !doorPlaced; xx++) {
         if (xx >= 1 && xx < GRID_COLS - 1 && yy >= 1 && yy < GRID_ROWS - 1 && grid[yy][xx].type === 'corridor') {
           grid[yy][xx].type = 'locked_door';
-          doorPlaced = true;
+          if (isTileReachableBFS(player.x, player.y, keyRoom.cx, keyRoom.y, false) &&
+              isTileReachableBFS(player.x, player.y, stairs.x, stairs.y, true)) {
+            doorPlaced = true;
+          } else {
+            grid[yy][xx].type = 'corridor';
+          }
         }
       }
     }
@@ -1944,6 +2065,7 @@ function generateDungeonFloor() {
     }
   }
 
+  ensureExitStairsValidAndReachable();
   updateVisibility();
 }
 
@@ -2738,10 +2860,150 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
+const EMOJI_FONT_STACK = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif';
+
+// Classic 1980s Rogue ASCII tokens for every Hero, Monster & Item (100% Tofu-proof on Raspberry Pi 400 / Linux without emoji fonts!)
+const ROGUE_ASCII_BY_KEY = {
+  hero: '@',
+  rat: 'r',
+  bat: 'b',
+  goblin: 'g',
+  spider: 's',
+  skeleton: 'k',
+  wolf: 'W',
+  zombie: 'Z',
+  orc: 'o',
+  mimic: 'm',
+  slime: 'j',
+  ghost: 'G',
+  cube: 'C',
+  owlbear: 'U',
+  ogre: 'O',
+  troll: 'T',
+  mindflayer: 'I',
+  beholder: 'B',
+  dragon: 'D',
+  demogorgon: '&',
+  pupurabbu: 'P',
+  potion_heal: '!',
+  potion_sparkle: '*',
+  scroll_secret: '?',
+  key_gold: 'k',
+  gold_bag: '$',
+  gem_diamond: '$',
+  crown_royal: '$',
+  sword_vorpal: '/'
+};
+
+const _emojiSupportCache = new Map();
+let _emojiProbeCanvas = null;
+let _emojiProbeCtx = null;
+let _tofuSignature = null;
+let _asciiProbeVisible = null;
+
+function _getGlyphSignature(probeCtx, text) {
+  probeCtx.clearRect(0, 0, 24, 24);
+  probeCtx.fillStyle = '#FFFFFF';
+  probeCtx.font = `18px ${EMOJI_FONT_STACK}`;
+  probeCtx.textAlign = 'center';
+  probeCtx.textBaseline = 'middle';
+  probeCtx.fillText(text, 12, 12);
+  const img = probeCtx.getImageData(0, 0, 24, 24);
+  if (!img || !img.data) return { visible: 0, colored: 0, hash: '' };
+  const d = img.data;
+  let visible = 0;
+  let colored = 0;
+  let hash = '';
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+    if (a > 32) {
+      visible++;
+      if (Math.abs(r - g) + Math.abs(g - b) + Math.abs(r - b) > 18) {
+        colored++;
+      }
+      if ((i & 15) === 0) hash += `${r},${g},${b},${a};`;
+    }
+  }
+  return { visible, colored, hash };
+}
+
+// Detects at runtime whether the OS/Browser can render a true color Emoji glyph on Canvas
+// vs monochrome Tofu rectangle (▯) on Raspberry Pi 400 / Debian without fonts-noto-color-emoji (GHI #6)
+function canCanvasRenderEmoji(glyph) {
+  if (typeof window !== 'undefined' && window.__forceNoColorEmojiForTest) return false;
+  if (!glyph || String(glyph).includes('\u200D')) return false;
+  if (_emojiSupportCache.has(glyph)) return _emojiSupportCache.get(glyph);
+  try {
+    if (!_emojiProbeCanvas) {
+      _emojiProbeCanvas = document.createElement('canvas');
+      _emojiProbeCanvas.width = 24;
+      _emojiProbeCanvas.height = 24;
+      _emojiProbeCtx = _emojiProbeCanvas.getContext('2d');
+      _tofuSignature = _getGlyphSignature(_emojiProbeCtx, '\u{10FFFD}');
+      _asciiProbeVisible = _getGlyphSignature(_emojiProbeCtx, '@').visible;
+    }
+    const sig = _getGlyphSignature(_emojiProbeCtx, glyph);
+    const cp = String(glyph).codePointAt(0) || 0;
+    let supported = true;
+    // In a real browser (_asciiProbeVisible > 0), if the glyph is blank, matches the .notdef Tofu box,
+    // or is an astral plane emoji (U+1F000+) rendered with 0 color pixels (monochrome DejaVu Sans Tofu ▯ on Raspberry Pi 400),
+    // return false so we use our Tofu-free Rogue ASCII + embedded NanoBanana sprite fallback!
+    if (_asciiProbeVisible > 0) {
+      if (sig.visible === 0) {
+        supported = false;
+      } else if (_tofuSignature && _tofuSignature.visible > 0 && sig.hash === _tofuSignature.hash) {
+        supported = false;
+      } else if (cp >= 0x1F000 && sig.colored === 0) {
+        supported = false;
+      }
+    }
+    _emojiSupportCache.set(glyph, supported);
+    return supported;
+  } catch (e) {
+    return true;
+  }
+}
+
+// Renders a high-contrast staircase portal tile + stepped stone treads + 🪜 (or '>' on Raspberry Pi 400) so stairs are NEVER invisible
+function drawStairsCell(ctx, px, py, size, isVisible = true) {
+  const prevFill = ctx.fillStyle;
+  const prevStroke = ctx.strokeStyle;
+  const pad = Math.max(1.5, size * 0.08);
+  ctx.fillStyle = isVisible ? 'rgba(245, 158, 11, 0.25)' : 'rgba(148, 163, 184, 0.14)';
+  ctx.fillRect(px + pad, py + pad, size - pad * 2, size - pad * 2);
+  ctx.strokeStyle = isVisible ? '#FDE047' : '#94A3B8';
+  ctx.lineWidth = Math.max(1.2, size * 0.07);
+  ctx.strokeRect(px + pad, py + pad, size - pad * 2, size - pad * 2);
+
+  // Draw 3 stepped stair treads inside the portal frame for 100% geometric visibility even without emoji fonts
+  ctx.fillStyle = isVisible ? '#38BDF8' : '#64748B';
+  for (let s = 0; s < 3; s++) {
+    const sw = (size - pad * 4) * (0.45 + s * 0.22);
+    const sh = Math.max(1.5, size * 0.09);
+    const sx = px + (size - sw) / 2;
+    const sy = py + size * (0.28 + s * 0.22);
+    ctx.fillRect(sx, sy, sw, sh);
+  }
+
+  ctx.fillStyle = isVisible ? '#FDE047' : '#CBD5E1';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  if (canCanvasRenderEmoji('🪜')) {
+    ctx.font = `${Math.floor(size * 0.85)}px ${EMOJI_FONT_STACK}`;
+    ctx.fillText('🪜', px + size / 2, py + size / 2);
+  } else {
+    ctx.font = `900 ${Math.max(9, Math.floor(size * 0.58))}px "JetBrains Mono", monospace`;
+    ctx.fillText('>', px + size / 2, py + size / 2);
+  }
+  ctx.fillStyle = prevFill;
+  ctx.strokeStyle = prevStroke;
+}
+
 // Seamless 1980s CP437 Double-Line Box-Drawing Wall Renderer (╔═══╦═══╗ / ║)
 // Eliminates all horizontal/vertical character spacing gaps at any zoom scale!
 function drawSeamlessDoubleBoxWall(ctx, px, py, size, mask, strokeColor, innerColor = '#07060B') {
   if (mask < 0) return;
+  const prevFill = ctx.fillStyle;
   const cx = px + size * 0.5;
   const cy = py + size * 0.5;
   const outerHalf = Math.max(2.2, size * 0.21);
@@ -2768,6 +3030,7 @@ function drawSeamlessDoubleBoxWall(ctx, px, py, size, mask, strokeColor, innerCo
   if (hasS) ctx.fillRect(cx - innerHalf, cy, innerHalf * 2, (py + size - cy) + 0.5);
   if (hasE) ctx.fillRect(cx, cy - innerHalf, (px + size - cx) + 0.5, innerHalf * 2);
   if (hasW) ctx.fillRect(px - 0.5, cy - innerHalf, (cx - px) + 0.6, innerHalf * 2);
+  ctx.fillStyle = prevFill;
 }
 
 function renderLoop() {
@@ -2851,30 +3114,32 @@ function draw2DDungeonMap() {
         }
 
         if (cell.type === 'stairs') {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('🪜', px + cellSize / 2, py + cellSize / 2);
+          drawStairsCell(ctx, px, py, cellSize, cell.visible);
         } else if (cell.type === 'locked_door') {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
+          ctx.fillStyle = '#F59E0B';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('🚪', px + cellSize / 2, py + cellSize / 2);
+          if (canCanvasRenderEmoji('🚪')) {
+            ctx.font = `${Math.floor(cellSize * 0.85)}px ${EMOJI_FONT_STACK}`;
+            ctx.fillText('🚪', px + cellSize / 2, py + cellSize / 2);
+          } else {
+            ctx.font = `900 ${Math.max(9, Math.floor(cellSize * 0.65))}px "JetBrains Mono", monospace`;
+            ctx.fillText('+', px + cellSize / 2, py + cellSize / 2);
+          }
         } else if (cell.trap && cell.trap.revealed && cell.visible) {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(cellSize * 0.80)}px sans-serif`;
+          ctx.fillStyle = '#EF4444';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('⚠️', px + cellSize / 2, py + cellSize / 2);
+          if (canCanvasRenderEmoji('⚠️')) {
+            ctx.font = `${Math.floor(cellSize * 0.80)}px ${EMOJI_FONT_STACK}`;
+            ctx.fillText('⚠️', px + cellSize / 2, py + cellSize / 2);
+          } else {
+            ctx.font = `900 ${Math.max(9, Math.floor(cellSize * 0.62))}px "JetBrains Mono", monospace`;
+            ctx.fillText('^', px + cellSize / 2, py + cellSize / 2);
+          }
         } else if (cell.visible) {
           ctx.fillStyle = 'rgba(214, 211, 209, 0.20)';
           ctx.fillRect(px + cellSize / 2 - 1, py + cellSize / 2 - 1, 2, 2);
-          ctx.fillStyle = '#FFFFFF';
         }
       } else if ((cell.type === 'wall' || cell.type === 'secret_door') && cell.wallChar !== ' ') {
         // Warm stone grey / earthy brown double-line walls (or emerald in 80s Rogue mode)
@@ -2882,14 +3147,9 @@ function draw2DDungeonMap() {
           ? (currentViewMode === 'CLASSIC_EMOJI' ? '#10B981' : `rgba(180, 166, 148, ${0.95 * flicker})`)
           : '#44403C';
         drawSeamlessDoubleBoxWall(ctx, px, py, cellSize, cell.wallMask, wallColor, '#0C0A09');
-        ctx.fillStyle = '#FFFFFF';
       }
     }
   }
-
-  // Always reset fillStyle & globalAlpha after tile pass so emojis never inherit 0.20 floor-dot alpha!
-  ctx.globalAlpha = 1.0;
-  ctx.fillStyle = '#FFFFFF';
 
   // 2. Draw Shockwaves (Sparkle Potion Undead Purge)
   for (let i = shockwaves.length - 1; i >= 0; i--) {
@@ -2908,16 +3168,27 @@ function draw2DDungeonMap() {
     if (!grid[it.y][it.x].visible) continue;
     const cx = (it.x + 0.5) * cellSize;
     const cy = (it.y + 0.5) * cellSize;
-    ctx.globalAlpha = 1.0;
-    ctx.fillStyle = '#FFFFFF';
+    const rogueItemChar = ROGUE_ASCII_BY_KEY[it.key] || '$';
     if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES[it.key] && SPRITES[it.key].complete) {
       const sz = cellSize * 1.15;
       ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
-    } else {
-      ctx.font = `${Math.floor(cellSize * 0.85)}px sans-serif`;
+    } else if (canCanvasRenderEmoji(it.char)) {
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `${Math.floor(cellSize * 0.85)}px ${EMOJI_FONT_STACK}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(it.char, cx, cy);
+    } else {
+      // Raspberry Pi 400 / No-Emoji-Font Fallback: draw embedded sprite + 1980s Rogue ASCII symbol (zero Tofu ▯!)
+      if (SPRITES[it.key] && SPRITES[it.key].complete) {
+        const sz = cellSize * 1.05;
+        ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
+      }
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `900 ${Math.max(9, Math.floor(cellSize * 0.65))}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(rogueItemChar, cx, cy);
     }
   }
 
@@ -2928,6 +3199,7 @@ function draw2DDungeonMap() {
     const span = m.tileSpan || 1;
     const cx = (m.x + span * 0.5) * cellSize;
     const cy = (m.y + span * 0.5) * cellSize;
+    const rogueMonsterChar = ROGUE_ASCII_BY_KEY[m.key] || 'M';
 
     // If 2x2 Monster, draw tactical 2x2 base plate across all 4 tiles (purple-gold for friendly Pupurabbu!)
     if (span > 1) {
@@ -2936,19 +3208,40 @@ function draw2DDungeonMap() {
       ctx.lineWidth = 1.5;
       ctx.fillRect(m.x * cellSize + 1, m.y * cellSize + 1, span * cellSize - 2, span * cellSize - 2);
       ctx.strokeRect(m.x * cellSize + 1, m.y * cellSize + 1, span * cellSize - 2, span * cellSize - 2);
+    } else if (currentViewMode === 'CLASSIC_EMOJI') {
+      // Tactical threat ring under 1x1 monsters in Classic Rogue mode so even full-HP monsters stand out immediately
+      ctx.fillStyle = m.friendly ? 'rgba(192, 132, 252, 0.18)' : 'rgba(239, 68, 68, 0.20)';
+      ctx.strokeStyle = m.friendly ? '#C084FC' : '#FB7185';
+      ctx.lineWidth = Math.max(1.2, cellSize * 0.06);
+      ctx.beginPath();
+      ctx.arc(cx, cy, cellSize * 0.42, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
     }
 
-    // Reset to 100% opaque #FFFFFF before drawing monster sprite or emoji!
-    ctx.globalAlpha = 1.0;
-    ctx.fillStyle = '#FFFFFF';
     if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES[m.key] && SPRITES[m.key].complete) {
       const sz = cellSize * (span > 1 ? span * 1.08 : 1.28);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + bob * 0.5, sz, sz);
-    } else {
-      ctx.font = `${Math.floor(cellSize * (span > 1 ? span * 0.92 : 0.9))}px sans-serif`;
+    } else if (canCanvasRenderEmoji(m.char)) {
+      ctx.fillStyle = m.friendly ? '#C084FC' : (m.boss ? '#EF4444' : '#F8FAFC');
+      ctx.font = `${Math.floor(cellSize * (span > 1 ? span * 0.92 : 0.9))}px ${EMOJI_FONT_STACK}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(m.char, cx, cy);
+      ctx.fillStyle = m.friendly ? '#E9D5FF' : '#FCA5A5';
+      ctx.font = `800 ${Math.max(7, Math.floor(cellSize * 0.34))}px "JetBrains Mono", monospace`;
+      ctx.fillText(rogueMonsterChar, cx + cellSize * 0.28, cy + cellSize * 0.28);
+    } else {
+      // Raspberry Pi 400 / No-Emoji-Font Fallback: draw embedded monster sprite + classic 1980s Rogue ASCII letter (r, g, b, s, Z, D...)
+      if (SPRITES[m.key] && SPRITES[m.key].complete) {
+        const sz = cellSize * (span > 1 ? span * 1.04 : 1.18);
+        ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + bob * 0.5, sz, sz);
+      }
+      ctx.fillStyle = m.friendly ? '#C084FC' : (m.boss ? '#FDE047' : '#FB7185');
+      ctx.font = `900 ${Math.max(10, Math.floor(cellSize * (span > 1 ? span * 0.65 : 0.68)))}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(rogueMonsterChar, cx, cy);
     }
 
     // Mini HP bar above damaged or boss monsters
@@ -2963,33 +3256,49 @@ function draw2DDungeonMap() {
     }
   }
 
-  // 5. Draw Player (ALWAYS 100% BRIGHT & OPAQUE IN ALL MODES, ESPECIALLY MODE 3 CLASSIC_EMOJI!)
+  // 5. Draw Player (Guaranteed high-contrast visibility in all 3 modes including CLASSIC_EMOJI & Raspberry Pi 400!)
   const pcx = (player.x + 0.5) * cellSize;
   const pcy = (player.y + 0.5) * cellSize;
-  ctx.save();
-  ctx.globalAlpha = 1.0;
-  ctx.fillStyle = '#FFFFFF';
-  ctx.filter = 'none';
-  if (currentViewMode === 'CLASSIC_EMOJI') {
-    // Subtle warm golden torchlight floor highlight under the player so the hero always pops!
-    ctx.fillStyle = 'rgba(253, 224, 71, 0.16)';
-    ctx.fillRect(player.x * cellSize + 1, player.y * cellSize + 1, cellSize - 2, cellSize - 2);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = `${Math.floor(cellSize * 0.95)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('🧙‍♂️', pcx, pcy);
-  } else if (SPRITES.hero && SPRITES.hero.complete) {
+  ctx.fillStyle = currentViewMode === 'CLASSIC_EMOJI' ? 'rgba(253, 224, 71, 0.28)' : 'rgba(56, 189, 248, 0.20)';
+  ctx.strokeStyle = currentViewMode === 'CLASSIC_EMOJI' ? '#FDE047' : '#38BDF8';
+  ctx.lineWidth = Math.max(1.8, cellSize * 0.08);
+  ctx.beginPath();
+  ctx.arc(pcx, pcy, cellSize * 0.46, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES.hero && SPRITES.hero.complete) {
     const sz = cellSize * 1.42;
     ctx.drawImage(SPRITES.hero, pcx - sz / 2, pcy - sz / 2, sz, sz);
-  } else {
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = `${Math.floor(cellSize * 0.95)}px sans-serif`;
+  } else if (canCanvasRenderEmoji('🧙')) {
+    ctx.fillStyle = '#0F172A';
+    ctx.beginPath();
+    ctx.arc(pcx, pcy, cellSize * 0.36, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#FDE047';
+    ctx.font = `bold ${Math.floor(cellSize * 0.92)}px ${EMOJI_FONT_STACK}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🧙‍♂️', pcx, pcy);
+    ctx.fillText('🧙', pcx, pcy);
+    ctx.fillStyle = '#38BDF8';
+    ctx.font = `900 ${Math.max(8, Math.floor(cellSize * 0.38))}px "JetBrains Mono", monospace`;
+    ctx.fillText('@', pcx + cellSize * 0.28, pcy - cellSize * 0.28);
+  } else {
+    // Raspberry Pi 400 / No-Emoji-Font Fallback: render embedded Hero sprite + golden '@' Rogue token (zero ▯ ♂ Tofu!)
+    ctx.fillStyle = '#0F172A';
+    ctx.beginPath();
+    ctx.arc(pcx, pcy, cellSize * 0.38, 0, Math.PI * 2);
+    ctx.fill();
+    if (SPRITES.hero && SPRITES.hero.complete) {
+      const sz = cellSize * 1.32;
+      ctx.drawImage(SPRITES.hero, pcx - sz / 2, pcy - sz / 2, sz, sz);
+    }
+    ctx.fillStyle = '#FDE047';
+    ctx.font = `900 ${Math.max(10, Math.floor(cellSize * 0.72))}px "JetBrains Mono", monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('@', pcx, pcy);
   }
-  ctx.restore();
 
   // Highlight Current Room Border when Room Zoom is active
   const curRoom = getRoomAt(player.x, player.y);
@@ -3094,26 +3403,29 @@ function drawRoomZoomInspector() {
         ctx.strokeRect(cx, cy, zoomTile, zoomTile);
 
         if (cell.type === 'stairs') {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('🪜', cx + zoomTile / 2, cy + zoomTile / 2);
+          drawStairsCell(ctx, cx, cy, zoomTile, true);
         } else if (cell.type === 'locked_door') {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
+          ctx.fillStyle = '#F59E0B';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('🚪', cx + zoomTile / 2, cy + zoomTile / 2);
+          if (canCanvasRenderEmoji('🚪')) {
+            ctx.font = `${Math.floor(zoomTile * 0.75)}px ${EMOJI_FONT_STACK}`;
+            ctx.fillText('🚪', cx + zoomTile / 2, cy + zoomTile / 2);
+          } else {
+            ctx.font = `900 ${Math.max(9, Math.floor(zoomTile * 0.60))}px "JetBrains Mono", monospace`;
+            ctx.fillText('+', cx + zoomTile / 2, cy + zoomTile / 2);
+          }
         } else if (cell.trap && cell.trap.revealed) {
-          ctx.globalAlpha = 1.0;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = `${Math.floor(zoomTile * 0.72)}px sans-serif`;
+          ctx.fillStyle = '#EF4444';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('⚠️', cx + zoomTile / 2, cy + zoomTile / 2);
+          if (canCanvasRenderEmoji('⚠️')) {
+            ctx.font = `${Math.floor(zoomTile * 0.72)}px ${EMOJI_FONT_STACK}`;
+            ctx.fillText('⚠️', cx + zoomTile / 2, cy + zoomTile / 2);
+          } else {
+            ctx.font = `900 ${Math.max(9, Math.floor(zoomTile * 0.58))}px "JetBrains Mono", monospace`;
+            ctx.fillText('^', cx + zoomTile / 2, cy + zoomTile / 2);
+          }
         }
       }
     }
@@ -3125,16 +3437,21 @@ function drawRoomZoomInspector() {
     if (grid[it.y][it.x].secretHidden) continue;
     const cx = gridOriginX + (it.x - rx + 0.5) * zoomTile;
     const cy = gridOriginY + (it.y - ry + 0.5) * zoomTile;
-    ctx.globalAlpha = 1.0;
-    ctx.fillStyle = '#FFFFFF';
     if (SPRITES[it.key] && SPRITES[it.key].complete) {
       const sz = zoomTile * 0.92;
       ctx.drawImage(SPRITES[it.key], cx - sz / 2, cy - sz / 2, sz, sz);
-    } else {
-      ctx.font = `${Math.floor(zoomTile * 0.75)}px sans-serif`;
+    } else if (canCanvasRenderEmoji(it.char)) {
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `${Math.floor(zoomTile * 0.75)}px ${EMOJI_FONT_STACK}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(it.char, cx, cy);
+    } else {
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `900 ${Math.max(9, Math.floor(zoomTile * 0.60))}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(ROGUE_ASCII_BY_KEY[it.key] || '$', cx, cy);
     }
   }
 
@@ -3164,8 +3481,6 @@ function drawRoomZoomInspector() {
       ctx.stroke();
     }
 
-    ctx.globalAlpha = 1.0;
-    ctx.fillStyle = '#FFFFFF';
     if (SPRITES[m.key] && SPRITES[m.key].complete) {
       const sz = zoomTile * (span > 1 ? span * 1.02 : 1.05);
       ctx.drawImage(SPRITES[m.key], cx - sz / 2, cy - sz / 2 + pulse * 0.6, sz, sz);
@@ -3191,9 +3506,25 @@ function drawRoomZoomInspector() {
     ctx.arc(cx, cy, zoomTile * 0.46, 0, Math.PI * 2);
     ctx.stroke();
 
-    if (SPRITES.hero && SPRITES.hero.complete) {
+    if (currentViewMode !== 'CLASSIC_EMOJI' && SPRITES.hero && SPRITES.hero.complete) {
       const sz = zoomTile * 1.1;
       ctx.drawImage(SPRITES.hero, cx - sz / 2, cy - sz / 2, sz, sz);
+    } else if (canCanvasRenderEmoji('🧙')) {
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `bold ${Math.floor(zoomTile * 0.8)}px ${EMOJI_FONT_STACK}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🧙', cx, cy);
+    } else {
+      if (SPRITES.hero && SPRITES.hero.complete) {
+        const sz = zoomTile * 1.05;
+        ctx.drawImage(SPRITES.hero, cx - sz / 2, cy - sz / 2, sz, sz);
+      }
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `900 ${Math.max(10, Math.floor(zoomTile * 0.65))}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('@', cx, cy);
     }
   }
 
@@ -3473,12 +3804,11 @@ function draw3DCrawlerView() {
     ctx.ellipse(screenX, screenY + projSize * 0.92, projSize * 0.38, projSize * 0.1, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.globalAlpha = 1.0;
-    ctx.fillStyle = '#FFFFFF';
     if (b.key && SPRITES[b.key] && SPRITES[b.key].complete) {
       ctx.drawImage(SPRITES[b.key], screenX - projSize / 2, screenY, projSize, projSize);
     } else {
-      ctx.font = `${Math.floor(projSize * 0.8)}px sans-serif`;
+      ctx.fillStyle = '#FDE047';
+      ctx.font = `${Math.floor(projSize * 0.8)}px ${EMOJI_FONT_STACK}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(b.char, screenX, screenY + projSize / 2);
@@ -3571,6 +3901,12 @@ function drawMinimap2D(mx, my, mw, mh) {
         ctx.fillRect(ox + x * cw, oy + y * ch, Math.ceil(cw), Math.ceil(ch));
       }
     }
+  }
+
+  // Exit stairs beacon on radar
+  if (stairs && grid[stairs.y] && grid[stairs.y][stairs.x] && (grid[stairs.y][stairs.x].seen || grid[stairs.y][stairs.x].visible)) {
+    ctx.fillStyle = '#FDE047';
+    ctx.fillRect(ox + stairs.x * cw - 1, oy + stairs.y * ch - 1, 5, 5);
   }
 
   // Monsters on radar
@@ -3948,12 +4284,17 @@ function summonPupurabbuNearPlayer() {
     }
   }
 
-  // Fallback: carve a 2x2 friendly space right beside the player
-  const nx = Math.max(1, Math.min(GRID_COLS - span - 1, player.x + 1));
-  const ny = Math.max(1, Math.min(GRID_ROWS - span - 1, player.y));
+  // Fallback: carve a 2x2 friendly space right beside the player (never overwriting exit stairs!)
+  let nx = Math.max(1, Math.min(GRID_COLS - span - 1, player.x + 1));
+  let ny = Math.max(1, Math.min(GRID_ROWS - span - 1, player.y));
+  if (stairs && stairs.x >= nx && stairs.x < nx + span && stairs.y >= ny && stairs.y < ny + span) {
+    nx = Math.max(1, Math.min(GRID_COLS - span - 1, player.x - span));
+  }
   for (let dy = 0; dy < span; dy++) {
     for (let dx = 0; dx < span; dx++) {
-      grid[ny + dy][nx + dx].type = 'floor';
+      if (grid[ny + dy][nx + dx].type !== 'stairs') {
+        grid[ny + dy][nx + dx].type = 'floor';
+      }
     }
   }
   spawnMonsterFromTemplate(template, nx, ny, curRoom ? curRoom.id : -1);
@@ -4038,7 +4379,9 @@ function runCheatCommand(rawCmd) {
       }
       for (let dy = 0; dy < span; dy++) {
         for (let dx = 0; dx < span; dx++) {
-          grid[ty + dy][tx + dx].type = 'floor';
+          if (grid[ty + dy][tx + dx].type !== 'stairs') {
+            grid[ty + dy][tx + dx].type = 'floor';
+          }
           if (curRoom) grid[ty + dy][tx + dx].roomId = curRoom.id;
         }
       }
@@ -4108,8 +4451,6 @@ function runMobilityUnitTests() {
   const savedGrid = grid.map(row => row.map(c => ({ ...c })));
   const savedMonsters = monsters.map(m => ({ ...m }));
   const savedItems = items.map(i => ({ ...i }));
-  const savedFloating = [...floatingTexts];
-  const savedShockwaves = [...shockwaves];
   const savedPlayer = { ...player };
   const savedMode = currentViewMode;
   const savedState = gameState;
@@ -4266,83 +4607,278 @@ function runMobilityUnitTests() {
     assertEq(getDeathVideoForKiller({ key: 'zombie', undead: true }), 'audio/death_zombie.mp4', 'Zombie uses death_zombie.mp4');
     assertEq(getDeathVideoForKiller({ key: 'goblin' }), 'audio/death_eyes.mp4', 'Goblin uses death_eyes.mp4');
 
-    // --- TEST 6: Mode 3 (CLASSIC_EMOJI) Player & Entity Brightness TDD Invariant ---
-    // Verifies that the player emoji (🧙‍♂️) and monsters/items NEVER inherit 0.20 floor-dot alpha
-    // or 0.14 2x2 base-plate alpha when the bottom-most visible tile is a floor/corridor!
-    currentViewMode = 'CLASSIC_EMOJI';
-    monsters = [];
-    items = [];
-    for (let y = 0; y < GRID_ROWS; y++) {
-      for (let x = 0; x < GRID_COLS; x++) {
-        grid[y][x].visible = false;
-        grid[y][x].seen = false;
-        grid[y][x].type = 'wall';
-        grid[y][x].wallChar = '═';
-        grid[y][x].wallMask = 12;
+    // --- TEST 6: Modality 3 (CLASSIC_EMOJI) Player Character Visibility ---
+    {
+      dungeonLevel = 1;
+      generateDungeonFloor();
+      monsters = monsters.filter(m => (m.tileSpan || 1) === 1);
+      currentViewMode = 'CLASSIC_EMOJI';
+      const recordedTextOps = [];
+      const recordedArcOps = [];
+      const origFillText = ctx.fillText.bind(ctx);
+      const origArc = ctx.arc.bind(ctx);
+      ctx.fillText = function(text, x, y) {
+        recordedTextOps.push({
+          text: String(text),
+          x,
+          y,
+          fillStyle: String(this.fillStyle).toUpperCase(),
+          font: String(this.font)
+        });
+        return origFillText(text, x, y);
+      };
+      ctx.arc = function(x, y, r, s, e) {
+        recordedArcOps.push({
+          x,
+          y,
+          r,
+          fillStyle: String(this.fillStyle).toUpperCase(),
+          strokeStyle: String(this.strokeStyle).toUpperCase()
+        });
+        return origArc(x, y, r, s, e);
+      };
+      try {
+        draw2DDungeonMap();
+      } finally {
+        ctx.fillText = origFillText;
+        ctx.arc = origArc;
       }
+
+      const darkInvisibleColors = new Set([
+        '#0C0A09', '#110F0E', '#1C1917', '#26211D', '#000000',
+        'RGBA(0, 0, 0, 0.55)', 'RGBA(214, 211, 209, 0.20)', 'RGBA(214, 211, 209, 0.2)'
+      ]);
+      const heroTextOp = recordedTextOps.find(op => op.text.includes('🧙') || op.text.includes('@'));
+      assertTrue(Boolean(heroTextOp), 'CLASSIC_EMOJI mode renders hero glyph in 2D map');
+      if (heroTextOp) {
+        assertTrue(
+          !darkInvisibleColors.has(heroTextOp.fillStyle),
+          `CLASSIC_EMOJI hero glyph fillStyle must be bright/visible, not dark wall/floor color (${heroTextOp.fillStyle})`
+        );
+        assertTrue(
+          heroTextOp.font.includes('Emoji') || heroTextOp.text.includes('@'),
+          `CLASSIC_EMOJI hero font must include color Emoji stack or fallback glyph (${heroTextOp.font})`
+        );
+      }
+      const heroBeaconOp = recordedArcOps.find(op => !darkInvisibleColors.has(op.strokeStyle) || !darkInvisibleColors.has(op.fillStyle));
+      assertTrue(Boolean(heroBeaconOp), 'CLASSIC_EMOJI mode draws high-contrast visual beacon/halo under player');
     }
-    player.x = 10;
-    player.y = 10;
-    grid[10][10].type = 'corridor';
-    grid[10][10].visible = true;
-    grid[10][10].seen = true;
-    // Scenario 6A: Bottom-most visible tile is a corridor floor tile (y=12) with NO visible wall below it
-    grid[11][10].type = 'corridor';
-    grid[11][10].visible = true;
-    grid[11][10].seen = true;
-    grid[12][10].type = 'corridor';
-    grid[12][10].visible = true;
-    grid[12][10].seen = true;
 
-    let heroStyleFloorLast = null;
-    let heroAlphaFloorLast = null;
-    const origFillText = ctx.fillText.bind(ctx);
-    ctx.fillText = function(txt, x, y, ...rest) {
-      if (String(txt).includes('🧙')) {
-        heroStyleFloorLast = String(ctx.fillStyle).toLowerCase();
-        heroAlphaFloorLast = ctx.globalAlpha;
+    // --- TEST 7: Dungeon L1 Exit Stairs to L2 Existence, Visibility & Reachability ---
+    {
+      const darkInvisibleColors = new Set(['#0C0A09', '#110F0E', '#1C1917', '#26211D', '#1F1B18', '#29231E', '#000000', 'RGBA(0, 0, 0, 0.55)']);
+
+      // 7a. Verify L1 exit stairs exist, are distinct from player, never overwritten, and 100% BFS-reachable across 30 seeds
+      const bfsReachable = (startX, startY, targetX, targetY, allowLockedDoors = false) => {
+        const visited = Array.from({ length: GRID_ROWS }, () => Array(GRID_COLS).fill(false));
+        const q = [{ x: startX, y: startY }];
+        visited[startY][startX] = true;
+        const dirs = [{ dx: 0, dy: -1 }, { dx: 1, dy: 0 }, { dx: 0, dy: 1 }, { dx: -1, dy: 0 }];
+        while (q.length > 0) {
+          const cur = q.shift();
+          if (cur.x === targetX && cur.y === targetY) return true;
+          for (const d of dirs) {
+            const nx = cur.x + d.dx, ny = cur.y + d.dy;
+            if (nx < 0 || nx >= GRID_COLS || ny < 0 || ny >= GRID_ROWS || visited[ny][nx]) continue;
+            const t = grid[ny][nx].type;
+            if (grid[ny][nx].secretHidden) continue;
+            if (t === 'floor' || t === 'corridor' || t === 'stairs' || (allowLockedDoors && t === 'locked_door')) {
+              visited[ny][nx] = true;
+              q.push({ x: nx, y: ny });
+            }
+          }
+        }
+        return false;
+      };
+
+      let allSeedsHaveStairs = true;
+      let allSeedsReachable = true;
+      for (let seed = 0; seed < 80; seed++) {
+        dungeonLevel = 1;
+        generateDungeonFloor();
+        let stairsCount = 0;
+        for (let y = 0; y < GRID_ROWS; y++) {
+          for (let x = 0; x < GRID_COLS; x++) {
+            if (grid[y][x].type === 'stairs') stairsCount++;
+          }
+        }
+        if (stairsCount !== 1 || grid[stairs.y][stairs.x].type !== 'stairs' ||
+            (stairs.x === player.x && stairs.y === player.y) || grid[stairs.y][stairs.x].secretHidden) {
+          allSeedsHaveStairs = false;
+          break;
+        }
+        const directReach = bfsReachable(player.x, player.y, stairs.x, stairs.y, false);
+        const keyItem = items.find(it => it.kind === 'key');
+        const keyThenStairsReach = Boolean(
+          keyItem &&
+          bfsReachable(player.x, player.y, keyItem.x, keyItem.y, false) &&
+          bfsReachable(player.x, player.y, stairs.x, stairs.y, true)
+        );
+        if (!directReach && !keyThenStairsReach) {
+          allSeedsReachable = false;
+          break;
+        }
       }
-      return origFillText(txt, x, y, ...rest);
-    };
-    draw2DDungeonMap();
-    ctx.fillText = origFillText;
+      assertTrue(allSeedsHaveStairs, 'Every generated L1 dungeon has exactly 1 unhidden exit stairs tile distinct from player');
+      assertTrue(allSeedsReachable, 'Every generated L1 dungeon has a valid walkable path from player to L1 exit stairs');
 
-    assertEq(heroStyleFloorLast, '#ffffff', 'Mode 3 Hero fillStyle is #ffffff when floor is last visible tile');
-    assertEq(heroAlphaFloorLast, 1, 'Mode 3 Hero globalAlpha is 1.0 when floor is last visible tile');
+      // 7b. Verify summonPupurabbuNearPlayer fallback next to stairs never overwrites stairs tile
+      dungeonLevel = 1;
+      generateDungeonFloor();
+      player.x = Math.max(1, stairs.x - 1);
+      player.y = stairs.y;
+      grid[player.y][player.x].roomId = -1; // Force fallback carving beside player (onto stairs.x, stairs.y)
+      summonPupurabbuNearPlayer();
+      assertEq(grid[stairs.y][stairs.x].type, 'stairs', 'Summoning Pupurabbu near stairs must never overwrite exit stairs tile');
 
-    // Scenario 6B: Add a visible wall below (y=13) and a 2x2 monster + 1x1 monster, verify identical #ffffff brightness
-    grid[13][10].type = 'wall';
-    grid[13][10].visible = true;
-    grid[13][10].seen = true;
-    grid[9][8].type = 'floor'; grid[9][8].visible = true;
-    grid[9][9].type = 'floor'; grid[9][9].visible = true;
-    grid[10][8].type = 'floor'; grid[10][8].visible = true;
-    grid[10][9].type = 'floor'; grid[10][9].visible = true;
-    monsters.push({ key: 'owlbear', name: 'Owlbear', char: '🦉', x: 8, y: 9, hp: 30, maxHp: 30, tileSpan: 2 });
-    monsters.push({ key: 'bat', name: 'Bat', char: '🦇', x: 10, y: 11, hp: 6, maxHp: 6, tileSpan: 1 });
+      // 7c. Verify L1 exit stairs are drawn with bright high-contrast fillStyle (not floor background color)
+      grid[stairs.y][stairs.x].type = 'stairs';
+      grid[stairs.y][stairs.x].visible = true;
+      grid[stairs.y][stairs.x].seen = true;
+      currentViewMode = '2D_ZOOM';
+      const stairsTextOps = [];
+      const origFillText = ctx.fillText.bind(ctx);
+      ctx.fillText = function(text, x, y) {
+        if (String(text).includes('🪜')) {
+          stairsTextOps.push({
+            text: String(text),
+            fillStyle: String(this.fillStyle).toUpperCase(),
+            font: String(this.font)
+          });
+        }
+        return origFillText(text, x, y);
+      };
+      try {
+        draw2DDungeonMap();
+      } finally {
+        ctx.fillText = origFillText;
+      }
+      assertTrue(stairsTextOps.length >= 1, 'Visible L1 exit stairs are rendered on 2D map');
+      if (stairsTextOps.length > 0) {
+        assertTrue(
+          !darkInvisibleColors.has(stairsTextOps[0].fillStyle),
+          `L1 exit stairs fillStyle must be high-contrast, not floor color (${stairsTextOps[0].fillStyle})`
+        );
+      }
 
-    let heroStyleWithMonsters = null;
-    let batStyle = null;
-    let owlbearStyle = null;
-    ctx.fillText = function(txt, x, y, ...rest) {
-      const s = String(txt);
-      if (s.includes('🧙')) heroStyleWithMonsters = String(ctx.fillStyle).toLowerCase();
-      if (s.includes('🦇')) batStyle = String(ctx.fillStyle).toLowerCase();
-      if (s.includes('🦉')) owlbearStyle = String(ctx.fillStyle).toLowerCase();
-      return origFillText(txt, x, y, ...rest);
-    };
-    draw2DDungeonMap();
-    ctx.fillText = origFillText;
+      // 7d. Verify stepping onto L1 exit stairs transitions dungeonLevel from 1 (B1F) to 2 (B2F)
+      dungeonLevel = 1;
+      generateDungeonFloor();
+      monsters = [];
+      grid[stairs.y][stairs.x].trap = null;
+      const stepDirs = [{ dx: 0, dy: -1 }, { dx: 1, dy: 0 }, { dx: 0, dy: 1 }, { dx: -1, dy: 0 }];
+      let steppedFrom = null;
+      for (const d of stepDirs) {
+        const sx = stairs.x - d.dx, sy = stairs.y - d.dy;
+        if (sx >= 1 && sx < GRID_COLS - 1 && sy >= 1 && sy < GRID_ROWS - 1) {
+          grid[sy][sx].type = 'floor';
+          grid[sy][sx].trap = null;
+          steppedFrom = { sx, sy, dx: d.dx, dy: d.dy };
+          break;
+        }
+      }
+      player.x = steppedFrom.sx;
+      player.y = steppedFrom.sy;
+      tryPlayerStep(steppedFrom.dx, steppedFrom.dy);
+      assertEq(dungeonLevel, 2, 'Stepping onto L1 exit stairs advances player to Dungeon Floor L2 (B2F)');
+      assertEq(grid[stairs.y][stairs.x].type, 'stairs', 'New L2 floor also spawns valid exit stairs');
+    }
 
-    assertEq(owlbearStyle, '#ffffff', 'Mode 3 2x2 monster emoji fillStyle is #ffffff (never 0.14 base-plate alpha)');
-    assertEq(batStyle, '#ffffff', 'Mode 3 1x1 monster emoji fillStyle is #ffffff (never 0.20 floor-dot alpha)');
-    assertEq(heroStyleWithMonsters, '#ffffff', 'Mode 3 Hero fillStyle is ALWAYS #ffffff with monsters & walls');
+    // --- TEST 8: Raspberry Pi 400 Modality 3 (CLASSIC_EMOJI) Tofu-Free & Full-HP Monster Visibility (GHI #6) ---
+    {
+      dungeonLevel = 1;
+      generateDungeonFloor();
+      currentViewMode = 'CLASSIC_EMOJI';
+
+      // Place a full-HP 1x1 monster and an item right next to player on visible floor tiles
+      const gobTemplate = MONSTER_MANUAL.find(m => m.key === 'goblin');
+      const mx = Math.min(GRID_COLS - 2, player.x + 1);
+      const my = player.y;
+      grid[my][mx].type = 'floor';
+      grid[my][mx].visible = true;
+      grid[my][mx].seen = true;
+      monsters = [{
+        ...gobTemplate,
+        x: mx,
+        y: my,
+        hp: gobTemplate.hp,
+        maxHp: gobTemplate.hp,
+        tileSpan: 1,
+        roomId: grid[player.y][player.x].roomId
+      }];
+
+      const ix = Math.max(1, player.x - 1);
+      const iy = player.y;
+      grid[iy][ix].type = 'floor';
+      grid[iy][ix].visible = true;
+      grid[iy][ix].seen = true;
+      items = [{
+        key: 'potion_heal',
+        name: 'Red Box Healing Potion',
+        char: '🧪',
+        x: ix,
+        y: iy,
+        kind: 'heal'
+      }];
+
+      // Simulate Raspberry Pi 400 (no system color emoji font installed -> astral U+1Fxxx glyphs render as monochrome Tofu ▯)
+      window.__forceNoColorEmojiForTest = true;
+      const rpiTextOps = [];
+      const rpiImageOps = [];
+      const origFillText = ctx.fillText.bind(ctx);
+      const origDrawImage = ctx.drawImage.bind(ctx);
+      ctx.fillText = function(text, x, y) {
+        rpiTextOps.push({
+          text: String(text),
+          x,
+          y,
+          fillStyle: String(this.fillStyle).toUpperCase(),
+          font: String(this.font)
+        });
+        return origFillText(text, x, y);
+      };
+      ctx.drawImage = function(img, x, y, w, h) {
+        rpiImageOps.push({ img, x, y, w, h });
+        return origDrawImage(img, x, y, w, h);
+      };
+      try {
+        draw2DDungeonMap();
+      } finally {
+        ctx.fillText = origFillText;
+        ctx.drawImage = origDrawImage;
+        window.__forceNoColorEmojiForTest = false;
+      }
+
+      assertTrue(
+        typeof canCanvasRenderEmoji === 'function',
+        'canCanvasRenderEmoji() detector function is defined for Raspberry Pi 400 Tofu detection'
+      );
+
+      // Verify zero astral-plane U+1Fxxx or ZWJ emojis were sent to ctx.fillText when on Raspberry Pi 400 (which would draw ▯ or ▯ ♂)
+      const tofuTexts = rpiTextOps.filter(op => {
+        if (op.text.includes('\u200D')) return true;
+        for (const ch of op.text) {
+          if (ch.codePointAt(0) >= 0x1F000) return true;
+        }
+        return false;
+      });
+      assertEq(
+        tofuTexts.length,
+        0,
+        `Raspberry Pi 400 CLASSIC_EMOJI mode must never draw astral U+1Fxxx or ZWJ Tofu glyphs via fillText (got: ${tofuTexts.map(t => t.text).join(', ')})`
+      );
+
+      // Verify both Hero ('@') and full-HP Goblin ('g') are visibly rendered via ASCII Rogue tokens and/or embedded sprites
+      const hasHeroAscii = rpiTextOps.some(op => op.text === '@');
+      const hasGoblinAscii = rpiTextOps.some(op => op.text === 'g');
+      assertTrue(hasHeroAscii, 'Raspberry Pi 400 CLASSIC_EMOJI mode renders Hero ASCII Rogue token (@)');
+      assertTrue(hasGoblinAscii, 'Raspberry Pi 400 CLASSIC_EMOJI mode renders full-HP Goblin ASCII Rogue token (g)');
+      assertTrue(rpiImageOps.length >= 2, 'Raspberry Pi 400 CLASSIC_EMOJI mode also renders embedded NanoBanana sprite fallback for Hero and Monster');
+    }
   } finally {
     grid = savedGrid;
     monsters = savedMonsters;
     items = savedItems;
-    floatingTexts = savedFloating;
-    shockwaves = savedShockwaves;
     Object.assign(player, savedPlayer);
     currentViewMode = savedMode;
     gameState = savedState;

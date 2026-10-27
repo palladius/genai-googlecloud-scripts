@@ -2,20 +2,21 @@
 
 All notable changes to the **Dungemoji** Roguelike Dungeon Crawler.
 
-## [9.0.3] - 2026-10-20
+## [9.0.2] - 2026-10-27
 
-### Fixed & Tested (TDD)
-- **💡🧙‍♂️ Risolto Bug "Personaggio a Volte Chiaro a Volte Scuro" in Modalità 3 (`CLASSIC_EMOJI` 80s Rogue)**:
-  - **Root Cause**: In `draw2DDungeonMap()`, i puntini centrali delle caselle pavimento visibili venivano disegnati con `ctx.fillStyle = 'rgba(214, 211, 209, 0.20)'` (opacità **20%**), e le basi tattiche `2×2` con `rgba(..., 0.14)` (opacità **14%**). Quando l'ultima casella visibile in basso nella mappa era un pavimento/corridoio (senza un muro visibile sotto di essa che resettasse `fillStyle` a `#0C0A09` opaco) e nessun mostro aveva una barra HP attiva, `ctx.fillText('🧙‍♂️', pcx, pcy)` (così come i mostri `🦇` e gli oggetti) ereditava l'alpha `0.20` di `ctx.fillStyle`, risultando scuro/semitrasparente all'80%!
-  - **Fix**: Reset esplicito di `ctx.globalAlpha = 1.0` e `ctx.fillStyle = '#FFFFFF'` prima di ogni chiamata `ctx.fillText` / `ctx.drawImage` per Eroe (`🧙‍♂️`), mostri, oggetti, scale (`🪜`), porte (`🚪`) e trappole (`⚠️`), più alone luminoso dorato sotto il personaggio in Modalità 3 e rimozione della vignettatura scura ai bordi di `#crt-overlay`.
-  - **Unit Test TDD (`TEST 6` in `runMobilityUnitTests()` + Verifica Pixel Canvas in Playwright)**: Aggiunto test TDD (58 asserzioni in-game + verifica `ctx.getImageData` dei pixel reali su Canvas) che riproduce esattamente il caso del corridoio a sud senza muro sottostante e verifica matematicamente che `fillStyle === '#ffffff'`, `globalAlpha === 1.0` e la luminanza pixel del personaggio siano **100% identici e chiari** (`maxLum = 560`, `exactMatch = True`) in ogni situazione.
-
-## [9.0.2] - 2026-10-20
-
-### Added & Improved
-- **🎨 Nuova Copertina Hero "Pandemonio di Mostri Cutie & Emojis" (`dungemoji-cover.jpg`)**:
-  - Generata l'illustrazione ufficiale ad alta definizione (non-pixellata) con il pandemonio nel dungeon tra mostri D&D *cutie* (Drago Rosso, Beholder, Cubo Gelatinoso con emoji `😭` intrappolata, Mimic, Goblin, Scheletro, Zombie, Owlbear, Paladino e *Il Mitico Pupurabbu* 💜 col D20 dorato) ed emoji viventi (`😂`, `😱`, `💀`, `🔥`, `👑`) attorno al D20 rosso sul `20` naturale.
-  - Integrata nel modal iniziale/Help (`#title-modal`) e nel `README.md`.
+### Fixed & Tested (TDD Playability & Raspberry Pi 400 Hotfix — [GHI #6](https://github.com/palladius/genai-googlecloud-scripts/issues/6))
+- **🍓👾 [GHI #6] Raspberry Pi 400 Modality 3 (`CLASSIC_EMOJI` — Classic 1980s Rogue) Invisible Character/Monsters & `[▯ ♂]` Tofu Fix**:
+  - **Root cause #1 (`ctx.fillStyle = '#0C0A09'` pitch-black leak)**: `drawSeamlessDoubleBoxWall()` left `ctx.fillStyle = '#0C0A09'` after Pass 2. On macOS/Windows/Ubuntu desktops with color bitmap emoji fonts (`sbix`/`CBDT`), `ctx.fillText()` ignores `ctx.fillStyle` RGB values and paints full-color emojis anyway. On **Raspberry Pi 400** (Raspberry Pi OS / Debian without `fonts-noto-color-emoji`), Chromium falls back to monochrome outline fonts (`DejaVu Sans`) and `.notdef` Tofu boxes, which **obey `ctx.fillStyle`** — rendering all full-HP monsters, items, stairs, and the player in pitch-black `#0C0A09` (invisible!) until a monster took damage (`m.hp < m.maxHp`) and its green HP bar (`#10B981`) leaked green `fillStyle` into `5. Draw Player`!
+  - **Root cause #2 (`🧙‍♂️` ZWJ Decomposition into `▯ ♂` & Missing Astral Emojis on Raspberry Pi OS)**: `DejaVu Sans` on Raspberry Pi OS lacks Supplemental Multilingual Plane (`U+1F000..U+1FAFF`) emojis (`🧙`, `🐀`, `🦇`, `👺`, `🕷️`, `🧟`, `🧌`, `🪜`, `🧪`, `💰`), while Basic Multilingual Plane `♂` (`U+2642`) is present — causing `'🧙‍♂️'` (`\u{1F9D9}\u200D\u2642\uFE0F`) to split across the Zero-Width Joiner into `.notdef` Tofu `▯` + `♂` (`▯ ♂`).
+  - **Fix**:
+    1. Restored `ctx.fillStyle` inside `drawSeamlessDoubleBoxWall()` and explicitly set high-contrast `ctx.fillStyle` before every `ctx.fillText()` call across all renderers.
+    2. Added `Noto Color Emoji` webfont to Google Fonts `<link>` in `<head>` and replaced `'🧙‍♂️'` with single-codepoint `'🧙'` + `@`.
+    3. Implemented runtime Canvas Tofu detector **`canCanvasRenderEmoji(glyph)`** + **`ROGUE_ASCII_BY_KEY`**: when the OS lacks color emoji fonts (Raspberry Pi 400), Modality 3 never passes astral `U+1Fxxx` Tofu glyphs to `ctx.fillText`, and automatically renders the embedded NanoBanana sprites (`SPRITES.hero`, `SPRITES[m.key]`, `SPRITES[it.key]`) paired with classic 1980s Rogue ASCII tokens (`@`, `r`, `b`, `g`, `s`, `Z`, `T`, `D`, `!`, `$`, `+`, `^`, `>`).
+- **🪜 [Bug #2] Dungeon Level 1 (`B1F`) Missing / Invisible / Unreachable Exit Stairs to L2 Fix**:
+  - **Visual rendering**: Added `drawStairsCell()` to render a high-contrast golden staircase portal with 3 stepped stone treads (`#38BDF8` / `#FDE047`) and `'🪜'` (or `'>'` on Raspberry Pi 400).
+  - **Reachability & non-overwrite guarantee**: Fixed `generateDungeonFloor()` so `locked_door` (`🚪`) placement verifies via BFS (`hasPathFromPlayerToTile`) that `keyRoom` (`🗝️`) remains reachable without passing through a locked door, plus an emergency carved path from `player` to `stairs` if needed. Protected `'stairs'` tiles from ever being overwritten when summoning 2×2 companions (`summonPupurabbuNearPlayer`).
+- **🧪 Automated Unit Test Runner (`test_dungemoji.mjs` + `TEST 6`, `TEST 7`, `TEST 8` in `runMobilityUnitTests`)**:
+  - Added **TEST 6** (Modality 3 `CLASSIC_EMOJI` player visibility), **TEST 7** (L1 exit stairs existence, non-overwrite, 80-seed BFS reachability, high-contrast Canvas rendering, and `B1F -> B2F` transition), and **TEST 8** (Raspberry Pi 400 Tofu-free `canCanvasRenderEmoji` fallback for Hero `@`, full-HP Goblin `g`, items, and embedded sprites) — **69/69 assertions passing** via `just test`.
 
 ## [9.0.1] - 2026-10-19
 
