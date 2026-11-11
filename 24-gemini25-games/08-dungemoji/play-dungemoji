@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# play-dungemoji — Offline Localhost Launcher per Sguisatazzo (Raspberry Pi 400)
+# Avvia (se non già attivo) il server HTTP locale su 127.0.0.1:8088 e apre
+# Dungemoji in modalità App a schermo intero (funziona 100% offline!).
+# ==============================================================================
+
+set -euo pipefail
+
+PORT="${DUNGEMOJI_PORT:-8088}"
+GAME_DIR="$HOME/games/dungemoji/public"
+URL="http://localhost:${PORT}"
+LOG_FILE="/tmp/dungemoji-http.log"
+
+if [ ! -f "$GAME_DIR/index.html" ]; then
+  echo "❌ File di gioco non trovato in $GAME_DIR/index.html" >&2
+  exit 1
+fi
+
+# 1. Controlla se la porta 8088 su localhost è già attiva
+is_port_open() {
+  python3 - "$PORT" << 'PYEOF'
+import socket, sys
+port = int(sys.argv[1])
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(0.3)
+try:
+    s.connect(("127.0.0.1", port))
+    s.close()
+    sys.exit(0)
+except Exception:
+    sys.exit(1)
+PYEOF
+}
+
+if ! is_port_open; then
+  nohup python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$GAME_DIR" >"$LOG_FILE" 2>&1 &
+  # Attendi fino a 2 secondi che il server risponda
+  for _ in $(seq 1 10); do
+    if is_port_open; then
+      break
+    fi
+    sleep 0.2
+  done
+fi
+
+# 2. Lancia Chromium in modalità App (senza barre degli indirizzi, offline-ready)
+if command -v chromium >/dev/null 2>&1; then
+  exec chromium --app="$URL" --start-maximized >/dev/null 2>&1 &
+elif command -v chromium-browser >/dev/null 2>&1; then
+  exec chromium-browser --app="$URL" --start-maximized >/dev/null 2>&1 &
+else
+  exec xdg-open "$URL" >/dev/null 2>&1 &
+fi
