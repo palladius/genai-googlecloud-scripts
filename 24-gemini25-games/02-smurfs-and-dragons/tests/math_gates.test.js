@@ -241,4 +241,11 @@ test('Bug 4: Negative gates (- vs ÷) span 50/50 across the road with no middle 
   assert.equal(pkg.version, ver, 'package.json version must match VERSION');
   assert.ok(html.includes(`v${ver}`), `public/index.html must display v${ver}`);
   assert.ok(sw.includes(`v${ver}`), `public/sw.js CACHE_NAME must include v${ver}`);
+
+  // Verify v2.2.0 features: 5-Headed Tiamat, 2-frame Chromatic Dragons, 2D playerY movement, and clear-vocal BGM volume
+  assert.ok(html.includes('"tiamat":'), 'SPRITE_DATA must include 5-headed Tiamat sprite');
+  assert.ok(html.includes('"dragon_red_up":') && html.includes('"dragon_white_down":'), 'SPRITE_DATA must include 2-frame Chromatic Dragon sprites');
+  assert.ok(html.includes('state.targetY') && html.includes('state.playerY'), '2D forward/backward movement (playerY/targetY) must exist');
+  assert.ok(html.includes("type: 'chromatic_orb'"), 'Tiamat 5-element chromatic breath hazard must exist');
+  assert.ok(html.includes('this.bgmAudio.volume = 0.85;'), 'Rock BGM volume must be boosted to 0.85 for vocal clarity');
 });

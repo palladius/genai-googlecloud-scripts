@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smurfs-dragons-v2.1.5';
+const CACHE_NAME = 'smurfs-dragons-v2.2.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

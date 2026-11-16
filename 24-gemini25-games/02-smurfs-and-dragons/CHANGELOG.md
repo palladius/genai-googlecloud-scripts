@@ -2,6 +2,22 @@
 
 All notable changes to the Smurfs and Dragons Math Shooter game.
 
+## [2.2.0] - 2026-11-16
+
+### Added & Changed
+- **👑🐉 TIAMAT A 5 TESTE (Boss Finale & Regina dei Draghi Cromatici)**:
+  - Nuovo sprite NanoBanana scontornato al 100% alpha-transparent di **Tiamat a 5 Teste** (`tiamat`), Regina dei Draghi Cromatici (Teste Rossa, Blu, Verde, Nera e Bianca) con barra vita arcobaleno a 5 elementi e **Soffio Cromatico a 5 Sfere Elementali** (`chromatic_orb` — Fuoco, Ghiaccio, Veleno, Ombra e Fulmine) distruttibili o schivabili!
+  - Evocabile in qualsiasi momento col tasto rapido **`Y`** (o **`5`**), mentre il **Drago Gigantesco di Ale (`titan_dragon`)** resta evocabile col tasto **`T`**!
+- **🐉 I 5 Draghi Cromatici Animati a 2 Frame (`_up` / `_down`)**:
+  - Aggiornati i Draghi Cromatici (**Rosso Rubino**, **Blu Zaffiro**, **Nero Ossidiana**, **Bianco Diamante** e **Verde Smeraldo**) con doppi sprite ad ali alzate/abbassate (`dragon_{red,blue,black,white}_{up,down}`) e Trio Cromatico a Wave 9.
+- **🕹️ Movimento 2D Avanti e Indietro (`playerY` / `targetY`)**:
+  - La squadra ora può muoversi liberamente **avanti e indietro** lungo la Strada del Re oltre che a sinistra e destra (`Frecce ▲ ▼ ◀ ▶`, `W A S D`, e **Mouse / Touch 2D**) per schivare la Cuspide Scarlatta di Scorpio, le Rose di Fish e il Soffio a 5 Teste di Tiamat!
+- **🚨 Linea Tattica di Difesa in Basso (`y = H - 72`)**:
+  - Disegnata la barriera laser di difesa in fondo alla strada; il controllo di sfondamento a fondo schermo è ora indipendente dalla quota verticale `playerY` della squadra (così se avanzi in avanti, i nemici che arrivano in fondo colpiscono comunque la Linea di Difesa!).
+- **🎸 Nuova Colonna Sonora Rock Lyria 3 con Voce Italiana Cristallina in Primo Piano (`bgm_rock_full.mp3`)**:
+  - Rigenerata con **Google Lyria 3** in 2 strofe + ritornelli completi (60s di cantato continuo senza vuoti strumentali!) con voce rock maschile italiana **fortissima e nitida** (*"Àle e Sèbi in mèzzo alla vìa... Ecco Tiàmat a cìnque tèste laggiù, col dràgo gigànte vinciamo anche tu!"*).
+  - Applicato mastering EQ vocale (`+4 dB` a `2.2–3.2 kHz`, `-13 LUFS`), alzato `bgmAudio.volume` a `0.85` e ammorbidito il volume degli spari continui così ogni parola cantata si sente benissimo durante la partita!
+
 ## [2.1.5] - 2026-10-19
 
 ### Fixed & Changed
